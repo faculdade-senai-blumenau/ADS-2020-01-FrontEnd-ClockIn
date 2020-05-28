@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Projeto ClockIn": {
+    "Projeto_ClockIn": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Projeto ClockIn:build"
+            "browserTarget": "Projeto_ClockIn:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Projeto ClockIn:build:production"
+              "browserTarget": "Projeto_ClockIn:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Projeto ClockIn:build"
+            "browserTarget": "Projeto_ClockIn:build"
           }
         },
         "test": {
@@ -110,18 +110,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Projeto ClockIn:serve"
+            "devServerTarget": "Projeto_ClockIn:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Projeto ClockIn:serve:production"
+              "devServerTarget": "Projeto_ClockIn:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "Projeto ClockIn",
+  "defaultProject": "Projeto_ClockIn",
   "cli": {
     "analytics": "e3c68aed-388e-46a8-9f4f-d349032d113d"
   }
