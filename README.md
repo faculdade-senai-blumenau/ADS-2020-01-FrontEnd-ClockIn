@@ -1,4 +1,4 @@
-# Projeto ClockIn - Back-End
+# Projeto ClockIn - Front-End
 Disciplina de Projeto de Software SENAI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
