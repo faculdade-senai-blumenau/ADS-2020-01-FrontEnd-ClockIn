@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { Pessoa } from '../models/pessoa';
+import { Pessoa } from "../models/Pessoa";
 @Injectable({
   providedIn: 'root'
 })
@@ -17,18 +17,18 @@ export class PessoaService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
-  url:"http://localhost:3000/pessoa"; // api rest fake
-   // Obtem todos os carros
+  url:"http://localhost:5000/contacts"; // api rest fake
+   // Obtem todos os contatos
    getPessoas(): Observable<Pessoa[]> {
     console.log("11aaaassdsdasdasdasa");
-    return this.httpClient.get<Pessoa[]>("http://localhost:3000/pessoa")
+    return this.httpClient.get<Pessoa[]>("http://localhost:5000/contacts")
       .pipe(
         retry(2),
         catchError(this.handleError))
   }
 
   savePessoa(pessoa: Pessoa): Observable<Pessoa> {
-    return this.httpClient.post<Pessoa>("http://localhost:3000/pessoa", JSON.stringify(pessoa), this.httpOptions)
+    return this.httpClient.post<Pessoa>("http://localhost:5000/contacts", JSON.stringify(pessoa), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
