@@ -1,23 +1,27 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Gerenciamento de pessoas</li>
+        <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Contatos</li>
     </ol>
 </nav>
 <div class="container">
     <div class="card list-car">
-        <h5 class="card-header">Lista de pessaos</h5>
+        <h5 class="card-header">Lista de Contatos</h5>
         <div class="card-body">
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Pessoa</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telefone</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let pessoa of pessoas">
                         <td>{{pessoa.Id}}</td>
-                        <td>{{pessoa.Nome}}</td>
+                        <td>{{pessoa.Name}}</td>
+                        <td>{{pessoa.Email}}</td>
+                        <td>{{pessoa.Phone}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -30,14 +34,19 @@
               <div class="form-group">
                   <label for="model">Id</label>
                   <input type="text" [(ngModel)]="pessoa.Id" id="Id" name="Id" #model="ngModel" required class="form-control"  placeholder="Digite o Id">
-                  
               </div>
               <div class="form-group">
-                  <label for="color">Cor</label>
-                  <input type="text" [(ngModel)]="pessoa.Nome" id="nome" name="nome" #color="ngModel" required class="form-control" placeholder="Digite a cor">
-                 
+                  <label for="color">Nome</label>
+                  <input type="text" [(ngModel)]="pessoa.Name" id="nome" name="nome" #color="ngModel" required class="form-control" placeholder="Digite o Nome">
               </div>
-             
+              <div class="form-group">
+                <label for="model">Email</label>
+                <input type="text" [(ngModel)]="pessoa.Email" id="Email" name="Email" #model="ngModel" required class="form-control"  placeholder="Digite o Email">
+            </div>
+            <div class="form-group">
+                <label for="color">Phone</label>
+                <input type="text" [(ngModel)]="pessoa.Phone" id="Phone" name="Phone" #color="ngModel" required class="form-control" placeholder="Digite o Telefone">
+            </div>
               <button type="submit" class="btn btn-primary ">Salvar</button>
               <button type="reset" class="btn btn-secondary" (click)="cleanForm(f)">Cancelar</button>
             </form>

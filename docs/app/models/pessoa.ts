@@ -1,4 +1,6 @@
 export interface Pessoa {
     Id:BigInteger;
-    Nome : String;
+    Name : String;
+    Email : String;
+    Phone: String;
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoaService } from '../services/pessoa.service';
-import { Pessoa } from '../models/pessoa';
+import { Pessoa } from "../models/Pessoa";
 import { NgForm } from '@angular/forms';
+
 @Component({
   selector: 'app-teste-componente',
   templateUrl: './teste-componente.component.html',
@@ -10,9 +11,7 @@ import { NgForm } from '@angular/forms';
 export class TesteComponenteComponent implements OnInit {
 
   pessoa = {} as Pessoa;
-
   pessoas: Pessoa[];
-  
 
   constructor(private pessoaServer: PessoaService) { }
 
