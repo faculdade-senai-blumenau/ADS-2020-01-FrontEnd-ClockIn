@@ -1,4 +1,4 @@
-# Projeto Clockin - FrontEnd
+# Projeto ClockIn - FrontEnd
 
 ## Development server
 
