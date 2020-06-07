@@ -5,18 +5,26 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
-import { FooterComponent } from './footer/footer.component';
-import { NavComponent } from './nav/nav.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { MainContainerComponent } from './main-container/main-container.component';
+import { HeaderComponent } from './components/template/header/header.component';
+import { MainContainerComponent } from './components/template/main-container/main-container.component';
+import { NavComponent } from './components/template/nav/nav.component';
+import { FooterComponent } from './components/template/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { HomePontoComponent } from './components/home/home-ponto/home-ponto.component';
+import { HomeUsuarioComponent } from './components/home/home-usuario/home-usuario.component';
+import { HomeRegistrosComponent } from './components/home/home-registros/home-registros.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
     NavComponent,
-    NavMenuComponent,
-    MainContainerComponent
+    HeaderComponent,
+    FooterComponent,
+    MainContainerComponent,
+    HomeComponent,
+    HomePontoComponent,
+    HomeUsuarioComponent,
+    HomeRegistrosComponent
   ],
   imports: [
     BrowserModule,

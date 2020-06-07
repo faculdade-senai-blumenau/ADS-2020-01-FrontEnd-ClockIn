@@ -21,7 +21,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-			  "src/app"
+			        "src/app"
             ],
             "styles": [
               "src/styles.css"
@@ -52,18 +52,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "videoaula-angular-formulario-reativo-ui:build"
+            "browserTarget": "fronted-clockin:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "videoaula-angular-formulario-reativo-ui:build:production"
+              "browserTarget": "fronted-clockin:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "videoaula-angular-formulario-reativo-ui:build"
+            "browserTarget": "fronted-clockin:build"
           }
         },
         "test": {
@@ -104,14 +104,12 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "videoaula-angular-formulario-reativo-ui:serve"
+            "devServerTarget": "fronted-clockin"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]
@@ -120,8 +118,5 @@
       }
     }
   },
-  "defaultProject": "videoaula-angular-formulario-reativo-ui",
-  "cli": {
-    "analytics": "0cc91d94-c94d-419d-95c5-071d6dbeb285"
-  }
+  "defaultProject": "fronted-clockin"
 }
