@@ -48,8 +48,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "20mb",
-                  "maximumError": "50mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "any",
@@ -86,8 +86,7 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/app"
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"
@@ -100,8 +99,7 @@
           "options": {
             "tsConfig": [
               "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -124,4 +122,7 @@
     }
   },
   "defaultProject": "projeto-clockin",
+  "cli": {
+    "analytics": "9bb1792c-20de-4d44-86d9-4d0df4384d16"
+  }
 }
