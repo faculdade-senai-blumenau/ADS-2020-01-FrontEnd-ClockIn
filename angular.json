@@ -52,7 +52,7 @@
                   "maximumError": "5mb"
                 },
                 {
-                  "type": "anyComponentStyle",
+                  "type": "any",
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
@@ -124,7 +124,4 @@
     }
   },
   "defaultProject": "projeto-clockin",
-  "cli": {
-    "analytics": "70d58064-60ed-4c7e-922c-8a33a8ce52d3"
-  }
 }
