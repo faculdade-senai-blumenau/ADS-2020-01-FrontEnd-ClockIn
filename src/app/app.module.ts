@@ -14,6 +14,7 @@ import { HomePontoComponent } from './components/home/home-ponto/home-ponto.comp
 import { HomeUsuarioComponent } from './components/home/home-usuario/home-usuario.component';
 import { HomeRegistrosComponent } from './components/home/home-registros/home-registros.component';
 import { HomeRelatorioComponent } from './components/home/home-relatorio/home-relatorio.component';
+import { LoaderComponent } from './components/template/img/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HomeRelatorioComponent } from './components/home/home-relatorio/home-re
     HomePontoComponent,
     HomeUsuarioComponent,
     HomeRegistrosComponent,
-    HomeRelatorioComponent
+    HomeRelatorioComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
