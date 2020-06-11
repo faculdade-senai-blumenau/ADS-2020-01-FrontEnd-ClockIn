@@ -13,6 +13,8 @@ import { HomeComponent } from './components/home/home.component';
 import { HomePontoComponent } from './components/home/home-ponto/home-ponto.component';
 import { HomeUsuarioComponent } from './components/home/home-usuario/home-usuario.component';
 import { HomeRegistrosComponent } from './components/home/home-registros/home-registros.component';
+import { HomeRelatorioComponent } from './components/home/home-relatorio/home-relatorio.component';
+import { LoaderComponent } from './components/template/img/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { HomeRegistrosComponent } from './components/home/home-registros/home-re
     HomeComponent,
     HomePontoComponent,
     HomeUsuarioComponent,
-    HomeRegistrosComponent
+    HomeRegistrosComponent,
+    HomeRelatorioComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

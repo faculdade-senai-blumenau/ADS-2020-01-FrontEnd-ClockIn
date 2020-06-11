@@ -23,7 +23,7 @@ import { AprovacoesPendentesComponent } from './components/aprovacoes-pendentes/
 import { CadastrosComponent } from './components/cadastros/cadastros.component';
 import { EditarMarcacaoComponent } from './components/editar-marcacao/editar-marcacao.component';
 import { ParametroComponent } from './components/parametro/parametro.component';
-
+import { LoaderComponent } from './components/template/img/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { ParametroComponent } from './components/parametro/parametro.component';
     CadastrosComponent,
     EditarMarcacaoComponent,
     ParametroComponent
+    LoaderComponent
   ],
   imports: [
     RouterModule,
