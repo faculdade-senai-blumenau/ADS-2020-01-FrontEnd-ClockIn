@@ -44,5 +44,21 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.",
+  "main": "karma.conf.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faculdade-senai-blumenau/ADS-2020-01-FrontEnd-ClockIn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faculdade-senai-blumenau/ADS-2020-01-FrontEnd-ClockIn/issues"
+  },
+  "homepage": "https://github.com/faculdade-senai-blumenau/ADS-2020-01-FrontEnd-ClockIn#readme"
 }
