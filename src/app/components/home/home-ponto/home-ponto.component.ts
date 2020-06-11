@@ -1,30 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-home-ponto',
   templateUrl: './home-ponto.component.html',
   styleUrls: ['./home-ponto.component.css']
 })
 export class HomePontoComponent implements OnInit {
-  postId;
-  constructor(private http: HttpClient) { }
-
-  async registrarPonto(){
-    const route="posts";
-    var loader=document.getElementById("loaderBtn");
-    var btn=document.getElementById("registrarBtn");
-    btn.style=loader.style='display:none';
-    loader.style='display:inline';
-    await this.delay(500);
-    this.http.post<any>('http://localhost:3001/'+route, { idUsuario: 'idDoUsuario' }).subscribe(data => {
-          this.postId = data.id;
-      })
-    btn.style=loader.style='display:inline';
-    loader.style='display:none';
+  
+  constructor(private http: HttpClient) { 
   }
-   delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  } 
+  btnPonto="success";
+  btnPontoMensagem="Registrar Ponto";
+  disablePonto="";
+  disableEventPonto="";
+  disableBtn=false;
+  desabilitar='1';
+  registrarPonto(){
+    const route="posts";
+    this.http.post<any>('http://localhost:3001/'+route, { idUsuario: 'idDoUsuario' }).subscribe(
+    success => {
+      this.btnPontoMensagem="Registrado";
+      this.disablePonto="disabled";
+      this.disableEventPonto="none;";
+      this.desabilitar='2';
+    },  
+    error => {
+      this.btnPonto="danger";
+      this.btnPontoMensagem="Erro ao Registrar";
+      this.disablePonto="disabled";
+      this.disableEventPonto="none;";
+      this.desabilitar='2';
+    }
+      
+    
+      
+    );
+  }
+  
+  isDesabilitado(): boolean{
+    if(this.disableBtn){
+      return true;
+    }
+    return false;
+  }
   ngOnInit() {
   }
 
