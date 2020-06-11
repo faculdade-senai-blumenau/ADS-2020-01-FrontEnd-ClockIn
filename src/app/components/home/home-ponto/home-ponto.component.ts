@@ -33,8 +33,6 @@ export class HomePontoComponent implements OnInit {
       this.desabilitar='2';
     }
       
-    
-      
     );
   }
   
@@ -46,7 +44,6 @@ export class HomePontoComponent implements OnInit {
   }
   ngOnInit() {
   }
-
 }
 
 
