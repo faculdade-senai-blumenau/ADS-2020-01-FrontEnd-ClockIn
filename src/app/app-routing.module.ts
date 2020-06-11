@@ -12,7 +12,7 @@ import { ParametroComponent } from './components/parametro/parametro.component';
 
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'editarmarcacao', component: EditarMarcacaoComponent },
   { path: 'cadastros', component: CadastrosComponent },
   { path: 'espelhoponto', component: EspelhoPontoComponent },
