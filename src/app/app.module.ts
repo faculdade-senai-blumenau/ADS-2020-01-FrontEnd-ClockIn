@@ -41,7 +41,7 @@ import { LoaderComponent } from './components/template/img/loader/loader.compone
     AprovacoesPendentesComponent,
     CadastrosComponent,
     EditarMarcacaoComponent,
-    ParametroComponent
+    ParametroComponent,
     LoaderComponent
   ],
   imports: [
