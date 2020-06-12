@@ -18,12 +18,15 @@ import { HomeUsuarioComponent } from './components/home/home-usuario/home-usuari
 import { HomeRegistrosComponent } from './components/home/home-registros/home-registros.component';
 import { HomeRelatorioComponent } from './components/home/home-relatorio/home-relatorio.component';
 import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.component';
+
 import { RelatoriosComponent } from './components/relatorios/relatorios.component';
 import { AprovacoesPendentesComponent } from './components/aprovacoes-pendentes/aprovacoes-pendentes.component';
 import { CadastrosComponent } from './components/cadastros/cadastros.component';
 import { EditarMarcacaoComponent } from './components/editar-marcacao/editar-marcacao.component';
 import { ParametroComponent } from './components/parametro/parametro.component';
 import { LoaderComponent } from './components/template/img/loader/loader.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.component';
 
 @NgModule({
   declarations: [
@@ -36,13 +39,14 @@ import { LoaderComponent } from './components/template/img/loader/loader.compone
     HomeUsuarioComponent,
     HomeRegistrosComponent,
     HomeRelatorioComponent,
-    EspelhoPontoComponent,
     RelatoriosComponent,
     AprovacoesPendentesComponent,
     CadastrosComponent,
+    EspelhoPontoComponent,
     EditarMarcacaoComponent,
     ParametroComponent,
-    LoaderComponent
+    LoaderComponent,
+    PagenotfoundComponen,
   ],
   imports: [
     RouterModule,
@@ -54,6 +58,7 @@ import { LoaderComponent } from './components/template/img/loader/loader.compone
   /* providers: [AppService], */
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
+
     { provide: AppService }],
   bootstrap: [AppComponent]
 })
