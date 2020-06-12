@@ -12,7 +12,6 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'editarmarcacao', component: EditarMarcacaoComponent },
   { path: 'cadastros', component: CadastrosComponent },
