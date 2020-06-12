@@ -19,10 +19,10 @@ const routes: Routes = [
   { path: 'relatorios', component: RelatoriosComponent },
   { path: 'aprovacoespendentes', component: AprovacoesPendentesComponent },
   { path: 'parametros', component: ParametroComponent },
-  { path: 'pagenotfound', component: PagenotfoundComponent },  
-  { path: '*', redirectTo: 'home' }
+  { path: 'pagenotfound', component: PagenotfoundComponent },
+  { path: '**', redirectTo: 'home' } 
 ];
-
+ 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

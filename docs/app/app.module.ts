@@ -44,6 +44,7 @@ import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.
     EditarMarcacaoComponent,
     ParametroComponent,
     LoaderComponent,
+    PagenotfoundComponent,
   ],
   imports: [
     RouterModule,
