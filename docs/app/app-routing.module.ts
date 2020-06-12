@@ -19,7 +19,8 @@ const routes: Routes = [
   { path: 'relatorios', component: RelatoriosComponent },
   { path: 'aprovacoespendentes', component: AprovacoesPendentesComponent },
   { path: 'parametros', component: ParametroComponent },
-  { path: 'pagenotfound', component: PagenotfoundComponent },
+  { path: 'pagenotfound', component: PagenotfoundComponent },  
+  { path: '*', redirectTo: 'home' }
 ];
 
 @NgModule({
