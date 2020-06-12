@@ -17,8 +17,6 @@ import { HomePontoComponent } from './components/home/home-ponto/home-ponto.comp
 import { HomeUsuarioComponent } from './components/home/home-usuario/home-usuario.component';
 import { HomeRegistrosComponent } from './components/home/home-registros/home-registros.component';
 import { HomeRelatorioComponent } from './components/home/home-relatorio/home-relatorio.component';
-import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.component';
-
 import { RelatoriosComponent } from './components/relatorios/relatorios.component';
 import { AprovacoesPendentesComponent } from './components/aprovacoes-pendentes/aprovacoes-pendentes.component';
 import { CadastrosComponent } from './components/cadastros/cadastros.component';
@@ -46,7 +44,6 @@ import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.
     EditarMarcacaoComponent,
     ParametroComponent,
     LoaderComponent,
-    PagenotfoundComponen,
   ],
   imports: [
     RouterModule,
@@ -57,8 +54,7 @@ import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.
   ],
   /* providers: [AppService], */
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/' },
-
+    { provide: APP_BASE_HREF, useValue: '/'},
     { provide: AppService }],
   bootstrap: [AppComponent]
 })
