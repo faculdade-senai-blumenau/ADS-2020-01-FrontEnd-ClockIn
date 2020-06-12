@@ -55,7 +55,7 @@ import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.
   ],
   /* providers: [AppService], */
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/'},
+    { provide: APP_BASE_HREF, useValue: 'ADS-2020-01-FrontEnd-ClockIn/'},
     { provide: AppService }],
   bootstrap: [AppComponent]
 })
