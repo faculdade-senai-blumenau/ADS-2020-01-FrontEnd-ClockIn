@@ -1,26 +1,64 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="card" style="width: 100%;">
+    <div class="card">
       <div class="card-header text-center">Informações Usuário</div>
-      <div class="card-body text-center">
-        <h3 class="card-title text-center">Jornélio Mathias</h3>
-        <img src="https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png" class="card-img-top" alt="Usuario"
-          style="width: 120px; height: 120px;">
-        <h6 class="card-text">Setor: Desenvolvimento</h6>
-        <h6 class="card-text">Cargo: Desenvolvedor Full-Stack</h6>
-        <h6 class="card-text">Escala: 08:00 12:00 13:00 18:00</h6>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="card-body text-center border-gray">
+            <img src="https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png" class="card-img-top" alt="Usuario"
+              style="width: 120px; height: 100px;">
+          </div>
+          <h5 class="card-title text-center border-gray">Jornélio Mathias</h5>
+        </div>
+        <div class="col-md-7">
+          <div class="card-body text-center border-gray">
+            <div class="media text-muted m-0">
+              <div class="media-body mb-0 small border-bottom border-gray">
+                <div class="d-flex justify-content-between align-items-center">
+                  <strong class="text-gray-dark">
+                    <p>Setor</p>
+                  </strong>
+                  <p>Deselvolvimento</p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <strong class="text-gray-dark">
+                    <p>Cargo</p>
+                  </strong>
+                  <p>Desenvolvedor Full-Stack</p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <strong class="text-gray-dark">
+                    <p>Escala</p>
+                  </strong>
+                  <p>08:00 12:00 13:00 18:00</p>
+                </div>
+              </div>
+            </div>
+            <div class="media text-muted m-0">
+            <div class="media-body mb-0 small border-bottom border-gray">
+              <div class="d-flex justify-content-between align-items-center">
+                <strong class="text-gray-dark">
+                  <p>Banco de Horas:</p>
+                </strong>
+                <p>54:00</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <strong class="text-gray-dark">
+                  <p>Hora Extra 50%: </p>
+                </strong>
+                <p>12:53</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <strong class="text-gray-dark">
+                  <p>Hora Extra 100%: </p>
+                </strong>
+                <p>08:23</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
       </div>
-      <div class="card-body media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-        <h5>Banco e Extras </h5>
-        <p class="media-body pb-1 mb-0 mediun lh-125 border-gray">
-          <strong class="d-block text-gray-dark">Banco de Horas</strong>
-        </p>
-        <p class="media-body pb-1 mb-0 mediun lh-125 border-gray">
-          <strong class="d-block text-gray-dark">Hora Extra 50%</strong>
-        </p>
-        <p class="media-body pb-1 mb-0 mediun lh-125 border-gray">
-          <strong class="d-block text-gray-dark">Hora Extra 100%</strong>
-        </p>
-      </div>
+      <app-home-relatorio></app-home-relatorio>
     </div>
   </div>
