@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'aprovacoespendentes', component: AprovacoesPendentesComponent },
   { path: 'parametros', component: ParametroComponent },
   { path: 'pagenotfound', component: PagenotfoundComponent },
-  { path: '**', redirectTo: 'pagenotfound' }
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
