@@ -1,3 +1,7 @@
-div.col-md-12{
-    padding-top: 3px;
+p {
+    margin-bottom: 2px;
+}
+
+.row {
+    margin: 0px;
 }
