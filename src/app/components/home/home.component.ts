@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { Observable, EMPTY } from "rxjs";
-import { map, catchError } from "rxjs/operators";
-import { Injectable } from "@angular/core";
-
-
+import { HttpClient, HttpErrorResponse, HttpClientModule } from '@angular/common/http';
+import { Subject } from 'rxjs/internal/Subject';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 
 @Component({
   selector: 'app-home',
@@ -17,42 +10,68 @@ import { Injectable } from "@angular/core";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient) {
-  }  
-  
+  constructor(private http: HttpClient) { }
+
   /* Variáveis Relógio */
   relogio;
   clockHandle;
 
-  ngOnInit(){
+  ngOnInit() {
     /* Retorna a data e hora atual */
-    this.clockHandle = setInterval(()=>{
+    this.clockHandle = setInterval(() => {
       this.relogio = Date.now();
-    },1000);
+    }, 1000);
+    /* Remova o alerta após o tempo determinado */
+    this.alerta.pipe(debounceTime(30000)).subscribe(() => {
+      this.mensagemErro = '',this.mensagemSucesso = ''});
+
+    /* Habilita novamente o botão após o tempo determinado */
+    this.botaoPonto.pipe(debounceTime(60000)).subscribe(() => {
+      this.desabilitar = '1', 
+      this. btnPonto = "secondary btn-lg";
+      this.btnPontoMensagem = "Registrar Ponto";
+      this.disablePonto = "";
+      this.disableBtn = false;
+      this.desabilitar = '1';});
   }
 
-  btnPonto = "success";
+  /* Variaveis alerta Inicio*/
+  public alerta = new Subject<string>();
+  staticAlertClosed = true;
+  mensagem = '';
+  mensagemErro = '';
+  mensagemSucesso = '';
+  /* Variaveis Alerta Fim */
+
+  /* Variaveis Botão Ponto */
+  public botaoPonto = new Subject();
+  btnPonto = "secondary btn-lg";
   btnPontoMensagem = "Registrar Ponto";
   disablePonto = "";
-  disableEventPonto = "";
   disableBtn = false;
   desabilitar = '1';
+  /* Variaveis Botão Ponto Fim*/
 
   registrarPonto() {
-    const route = "posts";
-    this.http.post<any>('http://localhost:3001/' + route, { idUsuario: 'idDoUsuario' }).subscribe(
+    const route = "registroPonto";
+    this.http.post<any>('http://localhost:5000/' + route, {
+      idUsuario: 1,
+      data_registro: this.relogio,
+      justificaPonto: '',
+      justificativaReprovacao: '',
+    }).subscribe(
       success => {
-        this.btnPontoMensagem = "Registrado";
-        this.disablePonto = "disabled";
-        this.disableEventPonto = "none;";
-        this.desabilitar = '2';
+        this.botaoPonto.next(this.btnPonto = "success btn-lg");
+        this.botaoPonto.next(this.disablePonto = "disabled");
+        this.botaoPonto.next(this.desabilitar = '2');
+        this.botaoPonto.next(this.btnPontoMensagem = "Ponto Registrado");
+        this.alerta.next(this.mensagemSucesso = (`Ponto Registrado com Sucesso! ${Date.now()}`));
+
       },
       error => {
-        this.btnPonto = "danger";
-        this.btnPontoMensagem = "Erro ao Registrar";
-        this.disablePonto = "disabled";
-        this.disableEventPonto = "none;";
-        this.desabilitar = '2';
+        this.botaoPonto.next(this.btnPonto = "danger btn-lg");
+        this.botaoPonto.next(this.btnPontoMensagem = "Erro ao Registrar");
+        this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto!');
       }
 
     );
