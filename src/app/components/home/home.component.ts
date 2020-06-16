@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit {
     this.clockHandle = setInterval(() => {
       this.relogio = Date.now();
     }, 1000);
+    
     /* Remova o alerta após o tempo determinado */
     this.alerta.pipe(debounceTime(30000)).subscribe(() => {
       this.mensagemErro = '', this.mensagemSucesso = ''
