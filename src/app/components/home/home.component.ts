@@ -75,7 +75,6 @@ export class HomeComponent implements OnInit {
     justificativaReprovacao: 'Teste'
 }
 
-
   registrarPonto(): void {
     this.homeService.registrarPonto(this.registroPonto).subscribe(
       success => {
@@ -92,5 +91,12 @@ export class HomeComponent implements OnInit {
         this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto!');
       }
     );
+  }
+
+  isDesabilitado(): boolean {
+    if (this.disableBtn) {
+      return true;
+    }
+    return false;
   }
 }
