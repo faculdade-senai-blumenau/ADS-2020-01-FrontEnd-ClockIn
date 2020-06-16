@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.configurarFormulario();
-
     this.service.listar()
       .subscribe(resposta => this.contatos = resposta);
   }

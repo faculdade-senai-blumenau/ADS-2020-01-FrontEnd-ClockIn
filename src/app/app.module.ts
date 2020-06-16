@@ -21,6 +21,7 @@ import { ParametroComponent } from './components/parametro/parametro.component';
 import { LoaderComponent } from './components/template/img/loader/loader.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.
     AprovacoesPendentesComponent, CadastrosComponent, EspelhoPontoComponent, EditarMarcacaoComponent,
     ParametroComponent, LoaderComponent, PagenotfoundComponent],
 
-  imports: [ RouterModule, BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule ],
+  imports: [ RouterModule, BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, NgbModule ],
   
   providers: [
              { provide: APP_BASE_HREF, useValue: '/' },

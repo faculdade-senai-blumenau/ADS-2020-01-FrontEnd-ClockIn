@@ -1,21 +1,23 @@
 export interface Usuario {
-    idUsuario: String
-    nomeUsuario: String
-    cpf: String
-    rg: String
+    idUsuario?: string
+    nomeUsuario: string
+    cpf: string
+    rg: string
     dataNascimento: Date
-    telefone: String
-    ativo: Boolean
-    gestor: Boolean
-    login: String
-    senha: String
-    foto: String
-    cargoConfianca: Boolean
+    telefone: string
+    ativo: boolean
+    gestor: boolean
+    login: string
+    senha: string
+    foto: string
+    cargoConfianca: boolean
+    idCargo: number 
 }
 
-export interface registroPonto {
-    idUsuario: Number;
-    dataRegistro: Date
-    JustificapPonto: Number;
-    JustificativapReprovacao: String
+export interface RegistroPonto {
+    idRegistroPonto?: number
+    idUsuario: number
+    dataRegistro: number
+    justificaPonto: number
+    justificativaReprovacao: string
 }
