@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     /* Chama o método buscarUsuarioPeloID() do serviço*/
     const idUsuario = +this.route.snapshot.paramMap.get('idUsuario');
-    this.homeService.buscarUsuarioPeloID(2).subscribe((usuario) => {
+    this.homeService.buscarUsuarioPeloID(3).subscribe((usuario) => {
       this.usuario = usuario;
     });
 
@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit {
     this.clockHandle = setInterval(() => {
       this.relogio = Date.now();
     }, 1000);
+    
     /* Remova o alerta após o tempo determinado */
     this.alerta.pipe(debounceTime(30000)).subscribe(() => {
       this.mensagemErro = '', this.mensagemSucesso = ''
@@ -75,7 +76,6 @@ export class HomeComponent implements OnInit {
     justificativaReprovacao: 'Teste'
 }
 
-
   registrarPonto(): void {
     this.homeService.registrarPonto(this.registroPonto).subscribe(
       success => {
@@ -92,5 +92,12 @@ export class HomeComponent implements OnInit {
         this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto!');
       }
     );
+  }
+
+  isDesabilitado(): boolean {
+    if (this.disableBtn) {
+      return true;
+    }
+    return false;
   }
 }
