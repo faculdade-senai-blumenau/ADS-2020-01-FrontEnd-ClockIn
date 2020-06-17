@@ -12,6 +12,8 @@ export interface Usuario {
     foto: string
     cargoConfianca: boolean
     idCargo: number 
+    cargo:Object
+    jornada:Object
 }
 
 export interface RegistroPonto {

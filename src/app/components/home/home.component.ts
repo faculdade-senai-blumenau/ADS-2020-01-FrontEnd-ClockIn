@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     /* Chama o método buscarUsuarioPeloID() do serviço*/
     const idUsuario = +this.route.snapshot.paramMap.get('idUsuario');
-    this.homeService.buscarUsuarioPeloID(2).subscribe((usuario) => {
+    this.homeService.buscarUsuarioPeloID(3).subscribe((usuario) => {
       this.usuario = usuario;
     });
 
