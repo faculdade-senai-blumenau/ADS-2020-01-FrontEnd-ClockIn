@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   /* Variáveis Usuario */
   usuario: Usuario;
 
-  /* Variaveis alerta Inicio*/
+  /* Variaveis alerta */
   public alerta = new Subject<string>();
   staticAlertClosed = true;
   mensagem = '';
@@ -41,20 +41,27 @@ export class HomeComponent implements OnInit {
   desabilitar = '1';
   dataHoraBatida;
 
-  /* Variáveis Registro Ponto */
-  registrosPonto: Array<any>;
-  registros: any;
+  pontos: Array<any>;
+  ponto: any;
 
   ngOnInit() {
     /* Chama o método buscarUsuarioPeloID() do serviço*/
     const idUsuario = +this.route.snapshot.paramMap.get('idUsuario');
-    this.homeService.buscarUsuarioPeloID(3).subscribe((usuario) => {
+    this.homeService.buscarUsuarioPeloID(2).subscribe((usuario) => {
       this.usuario = usuario;
     });
 
-    /* Busca os registros do ponto */
-    this.registros = {};
-    this.homeService.listar().subscribe(resposta => this.registrosPonto = resposta);
+    /* Busca os registros do ponto 1 */
+    const idRegistroPonto = +this.route.snapshot.paramMap.get('idRegistroPonto');
+    this.homeService.buscarRegistrosPontoDia(266).subscribe((registroPonto) => {
+      this.registroPonto = registroPonto;
+    }); 
+
+
+    this.ponto = {};
+    this.homeService.listar()
+      .subscribe(resposta => this.pontos = resposta);
+  
 
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {

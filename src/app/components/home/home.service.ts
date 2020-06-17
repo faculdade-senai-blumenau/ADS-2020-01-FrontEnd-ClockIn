@@ -10,8 +10,8 @@ import { Injectable } from "@angular/core";
 })
 export class HomeService {
 
-  usuarioUrl = "http://localhost:5000/usuario/";
-  registroPontoUrl = "http://localhost:5000/registroPonto/";
+  usuarioUrl = "http://localhost:5000/usuario";
+  registroPontoUrl = "http://localhost:5000/registroPonto";
 
   constructor(private http: HttpClient) {
     
@@ -29,14 +29,14 @@ export class HomeService {
     );
   }
 
-  buscarRegistrosPontoDia(idUsuario: number): Observable<RegistroPonto> {
-    return this.http.get<RegistroPonto>(`${this.registroPontoUrl}/${idUsuario}`).pipe(
+  buscarRegistrosPontoDia(idRegistroPonto: number): Observable<RegistroPonto> {
+    return this.http.get<RegistroPonto>(`${this.registroPontoUrl}/${idRegistroPonto}`).pipe(
       map((obj) => obj)
     );
   }
 
-  listar() {
-    return this.http.get<Array<any>>(this.registroPontoUrl);
+  listar(){
+    return this.http.get<any>(this.registroPontoUrl);
   }
   
 }

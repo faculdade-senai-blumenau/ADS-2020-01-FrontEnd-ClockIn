@@ -1,5 +1,4 @@
-<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center"> 
-    
+<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
     <div class="col-md-10 m-0 p-0">
         <!-- Alerta Erro ao Registrar Ponto -->
         <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''">{{ mensagemErro }}
@@ -37,17 +36,12 @@
                         <tr>
                             <th scope="col">Entrada</th>
                             <th scope="col">Saida</th>
+                            <th scope="col">Entrada</th>
+                            <th scope="col">Saida</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>08:00</td>
-                            <td>12:00</td>
-                        </tr>
-                        <tr>
-                            <td>12:00</td>
-                        </tr>
-                    </tbody>
+                    <th *ngFor="let ponto of pontos" class="text-center w-25">{{ponto.dataRegistro | date: 'HH:mm'}}
+                    </th>
                 </table>
             </div>
         </div>
@@ -64,7 +58,7 @@
                             <img src="https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png"
                                 class="card-img-top" alt="Usuario" style="width: 120px; height: 100px;">
                         </div>
-                        <h5 class="card-title text-center ">{{usuario.nomeUsuario}}</h5>
+                        <h5 class="card-title text-center ">{{usuario["nomeUsuario"]}}</h5>
                     </div>
                     <div class="col-md-6">
                         <div class="card-body text-center p-3 mt-3">
@@ -136,13 +130,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01/06/2020</td>
-                                <td>08:00</td>
-                                <td>12:00</td>
-                                <td>13:00</td>
-                                <td>18:00</td>
-                            </tr>
+                            <th *ngFor="let ponto of pontos" class="text-center w-25">
+                                {{ponto.dataRegistro | date: 'dd/MM/yyyy'}}
+                            </th>
+                            <th *ngFor="let ponto of pontos" class="text-center w-25">
+                                {{ponto.dataRegistro | date: 'HH:mm'}}
+                            </th>
                             <tr>
                                 <td>01/06/2020</td>
                                 <td>08:00</td>
