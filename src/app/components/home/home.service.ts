@@ -28,5 +28,15 @@ export class HomeService {
       map((obj) => obj)
     );
   }
+
+  buscarRegistrosPontoDia(idUsuario: number): Observable<RegistroPonto> {
+    return this.http.get<RegistroPonto>(`${this.registroPontoUrl}/${idUsuario}`).pipe(
+      map((obj) => obj)
+    );
+  }
+
+  listar() {
+    return this.http.get<Array<any>>(this.registroPontoUrl);
+  }
   
 }

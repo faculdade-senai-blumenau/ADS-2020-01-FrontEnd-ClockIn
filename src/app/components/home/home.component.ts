@@ -41,6 +41,10 @@ export class HomeComponent implements OnInit {
   desabilitar = '1';
   dataHoraBatida;
 
+  /* Variáveis Registro Ponto */
+  registrosPonto: Array<any>;
+  registros: any;
+
   ngOnInit() {
     /* Chama o método buscarUsuarioPeloID() do serviço*/
     const idUsuario = +this.route.snapshot.paramMap.get('idUsuario');
@@ -48,20 +52,24 @@ export class HomeComponent implements OnInit {
       this.usuario = usuario;
     });
 
+    /* Busca os registros do ponto */
+    this.registros = {};
+    this.homeService.listar().subscribe(resposta => this.registrosPonto = resposta);
+
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
-      this.relogio = Date.now();
+      this.relogio = new Date();
     }, 1000);
-    
+
     /* Remova o alerta após o tempo determinado */
-    this.alerta.pipe(debounceTime(30000)).subscribe(() => {
+    this.alerta.pipe(debounceTime(3000)).subscribe(() => {
       this.mensagemErro = '', this.mensagemSucesso = ''
     });
 
     /* Habilita novamente o botão após o tempo determinado (60000 = 1 minuto) */
     this.botaoPonto.pipe(debounceTime(60000)).subscribe(() => {
       this.desabilitar = '1',
-      this.btnPonto = "secondary btn-lg";
+        this.btnPonto = "secondary btn-lg";
       this.btnPontoMensagem = "Registrar Ponto";
       this.disablePonto = "";
       this.disableBtn = false;
@@ -69,12 +77,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /* Objeto Registro Ponto */
   registroPonto: RegistroPonto = {
     idUsuario: 2,
-    dataRegistro: null ,
-    justificaPonto: 2,
-    justificativaReprovacao: 'Teste'
-}
+    dataRegistro: new Date(),
+    justificaPonto: null,
+    justificativaReprovacao: null
+  }
 
   registrarPonto(): void {
     this.homeService.registrarPonto(this.registroPonto).subscribe(

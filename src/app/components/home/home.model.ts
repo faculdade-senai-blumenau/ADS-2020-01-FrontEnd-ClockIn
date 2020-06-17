@@ -19,7 +19,7 @@ export interface Usuario {
 export interface RegistroPonto {
     idRegistroPonto?: number
     idUsuario: number
-    dataRegistro: number
+    dataRegistro: Date
     justificaPonto: number
     justificativaReprovacao: string
 }
