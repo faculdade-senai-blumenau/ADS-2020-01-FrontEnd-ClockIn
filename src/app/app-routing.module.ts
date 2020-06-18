@@ -12,15 +12,14 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { EspelhoPontoComponent } from './components/espelho-ponto/espelho-ponto.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'editarmarcacao', component: EditarMarcacaoComponent },
   { path: 'cadastros', component: CadastrosComponent },
   { path: 'espelhoponto', component: EspelhoPontoComponent },
   { path: 'relatorios', component: RelatoriosComponent },
   { path: 'aprovacoespendentes', component: AprovacoesPendentesComponent },
   { path: 'parametros', component: ParametroComponent },
-  { path: 'pagenotfound', component: PagenotfoundComponent },
-  { path: '*', redirectTo: 'home' } 
+  { path: 'pagenotfound', component: PagenotfoundComponent } 
 ];
  
 @NgModule({
