@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { Observable, EMPTY } from "rxjs";
-import { map, catchError } from "rxjs/operators";
-import { Injectable } from "@angular/core";
-
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs/internal/Subject';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
+import { Router, ActivatedRoute } from "@angular/router";
+import { HomeService } from "./home.service";
+import { Usuario, RegistroPonto } from "./home.model";
 
 
 @Component({
@@ -17,44 +14,99 @@ import { Injectable } from "@angular/core";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient) {
-  }  
-  
+  constructor(
+    private homeService: HomeService,
+    private route: ActivatedRoute) { }
+
   /* Variáveis Relógio */
   relogio;
   clockHandle;
 
-  ngOnInit(){
-    /* Retorna a data e hora atual */
-    this.clockHandle = setInterval(()=>{
-      this.relogio = Date.now();
-    },1000);
-  }
+  /* Variáveis Usuario */
+  usuario: Usuario;
 
-  btnPonto = "success";
+  /* Variaveis alerta */
+  public alerta = new Subject<string>();
+  staticAlertClosed = true;
+  mensagem = '';
+  mensagemErro = '';
+  mensagemSucesso = '';
+
+  /* Variaveis Botão Ponto */
+  public botaoPonto = new Subject();
+  btnPonto = "secondary btn-lg";
   btnPontoMensagem = "Registrar Ponto";
   disablePonto = "";
-  disableEventPonto = "";
   disableBtn = false;
   desabilitar = '1';
+  dataHoraBatida;
 
-  registrarPonto() {
-    const route = "posts";
-    this.http.post<any>('http://localhost:3001/' + route, { idUsuario: 'idDoUsuario' }).subscribe(
+  pontos: Array<any>;
+  ponto: any;
+
+  ngOnInit() {
+    /* Chama o método buscarUsuarioPeloID() do serviço*/
+    const idUsuario = +this.route.snapshot.paramMap.get('idUsuario');
+    this.homeService.buscarUsuarioPeloID(2).subscribe((usuario) => {
+      this.usuario = usuario;
+    });
+
+    /* Busca os registros do ponto 1 */
+    const idRegistroPonto = +this.route.snapshot.paramMap.get('idRegistroPonto');
+    this.homeService.buscarRegistrosPontoDia(266).subscribe((registroPonto) => {
+      this.registroPonto = registroPonto;
+    }); 
+
+
+    this.ponto = {};
+    this.homeService.listar()
+      .subscribe(resposta => this.pontos = resposta);
+  
+
+    /* Retorna a data e hora atual */
+    this.clockHandle = setInterval(() => {
+      this.relogio = new Date();
+    }, 1000);
+
+    /* Remova o alerta após o tempo determinado */
+    this.alerta.pipe(debounceTime(3000)).subscribe(() => {
+      this.mensagemErro = '', this.mensagemSucesso = ''
+    });
+
+    /* Habilita novamente o botão após o tempo determinado (60000 = 1 minuto) */
+    this.botaoPonto.pipe(debounceTime(60000)).subscribe(() => {
+      this.desabilitar = '1',
+        this.btnPonto = "secondary btn-lg";
+      this.btnPontoMensagem = "Registrar Ponto";
+      this.disablePonto = "";
+      this.disableBtn = false;
+      this.desabilitar = '1';
+    });
+  }
+
+  /* Objeto Registro Ponto */
+  registroPonto: RegistroPonto = {
+    idUsuario: 2,
+    dataRegistro: new Date(),
+    justificaPonto: null,
+    justificativaReprovacao: null
+  }
+
+  registrarPonto(): void {
+    this.homeService.registrarPonto(this.registroPonto).subscribe(
       success => {
-        this.btnPontoMensagem = "Registrado";
-        this.disablePonto = "disabled";
-        this.disableEventPonto = "none;";
-        this.desabilitar = '2';
+        this.botaoPonto.next(this.btnPonto = "success btn-lg");
+        this.botaoPonto.next(this.disablePonto = "disabled");
+        this.botaoPonto.next(this.desabilitar = '2');
+        this.botaoPonto.next(this.btnPontoMensagem = "Ponto Registrado");
+        this.dataHoraBatida = Date.now();
+        this.alerta.next(this.mensagemSucesso = (`Ponto Registrado com Sucesso em: `));
       },
       error => {
-        this.btnPonto = "danger";
-        this.btnPontoMensagem = "Erro ao Registrar";
-        this.disablePonto = "disabled";
-        this.disableEventPonto = "none;";
-        this.desabilitar = '2';
+        this.botaoPonto.next(this.btnPonto = "danger btn-lg");
+        this.botaoPonto.next(this.btnPontoMensagem = "Erro ao Registrar");
+        this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto!');
       }
-
     );
   }
 
