@@ -10,8 +10,11 @@ import { Injectable } from "@angular/core";
 })
 export class HomeService {
 
-  usuarioUrl = "http://localhost:5000/usuario";
-  registroPontoUrl = "http://localhost:5000/registroPonto";
+  usuarioUrl = "http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com/usuario";
+  registroPontoUrl = "http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com/usuario";
+
+/* usuarioUrl = "http://localhost:5000/usuario";
+  registroPontoUrl = "http://localhost:5000/registroPonto";  */
 
   constructor(private http: HttpClient) {
     
