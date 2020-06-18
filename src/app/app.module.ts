@@ -32,7 +32,7 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [ RouterModule, BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, NgbModule, NgbPaginationModule ],
   
   providers: [
-             { provide: APP_BASE_HREF, useValue: '/' },
+             { provide: APP_BASE_HREF, useValue: '/ADS-2020-01-FrontEnd-ClockIn/' },
              { provide: AppService }],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     
