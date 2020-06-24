@@ -5,3 +5,7 @@ p {
 .row {
     margin: 0px;
 }
+
+.td {
+    padding: 0px;
+}

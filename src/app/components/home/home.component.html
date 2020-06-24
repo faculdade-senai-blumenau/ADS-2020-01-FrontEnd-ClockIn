@@ -3,10 +3,10 @@
         <!-- Alerta Erro ao Registrar Ponto -->
         <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''">{{ mensagemErro }}
         </ngb-alert>
-        <!-- Alerta Erro ao Registrar Ponto -->
+        <!-- Alerta Sucesso ao Registrar Ponto -->
         <ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemSucesso }}
-            <strong> {{ dataHoraBatida | date: 'dd/MM/yyyy'}}</strong> -
-            <strong>{{ dataHoraBatida | date: 'HH:mm:ss'}}</strong>
+            <strong> {{ pontoRegistrado.dataRegistro  | date: 'dd/MM/yyyy'}}</strong> -
+            <strong>{{ pontoRegistrado.horaRegistro}}</strong>
         </ngb-alert>
     </div>
     <!-- Registrar Ponto -->
@@ -23,9 +23,11 @@
                     <strong>{{ relogio | date: 'HH:mm:ss'}}</strong>
                 </h3>
                 <!-- Botão Registrar Ponto -->
-                <button type="button" class="btn btn-{{btnPonto}} {{disablePonto}} mb-2 mt-1" id="registrarBtn"
-                    (click)="registrarPonto()" [disabled]="desabilitar !== '1'">{{btnPontoMensagem}}</button>
-                <app-loader></app-loader>
+                <span class="d-inline-block" data-toggle="popover" data-content="">
+                    <button type="button" class="btn btn-{{btnPonto}} {{disablePonto}} mb-2 mt-1" id="registrarBtn"
+                        (click)="registrarPonto()" [disabled]="desabilitar !== '1'">{{btnPontoMensagem}}
+                    </button></span>
+
             </div>
         </div>
         <div class="card text-center">
@@ -40,7 +42,8 @@
                             <th scope="col">Saida</th>
                         </tr>
                     </thead>
-                    <th *ngFor="let ponto of pontos" class="text-center w-25">{{ponto.dataRegistro | date: 'HH:mm'}}
+                    <th *ngFor="let ponto of registroPonto">
+                        {{ponto.horaRegistro}}
                     </th>
                 </table>
             </div>
@@ -114,13 +117,14 @@
                     </div>
                 </div>
             </div>
+            
             <!-- Informações Usuário Fim -->
             <div class="table-responsive">
                 <!-- Relatório Semanal -->
                 <div class="text-center">
                     <h6 class="border-top border-gray mt-2 pt-1">Relatório Semanal</h6>
                     <table class="table table-striped table-sm">
-                        <thead>
+                        <thead class="thead-light text-center">
                             <tr>
                                 <th>Data</th>
                                 <th>Entrada</th>
@@ -130,41 +134,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <th *ngFor="let ponto of pontos" class="text-center w-25">
-                                {{ponto.dataRegistro | date: 'dd/MM/yyyy'}}
-                            </th>
-                            <th *ngFor="let ponto of pontos" class="text-center w-25">
-                                {{ponto.dataRegistro | date: 'HH:mm'}}
-                            </th>
-                            <tr>
-                                <td>01/06/2020</td>
-                                <td>08:00</td>
-                                <td>12:00</td>
-                                <td>13:00</td>
-                                <td>18:00</td>
+                            <tr *ngFor="let ponto of registroPonto">
+                                <td >{{ponto.dataRegistro}}</td>
+                                <td *ngFor="let ponto of registroPonto">
+                                    {{ponto.horaRegistro}}</td>
                             </tr>
-                            <tr>
-                                <td>01/06/2020</td>
-                                <td>08:00</td>
-                                <td>12:00</td>
-                                <td>13:00</td>
-                                <td>18:00</td>
-                            </tr>
-                            <tr>
-                                <td>01/06/2020</td>
-                                <td>08:00</td>
-                                <td>12:00</td>
-                                <td>13:00</td>
-                                <td>18:00</td>
-                            </tr>
-                            <tr>
-                                <td>01/06/2020</td>
-                                <td>08:00</td>
-                                <td>12:00</td>
-                                <td>13:00</td>
-                                <td>18:00</td>
-                            </tr>
-                            <tr>
                         </tbody>
                     </table>
                 </div>
