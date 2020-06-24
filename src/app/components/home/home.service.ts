@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class HomeService {
-
   usuarioUrl = 'http://localhost:5000/usuario';
   registroPontoUrl = 'http://localhost:5000/registroPonto';
 
