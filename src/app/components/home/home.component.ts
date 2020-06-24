@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
-import { Router, ActivatedRoute } from "@angular/router";
-import { HomeService } from "./home.service";
-import { Usuario, RegistroPonto } from "./home.model";
-
+import { Router, ActivatedRoute } from '@angular/router';
+import { HomeService } from './home.service';
+import { Usuario, RegistroPonto } from './home.model';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -15,15 +15,22 @@ import { Usuario, RegistroPonto } from "./home.model";
 export class HomeComponent implements OnInit {
 
   constructor(
-    private homeService: HomeService,
-    private route: ActivatedRoute) { }
+    private homeService: HomeService) {
 
-  /* Variáveis Relógio */
+  }
+
+  /* Usuario Logado Fixo até a implementação do Login */
+  idUsuarioLogado = 3;
+
+  /* Variáveis do Relógio */
   relogio;
   clockHandle;
 
-  /* Variáveis Usuario */
+  /* Objeto Usuario - Armazena o usuario retornado do banco*/
   usuario: Usuario;
+
+  /* Objeto RegistroPonto - Armazena a lista de pontos retornada do banco*/
+  registroPonto: RegistroPonto;
 
   /* Variaveis alerta */
   public alerta = new Subject<string>();
@@ -34,86 +41,69 @@ export class HomeComponent implements OnInit {
 
   /* Variaveis Botão Ponto */
   public botaoPonto = new Subject();
-  btnPonto = "secondary btn-lg";
-  btnPontoMensagem = "Registrar Ponto";
-  disablePonto = "";
+  btnPonto = 'secondary btn-lg';
+  btnPontoMensagem = 'Registrar Ponto';
+  disablePonto = '';
   disableBtn = false;
   desabilitar = '1';
   dataHoraBatida;
 
-  pontos: Array<any>;
-  ponto: any;
+  /* Objeto Registro Ponto */
+  pontoRegistrado: RegistroPonto = {
+    idRegistroPonto: null,
+    idUsuario: this.idUsuarioLogado,
+    dataRegistro: new Date(),
+    horaRegistro: '08:00',
+    justificaPonto: 0,
+    justificativaReprovacao: 'null'
+  };
 
   ngOnInit() {
-    /* Chama o método buscarUsuarioPeloID() do serviço*/
-    const idUsuario = +this.route.snapshot.paramMap.get('idUsuario');
-    this.homeService.buscarUsuarioPeloID(2).subscribe((usuario) => {
-      this.usuario = usuario;
-    });
-
-    /* Busca os registros do ponto 1 */
-    const idRegistroPonto = +this.route.snapshot.paramMap.get('idRegistroPonto');
-    this.homeService.buscarRegistrosPontoDia(266).subscribe((registroPonto) => {
-      this.registroPonto = registroPonto;
-    }); 
-
-
-    this.ponto = {};
-    this.homeService.listar()
-      .subscribe(resposta => this.pontos = resposta);
-  
 
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
       this.relogio = new Date();
-    }, 1000);
+    });
 
-    /* Remova o alerta após o tempo determinado */
-    this.alerta.pipe(debounceTime(3000)).subscribe(() => {
-      this.mensagemErro = '', this.mensagemSucesso = ''
+    /* Retorna lista de registros da tabela de pontos */
+    this.homeService.buscarRegistrosPonto().subscribe(
+      resposta => this.registroPonto = resposta);
+
+    /* Retorna Usuario pelo ID*/
+    this.homeService.buscarUsuarioPeloID(this.idUsuarioLogado).subscribe((usuario) => {
+      this.usuario = usuario;
+    });
+
+    /* Remove o alerta após o tempo determinado (milisegundos) */
+    this.alerta.pipe(debounceTime(5000)).subscribe(() => {
+      this.mensagemErro = '', this.mensagemSucesso = '';
     });
 
     /* Habilita novamente o botão após o tempo determinado (60000 = 1 minuto) */
     this.botaoPonto.pipe(debounceTime(60000)).subscribe(() => {
       this.desabilitar = '1',
-        this.btnPonto = "secondary btn-lg";
-      this.btnPontoMensagem = "Registrar Ponto";
-      this.disablePonto = "";
+        this.btnPonto = 'secondary btn-lg';
+      this.btnPontoMensagem = 'Registrar Ponto';
+      this.disablePonto = '';
       this.disableBtn = false;
       this.desabilitar = '1';
     });
   }
 
-  /* Objeto Registro Ponto */
-  registroPonto: RegistroPonto = {
-    idUsuario: 2,
-    dataRegistro: new Date(),
-    justificaPonto: null,
-    justificativaReprovacao: null
-  }
-
   registrarPonto(): void {
-    this.homeService.registrarPonto(this.registroPonto).subscribe(
+    this.homeService.registrarPonto(this.pontoRegistrado).subscribe(
       success => {
-        this.botaoPonto.next(this.btnPonto = "success btn-lg");
-        this.botaoPonto.next(this.disablePonto = "disabled");
+        this.botaoPonto.next(this.btnPonto = 'success btn-lg');
+        this.botaoPonto.next(this.disablePonto = 'disabled');
         this.botaoPonto.next(this.desabilitar = '2');
-        this.botaoPonto.next(this.btnPontoMensagem = "Ponto Registrado");
-        this.dataHoraBatida = Date.now();
+        this.botaoPonto.next(this.btnPontoMensagem = 'Ponto Registrado');
         this.alerta.next(this.mensagemSucesso = (`Ponto Registrado com Sucesso em: `));
       },
       error => {
-        this.botaoPonto.next(this.btnPonto = "danger btn-lg");
-        this.botaoPonto.next(this.btnPontoMensagem = "Erro ao Registrar");
+        this.botaoPonto.next(this.btnPonto = 'danger btn-lg');
+        this.botaoPonto.next(this.btnPontoMensagem = 'Erro ao Registrar');
         this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto!');
       }
     );
-  }
-
-  isDesabilitado(): boolean {
-    if (this.disableBtn) {
-      return true;
-    }
-    return false;
   }
 }
