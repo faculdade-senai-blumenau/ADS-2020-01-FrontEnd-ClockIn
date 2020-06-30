@@ -1,6 +1,8 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RegistroPonto } from '../home/home.model';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ export class EditarMarcacaoService {
   constructor(private http: HttpClient) {
   }
 
-  buscarRegistrosPonto(){
-    return this.http.get<any>(this.registroPontoUrl);
+  buscarRegistrosPonto(idUsuario: number): Observable<RegistroPonto[]> {
+    return this.http.get<RegistroPonto[]>(`${this.registroPontoUrl}/usuario/${idUsuario}`);
   }
+
 }

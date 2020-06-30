@@ -9,30 +9,23 @@
             <!--Table-->
             <table id="editarMarcacoes" class="table">
               <!--Table head-->
-              <thead>
+              <thead class="thead-light text-center">
                 <tr>
-                  <th>Data Registro</th>
-                  <th>Entrada</th>
-                  <th>Saida</th>
-                  <th>Entrada</th>
-                  <th>Saida</th>
+                  <th>Data</th>
+                  <th colspan="6">Horarios</th>
                   <th>Ação</th>
                 </tr>
               </thead>
-              <!--Table head-->
-              <!--Table body-->
               <tbody>
-                <tr *ngFor="let ponto of registroPonto">
-                  <td>{{ponto.dataRegistro}}</td>
-                  <td *ngFor="let ponto of registroPonto">
-                    {{ponto.horaRegistro}}</td>
-                  <td>
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                      data-target="#editarMarcacao">Editar</button>
+                <tr *ngFor="let ponto of listaDePontos">
+                  <td>{{ponto.dataRegistro | date: "dd/MM/yyyy"}}</td>
+                  <td *ngFor="let ponto of ponto.values">
+                    {{ponto.horaRegistro }}
                   </td>
+                <td> <button type="button" class="btn btn-primary btn-sm " data-toggle="modal"
+                      data-target="#editarMarcacao">Editar</button></td>
                 </tr>
-              </tbody>
-              <!--Table body-->
+                <!--Table body-->
             </table>
             <!--Table-->
             <!-- Modal -->
@@ -54,11 +47,11 @@
                             <form id="contact" method="post" class="form" role="form"></form>
                             <div class="row">
                               <div class="col-xs-4 col-md-4 form-group " *ngFor="let ponto of registroPonto">
-                                <input class="form-control" id="horario" name="horario" placeholder="Horário" value="{{ponto.horaRegistro}}"
-                                  type="text" required="" autofocus=""> 
+                                <input class="form-control" id="horario" name="horario" placeholder="Horário"
+                                  value="{{ponto.horaRegistro}}" type="text" required="" autofocus="">
                               </div>
                               <div class="col-xs-4 col-md-6 form-group">
-                                <select class="form-control" id="selectbasic" name="Justificativa">                           
+                                <select class="form-control" id="selectbasic" name="Justificativa">
                                   <option>Selecione...</option>
                                   <option>Esquecimento</option>
                                   <option>Sistema Indisponível</option>

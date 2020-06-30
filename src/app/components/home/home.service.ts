@@ -1,9 +1,9 @@
 
-import { Usuario, RegistroPonto } from './home.model';
+import { Usuario, RegistroPonto, Setor } from './home.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable, EMPTY } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { map, catchError } from 'rxjs/operators';
+import { Observable, EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 export class HomeService {
   usuarioUrl = 'http://localhost:5000/usuario';
   registroPontoUrl = 'http://localhost:5000/registroPonto';
+  setorUrl = 'http://localhost:5000/setor';
 
   constructor(private http: HttpClient) {
   }
@@ -19,12 +20,16 @@ export class HomeService {
     return this.http.get<Usuario>(`${this.usuarioUrl}/${idUsuario}`);
   }
 
-  registrarPonto(registrarPonto: RegistroPonto): Observable<RegistroPonto> {
-    return this.http.post<RegistroPonto>(this.registroPontoUrl, registrarPonto);
+  buscarSetorUsuario(idUsuario: number): Observable<Setor> {
+    return this.http.get<Setor>(`${this.setorUrl}/${idUsuario}`);
   }
 
-  buscarRegistrosPonto(){
-    return this.http.get<any>(this.registroPontoUrl);
+  buscarRegistrosPonto(idUsuario: number): Observable<RegistroPonto[]> {
+    return this.http.get<RegistroPonto[]>(`${this.registroPontoUrl}/usuario/${idUsuario}`);
   }
-  
+
+  registrarPonto(ponto: RegistroPonto): Observable<RegistroPonto> {
+    return this.http.post<RegistroPonto>(this.registroPontoUrl, ponto);
+  }
+
 }

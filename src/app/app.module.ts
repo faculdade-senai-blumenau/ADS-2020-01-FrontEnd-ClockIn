@@ -4,11 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF, DatePipe } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
-
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
@@ -23,12 +22,12 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditarMarcacaoComponent } from './components/editarmarcacao/editarmarcacao.component';
 import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/aprovacoespendentes.component';
-import { EspelhoPontoComponent } from './components/espelhoponto/espelhoponto.component';
+import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 
 
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent, HomeComponent, RelatoriosComponent,
-    AprovacoesPendentesComponent, CadastrosComponent, EspelhoPontoComponent,
+    AprovacoesPendentesComponent, CadastrosComponent, EspelhopontoComponent,
     ParametroComponent, LoaderComponent, PagenotfoundComponent, EditarMarcacaoComponent],
 
   imports: [RouterModule, BrowserModule, AppRoutingModule, HttpClientModule,
@@ -36,7 +35,8 @@ import { EspelhoPontoComponent } from './components/espelhoponto/espelhoponto.co
 
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
-    { provide: AppService }],
+    { provide: AppService },
+    { provide: DatePipe }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
   bootstrap: [AppComponent]
