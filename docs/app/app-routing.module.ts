@@ -21,11 +21,11 @@ const routes: Routes = [
   { path: 'aprovacoespendentes', component: AprovacoesPendentesComponent },
   { path: 'parametros', component: ParametroComponent },
   { path: 'pagenotfound', component: PagenotfoundComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'pagenotfound' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)], 
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

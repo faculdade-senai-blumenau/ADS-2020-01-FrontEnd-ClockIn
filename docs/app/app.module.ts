@@ -34,7 +34,6 @@ import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.co
     ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule],
 
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/ADS-2020-01-FrontEnd-ClockIn/' },
     { provide: AppService },
     { provide: DatePipe }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
