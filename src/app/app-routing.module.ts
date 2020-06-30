@@ -12,7 +12,6 @@ import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/a
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'editarmarcacao', component: EditarMarcacaoComponent },
   { path: 'cadastros', component: CadastrosComponent },
