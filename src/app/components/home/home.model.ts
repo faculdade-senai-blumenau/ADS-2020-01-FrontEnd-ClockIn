@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 
 export interface Usuario {
     idUsuario?: string;
@@ -13,15 +14,37 @@ export interface Usuario {
     foto: string;
     cargoConfianca: boolean;
     idCargo: number;
-    cargo: Object;
-    jornada: Object;
+    cargo: Cargo;
+    jornada: Jornada;
 }
 
 export interface RegistroPonto {
     idRegistroPonto?: number;
     idUsuario: number;
-    dataRegistro: Date;
-    horaRegistro: string;
+    dataRegistro: DatePipe;
+    horaRegistro: DatePipe;
     justificaPonto: number;
     justificativaReprovacao: string;
+}
+
+export interface Setor {
+    idSetor?: number;
+    idUsuario: number;
+    descricaoSetor: string;
+    usuario: Usuario;
+    cargo: Cargo;
+    jornada: Jornada;
+}
+
+export interface Cargo {
+    idCargo?: number;
+    nomeCargo: string;
+}
+
+export interface Jornada {
+    idJornada?: number;
+    inicioManha: string;
+    finalManha: string;
+    inicioTarde: string;
+    finalTarde: string;
 }
