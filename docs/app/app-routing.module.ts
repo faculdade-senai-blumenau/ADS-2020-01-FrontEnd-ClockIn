@@ -12,7 +12,7 @@ import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/a
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 
 const routes: Routes = [
-  { path: '/ADS-2020-01-FrontEnd-ClockIn/', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'editarmarcacao', component: EditarMarcacaoComponent },
   { path: 'cadastros', component: CadastrosComponent },
@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'aprovacoespendentes', component: AprovacoesPendentesComponent },
   { path: 'parametros', component: ParametroComponent },
   { path: 'pagenotfound', component: PagenotfoundComponent },
-  { path: '**', redirectTo: '/ADS-2020-01-FrontEnd-ClockIn/' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
