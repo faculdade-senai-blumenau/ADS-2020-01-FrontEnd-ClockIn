@@ -132,7 +132,7 @@
             <!-- Relatório Semanal -->
             <div class="text-center">
                 <h6 class="pt-1" style="font-size: 15px;">Relatório Semanal</h6>
-                <table class="table table-sm">
+                <table class="table table-sm" >
                     <thead class="thead-light text-center">
                         <tr>
                             <th>Data</th>
@@ -141,9 +141,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let ponto of listaDePontos">
-                            <td>{{ponto.dataRegistro | date: "dd/MM/yyyy"}}</td>
+                            <td>{{ponto.dataRegistro }}</td>
                             <td *ngFor="let ponto of ponto.values">
-                                {{ponto.horaRegistro }}
+                                {{ponto.horaRegistro}}
                             </td>
                         </tr>
                     </tbody>
