@@ -141,9 +141,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let ponto of listaDePontos">
-                            <td>{{ponto.dataRegistro | date: "dd/MM/yyyy"}}</td>
+                            <td>{{ponto.dataRegistro }}</td>
                             <td *ngFor="let ponto of ponto.values">
-                                {{ponto.horaRegistro }}
+                                {{ponto.horaRegistro}}
                             </td>
                         </tr>
                     </tbody>

@@ -60,11 +60,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
-      this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-    }, 100);
+      this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
+    });
 
-    this.clockHandle = setInterval(() => {
+    setInterval(() => {
+      
       /* Retorna lista de registros da tabela de pontos */
       this.homeService.buscarRegistrosPonto(this.idUsuarioLogado).subscribe(
         resposta => this.registroPonto = resposta);
@@ -82,8 +83,7 @@ export class HomeComponent implements OnInit {
           values: this.registroPonto.filter(i => i.dataRegistro === g)
         },
         ));
-
-    }, 200);
+    }, 150);
 
     /* Retorna Usuario pelo ID Usuario*/
     this.homeService.buscarUsuarioPeloID(this.idUsuarioLogado).subscribe((usuario) => {
