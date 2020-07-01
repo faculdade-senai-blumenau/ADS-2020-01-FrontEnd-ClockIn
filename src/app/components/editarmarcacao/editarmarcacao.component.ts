@@ -15,7 +15,8 @@ export class EditarMarcacaoComponent implements OnInit {
   registroPonto: any;
 
   constructor(
-    private editarMarcacaoService: EditarMarcacaoService) {
+    public editarMarcacaoService: EditarMarcacaoService
+            ) {
   }
 
   ngOnInit() {
@@ -25,10 +26,8 @@ export class EditarMarcacaoComponent implements OnInit {
       this.editarMarcacaoService.buscarRegistrosPonto(2).subscribe(
         resposta => this.registroPonto = resposta);
 
-      /* Filtra a lista de registros */
+      /* Agrupa os horarios de registro por Data  e Filtra a lista de registros */
       const dataInicialFiltro = moment().subtract(10, 'days').format();
-
-      /* Agrupa os horarios de registro por Data */
       const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataInicialFiltro)
         .map(item => item.dataRegistro));
       this.listaDePontos = [];
@@ -39,7 +38,7 @@ export class EditarMarcacaoComponent implements OnInit {
         },
         ));
 
-    }, 300);
+    }, 200);
 
   }
 }

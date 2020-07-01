@@ -1,32 +1,35 @@
 <div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
   <div class="col-md-10 m-0 p-0">
-    <!-- Informações Usuário -->
     <div class="card">
       <div class="row-md-10">
         <div class="card-header text-center">Editar Marcações</div>
         <div class="row ">
           <div class="card-body text-center ">
             <!--Table-->
-            <table id="editarMarcacoes" class="table">
-              <!--Table head-->
-              <thead class="thead-light text-center">
-                <tr>
-                  <th>Data</th>
-                  <th colspan="6">Horarios</th>
-                  <th>Ação</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let ponto of listaDePontos">
-                  <td>{{ponto.dataRegistro | date: "dd/MM/yyyy"}}</td>
-                  <td *ngFor="let ponto of ponto.values">
-                    {{ponto.horaRegistro }}
-                  </td>
-                <td> <button type="button" class="btn btn-primary btn-sm " data-toggle="modal"
-                      data-target="#editarMarcacao">Editar</button></td>
-                </tr>
-                <!--Table body-->
-            </table>
+            <form>
+              <table class="table table-striped" id='TabelaEditarPonto'>
+                <thead class="thead-light text-center">
+                  <tr>
+                    <th>Data</th>
+                    <th colspan="8">Horarios</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ponto of listaDePontos">
+                    <td>{{ponto.dataRegistro}}</td>
+                    <td *ngFor="let ponto of ponto.values">
+                      {{ponto.horaRegistro}}
+                    </td>
+                    <td colspan="8">
+                      <button type="button" id="btnEditar"class="btn btn-primary btn-sm float-right" data-toggle="modal"
+                        data-target="#editarMarcacao">Editar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+            <!--Table body-->
+
             <!--Table-->
             <!-- Modal -->
             <div class="modal fade" id="editarMarcacao" tabindex="-1" role="dialog" aria-labelledby="editarMarcacao"
@@ -44,7 +47,7 @@
                       <div class="col-md-12 col-offset-2">
                         <div class="modal-container">
                           <div class="col-sm-12 contact-form ">
-                            <form id="contact" method="post" class="form" role="form"></form>
+                            <form id="editarPonto" method="post" class="form" role="form"></form>
                             <div class="row">
                               <div class="col-xs-4 col-md-4 form-group " *ngFor="let ponto of registroPonto">
                                 <input class="form-control" id="horario" name="horario" placeholder="Horário"

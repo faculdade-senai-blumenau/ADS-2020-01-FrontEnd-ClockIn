@@ -18,4 +18,6 @@ export class EditarMarcacaoService {
     return this.http.get<RegistroPonto[]>(`${this.registroPontoUrl}/usuario/${idUsuario}`);
   }
 
+
+
 }
