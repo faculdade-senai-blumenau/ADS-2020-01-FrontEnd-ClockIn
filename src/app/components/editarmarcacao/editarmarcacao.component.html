@@ -6,6 +6,7 @@
         <div class="row ">
           <div class="card-body text-center ">
             <!--Table-->
+            <div class="table-responsive">
             <form>
               <table class="table table-striped" id='TabelaEditarPonto'>
                 <thead class="thead-light text-center">
@@ -19,7 +20,7 @@
                   <tr *ngFor="let ponto of listaDePontos">
                     <td>{{ponto.dataRegistro}}</td>
                     <td *ngFor="let ponto of ponto.values">
-                      {{ponto.horaRegistro}}
+                      {{ponto.horaRegistro | date: "HH:mm" }}
                     </td>
                     <td colspan="8">
                       <button type="button" id="btnEditar"class="btn btn-primary btn-sm float-right" data-toggle="modal"
@@ -28,6 +29,7 @@
                 </tbody>
               </table>
             </form>
+           </div>
             <!--Table body-->
 
             <!--Table-->
