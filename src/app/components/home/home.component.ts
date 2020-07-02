@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
-import { Router, ActivatedRoute } from '@angular/router';
 import { HomeService } from './home.service';
 import { Usuario, RegistroPonto, Setor } from './home.model';
-import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 
@@ -65,7 +62,6 @@ export class HomeComponent implements OnInit {
     });
 
     setInterval(() => {
-      
       /* Retorna lista de registros da tabela de pontos */
       this.homeService.buscarRegistrosPonto(this.idUsuarioLogado).subscribe(
         resposta => this.registroPonto = resposta);
@@ -94,8 +90,6 @@ export class HomeComponent implements OnInit {
     this.homeService.buscarSetorUsuario(this.idUsuarioLogado).subscribe((setor) => {
       this.setor = setor;
     });
-
-
 
     /* Remove o alerta após o tempo determinado (milisegundos) */
     this.alerta.pipe(debounceTime(5000)).subscribe(() => {
