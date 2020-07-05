@@ -5,33 +5,28 @@ p {
 .row {
     margin: 0px;
 }
-#tabelaEspelhoPonto{
-    margin:0 auto;
-    border:0;
-    box-shadow: 0 5px 20px darkgrey;
-    border-spacing: 0;
-  }
-  
-  #tabelaEspelhoPonto thead th{
-    font-weight: bold;
-    background-color: rgb(82, 79, 79);
-    color:white;
-    
-    padding:3px 3px;
+#tabelaEspelhoPonto, #editarMarcacaoEspelho{
+    box-shadow: 0 2px 5px darkgrey;
   }
 
-  #tabelaEspelho thead th{
-    font-weight: bold;
+  #tabelaEspelhoPonto thead th, #editarMarcacaoEspelho thead th{
     background-color: rgb(82, 79, 79);
     color:white;
-    
-    padding:3px 3px;
+    padding:5px 10px;
   }
   
-  #tabelaEspelhoPonto tr td{
-    padding:3px 5px;
+  #tabelaEspelhoPonto tr td, #editarMarcacaoEspelho tr td{
+    padding: 3px 5px;
     text-align: center;
-    cursor: pointer; 
+    
+  }
+  #editarMarcacaoEspelho tr td{
+    padding: 0px;
+    text-align: center;
+  }
+
+  .card-body {
+      padding: 10px;
   }
   
   

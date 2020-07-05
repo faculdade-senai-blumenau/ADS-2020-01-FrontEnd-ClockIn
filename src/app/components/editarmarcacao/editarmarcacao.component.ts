@@ -1,9 +1,10 @@
+
+import { AppService } from 'src/app/app.service';
+import { AppComponent } from './../../app.component';
 import { Component, OnInit } from '@angular/core';
-import { EditarMarcacaoService } from './editarmarcacao.service';
 import * as moment from 'moment';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-editarmarcacao',
@@ -11,63 +12,81 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./editarmarcacao.component.css']
 })
 export class EditarMarcacaoComponent implements OnInit {
-  clockHandle;
-  listaDePontos: any[];
-  registroPonto: any;
 
-  /* Variaveis alerta */
+  /* Variaveis */
   public alerta = new Subject<string>();
   staticAlertClosed = true;
+  /* Mensagens */
   mensagem = '';
+  mensagemErroModalEditar = '';
+  mensagemSucessoModalEditar = '';
+  mensagemErroModalCriar = '';
+  mensagemSucessoModalCriar = '';
   mensagemErro = '';
   mensagemSucesso = '';
 
+  clockHandle;
+  listaDePontos: any;
+  registroPonto: any;
+  ponto: any;
 
-  constructor(
-    public editarMarcacaoService: EditarMarcacaoService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  
+  /* Variaveis */
+ 
+  constructor(private appComponent: AppComponent,
+    private appService: AppService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.ponto = {
+    idRegistroPonto: '',
+    idUsuario: this.appService.buscarUsuario(),
+    dataRegistro: '',
+    horaRegistro: '',
+    justificaPonto: '',
+    justificativaReprovacao: ''
+    };
 
-    this.editarMarcacaoService.buscarPontoUsuario(2).subscribe(
-      resposta => this.registroPonto = resposta);
-
-    const dataInicialFiltro = moment().subtract(30, 'days').format();
+    this.registroPonto = {};
     this.clockHandle = setInterval(() => {
+      const dataInicialFiltro = moment().subtract(30, 'days').format();
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
+    }, 500);
 
+    this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
+        this.mensagemErroModalCriar = '', this.mensagemSucessoModalCriar = '';
+        this.mensagemErroModalEditar = '', this.mensagemSucessoModalEditar = '';
         this.mensagemErro = '', this.mensagemSucesso = '';
       });
-
-      /* Agrupa os horarios de registro por Data  e Filtra a lista de registros */
-      const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataInicialFiltro)
-        .map(item => item.dataRegistro));
-      this.listaDePontos = [];
-      groups.forEach(g =>
-        this.listaDePontos.push({
-          dataRegistro: g,
-          values: this.registroPonto.filter(i => i.dataRegistro === g)
-        },
-        ));
     }, 1000);
   }
 
-  buscarRegistroPontoID() {
-    this.editarMarcacaoService.buscarRegistroPontoID(0).subscribe(
+  buscarRegistroPontoID(idRegistroPonto: number) {
+    this.appService.buscarRegistroPontoID(idRegistroPonto).subscribe(
       resposta => this.registroPonto = resposta);
   }
 
   updateRegistroPonto(): void {
-    this.editarMarcacaoService.updateRegistroPonto(this.registroPonto).subscribe(
+    this.appService.updateRegistroPonto(this.ponto).subscribe(
       success => {
-        this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso!`));
+        this.alerta.next(this.mensagemSucessoModalEditar = (`Alteração Realizada com Sucesso.`));
       },
       error => {
-        this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração'));
+        this.alerta.next(this.mensagemErroModalEditar = ('Não foi possivel realizar a alteração.'));
       }
     );
-    console.log(this.registroPonto);
+  }
+
+  criar(frm) {
+    this.appService.criar(this.ponto).subscribe(   
+      success => {
+        this.alerta.next(this.mensagemSucessoModalCriar = (`Registro Inserido com Sucesso.`));
+      },
+      error => {
+        this.alerta.next(this.mensagemErroModalCriar = 'Não foi possível inserir o registro.');
+      }
+    );
+    frm.reset();
   }
 }

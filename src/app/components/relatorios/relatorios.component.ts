@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs/internal/Subject';
+import { Router, ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
+import { debounceTime } from 'rxjs/operators';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-relatorios',
@@ -6,10 +11,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./relatorios.component.css']
 })
 export class RelatoriosComponent implements OnInit {
+  clockHandle;
+  listaDePontos: any[];
+  registroPonto: any;
 
-  constructor() { }
+  /* Variaveis alerta */
+  public alerta = new Subject<string>();
+  staticAlertClosed = true;
+  mensagem = '';
+  mensagemErro = '';
+  mensagemSucesso = '';
 
-  ngOnInit(): void {
+
+  constructor(private appComponent: AppComponent) { }
+  
+  ngOnInit() {
+
   }
-
+  gerarRelatorio() {
+    this.registroPonto = {};
+    this.clockHandle = setInterval(() => {
+      const dataInicialFiltro = moment().subtract(30, 'days').format();
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
+    }, 200);
+  }
 }
+

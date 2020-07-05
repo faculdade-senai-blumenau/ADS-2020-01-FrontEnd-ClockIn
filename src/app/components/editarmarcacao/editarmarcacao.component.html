@@ -1,99 +1,211 @@
 <div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
+  <!-- Alertas -->
   <div class="col-md-10 m-0 p-0">
     <!-- Alerta Erro ao Registrar Ponto -->
-    <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''">{{ mensagemErro }}
+    <ngb-alert *ngIf="mensagemErroModalEditar" id=alert type="danger" (close)="mensagemErroModalEditar = ''">{{ mensagemErroModalEditar }}
     </ngb-alert>
     <!-- Alerta Sucesso ao Registrar Ponto -->
-    <ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemSucesso }}
+    <ngb-alert *ngIf="mensagemSucessoModalEditar" id=alert type="success" (close)="mensagemSucessoModalEditar = ''">{{ mensagemSucessoModalEditar }}
     </ngb-alert>
   </div>
-  <div class="col-md-10 m-0 p-0">
+  <div class="col-md-10 m-0 p-0 justify-content-center">
     <div class="card">
-      <div class="row-md-10">
-        <div class="card-header text-center">Editar Marcações
-            <button type="button" id="btnNovo" class="btn btn-primary btn-sm float-right"
-              data-toggle="modal" data-target="#editarMarcacao">Novo</button>
-        </div>
-        </div>
-        <div class="table-responsive">
-          <div class="row ">
+      <div class="card-header text-center">Editar Marcações
+      </div>
+      <div class="table-responsive table-striped">
+        <div class="row ">
           <div class="card-body text-center ">
             <!--Table-->
-              <table class="table table-striped" id='TabelaEditarPonto'>
-                <thead class="thead-light text-center">
-                  <tr>
-                    <th>Data</th>
-                    <th colspan="8">Horarios</th>
-                  </tr>
-                </thead>
-                <tbody >
-                  <tr *ngFor="let ponto of listaDePontos">
-                    <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
-                    <td class="text-center" *ngFor="let ponto of ponto.values">
-                      <p data-toggle="modal" data-target="#editarMarcacao" (click)="buscarRegistroPontoID()">
-                        {{ponto.horaRegistro}}
-                      </p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-        <!--Table-->
-        <!-- Modal -->
-        <div class="modal fade" id="editarMarcacao" tabindex="-1" role="dialog" aria-labelledby="editarMarcacao"
-          aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Editar Registro Ponto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-md-12 col-offset-2">
-                    <div class="modal-container">
-                      <div class="col-sm-12 contact-form ">
-                        <form>
-                          <div class="row">
-                            <div class="col-xs-4 col-md-4 form-group ">
-                              <input [(ngModel)]="registroPonto.idRegistroPonto" class="form-control"
-                                id="idRegistroPonto" name="idRegistroPonto" [value]="registroPonto.idRegistroPonto"
-                                type="number" required="">
+            <table class="table " id='TabelaEditarPonto'>
+              <thead class="thead-light text-center">
+                <tr>
+                  <th>Data</th>
+                  <th colspan="8">Horarios</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ponto of listaDePontos">
+                  <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
+                  <td class="text-center m-2" *ngFor="let ponto of ponto.values">
+                    <button data-toggle="modal" data-target="#editarMarcacao"
+                      (click)="buscarRegistroPontoID(ponto.idRegistroPonto)">
+                      {{ponto.horaRegistro}}
+                  </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="button" id="btnNovo" class="btn btn-primary btn float-right" data-toggle="modal"
+          data-target="#inserirMarcacao">Novo</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Table-->
 
-                              <input [(ngModel)]="registroPonto.idUsuario" class="form-control" id="idUsuario"
-                                name="idUsuario" [value]="registroPonto.idUsuario" type="number" required="">
-
-                              <input [(ngModel)]="registroPonto.dataRegistro" class="form-control" id="dataRegistro"
-                                name="dataRegistro" [value]="registroPonto.dataRegistro" type="date" required="">
-
-                              <input [(ngModel)]="registroPonto.horaRegistro" class="form-control" id="horaRegistro"
-                                name="horaRegistro" placeholder="Horário" [value]="registroPonto.horaRegistro"
-                                type="datetime" required="" autofocus="">
-
-                              <div class="col-xs-4 col-md-6 form-gr oup">
-                                <input [(ngModel)]="registroPonto.justificaPonto" class="form-control"
-                                  id="justificaPonto" name="justificaPonto" placeholder="Justificativa"
-                                  [value]="registroPonto.justificaPonto" type="number" required="" autofocus="">
-                              </div>
-                            </div>
-                          </div>
-                        </form>
+<!-- Modal Editar-->
+<div class="modal fade" id="editarMarcacao" tabindex="-1" role="dialog" aria-labelledby="editarMarcacao"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar Registro Ponto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12 col-offset-2">
+            <div class="modal-container">
+              <div class="col-sm-12 contact-form ">
+                <form>
+                  <div class="row">
+                    <div class="col-md-12 p-0">
+                      <div class="row">
+                      <div class="col-md-6 pb-2 pt-1">
+                        <label for="dataRegistro">Data Registro</label>
+                      <input [(ngModel)]="registroPonto.dataRegistro" class="form-control" id="dataRegistro"
+                        name="dataRegistro" [value]="registroPonto.dataRegistro" type="date" required="">
+                      </div>
+                      <div class="col-md-6 pb-2 pt-1">
+                        <label for="horaRegistro">Horário</label>
+                      <input [(ngModel)]="registroPonto.horaRegistro" class="form-control" id="horaRegistro"
+                        name="horaRegistro" placeholder="Horário" [value]="registroPonto.horaRegistro" type="datetime"
+                        required="" autofocus="" >
+                      </div>
+                      <div class="col-md-12">
+                        <label for="justificaPonto">Justificativa</label>
+                        <select [(ngModel)]="ponto.justificaPonto"
+                          class="custom-select  form-control" id="justificaPonto"
+                          name="justificaPonto" placeholder="Justificativa" type="number"
+                          aria-controls="datatables-basic" required>
+                          <option value="">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Selecione...</font>
+                            </font>
+                          </option>
+                          <option value="1">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Esquecimento</font>
+                            </font>
+                          </option>
+                          <option value="2">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Trabalho Externo</font>
+                            </font>
+                          </option>
+                          <option value="3">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Sistema Indisponível</font>
+                            </font>
+                          </option>
+                        </select>
                       </div>
                     </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success btn-sm" (click)="updateRegistroPonto()"
-                  data-dismiss="modal">Confirmar</button>
+                </form>
               </div>
             </div>
           </div>
-          <!-- Modal -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" (click)="updateRegistroPonto()"
+          data-dismiss="modal">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Editar Fim -->
+
+<!-- Modal Criar-->
+<div class="modal fade" id="inserirMarcacao" tabindex="-1" role="dialog" aria-labelledby="inserirMarcacao"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Inserir Registro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Alertas -->
+        <div class="col-md-12 m-0 p-0">
+          <!-- Alerta Erro ao Registrar Ponto -->
+          <ngb-alert *ngIf="mensagemErroModalCriar" id=alert type="danger" (close)="mensagemErroModalCriar = ''">{{ mensagemErroModalCriar }}
+          </ngb-alert>
+          <!-- Alerta Sucesso ao Registrar Ponto -->
+          <ngb-alert *ngIf="mensagemSucessoModalCriar" id=alert type="success" (close)="mensagemSucessoModalCriar = ''">
+            {{ mensagemSucessoModalCriar }}
+          </ngb-alert>
+        </div>
+        <div class="row">
+          <div class="col-md-12 p-0">
+            <div class="modal-container">
+              <div class="contact-form ">
+                <section>
+                  <div class="container">
+                    <form method="post" #frm="ngForm" (ngSubmit)="criar(frm)">
+                      <div class="row">
+                        <div class="col-md-6 pb-2 pt-1">
+                        <label for="dataRegistro p-0">Data Registro</label>
+                        <input [(ngModel)]="ponto.dataRegistro" class="form-control" id="dataRegistro"
+                          name="dataRegistro" type="date" required>
+                        </div>
+                          <div class="col-md-6 pb-2 pt-1">
+                        <label for="horaRegistro">Hora Registro</label>
+                        <input [(ngModel)]="ponto.horaRegistro" class="form-control time-mask" id="horaRegistro"
+                          name="horaRegistro" type="text" required placeholder="00:00" minlength="5" maxlength="5"
+                          autocomplete="on">
+                        </div>
+                      </div>
+                      <div class="col-md-12 pt-1">
+                        <label for="justificaPonto">Justificativa</label>
+                        <select [(ngModel)]="ponto.justificaPonto"
+                          class="custom-select  form-control" id="justificaPonto"
+                          name="justificaPonto" placeholder="Justificativa" type="number"
+                          aria-controls="datatables-basic" required>
+                          <option value="">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Selecione...</font>
+                            </font>
+                          </option>
+                          <option value="1">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Esquecimento</font>
+                            </font>
+                          </option>
+                          <option value="2">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Trabalho Externo</font>
+                            </font>
+                          </option>
+                          <option value="3">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Sistema Indisponível</font>
+                            </font>
+                          </option>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-success float-right  m-2" [disabled]="frm.invalid">Salvar</button>
+                      <button class="btn btn-secondary float-right  m-2" data-dismiss="modal">Fechar</button>
+                    </form>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+<!-- Modal Criar Fim-->
