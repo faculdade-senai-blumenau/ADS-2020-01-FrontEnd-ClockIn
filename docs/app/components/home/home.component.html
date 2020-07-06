@@ -1,0 +1,151 @@
+<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
+    <div class="col-md-10 m-0 p-0">
+        <!-- Alerta Erro ao Registrar Ponto -->
+        <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''">{{ mensagemErro }}
+        </ngb-alert>
+        <!-- Alerta Sucesso ao Registrar Ponto -->
+        <ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemSucesso }}
+            <strong> {{ dataHoraBatida | date: 'dd/MM/yyyy' }}</strong> às
+            <strong> {{ dataHoraBatida | date: 'HH:mm:ss' }}</strong>
+        </ngb-alert>
+    </div>
+    <!-- Registrar Ponto -->
+    <div class="col-md-4 p-0">
+        <div class="card text-center">
+            <div class="card-header">Registrar Ponto</div>
+            <div class="card-body p-1">
+                <h3 class="card-text text-muted m-1" style="font-size: 30px;">
+                    <!-- Relogio -->
+                    {{ dataAtual }}
+                </h3>
+                <h3 class="card-text m-3" style="font-size: 50px;">
+                    <!-- Relogio -->
+                    <strong>{{ relogio }}</strong>
+                </h3>
+                <!-- Botão Registrar Ponto -->
+                <button type="button" class="btn btn-primary" class="btn btn-{{btnPonto}} {{disablePonto}} mb-2 mt-1"
+                    id="registrarBtn" [disabled]="desabilitar !== '1'" data-toggle="modal"
+                    data-target="#ModalRegistroPonto">
+                    {{btnPontoMensagem}}
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <!-- Registrar Ponto Fim -->
+    <div class="col-md-6 p-0">
+        <!-- Informações Usuário -->
+        <div class="card">
+            <div class="row-md-12">
+                <div class="card-header text-center">Informações Usuário</div>
+                <div class="row m-0">
+                    <div class="col-md-5 pt-2 pb-2 pl-0 pr-0">
+                        <div class="card-body text-center">
+                            <img src="https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png"
+                                class="card-img-top" alt="Usuario" style="width: 120px; height: 100px;">
+                        </div>
+                        <h5 class="card-title text-center mt-2">{{setor.usuario["nomeUsuario"]}}</h5>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body text-center p-1 mt-0">
+                            <div class="media text-muted m-2">
+                                <div class="media-body mb-2 border-bottom ">
+                                    <div class="d-flex justify-content-between">
+                                        <strong class="text-gray-dark">
+                                            <p>Setor</p>
+                                        </strong>
+                                        <p>{{setor["descricaoSetor"]}}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between ">
+                                        <strong class="text-gray-dark">
+                                            <p>Cargo</p>
+                                        </strong>
+                                        {{setor.usuario.cargo["nomeCargo"]}}
+                                    </div>
+                                    <div class="d-flex justify-content-between ">
+                                        <strong class="text-gray-dark">
+                                            <p>Escala</p>
+                                        </strong>
+                                        <p>{{setor.usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}}
+                                            {{setor.usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}}
+                                            {{setor.usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}}
+                                            {{setor.usuario.jornada["finalTarde"].split(":")[0]}}:{{usuario.jornada["finalTarde"].split(":")[1]}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media text-muted m-0">
+                                <div class="media-body mb-0 small border-bottom ">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong class="text-gray-dark">
+                                            <p>Banco de Horas:</p>
+                                        </strong>
+                                        <p>54:00</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong class="text-gray-dark">
+                                            <p>Hora Extra 50%: </p>
+                                        </strong>
+                                        <p>12:53</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong class="text-gray-dark">
+                                            <p>Hora Extra 100%: </p>
+                                        </strong>
+                                        <p>08:23</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Informações Usuário Fim -->
+            <!-- Modal Confirma Registro Ponto -->
+            <div class="modal fade" id="ModalRegistroPonto" tabindex="-1" role="dialog"
+                aria-labelledby="ModalRegistroPontoLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                        </div>
+                        <div class="modal-body text-center" style="font-size: 20px;">
+                            Deseja confirmar o registro do ponto?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                            <span class="d-inline-block" data-toggle="modal" data-target="ModalRegistroPonto">
+                                <button type="button" class="btn btn-success btn-sm" (click)="registrarPonto()"
+                                    data-dismiss="modal">Confirmar</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 m-0 p-0" style="background-color: white;">
+        <div class="table-responsive">
+            <!-- Relatório Semanal -->
+            <div class="text-center">
+                <h6 class="pt-1" style="font-size: 15px;">Relatório Semanal</h6>
+                <table class="table table-sm" >
+                    <thead class="thead-light text-center">
+                        <tr>
+                            <th>Data</th>
+                            <th colspan="6">Horarios</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ponto of listaDePontos">
+                            <td>{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
+                            <td *ngFor="let ponto of ponto.values">
+                                {{ponto.horaRegistro}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
