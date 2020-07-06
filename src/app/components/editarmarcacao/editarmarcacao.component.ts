@@ -67,8 +67,8 @@ export class EditarMarcacaoComponent implements OnInit {
       resposta => this.registroPonto = resposta);
   }
 
-  updateRegistroPonto(): void {
-    this.appService.updateRegistroPonto(this.ponto).subscribe(
+  updateRegistroPonto() {
+    this.appService.updateRegistroPonto(this.registroPonto).subscribe(
       success => {
         this.alerta.next(this.mensagemSucessoModalEditar = (`Alteração Realizada com Sucesso.`));
       },

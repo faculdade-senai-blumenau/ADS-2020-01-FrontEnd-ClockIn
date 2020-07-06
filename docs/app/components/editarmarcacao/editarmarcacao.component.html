@@ -1,0 +1,99 @@
+<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
+  <div class="col-md-10 m-0 p-0">
+    <!-- Alerta Erro ao Registrar Ponto -->
+    <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''">{{ mensagemErro }}
+    </ngb-alert>
+    <!-- Alerta Sucesso ao Registrar Ponto -->
+    <ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemSucesso }}
+    </ngb-alert>
+  </div>
+  <div class="col-md-10 m-0 p-0">
+    <div class="card">
+      <div class="row-md-10">
+        <div class="card-header text-center">Editar Marcações
+            <button type="button" id="btnNovo" class="btn btn-primary btn-sm float-right"
+              data-toggle="modal" data-target="#editarMarcacao">Novo</button>
+        </div>
+        </div>
+        <div class="table-responsive">
+          <div class="row ">
+          <div class="card-body text-center ">
+            <!--Table-->
+              <table class="table table-striped" id='TabelaEditarPonto'>
+                <thead class="thead-light text-center">
+                  <tr>
+                    <th>Data</th>
+                    <th colspan="8">Horarios</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let ponto of listaDePontos">
+                    <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
+                    <td class="text-center" *ngFor="let ponto of ponto.values">
+                      <p data-toggle="modal" data-target="#editarMarcacao" (click)="buscarRegistroPontoID()">
+                        {{ponto.horaRegistro}}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        <!--Table-->
+        <!-- Modal -->
+        <div class="modal fade" id="editarMarcacao" tabindex="-1" role="dialog" aria-labelledby="editarMarcacao"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Editar Registro Ponto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-12 col-offset-2">
+                    <div class="modal-container">
+                      <div class="col-sm-12 contact-form ">
+                        <form>
+                          <div class="row">
+                            <div class="col-xs-4 col-md-4 form-group ">
+                              <input [(ngModel)]="registroPonto.idRegistroPonto" class="form-control"
+                                id="idRegistroPonto" name="idRegistroPonto" [value]="registroPonto.idRegistroPonto"
+                                type="number" required="">
+
+                              <input [(ngModel)]="registroPonto.idUsuario" class="form-control" id="idUsuario"
+                                name="idUsuario" [value]="registroPonto.idUsuario" type="number" required="">
+
+                              <input [(ngModel)]="registroPonto.dataRegistro" class="form-control" id="dataRegistro"
+                                name="dataRegistro" [value]="registroPonto.dataRegistro" type="date" required="">
+
+                              <input [(ngModel)]="registroPonto.horaRegistro" class="form-control" id="horaRegistro"
+                                name="horaRegistro" placeholder="Horário" [value]="registroPonto.horaRegistro"
+                                type="datetime" required="" autofocus="">
+
+                              <div class="col-xs-4 col-md-6 form-gr oup">
+                                <input [(ngModel)]="registroPonto.justificaPonto" class="form-control"
+                                  id="justificaPonto" name="justificaPonto" placeholder="Justificativa"
+                                  [value]="registroPonto.justificaPonto" type="number" required="" autofocus="">
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success btn-sm" (click)="updateRegistroPonto()"
+                  data-dismiss="modal">Confirmar</button>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+        </div>
+      </div>
+    </div>
+  </div>
