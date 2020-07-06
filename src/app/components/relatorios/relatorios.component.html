@@ -1,12 +1,30 @@
 <div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
   <div class="col-md-10 m-0 p-0">
     <div class="card">
-      <div class="row-md-10">
-        <div class="card-header text-center">Relatórios</div>
-        <div class="row ">
-          <div class="card-body text-center ">
-          </div>
-        </div>
+      <div class="card-header">
+        <h5 class="card-title text-center">Relatório</h5>
+        <h6 class="card-subtitle text-muted">Relatório de registros de Ponto</h6>
+      </div>
+      <div class="card-body">
+        <table class="table " id='tabelaRelatorio'>
+          <thead class="thead-light text-center">
+            <tr>
+              <th>Data</th>
+              <th colspan="8">Horarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ponto of listaDePontos">
+              <td class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
+              <td class="text-center m-2" *ngFor="let ponto of ponto.values">
+                {{ponto.horaRegistro}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-primary btn float-right" (click)="gerarRelatorio()">Gerar Relatório</button>
       </div>
     </div>
   </div>

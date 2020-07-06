@@ -24,17 +24,16 @@ import { EditarMarcacaoComponent } from './components/editarmarcacao/editarmarca
 import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/aprovacoespendentes.component';
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 
-
-
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent, HomeComponent, RelatoriosComponent,
-    AprovacoesPendentesComponent, CadastrosComponent, EspelhopontoComponent,
-    ParametroComponent, LoaderComponent, PagenotfoundComponent, EditarMarcacaoComponent],
+    ParametroComponent, LoaderComponent, PagenotfoundComponent, EditarMarcacaoComponent, EspelhopontoComponent,
+    AprovacoesPendentesComponent, CadastrosComponent],
 
   imports: [RouterModule, BrowserModule, AppRoutingModule, HttpClientModule,
     ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule],
 
   providers: [
+    { provide: APP_BASE_HREF, useValue: '/' },
     { provide: AppService },
     { provide: DatePipe }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

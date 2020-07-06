@@ -1,10 +1,11 @@
+import { AppComponent } from './../../app.component';
+import { AppService } from 'src/app/app.service';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
-import { HomeService } from './home.service';
-import { Usuario, RegistroPonto, Setor } from './home.model';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { RegistroPonto, Usuario, Setor } from 'src/app/app.model';
 
 @Component({
   selector: 'app-home',
@@ -13,24 +14,12 @@ import * as moment from 'moment';
 })
 export class HomeComponent implements OnInit {
 
-
-  /* Usuario Logado Fixo até a implementação do Login */
-  idUsuarioLogado = 2;
-
   /* Variáveis do Relógio */
   clockHandle;
   relogio: string;
   dataAtual: string;
   dataHoraBatida: Date;
-
-  /* Objeto Usuario - Armazena o usuario retornado do banco*/
   usuario: Usuario;
-
-  /* Objeto RegistroPonto - Armazena a lista de pontos retornada do banco*/
-  registroPonto: any[];
-  ponto: any;
-
-  /* Objeto Setor - Armazena o setor do Usuario retornado do banco*/
   setor: Setor;
 
   /* Variaveis alerta */
@@ -47,47 +36,36 @@ export class HomeComponent implements OnInit {
   disablePonto = '';
   desabilitar = '1';
 
-  /* Lista de Pontos agrupados por data */
-  listaDePontos: any[];
+  urlBase = this.appService.buscarUrlBase();
+  idUsuario = this.appService.buscarUsuario();
 
-  constructor(private homeService: HomeService,
-              private datePipe: DatePipe) {
+  registroPonto: any;
+  listaDePontos: any;
+  ponto: any;
+
+  constructor(private datePipe: DatePipe,
+              private appService: AppService,
+              private appComponent: AppComponent) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
-      this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
+      this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy'); 
       this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
-    });
-
-    setInterval(() => {
-      /* Retorna lista de registros da tabela de pontos */
-      this.homeService.buscarRegistrosPonto(this.idUsuarioLogado).subscribe(
-        resposta => this.registroPonto = resposta);
-
-      /* Filtra a lista de registros */
+      
+      /* Retorna lista de pontos - No Parametro recebe a quantidade de dias que irá retornar*/
       const dataInicialFiltro = moment().subtract(6, 'days').format();
-
-      /* Agrupa os horarios de registro por Data */
-      const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataInicialFiltro)
-        .map(item => item.dataRegistro));
-      this.listaDePontos = [];
-      groups.forEach(g =>
-        this.listaDePontos.push({
-          dataRegistro: g,
-          values: this.registroPonto.filter(i => i.dataRegistro === g)
-        },
-        ));
-    }, 150);
-
-    /* Retorna Usuario pelo ID Usuario*/
-    this.homeService.buscarUsuarioPeloID(this.idUsuarioLogado).subscribe((usuario) => {
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
+    }, 200);
+    
+    /* Retorna Informações do Usuario pelo ID Usuario*/
+    this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
       this.usuario = usuario;
     });
 
-    /* Retorna Setor Usuario pelo ID Usuario*/
-    this.homeService.buscarSetorUsuario(this.idUsuarioLogado).subscribe((setor) => {
+    /* Retorna Setor do Usuario pelo ID Usuario*/
+    this.appService.buscarSetorUsuario(this.idUsuario).subscribe((setor) => {
       this.setor = setor;
     });
 
@@ -107,11 +85,13 @@ export class HomeComponent implements OnInit {
 
   registrarPonto(): void {
     this.ponto = {
-      idUsuario: this.idUsuarioLogado,
-      dataRegistro: new Date(),
-      horaRegistro: this.relogio
+      idUsuario: this.idUsuario,
+      dataRegistro: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+      horaRegistro: this.relogio,
+      justificaPonto: 0,
+      JustificaReprocacao: ''
     };
-    this.homeService.registrarPonto(this.ponto).subscribe(
+    this.appService.registrarPonto(this.ponto).subscribe(
       success => {
         this.dataHoraBatida = new Date();
         this.botaoPonto.next(this.btnPonto = 'success btn-lg');
