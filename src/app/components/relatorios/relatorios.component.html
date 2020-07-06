@@ -5,6 +5,29 @@
         <h5 class="card-title text-center">Relatório</h5>
         <h6 class="card-subtitle text-muted">Relatório de registros de Ponto</h6>
       </div>
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Buttons</h5>
+          <h6 class="card-subtitle text-muted">This extension provides a framework with common options that can be used
+            with DataTables.</h6>
+        </div>
+        <div class="card-body">
+          <table id="datatables-buttons" class="table table-striped" style="width:100%">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Thor Walton</td>
+                <td>Developer</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div class="card-body">
         <table class="table " id='tabelaRelatorio'>
           <thead class="thead-light text-center">
@@ -24,7 +47,8 @@
         </table>
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-primary btn float-right" (click)="gerarRelatorio()">Gerar Relatório</button>
+        <button type="button" class="btn btn-primary btn float-right" (click)="gerarRelatorio()">Gerar
+          Relatório</button>
       </div>
     </div>
   </div>
