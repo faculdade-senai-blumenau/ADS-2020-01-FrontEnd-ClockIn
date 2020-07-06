@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
-import { APP_BASE_HREF, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
@@ -33,7 +33,6 @@ import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.co
     ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule],
 
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/' },
     { provide: AppService },
     { provide: DatePipe }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
