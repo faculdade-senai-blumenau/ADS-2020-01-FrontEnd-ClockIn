@@ -58,6 +58,7 @@ export class AppService {
     const url = `${this.urlBase}/registroPonto/${registroPonto.idRegistroPonto}`;
     return this.http.put<RegistroPonto>(url, registroPonto);
   }
+
   listar() {
     return this.http.get<Array<any>>(`${this.urlBase}/registroPonto/`);
   }
