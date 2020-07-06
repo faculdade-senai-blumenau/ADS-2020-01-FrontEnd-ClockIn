@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
+import { EspelhoPonto } from 'src/app/app.model';
 
 @Component({
   selector: 'app-espelhoponto',
@@ -25,9 +26,13 @@ export class EspelhopontoComponent implements OnInit {
   listaDePontos: any;
   registroPonto: any;
   ponto: any;
-
+  espelhoPonto: any;
+  espelhoPontoObjeto: any;
+  idUsuario = this.appService.buscarUsuario();
   constructor(private appComponent: AppComponent,
-    private appService: AppService) { }
+    private appService: AppService
+    )
+     { }
 
   ngOnInit() {
     this.registroPonto = {};
@@ -37,8 +42,29 @@ export class EspelhopontoComponent implements OnInit {
         this.mensagemErro = '', this.mensagemSucesso = '';
       });
     }, 1000);
-  }
+    this.getEspelhoPonto();
 
+    
+  }
+  getEspelhoPonto(){
+    this.appService.buscarEspelhoPonto().subscribe (
+      resposta => this.espelhoPonto = resposta
+    );
+    
+    
+  }
+  reprovarEspelhoPonto(idEspelho: number, idUsuario: number, dataInicial: any, dataFinal: any) {
+    
+    this.espelhoPontoObjeto.idEspelhoPonto=idEspelho;
+    this.espelhoPontoObjeto.idUsuario=idUsuario;
+    this.espelhoPontoObjeto.dataInicial=dataFinal;
+    this.espelhoPontoObjeto.dataFinal=dataFinal;
+    this.espelhoPontoObjeto.status=2;
+    
+    this.appService.alterarStatusEspelho(this.espelhoPontoObjeto).subscribe(
+      
+    );
+  }
   visualizarEspelhoPonto() {
     this.registroPonto = {};
     this.clockHandle = setInterval(() => {

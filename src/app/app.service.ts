@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegistroPonto, Usuario, Setor } from './app.model';
+import { RegistroPonto, Usuario, Setor, EspelhoPonto } from './app.model';
 import { Observable } from 'rxjs';
+import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AppService {
 
   /* Variáveis */
   urlBase = 'http://localhost:5000';
-  idUsuario = 2
+  idUsuario = 3
 
   /* Retorna a url padrão */
   buscarUrlBase() {
@@ -63,6 +64,15 @@ export class AppService {
   }
   criar(ponto: any) {
     return this.http.post(`${this.urlBase}/registroPonto/`, ponto);
+  }
+
+  buscarEspelhoPonto(){
+    return this.http.get<EspelhoPonto[]>(`${this.urlBase}/espelhoPonto/`);
+  }
+  alterarStatusEspelho(espelhoPonto: EspelhoPonto): Observable<EspelhoPonto>{
+    alert(espelhoPonto.idEspelhoPonto)
+    console.log(espelhoPonto);
+    return this.http.put<EspelhoPonto>(`${this.urlBase}/espelhoPonto/${espelhoPonto.idEspelhoPonto}`,espelhoPonto);
   }
 
 }
