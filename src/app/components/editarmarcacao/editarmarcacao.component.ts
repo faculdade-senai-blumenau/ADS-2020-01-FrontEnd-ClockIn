@@ -34,7 +34,8 @@ export class EditarMarcacaoComponent implements OnInit {
   /* Variaveis */
  
   constructor(private appComponent: AppComponent,
-    private appService: AppService) { }
+    private appService: AppService
+    ) { }
 
   ngOnInit(): void {
     this.ponto = {

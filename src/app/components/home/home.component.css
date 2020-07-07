@@ -1,32 +1,31 @@
 p {
-    margin-bottom: 2px;
+  margin-bottom: 2px;
 }
 
 .row {
-    margin: 0px;
+  margin: 0px;
 }
 
-#TabelaPonto{
-    margin:0 auto;
-    border:0;
-    box-shadow: 0 5px 20px darkgrey;
-    border-spacing: 0;
-  }
-  
-  #TabelaPonto thead th{
-    font-weight: bold;
-    background-color: rgb(82, 79, 79);
-    color:white;
-    
-    padding:3px 3px;
-  }
-  
-  #TabelaPonto tr td{
-    padding:3px 5px;
-    text-align: center;
-    cursor: pointer; 
-  }
-  
-  #TabelaPonto tr td:last-child{
-    text-align: right;
-  }
+#TabelaPonto {
+  margin: 0 auto;
+  border: 0;
+  box-shadow: 0 5px 20px darkgrey;
+  border-spacing: 0;
+}
+
+#TabelaPonto thead th {
+  font-weight: bold;
+  background-color: rgb(82, 79, 79);
+  color: white;
+  padding: 3px 3px;
+}
+
+#TabelaPonto tr td {
+  padding: 3px 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#TabelaPonto tr td:last-child {
+  text-align: right;
+}

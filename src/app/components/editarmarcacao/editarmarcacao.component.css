@@ -25,7 +25,7 @@ p {
     text-align: center;
   }
   
-  #TabelaEditarPonto tr button:hover{
+  #TabelaEditarPonto tr td:hover{
     background-color: rgb(144, 199, 167);
     cursor: pointer;
   }

@@ -10,41 +10,51 @@
           <h5 class="card-title">Buttons</h5>
           <h6 class="card-subtitle text-muted">This extension provides a framework with common options that can be used
             with DataTables.</h6>
+            <kendo-daterange>
+              <kendo-dateinput
+                   class="range-filter"
+                   kendoDateRangeStartInput
+                   [value]="start"
+                   (valueChange)="filterRange($event, end)"
+                   style="width:120px">
+               </kendo-dateinput>
+               -
+               <kendo-dateinput
+                   class="range-filter"
+                   kendoDateRangeEndInput
+                   [value]="end"
+                   (valueChange)="filterRange(start, $event)"
+                   style="width:120px">
+               </kendo-dateinput>
+           </kendo-daterange>
+           <button
+               *ngIf="hasFilter"
+               class="k-button k-button-icon"
+               title="Clear"
+               (click)="clearFilter()">
+               <span class="k-icon k-i-filter-clear"></span>
+           </button>
         </div>
         <div class="card-body">
-          <table id="datatables-buttons" class="table table-striped" style="width:100%">
+          <table id="datatables" class="table table-striped" style="width:100%">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Position</th>
+                <th>Datas</th>
+                <th colspan="8">Horarios</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Thor Walton</td>
-                <td>Developer</td>
+              <tr *ngFor="let ponto of listaDePontos">
+                <td>{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
+                <td *ngFor="let ponto of ponto.values">
+                  {{ponto.horaRegistro}}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="card-body">
-        <table class="table " id='tabelaRelatorio'>
-          <thead class="thead-light text-center">
-            <tr>
-              <th>Data</th>
-              <th colspan="8">Horarios</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let ponto of listaDePontos">
-              <td class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
-              <td class="text-center m-2" *ngFor="let ponto of ponto.values">
-                {{ponto.horaRegistro}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
       <div class="card-footer">
         <button type="button" class="btn btn-primary btn float-right" (click)="gerarRelatorio()">Gerar
