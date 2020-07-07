@@ -1,5 +1,13 @@
 <div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
   <div class="col-md-10 m-0 p-0">
+    <div>
+      <!-- Alerta Erro ao Registrar Ponto -->
+      <ngb-alert *ngIf="mensagemEspelhoErro" id=alert type="danger" (close)="mensagemErro = ''">{{mensagemEspelhoErro}}
+      </ngb-alert>
+      <!-- Alerta Sucesso ao Registrar Ponto -->
+      <ngb-alert *ngIf="mensagemEspelhoOk" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemEspelhoOk }}
+      </ngb-alert>
+  </div>
     <div class="card">
       <div class="row-md-10">
         <div class="card-header text-center">Espelho do Ponto
@@ -41,8 +49,8 @@
           </table>
           <div class="text-center">
             <div *ngFor="let espelho of espelhoPonto">
-              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-success btn-sm  m-2 ">Assinar</button>
-              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-danger btn-sm m-2" (click)="reprovarEspelhoPonto(espelho.idEspelhoPonto, espelho.idUsuario, espelho.dataInicial, espelho.dataFinal)">Reprovar</button>
+              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-success btn-sm  m-2 " (click)="aprovarEspelhoPonto(espelho)">Assinar</button>
+              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-danger btn-sm m-2" (click)="reprovarEspelhoPonto(espelho)">Reprovar</button>
               <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
                 data-target="#editarMarcacaoEspelho" (click)="visualizarEspelhoPonto()">Visualizar</button>
             </div>

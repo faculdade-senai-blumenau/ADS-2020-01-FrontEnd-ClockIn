@@ -21,13 +21,13 @@ export class EspelhopontoComponent implements OnInit {
   mensagem = '';
   mensagemErro = '';
   mensagemSucesso = '';
-
+  mensagemEspelhoOk="";
+  mensagemEspelhoErro="";
   clockHandle;
   listaDePontos: any;
   registroPonto: any;
   ponto: any;
   espelhoPonto: any;
-  espelhoPontoObjeto: any;
   idUsuario = this.appService.buscarUsuario();
   constructor(private appComponent: AppComponent,
     private appService: AppService
@@ -35,11 +35,11 @@ export class EspelhopontoComponent implements OnInit {
      { }
 
   ngOnInit() {
-    this.registroPonto = {};
+    
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
-        this.mensagemErro = '', this.mensagemSucesso = '';
+        this.mensagemEspelhoErro = '', this.mensagemEspelhoOk = '';
       });
     }, 1000);
     this.getEspelhoPonto();
@@ -53,18 +53,35 @@ export class EspelhopontoComponent implements OnInit {
     
     
   }
-  reprovarEspelhoPonto(idEspelho: number, idUsuario: number, dataInicial: any, dataFinal: any) {
+  
+  reprovarEspelhoPonto(espelhoPonto) {
     
-    this.espelhoPontoObjeto.idEspelhoPonto=idEspelho;
-    this.espelhoPontoObjeto.idUsuario=idUsuario;
-    this.espelhoPontoObjeto.dataInicial=dataFinal;
-    this.espelhoPontoObjeto.dataFinal=dataFinal;
-    this.espelhoPontoObjeto.status=2;
-    
-    this.appService.alterarStatusEspelho(this.espelhoPontoObjeto).subscribe(
-      
-    );
+    espelhoPonto.status=2;
+    this.appService.alterarStatusEspelho(espelhoPonto).subscribe (
+      success => {
+        this.alerta.next(this.mensagemEspelhoOk = (`Alteração Realizada com Sucesso.`));
+      },
+      error => {
+        
+        this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel realizar a alteração.'));
+      }
+    )
   }
+  aprovarEspelhoPonto(espelhoPonto) {
+    
+    espelhoPonto.status=1;
+    this.appService.alterarStatusEspelho(espelhoPonto).subscribe (
+      success => {
+        this.alerta.next(this.mensagemEspelhoOk = (`Alteração Realizada com Sucesso.`));
+      },
+      error => {
+        
+        this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel realizar a alteração.'));
+      }
+    )
+  }
+  
+
   visualizarEspelhoPonto() {
     this.registroPonto = {};
     this.clockHandle = setInterval(() => {

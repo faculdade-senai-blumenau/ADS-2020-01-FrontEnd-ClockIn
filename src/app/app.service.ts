@@ -71,9 +71,8 @@ export class AppService {
     return this.http.get<EspelhoPonto[]>(`${this.urlBase}/espelhoPonto/`);
   }
   alterarStatusEspelho(espelhoPonto: EspelhoPonto): Observable<EspelhoPonto>{
-    alert(espelhoPonto.idEspelhoPonto)
-    console.log(espelhoPonto);
-    return this.http.put<EspelhoPonto>(`${this.urlBase}/espelhoPonto/${espelhoPonto.idEspelhoPonto}`,espelhoPonto);
+    const url = `${this.urlBase}/espelhoPonto/${espelhoPonto.idEspelhoPonto}`;
+    return this.http.put<EspelhoPonto>(url,espelhoPonto);
   }
 
 }
