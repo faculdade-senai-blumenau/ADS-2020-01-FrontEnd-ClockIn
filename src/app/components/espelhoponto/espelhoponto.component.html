@@ -2,7 +2,6 @@
 <div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 justify-content-center">
   <div class="col-md-10 m-0 p-0">
     <div>
-      
       <ngb-alert *ngIf="mensagemEspelhoErro" id=alert type="danger" (close)="mensagemErro = ''">{{mensagemEspelhoErro}}
       </ngb-alert>
       
@@ -23,6 +22,7 @@
                 <th>Data Final</th>
                 <th>Horas</th>
                 <th>Dias</th>
+                <th>Ação</th>
               </tr>
             </thead>
             <tbody>
@@ -32,19 +32,15 @@
                 <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">{{espelho.dataFinal | date: 'dd/MM/yyyy'}}</td>
                 <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">220 hs</td>
                 <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">23</td>
-              
-              
+                  <div>
+                    <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-success btn-sm  m-2 " (click)="aprovarEspelhoPonto(espelho)">Assinar</button>
+                    <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-danger btn-sm m-2" (click)="reprovarEspelhoPonto(espelho)">Reprovar</button>
+                    <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
+                      data-target="#editarMarcacaoEspelho" (click)="visualizarEspelhoPonto(espelho)">Visualizar</button>
+                </div>
               </tr>
             </tbody>
           </table>
-          <div class="text-center">
-            <div *ngFor="let espelho of espelhoPonto">
-              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-success btn-sm  m-2 " (click)="aprovarEspelhoPonto(espelho)">Assinar</button>
-              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-danger btn-sm m-2" (click)="reprovarEspelhoPonto(espelho)">Reprovar</button>
-              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
-                data-target="#editarMarcacaoEspelho" (click)="visualizarEspelhoPonto(espelho)">Visualizar</button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
