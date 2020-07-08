@@ -1,10 +1,10 @@
 <div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
   <div class="col-md-10 m-0 p-0">
     <div>
-      <!-- Alerta Erro ao Registrar Ponto -->
+      
       <ngb-alert *ngIf="mensagemEspelhoErro" id=alert type="danger" (close)="mensagemErro = ''">{{mensagemEspelhoErro}}
       </ngb-alert>
-      <!-- Alerta Sucesso ao Registrar Ponto -->
+      
       <ngb-alert *ngIf="mensagemEspelhoOk" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemEspelhoOk }}
       </ngb-alert>
   </div>
@@ -32,18 +32,7 @@
                 <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">220 hs</td>
                 <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">23</td>
               
-                <!--<td>
-                  21/05/2020
-                </td>
-                <td>
-                  21/06/2020
-                </td>
-                <td>
-                  220 hs
-                </td>
-                <td>
-                  23
-                </td>-->
+              
               </tr>
             </tbody>
           </table>
