@@ -41,7 +41,7 @@
               <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-success btn-sm  m-2 " (click)="aprovarEspelhoPonto(espelho)">Assinar</button>
               <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-danger btn-sm m-2" (click)="reprovarEspelhoPonto(espelho)">Reprovar</button>
               <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
-                data-target="#editarMarcacaoEspelho" (click)="visualizarEspelhoPonto()">Visualizar</button>
+                data-target="#editarMarcacaoEspelho" (click)="visualizarEspelhoPonto(espelho)">Visualizar</button>
             </div>
           </div>
         </div>

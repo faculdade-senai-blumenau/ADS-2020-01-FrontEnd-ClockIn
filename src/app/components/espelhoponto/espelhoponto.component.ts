@@ -47,7 +47,7 @@ export class EspelhopontoComponent implements OnInit {
     
   }
   getEspelhoPonto(){
-    this.appService.buscarEspelhoPonto().subscribe (
+    this.appService.buscarEspelhoPonto(this.idUsuario).subscribe (
       resposta => this.espelhoPonto = resposta
     );
     
@@ -82,11 +82,11 @@ export class EspelhopontoComponent implements OnInit {
   }
   
 
-  visualizarEspelhoPonto() {
-    this.registroPonto = {};
+  visualizarEspelhoPonto(espelhoPonto) {
+    
     this.clockHandle = setInterval(() => {
-      const dataInicialFiltro = moment().subtract(30, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
+      
+      this.listaDePontos = this.appComponent.buscarRegistrosPontoRange(espelhoPonto.idUsuario, espelhoPonto.dataInicial, espelhoPonto.dataFinal);
     }, 200);
   }
 }

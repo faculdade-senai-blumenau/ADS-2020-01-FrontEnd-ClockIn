@@ -43,4 +43,18 @@ export class AppComponent implements OnInit {
       ));
       return(this.listaDePontos)
   };
+  buscarRegistrosPontoRange(idUsuario: number,dataInicialFiltro: any,dataFinal:any)  {
+    this.appService.buscarRegistrosPontoUsuarioRange(idUsuario,dataInicialFiltro,dataFinal).subscribe(
+      resposta => this.registroPonto = resposta);
+    const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataInicialFiltro)
+      .map(item => item.dataRegistro));
+    this.listaDePontos = [];
+    groups.forEach(g =>
+      this.listaDePontos.push({
+        dataRegistro: g,
+        values: this.registroPonto.filter(i => i.dataRegistro === g)
+      },
+      ));
+      return(this.listaDePontos)
+  };
 }
