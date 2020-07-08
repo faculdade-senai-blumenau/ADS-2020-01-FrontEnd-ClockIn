@@ -1,22 +1,53 @@
-<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
+<app-nav></app-nav>
+<div class="row md-12 justify-content-center">
   <div class="col-md-10 m-0 p-0">
     <div class="card">
       <div class="card-header">
         <h5 class="card-title text-center">Relatório</h5>
         <h6 class="card-subtitle text-muted">Relatório de registros de Ponto</h6>
       </div>
+      <form>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-3 pb-2 pt-1">
+              <label for="dataInicial">Data Inicial</label>
+              <input [(ngModel)]="dataInicial" class="form-control" id="dataInicial" type="date" name="datasingle"
+                required="">
+            </div>
+            <div class="col-md-3 pb-2 pt-1">
+              <label for="dataFinal">Data Final</label>
+              <input [(ngModel)]="dataFinal" class="form-control" id="dataInicial" type="date" name="datasingle"
+                required="">
+            </div>
+            
+            <div class="col-md-2 pt-4  ">
+              <label for="dataInicial"></label>
+              <button type="button" type="submit" class="btn btn-secondary btn form-control">Imprimir Relatório</button>
+            </div>
+            <div class="col-md-2  pt-4 ">
+              <label for="dataInicial"></label>
+              <button type="button" type="submit" class="btn btn-primary btn form-control" (click)="gerarRelatorio()">Gerar
+                Relatório</button>
+            </div>
+            <div class="col-md-2  pt-4 ">
+              <label for="dataInicial"></label>
+              <button type="button" type="submit" class="btn btn-secondary btn form-control">Limpar Pesquisa</button>
+            </div>
+          </div>
+        </div>
+      </form>
       <div class="card-body">
-        <table class="table " id='tabelaRelatorio'>
-          <thead class="thead-light text-center">
+        <table id="tabelaRelatorio" class="display" cellspacing="0" width="100%">
+          <thead>
             <tr>
-              <th>Data</th>
+              <th>Datas</th>
               <th colspan="8">Horarios</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let ponto of listaDePontos">
-              <td class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
-              <td class="text-center m-2" *ngFor="let ponto of ponto.values">
+              <td>{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
+              <td *ngFor="let ponto of ponto.values">
                 {{ponto.horaRegistro}}
               </td>
             </tr>
@@ -24,7 +55,6 @@
         </table>
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-primary btn float-right" (click)="gerarRelatorio()">Gerar Relatório</button>
       </div>
     </div>
   </div>

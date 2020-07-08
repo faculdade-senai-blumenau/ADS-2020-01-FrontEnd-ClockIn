@@ -1,5 +1,14 @@
-<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
+<app-nav></app-nav>
+<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 justify-content-center">
   <div class="col-md-10 m-0 p-0">
+    <div>
+      
+      <ngb-alert *ngIf="mensagemEspelhoErro" id=alert type="danger" (close)="mensagemErro = ''">{{mensagemEspelhoErro}}
+      </ngb-alert>
+      
+      <ngb-alert *ngIf="mensagemEspelhoOk" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemEspelhoOk }}
+      </ngb-alert>
+  </div>
     <div class="card">
       <div class="row-md-10">
         <div class="card-header text-center">Espelho do Ponto
@@ -17,28 +26,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  21/05/2020
-                </td>
-                <td>
-                  21/06/2020
-                </td>
-                <td>
-                  220 hs
-                </td>
-                <td>
-                  23
-                </td>
+              <tr *ngFor="let espelho of espelhoPonto">
+                
+                <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">{{espelho.dataInicial | date: 'dd/MM/yyyy'}}</td>
+                <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">{{espelho.dataFinal | date: 'dd/MM/yyyy'}}</td>
+                <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">220 hs</td>
+                <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">23</td>
+              
+              
               </tr>
             </tbody>
           </table>
           <div class="text-center">
-            <div>
-              <button class="btn btn-outline-success btn-sm  m-2 ">Assinar</button>
-              <button class="btn btn-outline-danger btn-sm m-2">Reprovar</button>
-              <button class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
-                data-target="#editarMarcacaoEspelho" (click)="visualizarEspelhoPonto()">Visualizar</button>
+            <div *ngFor="let espelho of espelhoPonto">
+              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-success btn-sm  m-2 " (click)="aprovarEspelhoPonto(espelho)">Assinar</button>
+              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-danger btn-sm m-2" (click)="reprovarEspelhoPonto(espelho)">Reprovar</button>
+              <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
+                data-target="#editarMarcacaoEspelho" (click)="visualizarEspelhoPonto(espelho)">Visualizar</button>
             </div>
           </div>
         </div>
@@ -88,4 +92,4 @@
         </div>
       </div>
     </div>
-    <!-- Modal -->
+    <!-- Modal Fim-->

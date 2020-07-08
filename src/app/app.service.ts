@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegistroPonto, Usuario, Setor } from './app.model';
+import { RegistroPonto, Usuario, Setor, EspelhoPonto } from './app.model';
 import { Observable } from 'rxjs';
+import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
+import { stringify } from 'querystring';
+import { formatDate } from '@angular/common';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +20,10 @@ export class AppService {
   }
 
   /* Variáveis */
+
   urlBase = 'http://localhost:5000';
-  idUsuario = 2
+  idUsuario = 2;
+
 
   /* Retorna a url padrão */
   buscarUrlBase() {
@@ -32,6 +38,9 @@ export class AppService {
   /* Retorna a lista de pontos - Recebe como parametro a quantidade de dias a partir da data atual*/
   buscarRegistrosPontoUsuario(idUsuario: number) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/usuario/${idUsuario}`);
+  }
+  buscarRegistrosPontoUsuarioRange(idUsuario: number, dataInicial: any, dataFinal: any) {
+    return this.http.get<RegistroPonto>(`${this.urlBase}/espelhoPonto/periodoPonto?dataInicial=${dataInicial}&dataFinal=${dataFinal}&idUsuario=${idUsuario}`);
   }
 
   buscarUsuarioPeloID(idUsuario: number): Observable<Usuario> {
@@ -64,6 +73,14 @@ export class AppService {
   }
   criar(ponto: any) {
     return this.http.post(`${this.urlBase}/registroPonto/`, ponto);
+  }
+
+  buscarEspelhoPonto(idUsuario: number) {
+    return this.http.get<EspelhoPonto[]>(`${this.urlBase}/espelhoPonto/periodoEspelho?idUsuario=${idUsuario}&status=0`);
+  }
+  alterarStatusEspelho(espelhoPonto: EspelhoPonto): Observable<EspelhoPonto> {
+    const url = `${this.urlBase}/espelhoPonto/${espelhoPonto.idEspelhoPonto}`;
+    return this.http.put<EspelhoPonto>(url, espelhoPonto);
   }
 
 }

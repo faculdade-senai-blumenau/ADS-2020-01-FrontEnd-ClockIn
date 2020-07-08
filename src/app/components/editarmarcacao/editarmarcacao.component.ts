@@ -16,6 +16,7 @@ export class EditarMarcacaoComponent implements OnInit {
   /* Variaveis */
   public alerta = new Subject<string>();
   staticAlertClosed = true;
+
   /* Mensagens */
   mensagem = '';
   mensagemErroModalEditar = '';
@@ -29,28 +30,28 @@ export class EditarMarcacaoComponent implements OnInit {
   listaDePontos: any;
   registroPonto: any;
   ponto: any;
+  /* Variaveis Fim */
 
-  
-  /* Variaveis */
- 
   constructor(private appComponent: AppComponent,
-    private appService: AppService) { }
+    private appService: AppService
+  ) { }
 
   ngOnInit(): void {
+
+
     this.ponto = {
-    idRegistroPonto: '',
-    idUsuario: this.appService.buscarUsuario(),
-    dataRegistro: '',
-    horaRegistro: '',
-    justificaPonto: '',
-    justificativaReprovacao: ''
+      idRegistroPonto: '',
+      idUsuario: this.appService.buscarUsuario(),
+      dataRegistro: '',
+      horaRegistro: '',
+      justificaPonto: '',
+      justificativaReprovacao: ''
     };
 
     this.registroPonto = {};
-    this.clockHandle = setInterval(() => {
-      const dataInicialFiltro = moment().subtract(30, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
-    }, 500);
+    const dataInicialFiltro = moment().subtract(30, 'days').format();
+    this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
+
 
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
@@ -64,7 +65,7 @@ export class EditarMarcacaoComponent implements OnInit {
 
   buscarRegistroPontoID(idRegistroPonto: number) {
     this.appService.buscarRegistroPontoID(idRegistroPonto).subscribe(
-      resposta => this.registroPonto = resposta);
+      resposta => this.ponto = resposta);
   }
 
   updateRegistroPonto() {
@@ -79,7 +80,7 @@ export class EditarMarcacaoComponent implements OnInit {
   }
 
   criar(frm) {
-    this.appService.criar(this.ponto).subscribe(   
+    this.appService.criar(this.ponto).subscribe(
       success => {
         this.alerta.next(this.mensagemSucessoModalCriar = (`Registro Inserido com Sucesso.`));
       },

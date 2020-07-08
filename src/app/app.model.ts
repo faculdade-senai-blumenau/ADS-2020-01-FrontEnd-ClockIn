@@ -48,3 +48,11 @@ export interface Jornada {
     inicioTarde: string;
     finalTarde: string;
 }
+
+export interface EspelhoPonto {
+    idEspelhoPonto: number;
+    idUsuario: number;
+    dataInicial: any;
+    dataFinal: any;
+    status: number;
+}
