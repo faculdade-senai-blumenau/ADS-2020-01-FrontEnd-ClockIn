@@ -1,10 +1,11 @@
-<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
-    <div class="col-md-10 m-0 p-0">
+<app-nav></app-nav>
+<div class="row md-12 justify-content-center">
+    <div class="col-md-10 m-0 p-0" id="alertaHome">
         <!-- Alerta Erro ao Registrar Ponto -->
-        <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''">{{ mensagemErro }}
+        <ngb-alert *ngIf="mensagem" id=alert type="danger" (close)="mensagem = ''">{{ mensagem }}
         </ngb-alert>
         <!-- Alerta Sucesso ao Registrar Ponto -->
-        <ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemSucesso }}
+        <ngb-alert *ngIf="mensagem" id=alert type="success" (close)="mensagem = ''">{{ mensagem }}
             <strong> {{ dataHoraBatida | date: 'dd/MM/yyyy' }}</strong> às
             <strong> {{ dataHoraBatida | date: 'HH:mm:ss' }}</strong>
         </ngb-alert>

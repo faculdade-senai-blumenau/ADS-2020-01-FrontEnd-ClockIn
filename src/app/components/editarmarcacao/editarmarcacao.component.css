@@ -25,8 +25,9 @@ p {
     text-align: center;
   }
   
-  #TabelaEditarPonto tr button:hover{
-    background-color: rgb(144, 199, 167);
+  #TabelaEditarPonto tr td:hover{
+    background-color: rgb(33, 59, 206);
+    color: gainsboro;
     cursor: pointer;
   }
   

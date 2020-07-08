@@ -1,7 +1,25 @@
-html,.container-fluid {
+html, body {
     background-color: rgb(85, 81, 81);
   }
 
 #alert{
     margin: 1px;
+}
+
+
+#alert {
+  display: block;
+  position: fixed;
+  top: 1%;
+  left: 10%;
+  right: 10%;
+  width: 80%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  z-index: 99999
+}
+
+.card {
+  margin-top: 15px;
+  margin-bottom: 50px;
 }

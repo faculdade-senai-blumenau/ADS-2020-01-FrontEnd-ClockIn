@@ -9,6 +9,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
 
+
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { NavComponent } from './components/template/nav/nav.component';
@@ -23,11 +24,12 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditarMarcacaoComponent } from './components/editarmarcacao/editarmarcacao.component';
 import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/aprovacoespendentes.component';
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent, HomeComponent, RelatoriosComponent,
     ParametroComponent, LoaderComponent, PagenotfoundComponent, EditarMarcacaoComponent, EspelhopontoComponent,
-    AprovacoesPendentesComponent, CadastrosComponent],
+    AprovacoesPendentesComponent, CadastrosComponent, LoginComponent],
 
   imports: [RouterModule, BrowserModule, AppRoutingModule, HttpClientModule,
     ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule],

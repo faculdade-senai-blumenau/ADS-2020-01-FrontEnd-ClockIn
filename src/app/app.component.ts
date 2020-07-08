@@ -18,18 +18,18 @@ export class AppComponent implements OnInit {
   urlBase = this.appService.buscarUrlBase();
   idUsuario = this.appService.buscarUsuario();
 
-  dataInicialFiltro: DatePipe
-  
+  dataInicialFiltro: DatePipe;
+
   constructor(private datePipe: DatePipe,
     private appService: AppService) {
-}
+  }
 
   ngOnInit() {
 
   }
 
   /* Retorna lista de registros da tabela de pontos */
-  buscarRegistrosPonto(dataInicialFiltro: string)  {
+  buscarRegistrosPonto(dataInicialFiltro: string) {
     this.appService.buscarRegistrosPontoUsuario(this.idUsuario).subscribe(
       resposta => this.registroPonto = resposta);
     const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataInicialFiltro)
@@ -41,10 +41,11 @@ export class AppComponent implements OnInit {
         values: this.registroPonto.filter(i => i.dataRegistro === g)
       },
       ));
-      return(this.listaDePontos)
-  };
-  buscarRegistrosPontoRange(idUsuario: number,dataInicialFiltro: any,dataFinal:any)  {
-    this.appService.buscarRegistrosPontoUsuarioRange(idUsuario,dataInicialFiltro,dataFinal).subscribe(
+    return (this.listaDePontos);
+  }
+
+  buscarRegistrosPontoRange(idUsuario: number, dataInicialFiltro: any, dataFinal: any) {
+    this.appService.buscarRegistrosPontoUsuarioRange(idUsuario, dataInicialFiltro, dataFinal).subscribe(
       resposta => this.registroPonto = resposta);
     const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataInicialFiltro)
       .map(item => item.dataRegistro));
@@ -55,6 +56,32 @@ export class AppComponent implements OnInit {
         values: this.registroPonto.filter(i => i.dataRegistro === g)
       },
       ));
-      return(this.listaDePontos)
-  };
+    return (this.listaDePontos);
+  }
+
+  /* Retorna lista de registros da tabela de pontos */
+  gerarRelatorio(dataInicial: string, dataFinal: string) {
+    this.appService.buscarRegistrosPontoUsuario(this.idUsuario).subscribe(
+      resposta => this.registroPonto = resposta);
+    const groups = new Set(this.registroPonto
+      .filter(i => i.dataRegistro >= dataInicial && i.dataRegistro <= dataFinal)
+      .map(item => item.dataRegistro));
+    this.listaDePontos = [];
+    groups.forEach(g =>
+      this.listaDePontos.push({
+        dataRegistro: g,
+        values: this.registroPonto.filter(i => i.dataRegistro === g)
+      },
+      ));
+    return (this.listaDePontos);
+  }
+
+  limparRelatorio() {
+    this.appService.buscarRegistrosPontoUsuario(0).subscribe(
+      resposta => this.registroPonto = resposta);
+    console.log(this.listaDePontos);
+    return (this.listaDePontos);
+  }
+
 }
+

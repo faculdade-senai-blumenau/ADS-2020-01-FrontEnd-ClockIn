@@ -1,4 +1,10 @@
 .footer{
-   
     z-index: 0;
+}
+
+.footer {
+    padding: 3px;
+}
+.h5 {
+    font: white;
 }

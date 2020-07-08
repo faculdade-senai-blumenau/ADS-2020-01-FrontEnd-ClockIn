@@ -20,8 +20,10 @@ export class AppService {
   }
 
   /* Variáveis */
+
   urlBase = 'http://localhost:5000';
-  idUsuario = 3
+  idUsuario = 2;
+
 
   /* Retorna a url padrão */
   buscarUrlBase() {
@@ -37,7 +39,7 @@ export class AppService {
   buscarRegistrosPontoUsuario(idUsuario: number) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/usuario/${idUsuario}`);
   }
-  buscarRegistrosPontoUsuarioRange(idUsuario: number,dataInicial: any,dataFinal: any) {
+  buscarRegistrosPontoUsuarioRange(idUsuario: number, dataInicial: any, dataFinal: any) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/espelhoPonto/periodoPonto?dataInicial=${dataInicial}&dataFinal=${dataFinal}&idUsuario=${idUsuario}`);
   }
 
@@ -73,12 +75,12 @@ export class AppService {
     return this.http.post(`${this.urlBase}/registroPonto/`, ponto);
   }
 
-  buscarEspelhoPonto(idUsuario: number){
+  buscarEspelhoPonto(idUsuario: number) {
     return this.http.get<EspelhoPonto[]>(`${this.urlBase}/espelhoPonto/periodoEspelho?idUsuario=${idUsuario}&status=0`);
   }
-  alterarStatusEspelho(espelhoPonto: EspelhoPonto): Observable<EspelhoPonto>{
+  alterarStatusEspelho(espelhoPonto: EspelhoPonto): Observable<EspelhoPonto> {
     const url = `${this.urlBase}/espelhoPonto/${espelhoPonto.idEspelhoPonto}`;
-    return this.http.put<EspelhoPonto>(url,espelhoPonto);
+    return this.http.put<EspelhoPonto>(url, espelhoPonto);
   }
 
 }
