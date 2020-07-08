@@ -26,7 +26,8 @@ p {
   }
   
   #TabelaEditarPonto tr td:hover{
-    background-color: rgb(144, 199, 167);
+    background-color: rgb(33, 59, 206);
+    color: gainsboro;
     cursor: pointer;
   }
   

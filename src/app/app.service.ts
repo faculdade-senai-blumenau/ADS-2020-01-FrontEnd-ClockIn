@@ -16,7 +16,7 @@ export class AppService {
   }
 
   /* Variáveis */
-  urlBase = 'http://localhost:5000';
+  urlBase = 'http://192.168.15.9:5000';
   idUsuario = 2
 
   /* Retorna a url padrão */

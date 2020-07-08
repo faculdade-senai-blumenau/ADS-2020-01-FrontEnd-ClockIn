@@ -6,26 +6,25 @@ p {
   margin: 0px;
 }
 
-#TabelaPonto {
+.table-responsive {
   margin: 0 auto;
   border: 0;
-  box-shadow: 0 5px 20px darkgrey;
-  border-spacing: 0;
 }
 
-#TabelaPonto thead th {
+.table-responsive thead th {
   font-weight: bold;
-  background-color: rgb(82, 79, 79);
   color: white;
-  padding: 3px 3px;
+  padding: 5px 10px;
 }
 
-#TabelaPonto tr td {
-  padding: 3px 5px;
+.table-responsive tr td {
+  padding: 5px 10px;
   text-align: center;
   cursor: pointer;
 }
 
-#TabelaPonto tr td:last-child {
-  text-align: right;
+.card {
+  height: 35vh;
+  margin-bottom: 0px;
 }
+

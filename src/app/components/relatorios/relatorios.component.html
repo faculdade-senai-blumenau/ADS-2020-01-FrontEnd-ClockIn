@@ -1,64 +1,60 @@
-<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 container-fluid justify-content-center">
+<app-nav></app-nav>
+<div class="row md-12 justify-content-center">
   <div class="col-md-10 m-0 p-0">
     <div class="card">
       <div class="card-header">
         <h5 class="card-title text-center">Relatório</h5>
         <h6 class="card-subtitle text-muted">Relatório de registros de Ponto</h6>
       </div>
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Buttons</h5>
-          <h6 class="card-subtitle text-muted">This extension provides a framework with common options that can be used
-            with DataTables.</h6>
-            <kendo-daterange>
-              <kendo-dateinput
-                   class="range-filter"
-                   kendoDateRangeStartInput
-                   [value]="start"
-                   (valueChange)="filterRange($event, end)"
-                   style="width:120px">
-               </kendo-dateinput>
-               -
-               <kendo-dateinput
-                   class="range-filter"
-                   kendoDateRangeEndInput
-                   [value]="end"
-                   (valueChange)="filterRange(start, $event)"
-                   style="width:120px">
-               </kendo-dateinput>
-           </kendo-daterange>
-           <button
-               *ngIf="hasFilter"
-               class="k-button k-button-icon"
-               title="Clear"
-               (click)="clearFilter()">
-               <span class="k-icon k-i-filter-clear"></span>
-           </button>
+      <form>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-3 pb-2 pt-1">
+              <label for="dataInicial">Data Inicial</label>
+              <input [(ngModel)]="dataInicial" class="form-control" id="dataInicial" type="date" name="datasingle"
+                required="">
+            </div>
+            <div class="col-md-3 pb-2 pt-1">
+              <label for="dataFinal">Data Final</label>
+              <input [(ngModel)]="dataFinal" class="form-control" id="dataInicial" type="date" name="datasingle"
+                required="">
+            </div>
+            
+            <div class="col-md-2 pb-2 pt-3  ">
+              <label for="dataInicial"></label>
+              <button type="button" type="submit" class="btn btn-secondary btn form-control">Imprimir Relatório</button>
+            </div>
+            <div class="col-md-2 pb-2  pt-3 ">
+              <label for="dataInicial"></label>
+              <button type="button" type="submit" class="btn btn-primary btn form-control" (click)="gerarRelatorio()">Gerar
+                Relatório</button>
+            </div>
+            <div class="col-md-2 pb-2  pt-3 ">
+              <label for="dataInicial"></label>
+              <button type="button" type="submit" class="btn btn-secondary btn form-control">Limpar Pesquisa</button>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <table id="datatables" class="table table-striped" style="width:100%">
-            <thead>
-              <tr>
-                <th>Datas</th>
-                <th colspan="8">Horarios</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let ponto of listaDePontos">
-                <td>{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
-                <td *ngFor="let ponto of ponto.values">
-                  {{ponto.horaRegistro}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      </form>
       <div class="card-body">
+        <table id="tabelaRelatorio" class="table-striped " style="width:100%">
+          <thead>
+            <tr>
+              <th>Datas</th>
+              <th colspan="8">Horarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ponto of listaDePontos">
+              <td>{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
+              <td *ngFor="let ponto of ponto.values">
+                {{ponto.horaRegistro}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-primary btn float-right" (click)="gerarRelatorio()">Gerar
-          Relatório</button>
       </div>
     </div>
   </div>

@@ -23,11 +23,12 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditarMarcacaoComponent } from './components/editarmarcacao/editarmarcacao.component';
 import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/aprovacoespendentes.component';
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent, HomeComponent, RelatoriosComponent,
     ParametroComponent, LoaderComponent, PagenotfoundComponent, EditarMarcacaoComponent, EspelhopontoComponent,
-    AprovacoesPendentesComponent, CadastrosComponent],
+    AprovacoesPendentesComponent, CadastrosComponent, LoginComponent],
 
   imports: [RouterModule, BrowserModule, AppRoutingModule, HttpClientModule,
     ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule],

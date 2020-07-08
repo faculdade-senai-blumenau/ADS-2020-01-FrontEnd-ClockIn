@@ -46,12 +46,11 @@ export class EditarMarcacaoComponent implements OnInit {
     justificaPonto: '',
     justificativaReprovacao: ''
     };
-
+    
     this.registroPonto = {};
-    this.clockHandle = setInterval(() => {
-      const dataInicialFiltro = moment().subtract(30, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
-    }, 500);
+    const dataInicialFiltro = moment().subtract(30, 'days').format();
+    this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
+
 
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
