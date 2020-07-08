@@ -10,8 +10,6 @@ import { RegistroPonto } from './app.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
-
   listaDePontos: any;
   registroPonto: any;
 
