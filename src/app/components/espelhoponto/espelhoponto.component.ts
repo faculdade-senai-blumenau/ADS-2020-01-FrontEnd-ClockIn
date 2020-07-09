@@ -76,8 +76,10 @@ export class EspelhopontoComponent implements OnInit {
   }
 
   visualizarEspelhoPonto(espelhoPonto) {
-    this.clockHandle = setInterval(() => {
+    
+    
+      
       this.listaDePontos = this.appComponent.buscarRegistrosPontoRange(espelhoPonto.idUsuario, espelhoPonto.dataInicial, espelhoPonto.dataFinal);
-    }, 200);
+    
   }
 }
