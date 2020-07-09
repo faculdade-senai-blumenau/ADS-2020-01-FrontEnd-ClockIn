@@ -6,34 +6,28 @@ p {
   margin: 0px;
 }
 
-.table-responsive {
+.table {
   margin: 0 auto;
   border: 0;
 }
 
-.table-responsive thead th {
+.table thead th {
   font-weight: bold;
-  color: white;
-  padding: 5px 10px;
+  padding: 10px 20px;
 }
 
-.table-responsive tr td {
+.table tr td {
   padding: 5px 10px;
   text-align: center;
   cursor: pointer;
 }
-
 .card {
-  height: 35vh;
   margin-bottom: 0px;
+<<<<<<< HEAD
 }
 
-df-messenger {
-  --df-messenger-bot-message: #878fac;
-  --df-messenger-button-titlebar-color: #df9b56;
-  --df-messenger-chat-background-color: #fafafa;
-  --df-messenger-font-color: white;
-  --df-messenger-send-icon: #878fac;
-  --df-messenger-user-message: #479b3d;
-}
 
+=======
+  min-height: auto;
+}
+>>>>>>> 7ed6c638217e9510185c70963705369442e6c3cc

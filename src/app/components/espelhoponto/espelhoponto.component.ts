@@ -21,8 +21,8 @@ export class EspelhopontoComponent implements OnInit {
   mensagem = '';
   mensagemErro = '';
   mensagemSucesso = '';
-  mensagemEspelhoOk="";
-  mensagemEspelhoErro="";
+  mensagemEspelhoOk = "";
+  mensagemEspelhoErro = "";
   clockHandle;
   listaDePontos: any;
   registroPonto: any;
@@ -30,12 +30,10 @@ export class EspelhopontoComponent implements OnInit {
   espelhoPonto: any;
   idUsuario = this.appService.buscarUsuario();
   constructor(private appComponent: AppComponent,
-    private appService: AppService
-    )
-     { }
+    private appService: AppService) { }
 
   ngOnInit() {
-    
+
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
@@ -44,48 +42,47 @@ export class EspelhopontoComponent implements OnInit {
     }, 1000);
     this.getEspelhoPonto();
 
-    
+
   }
-  getEspelhoPonto(){
-    this.appService.buscarEspelhoPonto(this.idUsuario).subscribe (
+  getEspelhoPonto() {
+    this.appService.buscarEspelhoPonto(this.idUsuario).subscribe(
       resposta => this.espelhoPonto = resposta
     );
-    
-    
   }
-  
+
   reprovarEspelhoPonto(espelhoPonto) {
-    
-    espelhoPonto.status=2;
-    this.appService.alterarStatusEspelho(espelhoPonto).subscribe (
+    espelhoPonto.status = 2;
+    this.appService.alterarStatusEspelho(espelhoPonto).subscribe(
       success => {
         this.alerta.next(this.mensagemEspelhoOk = (`Alteração Realizada com Sucesso.`));
       },
       error => {
-        
         this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel realizar a alteração.'));
       }
     )
   }
+
+
   aprovarEspelhoPonto(espelhoPonto) {
-    
-    espelhoPonto.status=1;
-    this.appService.alterarStatusEspelho(espelhoPonto).subscribe (
+    espelhoPonto.status = 1;
+    this.appService.alterarStatusEspelho(espelhoPonto).subscribe(
       success => {
         this.alerta.next(this.mensagemEspelhoOk = (`Alteração Realizada com Sucesso.`));
       },
       error => {
-        
         this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel realizar a alteração.'));
       }
     )
   }
-  
 
   visualizarEspelhoPonto(espelhoPonto) {
+<<<<<<< HEAD
     
     
       
+=======
+    this.clockHandle = setInterval(() => {
+>>>>>>> 7ed6c638217e9510185c70963705369442e6c3cc
       this.listaDePontos = this.appComponent.buscarRegistrosPontoRange(espelhoPonto.idUsuario, espelhoPonto.dataInicial, espelhoPonto.dataFinal);
     
   }
