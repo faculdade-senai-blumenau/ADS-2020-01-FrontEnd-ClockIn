@@ -2,10 +2,10 @@
 <div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 justify-content-center">
   <div class="col-md-10 m-0 p-0">
     <div>
-      <ngb-alert *ngIf="mensagemEspelhoErro" id=alert type="danger" (close)="mensagemErro = ''">{{mensagemEspelhoErro}}
+      <ngb-alert *ngIf="mensagemEspelhoErro" id=alert type="danger" (close)="mensagemEspelhoErro = ''">{{mensagemEspelhoErro}}
       </ngb-alert>
       
-      <ngb-alert *ngIf="mensagemEspelhoOk" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemEspelhoOk }}
+      <ngb-alert *ngIf="mensagemEspelhoOk" id=alert type="success" (close)="mensagemEspelhoOk = ''">{{ mensagemEspelhoOk }}
       </ngb-alert>
   </div>
     <div class="card">
@@ -33,8 +33,10 @@
                 <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">220 hs</td>
                 <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">23</td>
                   <div>
-                    <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-success btn-sm  m-2 " (click)="aprovarEspelhoPonto(espelho)">Assinar</button>
-                    <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-danger btn-sm m-2" (click)="reprovarEspelhoPonto(espelho)">Reprovar</button>
+                    <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-success btn-sm  m-2 " data-toggle="modal"
+                    [attr.data-target]="'#ModalConfirmarAssinatura' + espelho.idEspelhoPonto">Assinar</button>
+                    <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-danger btn-sm m-2" data-toggle="modal"
+                    [attr.data-target]="'#ModalConfirmarReprovacao' + espelho.idEspelhoPonto">Reprovar</button>
                     <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)" class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
                       data-target="#editarMarcacaoEspelho" (click)="visualizarEspelhoPonto(espelho)">Visualizar</button>
                 </div>
@@ -89,3 +91,47 @@
       </div>
     </div>
     <!-- Modal Fim-->
+    <div *ngFor="let espelho of espelhoPonto">
+      <div class="modal fade" [attr.id]="'ModalConfirmarAssinatura' + espelho.idEspelhoPonto" tabindex="-1" role="dialog"
+                  aria-labelledby="ModalConfirmarAssinaturaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body text-center" style="font-size: 20px;">
+              Deseja confirmar a Assinatura?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                <span class="d-inline-block" data-toggle="modal" data-target="ModalConfirmaOperacao">
+                  <button type="button" class="btn btn-success btn-sm" (click)="aprovarEspelhoPonto(espelho)"
+                data-dismiss="modal">Confirmar</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div *ngFor="let espelho of espelhoPonto">
+      <div class="modal fade" [attr.id]="'ModalConfirmarReprovacao' + espelho.idEspelhoPonto" tabindex="-1" role="dialog"
+                  aria-labelledby="ModalConfirmarReprovacaoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body text-center" style="font-size: 20px;">
+              Deseja confirmar a Reprovação?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                <span class="d-inline-block" data-toggle="modal" data-target="ModalConfirmaOperacao">
+                  <button type="button" class="btn btn-success btn-sm" (click)="reprovarEspelhoPonto(espelho)"
+                data-dismiss="modal">Confirmar</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
