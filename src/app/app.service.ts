@@ -56,7 +56,7 @@ export class AppService {
   }
 
   buscarPontoUsuario(idUsuario: number): Observable<RegistroPonto[]> {
-    return this.http.get<RegistroPonto[]>(`${this.urlBase}/registroPonto/usuario/${this.idUsuario}`);
+    return this.http.get<RegistroPonto[]>(`${this.urlBase}/registroPonto/usuario/${idUsuario}`);
   }
 
   buscarRegistroPontoID(idRegistroPonto: number): Observable<RegistroPonto[]> {

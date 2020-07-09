@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<div class="row md-12 justify-content-center">
+<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 justify-content-center">
     <div class="col-md-10 m-0 p-0" id="alertaHome">
         <!-- Alerta Erro ao Registrar Ponto -->
         <ngb-alert *ngIf="mensagem" id=alert type="danger" (close)="mensagem = ''">{{ mensagem }}
@@ -12,7 +12,7 @@
     </div>
     <!-- Registrar Ponto -->
     <div class="col-md-4 p-0">
-        <div class="card text-center">
+        <div class="card text-center pb-0">
             <div class="card-header">Registrar Ponto</div>
             <div class="card-body p-1">
                 <h3 class="card-text text-muted m-1" style="font-size: 30px;">
