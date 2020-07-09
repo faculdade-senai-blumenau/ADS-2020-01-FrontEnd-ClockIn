@@ -70,18 +70,18 @@
                       <div class="row">
                       <div class="col-md-6 pb-2 pt-1">
                         <label for="dataRegistro">Data Registro</label>
-                      <input [(ngModel)]="ponto.dataRegistro" class="form-control" id="dataRegistro"
+                      <input [(ngModel)]="registroPonto.dataRegistro" class="form-control" id="dataRegistro"
                         name="dataRegistro" [value]="ponto.dataRegistro" type="date" required>
                       </div>
                       <div class="col-md-6 pb-2 pt-1">
                         <label for="horaRegistro">Horário</label>
-                      <input [(ngModel)]="ponto.horaRegistro" class="form-control" id="horaRegistro"
+                      <input [(ngModel)]="registroPonto.horaRegistro" class="form-control" id="horaRegistro"
                         name="horaRegistro" placeholder="Horário" [value]="ponto.horaRegistro" type="datetime"
                         required="true" autofocus="" >
                       </div>
                       <div class="col-md-12">
                         <label for="justificaPonto">Justificativa</label>
-                        <select [(ngModel)]="ponto.justificaPonto"
+                        <select [(ngModel)]="registroPonto.justificaPonto"
                           class="custom-select  form-control" id="justificaPonto"
                           name="justificaPonto" placeholder="Justificativa" type="number"
                           aria-controls="datatables-basic" required>
@@ -158,19 +158,19 @@
                       <div class="row">
                         <div class="col-md-6 pb-2 pt-1">
                         <label for="dataRegistro p-0">Data Registro</label>
-                        <input [(ngModel)]="ponto.dataRegistro" class="form-control" id="dataRegistro"
+                        <input [(ngModel)]="registroPonto.dataRegistro" class="form-control" id="dataRegistro"
                           name="dataRegistro" type="date" required>
                         </div>
                           <div class="col-md-6 pb-2 pt-1">
                         <label for="horaRegistro">Hora Registro</label>
-                        <input [(ngModel)]="ponto.horaRegistro" class="form-control time-mask" id="horaRegistro"
+                        <input [(ngModel)]="registroPonto.horaRegistro" class="form-control time-mask" id="horaRegistro"
                           name="horaRegistro" type="text" required placeholder="00:00" minlength="5" maxlength="5"
                           autocomplete="on">
                         </div>
                       </div>
                       <div class="col-md-12 pt-1">
                         <label for="justificaPonto">Justificativa</label>
-                        <select [(ngModel)]="ponto.justificaPonto"
+                        <select [(ngModel)]="registroPonto.justificaPonto"
                           class="custom-select  form-control" id="justificaPonto"
                           name="justificaPonto" placeholder="Justificativa" type="number"
                           aria-controls="datatables-basic" required>

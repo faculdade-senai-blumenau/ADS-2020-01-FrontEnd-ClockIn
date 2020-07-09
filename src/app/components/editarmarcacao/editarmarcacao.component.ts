@@ -38,6 +38,7 @@ export class EditarMarcacaoComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.registroPonto = {};
 
     this.ponto = {
       idRegistroPonto: '',
@@ -48,10 +49,10 @@ export class EditarMarcacaoComponent implements OnInit {
       justificativaReprovacao: ''
     };
 
-    this.registroPonto = {};
-    const dataInicialFiltro = moment().subtract(30, 'days').format();
-    this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
-
+    this.clockHandle = setInterval(() => {
+      const dataInicialFiltro = moment().subtract(30, 'days').format();
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
+    }, 1000);
 
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
@@ -65,7 +66,7 @@ export class EditarMarcacaoComponent implements OnInit {
 
   buscarRegistroPontoID(idRegistroPonto: number) {
     this.appService.buscarRegistroPontoID(idRegistroPonto).subscribe(
-      resposta => this.ponto = resposta);
+      resposta => this.registroPonto = resposta);
   }
 
   updateRegistroPonto() {
