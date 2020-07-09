@@ -1,37 +1,61 @@
 <app-nav></app-nav>
-<div class="row md-12 pt-1 pl-0 pr-0 pb-3 mb-2 mb-2 justify-content-center">
-  <div class="col-md-10 m-0 p-0">
-    <div class="card">
-      <div class="row-md-10">
-        <div class="card-header text-center">Cadastros</div>
-        <div class="row ">
-          <div class="card-body text-center ">
-            <div class="col-12 col-lg-12">
-							<div class="tab">
-								<ul class="nav nav-tabs" role="tablist">
-									<li (click)="buscarUsuarios()" class="nav-item"><a class="nav-link active" href="#tab-1" data-toggle="tab" role="tab" aria-selected="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Usuários</font></font></a></li>
-									<li class="nav-item"><a class="nav-link" href="#tab-2" data-toggle="tab" role="tab" aria-selected="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Empresa</font></font></a></li>
-									<li class="nav-item"><a class="nav-link" href="#tab-3" data-toggle="tab" role="tab" aria-selected="true"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Setores</font></font></a></li>
-								</ul>
-								<div class="tab-content">
-									<div class="tab-pane active" id="tab-1" role="tabpanel">
-										<div class="col-md-12 m-0 p-0 justify-content-center">
-                      <div class="card">
-                        <div class="text-center mt-3">Cadastro de Usuários
-                        </div>
-                        <div class="table-responsive table-striped">
-                          <div class="row ">
-                            <div class="card-body text-center ">
-                              <!--Table-->
-                              <table class="table " id='TabelaEditarPonto'>
-                                <thead class="thead-light text-center">
-                                  <tr>
-                                    <th>Data</th>
-                                    <th colspan="8">Horarios</th>
-                                  </tr>
-                                </thead>
- <!--                                <tbody>
-                                  <tr *ngFor="let ponto of listaDePontos">
+<div class="wrapper">
+  <div class="main">
+    <main class="content">
+      <div class="container p-0">
+        <div class="header pt-5 mb-3">
+          <h1 class="header-title">Cadastros</h1>
+        </div>
+        <div class="row">
+          <div class="col-12 col-lg-12 col-xxl-6 pb-5">
+            <div class="card flex-fill">
+              <div class="card-header">
+                <h5 class="card-title">Cadastros</h5>
+                <h6 class="card-subtitle text-muted">Cadastros Gerais do Sistema.
+                </h6>
+              </div>
+              <div class="card-body text-center ">
+                <div class="col-12 col-lg-12">
+                  <div class="tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li (click)="buscarUsuarios()" class="nav-item"><a class="nav-link active" href="#tab-1"
+                          data-toggle="tab" role="tab" aria-selected="false">
+                          <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">Usuários</font>
+                          </font>
+                        </a></li>
+                      <li class="nav-item"><a class="nav-link" href="#tab-2" data-toggle="tab" role="tab"
+                          aria-selected="false">
+                          <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">Empresa</font>
+                          </font>
+                        </a></li>
+                      <li class="nav-item"><a class="nav-link" href="#tab-3" data-toggle="tab" role="tab"
+                          aria-selected="true">
+                          <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">Setores</font>
+                          </font>
+                        </a></li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab-1" role="tabpanel">
+                        <div class="col-md-12 m-0 p-0 justify-content-center">
+                          <div class="card">
+                            <div class="text-center mt-3">Cadastro de Usuários
+                            </div>
+                            <div class="table-responsive table-striped">
+                              <div class="row ">
+                                <div class="card-body text-center ">
+                                  <!--Table-->
+                                  <table class="table " id='TabelaEditarPonto'>
+                                    <thead class="thead-light text-center">
+                                      <tr>
+                                        <th>Data</th>
+                                        <th colspan="8">Horarios</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+  <!--                                 <tr *ngFor="let ponto of listaDePontos">
                                     <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
                                     <td class="text-center m-2" *ngFor="let ponto of ponto.values">
                                        <p data-toggle="modal" data-target="#editarMarcacao"
@@ -39,36 +63,36 @@
                                         {{ponto.horaRegistro}}
                                     </p>
                                     </td>
-                                  </tr>
-                                </tbody> -->
-                              </table>
+                                  </tr> -->
+                                </tbody> 
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="card-footer">
+                              <button type="button" id="btnNovo" class="btn btn-primary btn float-right"
+                                data-toggle="modal" data-target="#inserirMarcacao">Novo</button>
                             </div>
                           </div>
                         </div>
-                        <div class="card-footer">
-                          <button type="button" id="btnNovo" class="btn btn-primary btn float-right" data-toggle="modal"
-                            data-target="#inserirMarcacao">Novo</button>
-                        </div>
                       </div>
-                    </div>
-                  </div>
-                    <div class="tab-pane" id="tab-2" role="tabpanel">
-                      <div class="col-md-12 m-0 p-0 justify-content-center">
-                        <div class="card">
-                          <div class="text-center mt-3">Cadastro da Empresa
-                          </div>
-                          <div class="table-responsive table-striped">
-                            <div class="row ">
-                              <div class="card-body text-center ">
-                                <!--Table-->
-                                <table class="table " id='TabelaEditarPonto'>
-                                  <thead class="thead-light text-center">
-                                    <tr>
-                                      <th>Data</th>
-                                      <th colspan="8">Horarios</th>
-                                    </tr>
-                                  </thead>
-<!--                                   <tbody>
+                      <div class="tab-pane" id="tab-2" role="tabpanel">
+                        <div class="col-md-12 m-0 p-0 justify-content-center">
+                          <div class="card">
+                            <div class="text-center mt-3">Cadastro da Empresa
+                            </div>
+                            <div class="table-responsive table-striped">
+                              <div class="row ">
+                                <div class="card-body text-center ">
+                                  <!--Table-->
+                                  <table class="table " id='TabelaEditarPonto'>
+                                    <thead class="thead-light text-center">
+                                      <tr>
+                                        <th>Data</th>
+                                        <th colspan="8">Horarios</th>
+                                      </tr>
+                                    </thead>
+                                    <!--                                   <tbody>
                                     <tr *ngFor="let ponto of listaDePontos">
                                       <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
                                       <td class="text-center m-2" *ngFor="let ponto of ponto.values">
@@ -79,33 +103,34 @@
                                       </td>
                                     </tr>
                                   </tbody> -->
-                                </table>
+                                  </table>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="card-footer">
-                            <button type="button" id="btnNovo" class="btn btn-primary btn float-right" data-toggle="modal"
-                              data-target="#inserirMarcacao">Novo</button>
+                            <div class="card-footer">
+                              <button type="button" id="btnNovo" class="btn btn-primary btn float-right"
+                                data-toggle="modal" data-target="#inserirMarcacao">Novo</button>
+                            </div>
                           </div>
                         </div>
-                      </div></div>
-                    <div class="tab-pane" id="tab-3" role="tabpanel">
-                      <div class="col-md-12 m-0 p-0 justify-content-center">
-                        <div class="card">
-                          <div class="text-center mt-3">Cadastro de Setores
-                          </div>
-                          <div class="table-responsive table-striped">
-                            <div class="row ">
-                              <div class="card-body text-center ">
-                                <!--Table-->
-                                <table class="table " id='TabelaEditarPonto'>
-                                  <thead class="thead-light text-center">
-                                    <tr>
-                                      <th>Data</th>
-                                      <th colspan="8">Horarios</th>
-                                    </tr>
-                                  </thead>
-       <!--                            <tbody>
+                      </div>
+                      <div class="tab-pane" id="tab-3" role="tabpanel">
+                        <div class="col-md-12 m-0 p-0 justify-content-center">
+                          <div class="card">
+                            <div class="text-center mt-3">Cadastro de Setores
+                            </div>
+                            <div class="table-responsive table-striped">
+                              <div class="row ">
+                                <div class="card-body text-center ">
+                                  <!--Table-->
+                                  <table class="table " id='TabelaEditarPonto'>
+                                    <thead class="thead-light text-center">
+                                      <tr>
+                                        <th>Data</th>
+                                        <th colspan="8">Horarios</th>
+                                      </tr>
+                                    </thead>
+                                    <!--                            <tbody>
                                     <tr *ngFor="let ponto of listaDePontos">
                                       <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
                                       <td class="text-center m-2" *ngFor="let ponto of ponto.values">
@@ -116,22 +141,25 @@
                                       </td>
                                     </tr>
                                   </tbody> -->
-                                </table>
+                                  </table>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="card-footer">
-                            <button type="button" id="btnNovo" class="btn btn-primary btn float-right" data-toggle="modal"
-                              data-target="#inserirMarcacao">Novo</button>
+                            <div class="card-footer">
+                              <button type="button" id="btnNovo" class="btn btn-primary btn float-right"
+                                data-toggle="modal" data-target="#inserirMarcacao">Novo</button>
+                            </div>
                           </div>
                         </div>
-                      </div></div>
-								</div>
-							</div>
-						</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   </div>
 </div>
