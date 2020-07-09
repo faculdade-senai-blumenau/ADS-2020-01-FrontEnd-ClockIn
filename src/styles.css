@@ -1,7 +1,3 @@
-html, body {
-    background-color: rgb(85, 81, 81);
-  }
-
 #alert{
     margin: 1px;
 }
@@ -19,7 +15,3 @@ html, body {
   z-index: 99999
 }
 
-.card {
-  margin-top: 15px;
-  margin-bottom: 50px;
-}
