@@ -1,32 +1,28 @@
 p {
-    margin-bottom: 2px;
+  margin-bottom: 2px;
 }
 
 .row {
-    margin: 0px;
+  margin: 0px;
 }
 #tabelaEspelhoPonto, #editarMarcacaoEspelho{
-    box-shadow: 0 2px 5px darkgrey;
-  }
+  box-shadow: 0 2px 5px darkgrey;
+}
 
-  #tabelaEspelhoPonto thead th, #editarMarcacaoEspelho thead th{
-    background-color: rgb(82, 79, 79);
-    color:white;
-    padding:5px 10px;
-  }
-  
-  #tabelaEspelhoPonto tr td, #editarMarcacaoEspelho tr td{
-    padding: 3px 5px;
-    text-align: center;
-    
-  }
-  #editarMarcacaoEspelho tr td{
-    padding: 0px;
-    text-align: center;
-  }
+#tabelaEspelhoPonto thead th, #editarMarcacaoEspelho thead th{
+  padding: 8px 12px;
+}
 
-  .card-body {
-      padding: 10px;
-  }
+#tabelaEspelhoPonto tr td, #editarMarcacaoEspelho tr td{
+  padding: 3px 5px;
+  text-align: center;
   
-  
+}
+#editarMarcacaoEspelho tr td{
+  padding: 0px;
+  text-align: center;
+}
+
+.card-body {
+    padding: 10px;
+}

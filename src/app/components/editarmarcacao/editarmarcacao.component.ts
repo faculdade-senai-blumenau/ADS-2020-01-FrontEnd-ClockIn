@@ -52,7 +52,7 @@ export class EditarMarcacaoComponent implements OnInit {
     this.clockHandle = setInterval(() => {
       const dataInicialFiltro = moment().subtract(30, 'days').format();
       this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
-    }, 1000);
+    }, 500);
 
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
