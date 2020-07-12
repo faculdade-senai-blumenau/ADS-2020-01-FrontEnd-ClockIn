@@ -23,6 +23,6 @@ p {
   text-align: center;
 }
 
-.card-body {
-    padding: 10px;
+.card{
+  box-shadow: 0 1px 3px rgb(65, 64, 64);
 }

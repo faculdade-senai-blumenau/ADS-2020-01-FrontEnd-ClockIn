@@ -1,12 +1,12 @@
 <app-nav></app-nav>
 <!-- Alertas -->
 <!-- Alerta Erro ao Registrar Ponto -->
-<ngb-alert *ngIf="mensagemErroModalEditar" id=alert type="danger" (close)="mensagemErroModalEditar = ''">
-  {{ mensagemErroModalEditar }}
+<ngb-alert *ngIf="mensagemSucesso" id=alert type="success" 
+(close)="mensagemSucesso = ''"> {{ mensagemSucesso }}
 </ngb-alert>
 <!-- Alerta Sucesso ao Registrar Ponto -->
-<ngb-alert *ngIf="mensagemSucessoModalEditar" id=alert type="success" (close)="mensagemSucessoModalEditar = ''">
-  {{ mensagemSucessoModalEditar }}
+<ngb-alert *ngIf="mensagemErro" id=alert type="danger"
+ (close)="mensagemErro = ''"> {{ mensagemErro }}
 </ngb-alert>
 <div class="wrapper">
   <div class="main">
@@ -39,7 +39,7 @@
                         <td class="text-center m-2" *ngFor="let ponto of ponto.values">
                           <p data-toggle="modal" data-target="#editarMarcacao"
                             (click)="buscarRegistroPontoID(ponto.idRegistroPonto)">
-                            {{ponto.horaRegistro}}
+                            {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
                           </p>
                         </td>
                       </tr>
@@ -90,12 +90,7 @@
                                         <select [(ngModel)]="registroPonto.justificaPonto"
                                           class="custom-select  form-control" id="justificaPonto" name="justificaPonto"
                                           placeholder="Justificativa" type="number" aria-controls="datatables-basic"
-                                          required>
-                                          <option value="">
-                                            <font style="vertical-align: inherit;">
-                                              <font style="vertical-align: inherit;">Selecione...</font>
-                                            </font>
-                                          </option>
+                                          required placeholder="Selecione..." >
                                           <option value="1">
                                             <font style="vertical-align: inherit;">
                                               <font style="vertical-align: inherit;">Esquecimento</font>
@@ -144,18 +139,6 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <!-- Alertas -->
-                      <div class="col-md-12 m-0 p-0">
-                        <!-- Alerta Erro ao Registrar Ponto -->
-                        <ngb-alert *ngIf="mensagemErroModalCriar" id=alert type="danger"
-                          (close)="mensagemErroModalCriar = ''">{{ mensagemErroModalCriar }}
-                        </ngb-alert>
-                        <!-- Alerta Sucesso ao Registrar Ponto -->
-                        <ngb-alert *ngIf="mensagemSucessoModalCriar" id=alert type="success"
-                          (close)="mensagemSucessoModalCriar = ''">
-                          {{ mensagemSucessoModalCriar }}
-                        </ngb-alert>
-                      </div>
                       <div class="row">
                         <div class="col-md-12 p-0">
                           <div class="modal-container">

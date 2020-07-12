@@ -24,5 +24,8 @@ p {
 .card {
   margin-bottom: 10px;
 }
+.card{
+  box-shadow: 0 1px 3px rgb(88, 88, 88);
+}
 
 

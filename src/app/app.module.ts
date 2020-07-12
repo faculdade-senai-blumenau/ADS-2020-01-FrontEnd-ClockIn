@@ -10,6 +10,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
 
 
+
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { NavComponent } from './components/template/nav/nav.component';
@@ -25,13 +26,15 @@ import { EditarMarcacaoComponent } from './components/editarmarcacao/editarmarca
 import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/aprovacoespendentes.component';
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 import { LoginComponent } from './components/login/login.component';
+import { DataTablesModule } from 'angular-datatables';
+
 
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent, HomeComponent, RelatoriosComponent,
     ParametroComponent, LoaderComponent, PagenotfoundComponent, EditarMarcacaoComponent, EspelhopontoComponent,
     AprovacoesPendentesComponent, CadastrosComponent, LoginComponent],
 
-  imports: [RouterModule, BrowserModule, AppRoutingModule, HttpClientModule,
+  imports: [RouterModule, BrowserModule, AppRoutingModule, HttpClientModule, DataTablesModule,
     ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule],
 
   providers: [

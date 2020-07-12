@@ -27,10 +27,10 @@ export class AppComponent implements OnInit {
   }
 
   /* Retorna lista de registros da tabela de pontos */
-  buscarRegistrosPonto(dataInicialFiltro: string) {
+  buscarRegistrosPonto(dataFiltro: string) {
     this.appService.buscarRegistrosPontoUsuario(this.idUsuario).subscribe(
       resposta => this.registroPonto = resposta);
-    const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataInicialFiltro)
+    const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataFiltro)
       .map(item => item.dataRegistro));
     this.listaDePontos = [];
     groups.forEach(g =>
@@ -42,10 +42,11 @@ export class AppComponent implements OnInit {
     return (this.listaDePontos);
   }
 
-  buscarRegistrosPontoRange(idUsuario: number, dataInicialFiltro: any, dataFinal: any) {
-    this.appService.buscarRegistrosPontoUsuarioRange(idUsuario, dataInicialFiltro, dataFinal).subscribe(
+  buscarRegistrosPontoRange(idUsuario: number, dataInicial: any, dataFinal: any) {
+    this.appService.buscarRegistrosPontoUsuarioRange(idUsuario, dataInicial, dataFinal).subscribe(
       resposta => this.registroPonto = resposta);
-    const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataInicialFiltro)
+    const groups = new Set(this.registroPonto
+      .filter(i => i.dataRegistro >= dataInicial && i.dataRegistro <= dataFinal)
       .map(item => item.dataRegistro));
     this.listaDePontos = [];
     groups.forEach(g =>

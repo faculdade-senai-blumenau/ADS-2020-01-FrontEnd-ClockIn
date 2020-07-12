@@ -1,17 +1,24 @@
-#alert{
-    margin: 1px;
+body {
+  margin: 0;
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  background-color: #d6dbe4;
 }
-
 
 #alert {
   display: block;
   position: fixed;
-  top: 1%;
-  left: 10%;
-  right: 10%;
+  top: 4%;
+  left: 8%;
+  right: 15%;
   width: 80%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  z-index: 99999
+  margin: 25px;
+  font-size: large;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  z-index: 99999;
+  align-items: center
 }
 

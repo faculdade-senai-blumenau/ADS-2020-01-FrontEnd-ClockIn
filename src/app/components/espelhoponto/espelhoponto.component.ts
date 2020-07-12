@@ -6,6 +6,9 @@ import * as moment from 'moment';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
 import { EspelhoPonto } from 'src/app/app.model';
+import html2canvas from 'html2canvas';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable' ;
 
 @Component({
   selector: 'app-espelhoponto',
@@ -42,7 +45,6 @@ export class EspelhopontoComponent implements OnInit {
     }, 1000);
     this.getEspelhoPonto();
 
-
   }
   getEspelhoPonto() {
     this.appService.buscarEspelhoPonto(this.idUsuario).subscribe(
@@ -76,10 +78,36 @@ export class EspelhopontoComponent implements OnInit {
   }
 
   visualizarEspelhoPonto(espelhoPonto) {
-    
-    
-      
       this.listaDePontos = this.appComponent.buscarRegistrosPontoRange(espelhoPonto.idUsuario, espelhoPonto.dataInicial, espelhoPonto.dataFinal);
-    
+  }
+
+  imprimirEspelho(idTabela) {
+    const html_source = document.getElementById(idTabela); 
+    const filename = 'RelatorioPonto.pdf';
+    html2canvas(html_source).then(function (canvas) {
+      let imgData = canvas.toDataURL('image/png');
+      let imgWidth = 208;
+      let pageHeight = 280; 
+      let imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+      let pdf = new jsPDF('p', 'mm');
+      let fix_imgWidth = 15; 
+      let fix_imgHeight = 15;
+      pdf.text("Espelho do Ponto", 75, 15);
+      pdf.text(this.listaDePontos.nome, 75, 15);
+
+      pdf.setFontSize(20);
+      pdf.addImage(imgData, 'PNG', 0, 30, imgWidth, imgHeight)
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth + fix_imgWidth, imgHeight + fix_imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save(filename);
+    })
   }
 }

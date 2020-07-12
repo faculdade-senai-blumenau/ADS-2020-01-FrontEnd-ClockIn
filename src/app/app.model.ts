@@ -50,7 +50,7 @@ export interface Jornada {
 }
 
 export interface EspelhoPonto {
-    idEspelhoPonto: number;
+    idEspelhoPonto?: number;
     idUsuario: number;
     dataInicial: any;
     dataFinal: any;

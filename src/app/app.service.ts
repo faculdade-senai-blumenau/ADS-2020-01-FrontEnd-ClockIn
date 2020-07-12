@@ -78,6 +78,7 @@ export class AppService {
   buscarEspelhoPonto(idUsuario: number) {
     return this.http.get<EspelhoPonto[]>(`${this.urlBase}/espelhoPonto/periodoEspelho?idUsuario=${idUsuario}&status=0`);
   }
+  
   alterarStatusEspelho(espelhoPonto: EspelhoPonto): Observable<EspelhoPonto> {
     const url = `${this.urlBase}/espelhoPonto/${espelhoPonto.idEspelhoPonto}`;
     return this.http.put<EspelhoPonto>(url, espelhoPonto);

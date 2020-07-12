@@ -50,7 +50,8 @@
                         <div class="card flex-fill">
                             <div class="card-header">
                                 <h5 class="card-title">Informações Usuário</h5>
-                                <h6 class="card-subtitle text-muted">Confira aqui algumas informações básicas do seu cadastro.</h6>
+                                <h6 class="card-subtitle text-muted">Confira aqui algumas informações básicas do seu
+                                    cadastro.</h6>
                             </div>
                             <div class="card-body text-center ">
                                 <div class="row m-0">
@@ -160,7 +161,7 @@
                                             <tr *ngFor="let ponto of listaDePontos">
                                                 <td>{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
                                                 <td *ngFor="let ponto of ponto.values">
-                                                    {{ponto.horaRegistro}}
+                                                    {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -79,9 +79,9 @@
                       <div class="modal-container">
                         <div class="table-responsive table-striped">
                           <div class="row ">
-                            <div class="card-body text-center ">
+                            <div class="card-body text-center" id='imprimirEspelho'>
                               <!--Table-->
-                              <table class="table" id='TabelaEditarPonto'>
+                              <table class="table" >
                                 <thead class="thead-light text-center">
                                   <tr>
                                     <th>Data</th>
@@ -92,7 +92,7 @@
                                   <tr *ngFor="let ponto of listaDePontos">
                                     <td class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
                                     <td class="text-center" *ngFor="let ponto of ponto.values">
-                                      {{ponto.horaRegistro}}
+                                      {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
                                     </td>
                                   </tr>
                                 </tbody>
@@ -103,7 +103,8 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fechar</button>
+                      <button (click)="imprimirEspelho('imprimirEspelho')"type="button" class="btn btn-secondary">Imprimir</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                     </div>
                   </div>
                 </div>

@@ -5,22 +5,22 @@ p {
 .row {
   margin: 0px;
 }
-#tabelaRelatorio{
-  box-shadow: 0 2px 5px darkgrey;
-}
 
 #tabelaRelatorio thead th{
   padding: 8px 12px;
 }
 
 #tabelaRelatorio tr td {
-  padding: 3px 5px;
+  padding: 2px 4px;
   text-align: center;
   
 }
 
 .card-body {
     padding: 10px;
+}
+.card{
+  box-shadow: 0 1px 3px rgb(41, 40, 40);
 }
 
 

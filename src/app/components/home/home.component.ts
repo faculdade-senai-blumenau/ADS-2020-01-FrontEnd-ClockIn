@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
-import { RegistroPonto, Usuario, Setor } from 'src/app/app.model';
+import { Usuario, Setor } from 'src/app/app.model';
 
 @Component({
   selector: 'app-home',
@@ -52,7 +52,6 @@ export class HomeComponent implements OnInit {
     this.clockHandle = setInterval(() => {
       const dataInicialFiltro = moment().subtract(6, 'days').format();
       this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
-      console.log(this.listaDePontos)
     }, 200);
 
     /* Retorna a data e hora atual */

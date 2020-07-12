@@ -19,12 +19,8 @@ export class EditarMarcacaoComponent implements OnInit {
 
   /* Mensagens */
   mensagem = '';
-  mensagemErroModalEditar = '';
-  mensagemSucessoModalEditar = '';
-  mensagemErroModalCriar = '';
-  mensagemSucessoModalCriar = '';
-  mensagemErro = '';
   mensagemSucesso = '';
+  mensagemErro = '';
 
   clockHandle;
   listaDePontos: any;
@@ -57,9 +53,7 @@ export class EditarMarcacaoComponent implements OnInit {
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
-        this.mensagemErroModalCriar = '', this.mensagemSucessoModalCriar = '';
-        this.mensagemErroModalEditar = '', this.mensagemSucessoModalEditar = '';
-        this.mensagemErro = '', this.mensagemSucesso = '';
+        this.mensagem='', this.mensagemErro='', this.mensagemSucesso=''
       });
     }, 1000);
   }
@@ -72,10 +66,10 @@ export class EditarMarcacaoComponent implements OnInit {
   updateRegistroPonto() {
     this.appService.updateRegistroPonto(this.registroPonto).subscribe(
       success => {
-        this.alerta.next(this.mensagemSucessoModalEditar = (`Alteração Realizada com Sucesso.`));
+        this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
       },
       error => {
-        this.alerta.next(this.mensagemErroModalEditar = ('Não foi possivel realizar a alteração.'));
+        this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
       }
     );
   }
@@ -83,10 +77,10 @@ export class EditarMarcacaoComponent implements OnInit {
   criar(frm) {
     this.appService.criar(this.ponto).subscribe(
       success => {
-        this.alerta.next(this.mensagemSucessoModalCriar = (`Registro Inserido com Sucesso.`));
+        this.alerta.next(this.mensagemSucesso = (`Registro Inserido com Sucesso.`));
       },
       error => {
-        this.alerta.next(this.mensagemErroModalCriar = 'Não foi possível inserir o registro.');
+        this.alerta.next(this.mensagemErro= 'Não foi possível inserir o registro.');
       }
     );
     frm.reset();

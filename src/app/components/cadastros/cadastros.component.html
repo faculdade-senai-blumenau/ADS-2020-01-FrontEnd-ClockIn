@@ -14,143 +14,57 @@
                 <h6 class="card-subtitle text-muted">Cadastros Gerais do Sistema.
                 </h6>
               </div>
-              <div class="card-body text-center ">
+              <div class="card-body text-center pr-0 pl-0">
                 <div class="col-12 col-lg-12">
-                  <div class="tab">
+                  <div class="tab tab-primary">
                     <ul class="nav nav-tabs" role="tablist">
-                      <li (click)="buscarUsuarios()" class="nav-item"><a class="nav-link active" href="#tab-1"
-                          data-toggle="tab" role="tab" aria-selected="false">
-                          <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">Usuários</font>
-                          </font>
-                        </a></li>
-                      <li class="nav-item"><a class="nav-link" href="#tab-2" data-toggle="tab" role="tab"
-                          aria-selected="false">
-                          <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">Empresa</font>
-                          </font>
-                        </a></li>
-                      <li class="nav-item"><a class="nav-link" href="#tab-3" data-toggle="tab" role="tab"
-                          aria-selected="true">
-                          <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">Setores</font>
-                          </font>
-                        </a></li>
+                      <li class="nav-item"><a class="nav-link active" href="#primary-tab-1" data-toggle="tab" role="tab" aria-selected="true">Home</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#primary-tab-2" data-toggle="tab" role="tab" aria-selected="false">Profile</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#primary-tab-3" data-toggle="tab" role="tab" aria-selected="false">Messages</a></li>
                     </ul>
                     <div class="tab-content">
-                      <div class="tab-pane active" id="tab-1" role="tabpanel">
-                        <div class="col-md-12 m-0 p-0 justify-content-center">
-                          <div class="card">
-                            <div class="text-center mt-3">Cadastro de Usuários
-                            </div>
-                            <div class="table-responsive table-striped">
-                              <div class="row ">
-                                <div class="card-body text-center ">
-                                  <!--Table-->
-                                  <table class="table " id='TabelaEditarPonto'>
-                                    <thead class="thead-light text-center">
-                                      <tr>
-                                        <th>Data</th>
-                                        <th colspan="8">Horarios</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-  <!--                                 <tr *ngFor="let ponto of listaDePontos">
-                                    <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
-                                    <td class="text-center m-2" *ngFor="let ponto of ponto.values">
-                                       <p data-toggle="modal" data-target="#editarMarcacao"
-                                        (click)="buscarRegistroPontoID(ponto.idRegistroPonto)">
-                                        {{ponto.horaRegistro}}
-                                    </p>
-                                    </td>
-                                  </tr> -->
-                                </tbody> 
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="card-footer">
-                              <button type="button" id="btnNovo" class="btn btn-primary btn float-right"
-                                data-toggle="modal" data-target="#inserirMarcacao">Novo</button>
-                            </div>
+                      <div class="tab-pane active" id="primary-tab-1" role="tabpanel">
+                        <h4 class="tab-title">Cadastro de Usuarios</h4>
+                        <div class="table-responsive table-striped">
+                        <div class="row ">
+                          <div class="card-body text-center ">
+                            <!--Table-->
+                            <table class="table " id='TabelaEditarPonto'>
+                              <thead class="thead-light text-center">
+                                <tr>
+                                  <th>Data</th>
+                                  <th colspan="8">Horarios</th>
+                                </tr>
+                              </thead>
+                              <!--                            <tbody>
+                              <tr *ngFor="let ponto of listaDePontos">
+                                <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
+                                <td class="text-center m-2" *ngFor="let ponto of ponto.values">
+                                   <p data-toggle="modal" data-target="#editarMarcacao"
+                                    (click)="buscarRegistroPontoID(ponto.idRegistroPonto)">
+                                    {{ponto.horaRegistro}}
+                                </p> 
+                                </td>
+                              </tr>
+                            </tbody> -->
+                            </table>
                           </div>
                         </div>
                       </div>
-                      <div class="tab-pane" id="tab-2" role="tabpanel">
-                        <div class="col-md-12 m-0 p-0 justify-content-center">
-                          <div class="card">
-                            <div class="text-center mt-3">Cadastro da Empresa
-                            </div>
-                            <div class="table-responsive table-striped">
-                              <div class="row ">
-                                <div class="card-body text-center ">
-                                  <!--Table-->
-                                  <table class="table " id='TabelaEditarPonto'>
-                                    <thead class="thead-light text-center">
-                                      <tr>
-                                        <th>Data</th>
-                                        <th colspan="8">Horarios</th>
-                                      </tr>
-                                    </thead>
-                                    <!--                                   <tbody>
-                                    <tr *ngFor="let ponto of listaDePontos">
-                                      <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
-                                      <td class="text-center m-2" *ngFor="let ponto of ponto.values">
-                                        <p data-toggle="modal" data-target="#editarMarcacao"
-                                          >
-                                          {{ponto.horaRegistro}}
-                                      </p> 
-                                      </td>
-                                    </tr>
-                                  </tbody> -->
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="card-footer">
-                              <button type="button" id="btnNovo" class="btn btn-primary btn float-right"
-                                data-toggle="modal" data-target="#inserirMarcacao">Novo</button>
-                            </div>
-                          </div>
-                        </div>
                       </div>
-                      <div class="tab-pane" id="tab-3" role="tabpanel">
-                        <div class="col-md-12 m-0 p-0 justify-content-center">
-                          <div class="card">
-                            <div class="text-center mt-3">Cadastro de Setores
-                            </div>
-                            <div class="table-responsive table-striped">
-                              <div class="row ">
-                                <div class="card-body text-center ">
-                                  <!--Table-->
-                                  <table class="table " id='TabelaEditarPonto'>
-                                    <thead class="thead-light text-center">
-                                      <tr>
-                                        <th>Data</th>
-                                        <th colspan="8">Horarios</th>
-                                      </tr>
-                                    </thead>
-                                    <!--                            <tbody>
-                                    <tr *ngFor="let ponto of listaDePontos">
-                                      <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
-                                      <td class="text-center m-2" *ngFor="let ponto of ponto.values">
-                                         <p data-toggle="modal" data-target="#editarMarcacao"
-                                          (click)="buscarRegistroPontoID(ponto.idRegistroPonto)">
-                                          {{ponto.horaRegistro}}
-                                      </p> 
-                                      </td>
-                                    </tr>
-                                  </tbody> -->
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="card-footer">
-                              <button type="button" id="btnNovo" class="btn btn-primary btn float-right"
-                                data-toggle="modal" data-target="#inserirMarcacao">Novo</button>
-                            </div>
-                          </div>
-                        </div>
+                      <div class="tab-pane" id="primary-tab-2" role="tabpanel">
+                        <h4 class="tab-title">Another one</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor tellus eget condimentum rhoncus. Aenean massa. Cum sociis natoque
+                          penatibus et magnis neque dis parturient montes, nascetur ridiculus mus.</p>
+                        <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate
+                          eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+                      </div>
+                      <div class="tab-pane" id="primary-tab-3" role="tabpanel">
+                        <h4 class="tab-title">One more</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor tellus eget condimentum rhoncus. Aenean massa. Cum sociis natoque
+                          penatibus et magnis neque dis parturient montes, nascetur ridiculus mus.</p>
+                        <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate
+                          eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
                       </div>
                     </div>
                   </div>
