@@ -79,9 +79,9 @@
                       <div class="modal-container">
                         <div class="table-responsive table-striped">
                           <div class="row ">
-                            <div class="card-body text-center" id='imprimirEspelho'>
+                            <div class="card-body text-center" >
                               <!--Table-->
-                              <table class="table" >
+                              <table class="table" id='imprimirEspelho'>
                                 <thead class="thead-light text-center">
                                   <tr>
                                     <th>Data</th>
@@ -103,7 +103,7 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button (click)="imprimirEspelho('imprimirEspelho')"type="button" class="btn btn-secondary">Imprimir</button>
+                      <button (click)="imprimirEspelho()"type="button" class="btn btn-secondary">Imprimir</button>
                       <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                     </div>
                   </div>
