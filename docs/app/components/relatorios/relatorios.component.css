@@ -1,0 +1,18 @@
+
+
+#tabelaRelatorio thead th{
+  padding: 5px 10px;
+  background-color: rgb(49, 60, 109);
+  color: white;
+}
+
+#tabelaRelatorio tr td {
+  padding: 2px 4px;
+  text-align: center;
+  
+}
+
+
+
+
+  

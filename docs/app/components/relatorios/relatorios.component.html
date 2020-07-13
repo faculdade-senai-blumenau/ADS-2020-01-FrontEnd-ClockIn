@@ -1,0 +1,73 @@
+<app-nav></app-nav>
+<div class="wrapper">
+  <div class="main">
+    <main class="content">
+      <div class="container p-0">
+        <div class="header pt-4 mb-3">
+          <h1 class="header-title">Relatório</h1>
+        </div>
+        <div class="row">
+          <div class="col-12 col-lg-12 col-xxl-6">
+            <div class="card flex-fill">
+              <div class="card-header">
+                <h5 class="card-title">Relatório</h5>
+                <h6 class="card-subtitle text-muted">Geração de relatório de ponto por período.
+                </h6>
+              </div>
+              <form>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label class="mb-0 mt-2" for="dataInicial">Data Inicial</label>
+                      <input [(ngModel)]="dataInicial" class="form-control pt-0" id="dataInicial" type="date"
+                        name="datasingle" required="">
+                    </div>
+                    <div class="col-md-3">
+                      <label class="mb-0 mt-2" for="dataFinal">Data Final</label>
+                      <input [(ngModel)]="dataFinal" class="form-control pt-0" id="dataFinal" type="date"
+                        name="datasingle" required>
+                    </div>
+                    <div class="col-md-2 pt-4 mt-2">
+                      <button type="button" class="btn btn-primary btn form-control" 
+                      (click)="gerarRelatorio()">Gerar Relatório</button>
+                    </div>
+                    <div class="col-md-2 pt-4 m-0 mt-2">
+                      <button type="button" class="btn btn-secondary btn form-control"
+                        (click)="imprimirRelatorio('tabelaRelatorio')">Imprimir</button>
+                    </div>
+                    <div class="col-md-2 pt-4 mt-2">
+                      <button type="button" class="btn btn-secondary btn form-control"
+                        (click)="limparRelatorio()">Limpar Pesquisa</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="table-responsive">
+                <div class="card-body text-center">
+                  <table class="table" id='tabelaRelatorio'>
+                    <thead class="thead-light text-center">
+                      <tr>
+                        <th>Datas</th>
+                        <th colspan="8">Horarios</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let ponto of listaDePontos">
+                        <td class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
+                        <td class="text-center m-2" *ngFor="let ponto of ponto.values">
+                          {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
