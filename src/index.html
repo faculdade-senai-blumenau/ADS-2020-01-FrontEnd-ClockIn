@@ -1,107 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
 	<base href='/'>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Sistema ClockIn</title>
 	<meta name="description" content="Sistema de Controle de Ponto Online">
-	<title>Sistema &amp; Clockin</title>
 	<link rel="stylesheet" href="https://spark.bootlab.io/css/modern.css">
-
 	<script src="https://spark.bootlab.io/js/settings.js"></script>
-
-	<style>
-		body {
-			opacity: 0;
-		}
-	</style>
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-7"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-
-		gtag('config', 'UA-120946860-7');
-	</script>
 </head>
 
 <body>
 	<app-root></app-root>
-
+	<script src="https://spark.bootlab.io/js/app.js"></script>
+	<!-- ChatBot -->
+	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 </body>
-<script src="https://spark.bootlab.io/js/app.js"></script>
-
-
-<!-- Formatar Hora -->
-<script type="text/javascript">
-	$("#horaRegistro").mask("00:00");
-</script>
-
-<!-- Script Calendários -->
-<script>
-	$(function () {
-		// Select2
-		$(".select2").each(function () {
-			$(this)
-				.wrap("<div class=\"position-relative\"></div>")
-				.select2({
-					placeholder: "Select value",
-					dropdownParent: $(this).parent()
-				});
-		})
-		// Daterangepicker
-		$("input[name=\"daterange\"]").daterangepicker({
-			opens: "left"
-		});
-		$("input[name=\"datetimes\"]").daterangepicker({
-			timePicker: true,
-			opens: "left",
-			startDate: moment().startOf("hour"),
-			endDate: moment().startOf("hour").add(32, "hour"),
-			locale: {
-				format: "M/DD hh:mm A"
-			}
-		});
-		$("input[name=\"datesingle\"]").daterangepicker({
-			singleDatePicker: true,
-			showDropdowns: true
-		});
-		var start = moment().subtract(29, "days");
-		var end = moment();
-
-		function cb(start, end) {
-			$("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
-		}
-		$("#reportrange").daterangepicker({
-			startDate: start,
-			endDate: end,
-			ranges: {
-				"Today": [moment(), moment()],
-				"Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
-				"Last 7 Days": [moment().subtract(6, "days"), moment()],
-				"Last 30 Days": [moment().subtract(29, "days"), moment()],
-				"This Month": [moment().startOf("month"), moment().endOf("month")],
-				"Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
-			}
-		}, cb);
-		cb(start, end);
-		// Datetimepicker
-		$('#datetimepicker-minimum').datetimepicker();
-		$('#datetimepicker-view-mode').datetimepicker({
-			viewMode: 'years'
-		});
-		$('#datetimepicker-time').datetimepicker({
-			format: 'LT'
-		});
-		$('#datetimepicker-date').datetimepicker({
-			format: 'L'
-		});
-	});
-</script>
-
-<!-- ChatBot -->
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
 </html>

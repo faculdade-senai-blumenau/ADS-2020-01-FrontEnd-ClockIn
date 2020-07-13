@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   constructor(private appComponent: AppComponent) { }
 
   ngOnInit(): void {
-    const dataInicialFiltro = moment().subtract(6, 'days').format();
-    this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro)
+    
   }
 }

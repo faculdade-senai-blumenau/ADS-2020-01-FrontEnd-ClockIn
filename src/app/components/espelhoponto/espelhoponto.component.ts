@@ -78,7 +78,7 @@ export class EspelhopontoComponent implements OnInit {
   }
 
   visualizarEspelhoPonto(espelhoPonto) {
-      this.listaDePontos = this.appComponent.buscarRegistrosPontoRange(espelhoPonto.idUsuario, espelhoPonto.dataInicial, espelhoPonto.dataFinal);
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(espelhoPonto.idUsuario, espelhoPonto.dataInicial, espelhoPonto.dataFinal);
   }
 
   imprimirEspelho(idTabela) {
@@ -95,7 +95,6 @@ export class EspelhopontoComponent implements OnInit {
       let fix_imgWidth = 15; 
       let fix_imgHeight = 15;
       pdf.text("Espelho do Ponto", 75, 15);
-      pdf.text(this.listaDePontos.nome, 75, 15);
 
       pdf.setFontSize(20);
       pdf.addImage(imgData, 'PNG', 0, 30, imgWidth, imgHeight)

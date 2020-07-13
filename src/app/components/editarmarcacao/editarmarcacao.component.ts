@@ -26,6 +26,10 @@ export class EditarMarcacaoComponent implements OnInit {
   listaDePontos: any;
   registroPonto: any;
   ponto: any;
+
+  urlBase = this.appService.buscarUrlBase();
+  idUsuario = this.appService.buscarUsuario();
+
   /* Variaveis Fim */
 
   constructor(private appComponent: AppComponent,
@@ -46,8 +50,8 @@ export class EditarMarcacaoComponent implements OnInit {
     };
 
     this.clockHandle = setInterval(() => {
-      const dataInicialFiltro = moment().subtract(30, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
+      const dataInicial = moment().subtract(30, 'days').format();
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
     }, 500);
 
     this.clockHandle = setInterval(() => {

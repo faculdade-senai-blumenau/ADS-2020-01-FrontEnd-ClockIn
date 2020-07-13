@@ -1,13 +1,9 @@
-p {
-  margin-bottom: 2px;
-}
 
-.row {
-  margin: 0px;
-}
 
 #tabelaRelatorio thead th{
-  padding: 8px 12px;
+  padding: 5px 10px;
+  background-color: rgb(49, 60, 109);
+  color: white;
 }
 
 #tabelaRelatorio tr td {
@@ -16,12 +12,7 @@ p {
   
 }
 
-.card-body {
-    padding: 10px;
-}
-.card{
-  box-shadow: 0 1px 3px rgb(41, 40, 40);
-}
+
 
 
   

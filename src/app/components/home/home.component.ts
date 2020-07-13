@@ -47,18 +47,19 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     /* Retorna a lista de Pontos */
     this.clockHandle = setInterval(() => {
-      const dataInicialFiltro = moment().subtract(6, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
-    }, 200);
-
-    /* Retorna a data e hora atual */
+      const dataInicial = moment().subtract(6, 'days').format();
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
+    }, 200);    /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
       this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
     });
+
+    /* Retorna a lista de Pontos */
+    this.listarRelatorioSemanal()
 
     /* Retorna Informações do Usuario pelo ID Usuario*/
     this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
@@ -86,9 +87,9 @@ export class HomeComponent implements OnInit {
   /* Retorna lista de pontos - No Parametro recebe a quantidade de dias que irá retornar*/
   async listarRelatorioSemanal() {
     this.clockHandle = setTimeout(() => {
-      const dataInicialFiltro = moment().subtract(6, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
-    }, 0);
+      const dataInicial = moment().subtract(7, 'days').format();
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
+    }, 200);
   }
 
   registrarPonto(): void {

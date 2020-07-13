@@ -14,22 +14,8 @@ export class CadastrosComponent implements OnInit {
   listaDePontos: any;
 
   constructor(private appService: AppService,
-              private appComponent: AppComponent) { }
+    private appComponent: AppComponent) { }
 
   ngOnInit(): void {
-    this.registroPonto = {};
-    this.clockHandle = setInterval(() => {
-      const dataInicialFiltro = moment().subtract(30, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
-    }, 200);
-
-  }
-
-  buscarUsuarios() {
-    this.registroPonto = {};
-    this.clockHandle = setInterval(() => {
-      const dataInicialFiltro = moment().subtract(30, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(dataInicialFiltro);
-    }, 200);
   }
 }

@@ -1,3 +1,4 @@
+import { AppService } from 'src/app/app.service';
 
 import { Subject } from 'rxjs/internal/Subject';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,20 +19,23 @@ import html2canvas from 'html2canvas';
 })
 export class RelatoriosComponent implements OnInit {
 
-  constructor(private appComponent: AppComponent) { }
+  constructor(private appComponent: AppComponent,
+    private appService: AppService) { }
 
   listaDePontos: any;
   dataInicial: any;
   dataFinal: any;
   listaDePontosVazia: any;
 
+  urlBase = this.appService.buscarUrlBase();
+  idUsuario = this.appService.buscarUsuario();
 
   ngOnInit(): void {
 
   }
 
   gerarRelatorio() {
-    this.listaDePontos = this.appComponent.gerarRelatorio(this.dataInicial, this.dataFinal);
+    this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario,this.dataInicial, this.dataFinal);
   }
 
   limparRelatorio() {

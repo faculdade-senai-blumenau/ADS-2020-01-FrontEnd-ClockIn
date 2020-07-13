@@ -18,35 +18,19 @@ export class AppComponent implements OnInit {
 
   dataInicialFiltro: DatePipe;
 
-  constructor(private datePipe: DatePipe,
-    private appService: AppService) {
+  constructor(private appService: AppService) {
   }
 
   ngOnInit() {
-
+    this.buscarRegistrosPonto(this.idUsuario, null, null);
   }
 
   /* Retorna lista de registros da tabela de pontos */
-  buscarRegistrosPonto(dataFiltro: string) {
-    this.appService.buscarRegistrosPontoUsuario(this.idUsuario).subscribe(
-      resposta => this.registroPonto = resposta);
-    const groups = new Set(this.registroPonto.filter(i => i.dataRegistro > dataFiltro)
-      .map(item => item.dataRegistro));
-    this.listaDePontos = [];
-    groups.forEach(g =>
-      this.listaDePontos.push({
-        dataRegistro: g,
-        values: this.registroPonto.filter(i => i.dataRegistro === g)
-      },
-      ));
-    return (this.listaDePontos);
-  }
-
-  buscarRegistrosPontoRange(idUsuario: number, dataInicial: any, dataFinal: any) {
-    this.appService.buscarRegistrosPontoUsuarioRange(idUsuario, dataInicial, dataFinal).subscribe(
+  buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
+    this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe(
       resposta => this.registroPonto = resposta);
     const groups = new Set(this.registroPonto
-      .filter(i => i.dataRegistro >= dataInicial && i.dataRegistro <= dataFinal)
+      .filter(i => i.dataRegistro >= dataInicial && (i.dataRegistro <= dataFinal || dataFinal == null))
       .map(item => item.dataRegistro));
     this.listaDePontos = [];
     groups.forEach(g =>
@@ -57,30 +41,5 @@ export class AppComponent implements OnInit {
       ));
     return (this.listaDePontos);
   }
-
-  /* Retorna lista de registros da tabela de pontos */
-  gerarRelatorio(dataInicial: string, dataFinal: string) {
-    this.appService.buscarRegistrosPontoUsuario(this.idUsuario).subscribe(
-      resposta => this.registroPonto = resposta);
-    const groups = new Set(this.registroPonto
-      .filter(i => i.dataRegistro >= dataInicial && i.dataRegistro <= dataFinal)
-      .map(item => item.dataRegistro));
-    this.listaDePontos = [];
-    groups.forEach(g =>
-      this.listaDePontos.push({
-        dataRegistro: g,
-        values: this.registroPonto.filter(i => i.dataRegistro === g)
-      },
-      ));
-    return (this.listaDePontos);
-  }
-
-  limparRelatorio() {
-    this.appService.buscarRegistrosPontoUsuario(0).subscribe(
-      resposta => this.registroPonto = resposta);
-    console.log(this.listaDePontos);
-    return (this.listaDePontos);
-  }
-
 }
 
