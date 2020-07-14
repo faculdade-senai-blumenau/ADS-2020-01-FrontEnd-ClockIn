@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
   urlBase = this.appService.buscarUrlBase();
   idUsuario = this.appService.buscarUsuario();
 
+  quantidadeDiasPonto: number = 0;
+
   dataInicialFiltro: DatePipe;
 
   constructor(private appService: AppService) {
@@ -33,13 +35,21 @@ export class AppComponent implements OnInit {
       .filter(i => i.dataRegistro >= dataInicial && (i.dataRegistro <= dataFinal || dataFinal == null))
       .map(item => item.dataRegistro));
     this.listaDePontos = [];
+    
     groups.forEach(g =>
       this.listaDePontos.push({
         dataRegistro: g,
         values: this.registroPonto.filter(i => i.dataRegistro === g)
       },
-      ));
+      ),
+      this.quantidadeDiasPonto + 1
+      );
+      console.log(this.quantidadeDiasPonto, 'teste');
     return (this.listaDePontos);
+  }
+
+  buscarquantidadeDiasPonto() {
+    return this.quantidadeDiasPonto;
   }
 }
 

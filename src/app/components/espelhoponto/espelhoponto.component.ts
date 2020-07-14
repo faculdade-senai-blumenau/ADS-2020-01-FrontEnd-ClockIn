@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { EspelhoPonto } from 'src/app/app.model';
 import html2canvas from 'html2canvas';
 import * as jsPDF from 'jspdf';
-import 'jspdf-autotable' ;
+import 'jspdf-autotable';
 import autoTable from 'jspdf-autotable';
 
 @Component({
@@ -33,6 +33,10 @@ export class EspelhopontoComponent implements OnInit {
   ponto: any;
   espelhoPonto: any;
   idUsuario = this.appService.buscarUsuario();
+  espelhoPontoAprovado: EspelhoPonto[];
+
+ quantidadeDiasPonto =  this.appComponent.buscarquantidadeDiasPonto() 
+
   constructor(private appComponent: AppComponent,
     private appService: AppService) { }
 
@@ -44,7 +48,9 @@ export class EspelhopontoComponent implements OnInit {
         this.mensagemEspelhoErro = '', this.mensagemEspelhoOk = '';
       });
     }, 1000);
+
     this.getEspelhoPonto();
+    this.buscarEspelhoPontoAprovado();
 
   }
   getEspelhoPonto() {
@@ -64,8 +70,7 @@ export class EspelhopontoComponent implements OnInit {
       }
     )
   }
-
-
+  
   aprovarEspelhoPonto(espelhoPonto) {
     espelhoPonto.status = 1;
     this.appService.alterarStatusEspelho(espelhoPonto).subscribe(
@@ -76,11 +81,19 @@ export class EspelhopontoComponent implements OnInit {
         this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel realizar a alteração.'));
       }
     )
+    this.buscarEspelhoPontoAprovado();
+  }
+
+  buscarEspelhoPontoAprovado() {
+    this.appService.buscarEspelhoPontoAprovado(this.idUsuario).subscribe(
+      resposta => this.espelhoPontoAprovado = resposta
+    );
   }
 
   visualizarEspelhoPonto(espelhoPonto) {
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(espelhoPonto.idUsuario, espelhoPonto.dataInicial, espelhoPonto.dataFinal);
+    this.listaDePontos = this.appComponent.buscarRegistrosPonto(espelhoPonto.idUsuario, espelhoPonto.dataInicial, espelhoPonto.dataFinal);
   }
+
   imprimirEspelho() {
     const pdf = new jsPDF()
     autoTable(pdf, { html: '#imprimirEspelho' })

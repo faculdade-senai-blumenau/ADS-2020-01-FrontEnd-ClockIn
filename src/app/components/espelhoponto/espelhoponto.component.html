@@ -37,7 +37,6 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let espelho of espelhoPonto">
-
                         <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">
                           {{espelho.dataInicial | date: 'dd/MM/yyyy'}}</td>
                         <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">
@@ -55,6 +54,136 @@
                             class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
                             data-target="#editarMarcacaoEspelho"
                             (click)="visualizarEspelhoPonto(espelho)">Visualizar</button>
+                        </div>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer">
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade" id="editarMarcacaoEspelho" tabindex="-1" role="dialog"
+                aria-labelledby="editarMarcacaoEspelho" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Espelho do Ponto</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="modal-container">
+                        <div class="table-responsive table-striped">
+                          <div class="row ">
+                            <div class="card-body text-center" >
+                              <!--Table-->
+                              <table class="table" id='imprimirEspelho'>
+                                <thead class="thead-light text-center">
+                                  <tr>
+                                    <th>Data</th>
+                                    <th colspan="8">Horarios</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let ponto of listaDePontos">
+                                    <td class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</td>
+                                    <td class="text-center" *ngFor="let ponto of ponto.values">
+                                      {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button (click)="imprimirEspelho()"type="button" class="btn btn-secondary">Imprimir</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal Fim-->
+              <div *ngFor="let espelho of espelhoPonto">
+                <div class="modal fade" [attr.id]="'ModalConfirmarAssinatura' + espelho.idEspelhoPonto" tabindex="-1"
+                  role="dialog" aria-labelledby="ModalConfirmarAssinaturaLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+
+                      </div>
+                      <div class="modal-body text-center" style="font-size: 20px;">
+                        Deseja confirmar a Assinatura?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                        <span class="d-inline-block" data-toggle="modal" data-target="ModalConfirmaOperacao">
+                          <button type="button" class="btn btn-success btn-sm" (click)="aprovarEspelhoPonto(espelho)"
+                            data-dismiss="modal">Confirmar</button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngFor="let espelho of espelhoPonto">
+                <div class="modal fade" [attr.id]="'ModalConfirmarReprovacao' + espelho.idEspelhoPonto" tabindex="-1"
+                  role="dialog" aria-labelledby="ModalConfirmarReprovacaoLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                      </div>
+                      <div class="modal-body text-center" style="font-size: 20px;">
+                        Deseja confirmar a Reprovação?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                        <span class="d-inline-block" data-toggle="modal" data-target="ModalConfirmaOperacao">
+                          <button type="button" class="btn btn-success btn-sm" (click)="reprovarEspelhoPonto(espelho)"
+                            data-dismiss="modal">Confirmar</button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card flex-fill">
+              <div class="card-header">
+                <h5 class="card-title">Espelho do Ponto Aprovados</h5>
+                <h6 class="card-subtitle text-muted">Consulta de espelhos de ponto aprovados.
+                </h6>
+              </div>
+              <div class="table-responsive">
+                <div class="card-body text-center">
+                  <table class="table table-striped" id='tabelaEspelhoPonto'>
+                    <thead class="thead-light text-center">
+                      <tr>
+                        <th>Data Inicial</th>
+                        <th>Data Final</th>
+                        <th>Horas</th>
+                        <th>Dias</th>
+                        <th>Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let espelhoAprovado of espelhoPontoAprovado">
+                        <td *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)">
+                          {{espelhoAprovado.dataInicial | date: 'dd/MM/yyyy'}}</td>
+                        <td *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)">
+                          {{espelhoAprovado.dataFinal | date: 'dd/MM/yyyy'}}</td>
+                        <td *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)">220 hs</td>
+                        <td *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)">23</td>
+                        <div>
+                          <button *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)"
+                            class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
+                            data-target="#editarMarcacaoEspelho"
+                            (click)="visualizarEspelhoPonto(espelhoAprovado)">Visualizar</button>
                         </div>
                       </tr>
                     </tbody>

@@ -1,11 +1,11 @@
 <app-nav></app-nav>
 <div class="col-md-10 m-0 p-0" id="alertaHome">
     <!-- Alerta Erro ao Registrar Ponto -->
-    <ngb-alert *ngIf="mensagem" id=alert type="danger" (close)="mensagem = ''">{{ mensagem }}
+    <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''">{{ mensagemErro }}
     </ngb-alert>
     <!-- Alerta Sucesso ao Registrar Ponto -->
-    <ngb-alert *ngIf="mensagem" id=alert type="success" (close)="mensagem = ''">{{ mensagem }}
-        <strong> {{ dataHoraBatida | date: 'dd/MM/yyyy' }}</strong> às
+    <ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemSucesso }}
+        <strong> {{ dataHoraBatida | date: 'dd/MM/yyyy' }} as </strong>
         <strong> {{ dataHoraBatida | date: 'HH:mm:ss' }}</strong>
     </ngb-alert>
 </div>
@@ -130,10 +130,10 @@
                                     Deseja confirmar o registro do ponto?
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger btn-sm"
+                                    <button type="button" class="btn btn-danger"
                                         data-dismiss="modal">Cancelar</button>
                                     <span class="d-inline-block" data-toggle="modal" data-target="ModalRegistroPonto">
-                                        <button type="button" class="btn btn-success btn-sm" (click)="registrarPonto()"
+                                        <button type="button" class="btn btn-success" (click)="registrarPonto()"
                                             data-dismiss="modal">Confirmar</button>
                                     </span>
                                 </div>
@@ -143,7 +143,7 @@
                     <div class="col-12 col-lg-12 col-xxl-6 pb-5">
                         <div class="card flex-fill">
                             <div class="card-header">
-                                <h5 class="card-title">Registrar Ponto</h5>
+                                <h5 class="card-title">Relatório Semanal</h5>
                                 <h6 class="card-subtitle text-muted">Registros de ponto realizados na última semana.
                                 </h6>
                             </div>
