@@ -17,7 +17,7 @@ const routes: Routes = [
 
   { path: '', component: LoginComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'home', component: HomeComponent },
+  { path: '/home', component: HomeComponent },
   { path: 'editarmarcacao', component: EditarMarcacaoComponent },
   { path: 'cadastros', component: CadastrosComponent },
   { path: 'espelhoponto', component: EspelhopontoComponent },
