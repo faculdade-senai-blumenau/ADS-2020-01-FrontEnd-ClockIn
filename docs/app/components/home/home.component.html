@@ -1,0 +1,180 @@
+<app-nav></app-nav>
+<div class="col-md-10 m-0 p-0" id="alertaHome">
+    <!-- Alerta Erro ao Registrar Ponto -->
+    <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''">{{ mensagemErro }}
+    </ngb-alert>
+    <!-- Alerta Sucesso ao Registrar Ponto -->
+    <ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemSucesso }}
+        <strong> {{ dataHoraBatida | date: 'dd/MM/yyyy' }} as </strong>
+        <strong> {{ dataHoraBatida | date: 'HH:mm:ss' }}</strong>
+    </ngb-alert>
+</div>
+<div class="wrapper">
+    <div class="main">
+        <main class="content">
+            <div class="container p-0">
+                <div class="header pt-4 mb-3">
+                    <h1 class="header-title">Início</h1>
+                </div>
+                <!-- Registrar Ponto -->
+                <div class="row">
+                    <div class="col-12 col-lg-5 col-xxl-6 d-flex">
+                        <div class="card flex-fill">
+                            <div class="card-header">
+                                <h5 class="card-title">Registrar Ponto</h5>
+                                <h6 class="card-subtitle text-muted">Não esqueça de registrar seu ponto.</h6>
+                            </div>
+                            <div class="card-body text-center ">
+                                <div>
+                                    <h3 class="card-text text-muted m-1" style="font-size: 30px;">
+                                        <!-- Relogio -->
+                                        {{ dataAtual }}
+                                    </h3>
+                                    <h3 class="card-text m-3" style="font-size: 50px;">
+                                        <!-- Relogio -->
+                                        <strong>{{ relogio }}</strong>
+                                    </h3>
+                                    <!-- Botão Registrar Ponto -->
+                                    <button type="button" class="btn btn-primary"
+                                        class="btn btn-{{btnPonto}} {{disablePonto}} mb-2 mt-1" id="registrarBtn"
+                                        [disabled]="desabilitar !== '1'" data-toggle="modal"
+                                        data-target="#ModalRegistroPonto">
+                                        {{btnPontoMensagem}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-7 col-xxl-6 d-flex">
+                        <div class="card flex-fill">
+                            <div class="card-header">
+                                <h5 class="card-title">Informações Usuário</h5>
+                                <h6 class="card-subtitle text-muted">Confira aqui algumas informações básicas do seu
+                                    cadastro.</h6>
+                            </div>
+                            <div class="card-body text-center ">
+                                <div class="row m-0">
+                                    <div class="col-md-5 pt-2 pb-2 pl-0 pr-0">
+                                        <div class="card-body text-center">
+                                            <img src="https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png"
+                                                class="card-img-top" alt="Usuario" style="width: 120px; height: 100px;">
+                                        </div>
+                                        <h2 class="card-title text-center mt-2" style="font-size: x-large;">
+                                            {{usuario.nomeUsuario}}</h2>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="card-body text-center p-1 mt-0">
+                                            <div class="media text-muted m-2">
+                                                <div class="media-body mb-2 border-bottom ">
+                                                    <div class="d-flex justify-content-between">
+                                                        <strong class="text-gray-dark">
+                                                            <p>Setor</p>
+                                                        </strong>
+                                                        <p>{{setor["descricaoSetor"]}}</p>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between ">
+                                                        <strong class="text-gray-dark">
+                                                            <p>Cargo</p>
+                                                        </strong>
+                                                        {{setor.usuario.cargo["nomeCargo"]}}
+                                                    </div>
+                                                    <div class="d-flex justify-content-between ">
+                                                        <strong class="text-gray-dark">
+                                                            <p>Escala</p>
+                                                        </strong>
+                                                        <p>{{setor.usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}}
+                                                            {{setor.usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}}
+                                                            {{setor.usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}}
+                                                            {{setor.usuario.jornada["finalTarde"].split(":")[0]}}:{{usuario.jornada["finalTarde"].split(":")[1]}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="media text-muted m-0">
+                                                <div class="media-body mb-0 small border-bottom ">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <strong class="text-gray-dark">
+                                                            <p>Banco de Horas:</p>
+                                                        </strong>
+                                                        <p>54:00</p>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <strong class="text-gray-dark">
+                                                            <p>Hora Extra 50%: </p>
+                                                        </strong>
+                                                        <p>12:53</p>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <strong class="text-gray-dark">
+                                                            <p>Hora Extra 100%: </p>
+                                                        </strong>
+                                                        <p>08:23</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="ModalRegistroPonto" tabindex="-1" role="dialog"
+                        aria-labelledby="ModalRegistroPontoLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+
+                                </div>
+                                <div class="modal-body text-center" style="font-size: 20px;">
+                                    Deseja confirmar o registro do ponto?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <span class="d-inline-block" data-toggle="modal" data-target="ModalRegistroPonto">
+                                        <button type="button" class="btn btn-success" (click)="registrarPonto()"
+                                            data-dismiss="modal">Confirmar</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-12 col-xxl-6 pb-5">
+                        <div class="card flex-fill">
+                            <div class="card-header">
+                                <h5 class="card-title">Relatório Semanal</h5>
+                                <h6 class="card-subtitle text-muted">Registros de ponto realizados na última semana.
+                                </h6>
+                            </div>
+                            <div class="table-responsive table-striped">
+                                <div class="row ">
+                                    <div class="card-body text-center" id='imprimirEspelho'>
+                                        <!--Table-->
+                                        <table class="table">
+                                            <thead class="thead-light text-center">
+                                                <tr>
+                                                    <th>Data</th>
+                                                    <th colspan="8">Horarios</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let ponto of listaDePontos">
+                                                    <td class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}
+                                                    </td>
+                                                    <td class="text-center" *ngFor="let ponto of ponto.values">
+                                                        {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
