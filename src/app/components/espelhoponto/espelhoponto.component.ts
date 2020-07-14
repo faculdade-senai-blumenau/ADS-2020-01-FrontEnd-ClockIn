@@ -35,8 +35,6 @@ export class EspelhopontoComponent implements OnInit {
   idUsuario = this.appService.buscarUsuario();
   espelhoPontoAprovado: EspelhoPonto[];
 
- quantidadeDiasPonto =  this.appComponent.buscarquantidadeDiasPonto() 
-
   constructor(private appComponent: AppComponent,
     private appService: AppService) { }
 

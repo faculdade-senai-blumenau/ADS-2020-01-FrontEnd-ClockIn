@@ -43,7 +43,7 @@ export class RelatoriosComponent implements OnInit {
     this.listaDePontos = this.listaDePontosVazia;
     this.dataFinal = '';
     this.dataInicial = '';
-  }
+  }  
 
   imprimirRelatorio() {
     const pdf = new jsPDF()
