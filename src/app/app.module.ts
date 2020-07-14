@@ -8,8 +8,7 @@ import { DatePipe } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
-
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
@@ -34,7 +33,7 @@ import {DataTablesModule} from 'angular-datatables';
     AprovacoesPendentesComponent, CadastrosComponent, LoginComponent],
 
   imports: [RouterModule, BrowserModule, AppRoutingModule, HttpClientModule, DataTablesModule,
-    ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule],
+    ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule, NgxPaginationModule],
 
   providers: [
     { provide: AppService },

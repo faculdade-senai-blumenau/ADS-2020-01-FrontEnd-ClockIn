@@ -34,7 +34,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let ponto of listaDePontos">
+                      <tr *ngFor="let ponto of listaDePontos| paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
                         <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
                         <td class="text-center m-2" *ngFor="let ponto of ponto.values">
                           <p data-toggle="modal" data-target="#editarMarcacao"
@@ -44,6 +44,7 @@
                         </td>
                       </tr>
                     </tbody>
+                    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
                   </table>
                 </div>
               </div>

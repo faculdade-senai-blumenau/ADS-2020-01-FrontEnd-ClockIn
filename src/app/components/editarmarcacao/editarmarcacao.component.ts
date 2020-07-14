@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-editarmarcacao',
@@ -29,6 +30,8 @@ export class EditarMarcacaoComponent implements OnInit {
 
   urlBase = this.appService.buscarUrlBase();
   idUsuario = this.appService.buscarUsuario();
+
+  public paginaAtual = 1;
 
   /* Variaveis Fim */
 
