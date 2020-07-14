@@ -20,7 +20,6 @@ export class AppService {
   }
 
   /* Variáveis */
-
   urlBase = 'http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';
   idUsuario = 2;
 

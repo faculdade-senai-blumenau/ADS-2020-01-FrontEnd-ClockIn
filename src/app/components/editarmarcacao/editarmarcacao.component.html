@@ -1,12 +1,10 @@
 <app-nav></app-nav>
 <!-- Alertas -->
 <!-- Alerta Erro ao Registrar Ponto -->
-<ngb-alert *ngIf="mensagemSucesso" id=alert type="success" 
-(close)="mensagemSucesso = ''"> {{ mensagemSucesso }}
+<ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''"> {{ mensagemSucesso }}
 </ngb-alert>
 <!-- Alerta Sucesso ao Registrar Ponto -->
-<ngb-alert *ngIf="mensagemErro" id=alert type="danger"
- (close)="mensagemErro = ''"> {{ mensagemErro }}
+<ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''"> {{ mensagemErro }}
 </ngb-alert>
 <div class="wrapper">
   <div class="main">
@@ -34,7 +32,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let ponto of listaDePontos| paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
+                      <tr
+                        *ngFor="let ponto of listaDePontos| paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
                         <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
                         <td class="text-center m-2" *ngFor="let ponto of ponto.values">
                           <p data-toggle="modal" data-target="#editarMarcacao"
@@ -44,8 +43,9 @@
                         </td>
                       </tr>
                     </tbody>
-                    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
                   </table>
+                  <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo">
+                  </pagination-controls>
                 </div>
               </div>
               <div class="card-footer">
@@ -150,8 +150,8 @@
                                     <div class="row">
                                       <div class="col-md-6 pb-2 pt-1">
                                         <label for="dataRegistro p-0">Data Registro</label>
-                                        <input [(ngModel)]="ponto.dataRegistro" class="form-control"
-                                          id="dataRegistro" name="dataRegistro" type="date" required>
+                                        <input [(ngModel)]="ponto.dataRegistro" class="form-control" id="dataRegistro"
+                                          name="dataRegistro" type="date" required>
                                       </div>
                                       <div class="col-md-6 pb-2 pt-1">
                                         <label for="horaRegistro">Hora Registro</label>
@@ -162,13 +162,12 @@
                                     </div>
                                     <div class="col-md-12 pt-1">
                                       <label for="justificaPonto">Justificativa</label>
-                                      <select [(ngModel)]="ponto.justificaPonto"
-                                        class="custom-select  form-control" id="justificaPonto" name="justificaPonto"
-                                        placeholder="Justificativa" type="number" aria-controls="datatables-basic"
-                                        required>
+                                      <select [(ngModel)]="ponto.justificaPonto" class="custom-select  form-control"
+                                        id="justificaPonto" name="justificaPonto" placeholder="Justificativa"
+                                        type="number" aria-controls="datatables-basic" required>
                                         <option value="">
                                           <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;"></font> 
+                                            <font style="vertical-align: inherit;"></font>
                                           </font>
                                         </option>
                                         <option value="1">
