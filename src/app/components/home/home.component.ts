@@ -50,11 +50,17 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
       this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
+    });
+
+    /* Retorna a lista de Pontos */
+      const dataInicial = moment().subtract(7, 'days').format();
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
+    });
+
 
     /* Retorna Informações do Usuario pelo ID Usuario*/
     this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
@@ -79,6 +85,7 @@ export class HomeComponent implements OnInit {
       this.botaoPonto.next(this.btnPontoMensagem = 'Registrar Ponto');
     });
   }
+
 
 
   registrarPonto(): void {

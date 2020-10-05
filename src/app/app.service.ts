@@ -20,10 +20,9 @@ export class AppService {
   }
 
   /* Variáveis */
-
   urlBase = 'http://localhost:5000'; 
   /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com'; */
-
+  
   idUsuario = 2;
   urlBase = 'http://186.212.51.69:5000/'; 
 
