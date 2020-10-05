@@ -56,35 +56,35 @@ export class HomeComponent implements OnInit {
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
       this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
     });
+      /* Retorna Informações do Usuario pelo ID Usuario*/
+      this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
+        this.usuario = usuario;
+      });
 
-    /* Retorna Informações do Usuario pelo ID Usuario*/
-    this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
-      this.usuario = usuario;
-    });
+      /* Retorna Setor do Usuario pelo ID Usuario*/
+      this.appService.buscarSetorUsuario(this.idUsuario).subscribe((setor) => {
+        this.setor = setor;
+      });
 
-    /* Retorna Setor do Usuario pelo ID Usuario*/
-    this.appService.buscarSetorUsuario(this.idUsuario).subscribe((setor) => {
-      this.setor = setor;
-    });
+      /* Remove o alerta após o tempo determinado (milisegundos) */
+      this.alerta.pipe(debounceTime(5000)).subscribe(() => {
+        this.mensagem = '', this.mensagemSucesso = '', this.mensagemErro = ''
+      });
 
-    /* Remove o alerta após o tempo determinado (milisegundos) */
-    this.alerta.pipe(debounceTime(5000)).subscribe(() => {
-      this.mensagem = '', this.mensagemSucesso = '', this.mensagemErro = ''
-    });
-
-    /* Habilita novamente o botão após o tempo determinado (60000 = 1 minuto) */
-    this.botaoPonto.pipe(debounceTime(60000)).subscribe(() => {
-      this.botaoPonto.next(this.btnPonto = 'success btn-lg');
-      this.botaoPonto.next(this.disablePonto = '');
-      this.botaoPonto.next(this.desabilitar = '1');
-      this.botaoPonto.next(this.btnPontoMensagem = 'Registrar Ponto');
-    });
+      /* Habilita novamente o botão após o tempo determinado (60000 = 1 minuto) */
+      this.botaoPonto.pipe(debounceTime(60000)).subscribe(() => {
+        this.botaoPonto.next(this.btnPonto = 'success btn-lg');
+        this.botaoPonto.next(this.disablePonto = '');
+        this.botaoPonto.next(this.desabilitar = '1');
+        this.botaoPonto.next(this.btnPontoMensagem = 'Registrar Ponto');
+      });
+    
   }
 
-  listarRegistrosPontoSemanal(){
+  listarRegistrosPontoSemanal() {
     const dataInicial = moment().subtract(7, 'days').format();
     this.listaDePontos = this.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
-  } 
+  };
 
   buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
     this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe((registroPonto) => {
@@ -123,6 +123,7 @@ export class HomeComponent implements OnInit {
         this.listarRegistrosPontoSemanal();
       },
       error => {
+        this.dataHoraBatida = new Date();
         this.botaoPonto.next(this.btnPonto = 'danger btn-lg');
         this.botaoPonto.next(this.btnPontoMensagem = 'Erro ao Registrar');
         this.alerta.next(this.mensagemSucesso = 'Erro ao Registrar Ponto - Tente Novamente mais Tarde');

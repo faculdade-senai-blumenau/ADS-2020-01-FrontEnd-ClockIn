@@ -26,11 +26,12 @@ import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/a
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 import { LoginComponent } from './components/login/login.component';
 import {DataTablesModule} from 'angular-datatables';
+import { JornadaComponent } from './components/parametro/jornada/jornada.component';
 
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent, HomeComponent, RelatoriosComponent,
     ParametroComponent, LoaderComponent, PagenotfoundComponent, EditarMarcacaoComponent, EspelhopontoComponent,
-    AprovacoesPendentesComponent, CadastrosComponent, LoginComponent],
+    AprovacoesPendentesComponent, CadastrosComponent, LoginComponent, JornadaComponent],
 
   imports: [RouterModule, BrowserModule, AppRoutingModule, HttpClientModule, DataTablesModule,
     ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule, NgxPaginationModule],

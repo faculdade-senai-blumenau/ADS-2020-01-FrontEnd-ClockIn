@@ -42,6 +42,7 @@ export interface Cargo {
 }
 
 export interface Jornada {
+    //modificado o idJornada por conta do MOK. ao apontar a API, utilizar o idJornada
     idJornada?: number;
     inicioManha: string;
     finalManha: string;
