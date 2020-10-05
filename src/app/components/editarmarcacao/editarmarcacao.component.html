@@ -13,7 +13,7 @@
         <div class="header pt-4 mb-3">
           <h1 class="header-title">Editar Marcações</h1>
         </div>
-        <div class="row">
+        <div class="row " >
           <div class="col-12 col-lg-12 col-xxl-6 pb-5">
             <div class="card flex-fill">
               <div class="card-header">
@@ -21,11 +21,11 @@
                 <h6 class="card-subtitle text-muted">Edição de marcações dos registros de ponto.
                 </h6>
               </div>
-              <div class="table-responsive table-striped">
+              <div class="table-responsive table-striped text-center ">
                 <div class="card-body text-center ">
                   <!--Table-->
                   <table class="table " id='TabelaEditarPonto'>
-                    <thead class="thead-light text-center">
+                    <thead class="thead-light ">
                       <tr>
                         <th>Data</th>
                         <th colspan="8">Horarios</th>
@@ -33,7 +33,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        *ngFor="let ponto of listaDePontos| paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
+                        *ngFor="let ponto of listaDePontos | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
                         <p class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
                         <td class="text-center m-2" *ngFor="let ponto of ponto.values">
                           <p data-toggle="modal" data-target="#editarMarcacao"
@@ -48,8 +48,10 @@
                   </pagination-controls>
                 </div>
               </div>
-              <div class="card-footer">
-                <button type="button" id="btnNovo" class="btn btn-primary btn float-right" data-toggle="modal"
+              <div class="card-footer text-center">
+                  <pagination-controls class="m-0" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo">
+                  </pagination-controls>
+                  <button type="button" id="btnNovo" class="btn btn-primary btn float-right mr-5 mt-0" data-toggle="modal"
                   data-target="#inserirMarcacao">Novo</button>
               </div>
               <!--Table-->

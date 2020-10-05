@@ -55,14 +55,6 @@ export class HomeComponent implements OnInit {
     this.clockHandle = setInterval(() => {
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
       this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
-    });
-
-    /* Retorna a lista de Pontos */
-    /* Retorna lista de pontos - No Parametro recebe a quantidade de dias que irá retornar*/
-    this.clockHandle = setInterval(() => {
-      const dataInicial = moment().subtract(7, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
-    }, 200);
 
     /* Retorna Informações do Usuario pelo ID Usuario*/
     this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {

@@ -20,9 +20,12 @@ export class AppService {
   }
 
   /* Variáveis */
-  /*'http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';*/
+
   urlBase = 'http://localhost:5000'; 
+  /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com'; */
+
   idUsuario = 2;
+  urlBase = 'http://186.212.51.69:5000/'; 
 
 
   /* Retorna a url padrão */
@@ -77,6 +80,10 @@ export class AppService {
 
   buscarEspelhoPonto(idUsuario: number) {
     return this.http.get<EspelhoPonto[]>(`${this.urlBase}/espelhoPonto/periodoEspelho?idUsuario=${idUsuario}&status=0`);
+  }
+
+  buscarEspelhoPontoAprovado(idUsuario: number) {
+    return this.http.get<EspelhoPonto[]>(`${this.urlBase}/espelhoPonto/periodoEspelho?idUsuario=${idUsuario}&status=1`);
   }
 
   alterarStatusEspelho(espelhoPonto: EspelhoPonto): Observable<EspelhoPonto> {
