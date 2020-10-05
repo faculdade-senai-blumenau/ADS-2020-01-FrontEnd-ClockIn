@@ -1,0 +1,173 @@
+<div class="table-responsive table-striped">
+
+        <!--Table-->
+        <table class="table " id='TabelaInserirJornada'>
+            <thead class="thead-light text-center">
+                <tr>
+                    <th>Entrada</th>
+                    <th>Saída</th>
+                    <th>Entrada</th>
+                    <th>Saída</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let jornada of listarJornada">
+                    <td class="text-center">
+                        {{jornada["inicioManha"].split(":")[0]}}:{{jornada["inicioManha"].split(":")[1]}}
+                    </td>
+                    <td class="text-center">
+                        {{jornada["finalManha"].split(":")[0]}}:{{jornada["finalManha"].split(":")[1]}}
+                    </td>
+                    <td class="text-center">
+                        {{jornada["inicioTarde"].split(":")[0]}}:{{jornada["inicioTarde"].split(":")[1]}}
+                    </td>
+                    <td class="text-center">
+                        {{jornada["finalTarde"].split(":")[0]}}:{{jornada["finalTarde"].split(":")[1]}}
+                    </td>
+                    <td class="text-center">
+                        <button type="button" id="btnEditarJornada" class="btn btn-primary btn float-right"
+                            data-toggle="modal" data-target="#editarJornada"
+                            (click)="buscarJornadaID(jornada.id)">Editar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--Table-->
+        <button type="button" id="btnCadastrarJornada" class="btn btn-primary btn float-right" data-toggle="modal"
+        data-target="#inserirJornada">Cadastrar</button>
+</div>
+
+<!-- Modal Editar-->
+<div class="modal fade" id="editarJornada" tabindex="-1" role="dialog" aria-labelledby="editarJornada"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    Editar Jornadas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 p-0">
+                        <div class="modal-container">
+                            <div class="contact-form ">
+                                <section>
+                                    <div class="container">
+                                        <form>
+                                            <label for="Manha">Manhã</label>
+                                            <div class="row">
+                                                <div class="col-md-6 pb-2 pt-1">
+                                                    <input [(ngModel)]="editarJornada.inicioManha"
+                                                        class="form-control time-mask" id="inicioManha"
+                                                        name="inicioManha" type="time" required placeholder="00:00"
+                                                        [value]="jornada.inicioManha" minlength="5" maxlength="5"
+                                                        autocomplete="on">
+                                                </div>
+                                                <div class="col-md-6 pb-2 pt-1">
+                                                    <input [(ngModel)]="editarJornada.finalManha"
+                                                        class="form-control time-mask" id="finalManha" name="finalManha"
+                                                        type="time" required placeholder="00:00" minlength="5"
+                                                        [value]="jornada.finalManha" maxlength="5" autocomplete="on">
+                                                </div>
+                                            </div>
+                                            <label for="Tarde">Tarde</label>
+                                            <div class="row">
+                                                <div class="col-md-6 pb-2 pt-1">
+                                                    <input [(ngModel)]="editarJornada.inicioTarde"
+                                                        class="form-control time-mask" id="inicioTarde"
+                                                        name="inicioTarde" type="time" required placeholder="00:00"
+                                                        [value]="jornada.inicioTarde" minlength=" 5" maxlength="5"
+                                                        autocomplete="on">
+                                                </div>
+                                                <div class="col-md-6 pb-2 pt-1">
+                                                    <input [(ngModel)]="editarJornada.finalTarde"
+                                                        class="form-control time-mask" id="finalTarde" name="finalTarde"
+                                                        type="time" required placeholder="00:00" minlength="5"
+                                                        [value]="jornada.finalTarde" maxlength="5" autocomplete="on">
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-success float-right  m-2" (click)="updateJornada()"
+                                                data-dismiss="modal">Confirmar</button>
+                                            <button class="btn btn-danger float-right  m-2"
+                                                data-dismiss="modal">Cancelar</button>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Criar-->
+<div class="modal fade" id="inserirJornada" tabindex="-1" role="dialog" aria-labelledby="inserirJornada"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    Cadastro de Jornadas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 p-0">
+                        <div class="modal-container">
+                            <div class="contact-form ">
+                                <section>
+                                    <div class="container">
+                                        <form method="post" #frm="ngForm">
+                                            <label for="Manha">Manhã</label>
+                                            <div class="row">
+                                                <div class="col-md-6 pb-2 pt-1">
+                                                    <input [(ngModel)]="jornada.inicioManha"
+                                                        class="form-control time-mask" id="inicioManha"
+                                                        name="inicioManha" type="time" required placeholder="00:00"
+                                                        minlength="5" maxlength="5" autocomplete="on">
+                                                </div>
+                                                <div class="col-md-6 pb-2 pt-1">
+                                                    <input [(ngModel)]="jornada.finalManha"
+                                                        class="form-control time-mask" id="finalManha" name="finalManha"
+                                                        type="time" required placeholder="00:00" minlength="5"
+                                                        maxlength="5" autocomplete="on">
+                                                </div>
+                                            </div>
+                                            <label for="Tarde">Tarde</label>
+                                            <div class="row">
+                                                <div class="col-md-6 pb-2 pt-1">
+                                                    <input [(ngModel)]="jornada.inicioTarde"
+                                                        class="form-control time-mask" id="inicioTarde"
+                                                        name="inicioTarde" type="time" required placeholder="00:00"
+                                                        minlength="5" maxlength="5" autocomplete="on">
+                                                </div>
+                                                <div class="col-md-6 pb-2 pt-1">
+                                                    <input [(ngModel)]="jornada.finalTarde"
+                                                        class="form-control time-mask" id="finalTarde" name="finalTarde"
+                                                        type="time" required placeholder="00:00" minlength="5"
+                                                        maxlength="5" autocomplete="on">
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-success float-right  m-2"
+                                            (click)="criarJornada(frm)" data-dismiss="modal">Salvar</button>
+                                            <button class="btn btn-secondary float-right  m-2"
+                                                data-dismiss="modal">Fechar</button>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
