@@ -16,25 +16,23 @@
                             </div>
                             <div class="card-body text-center pr-0 pl-0">
                                 <div class="col-12 col-lg-12">
-                                    <div class="tab">
+                                    <div class="tab tab-primary">
                                         <ul class="nav nav-tabs" role="tablist">
                                             <li class="nav-item"><a class="nav-link active" href="#tab-1"
-                                                    data-toggle="tab" role="tab" aria-selected="true">Parâmetros do
-                                                    Sistema</a></li>
+                                                    data-toggle="tab" role="tab" aria-selected="true">Parâmetros</a>
+                                            </li>
                                             <li class="nav-item"><a class="nav-link" href="#tab-2" data-toggle="tab"
-                                                    role="tab" aria-selected="false">Jornadas</a></li>
+                                                    role="tab" aria-selected="false">Jornadas</a>
+                                            </li>
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="tab-1" role="tabpanel">
-                                                <h4 class="tab-title">Cadastro de Parâmetros</h4>
                                             </div>
-                                            <!--PAINEL DE JORNADAS-->
+                                            <!--TABELA DE JORNADAS-->
                                             <div class="tab-pane" id="tab-2" role="tabpanel">
-                                                <div class="tab-pane active" id="tab-1" role="tabpanel">
-                                                    <a class="nav-link" routerLink="/jornada">Cadastro de Jornadas</a>
-                                                </div>
+                                                <app-jornada></app-jornada>
                                             </div>
-                                            <!--FIM PAINEL DE JORNADAS-->
+                                            <!--FIM TABELA DE JORNADAS-->
                                         </div>
                                     </div>
                                 </div>

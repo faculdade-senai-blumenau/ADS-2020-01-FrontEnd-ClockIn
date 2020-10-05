@@ -1,5 +1,5 @@
 <div class="table-responsive table-striped">
-    <div class="card-body text-center ">
+
         <!--Table-->
         <table class="table " id='TabelaInserirJornada'>
             <thead class="thead-light text-center">
@@ -28,19 +28,15 @@
                     <td class="text-center">
                         <button type="button" id="btnEditarJornada" class="btn btn-primary btn float-right"
                             data-toggle="modal" data-target="#editarJornada"
-                            (click)="buscarJornadaID(jornada.id)">Editar Jornada</button>
+                            (click)="buscarJornadaID(jornada.id)">Editar</button>
                     </td>
                 </tr>
             </tbody>
         </table>
         <!--Table-->
-    </div>
+        <button type="button" id="btnCadastrarJornada" class="btn btn-primary btn float-right" data-toggle="modal"
+        data-target="#inserirJornada">Cadastrar</button>
 </div>
-<div class="card-footer">
-    <button type="button" id="btnCadastrarJornada" class="btn btn-primary btn float-right" data-toggle="modal"
-        data-target="#inserirJornada">Cadastrar Jornada</button>
-</div>
-
 
 <!-- Modal Editar-->
 <div class="modal fade" id="editarJornada" tabindex="-1" role="dialog" aria-labelledby="editarJornada"
