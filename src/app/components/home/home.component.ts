@@ -43,20 +43,23 @@ export class HomeComponent implements OnInit {
   listaDePontos: any;
   ponto: any;
 
+
   constructor(private datePipe: DatePipe,
     private appService: AppService,
     private appComponent: AppComponent) {
   }
 
   ngOnInit(): void {
-    this.clockHandle = setInterval(() => {
-      this.listarRelatorioSemanal();
-    }, 300);
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
       this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
-    }, 1000);
+    });
+
+    /* Retorna a lista de Pontos */
+      const dataInicial = moment().subtract(7, 'days').format();
+      this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
+    });
 
     /* Retorna Informações do Usuario pelo ID Usuario*/
     this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
@@ -83,11 +86,6 @@ export class HomeComponent implements OnInit {
   }
 
 
-  /* Retorna a lista de Pontos */
-  listarRelatorioSemanal() {
-    const dataInicial = moment().subtract(7, 'days').format();
-    this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
-  }
 
   registrarPonto(): void {
     this.ponto = {
@@ -107,6 +105,7 @@ export class HomeComponent implements OnInit {
         this.alerta.next(this.mensagemSucesso = (`Ponto Registrado com Sucesso em: `));
       },
       error => {
+        this.dataHoraBatida = new Date();
         this.botaoPonto.next(this.btnPonto = 'danger btn-lg');
         this.botaoPonto.next(this.btnPontoMensagem = 'Erro ao Registrar');
         this.alerta.next(this.mensagemSucesso = 'Erro ao Registrar Ponto - Tente Novamente mais Tarde');
