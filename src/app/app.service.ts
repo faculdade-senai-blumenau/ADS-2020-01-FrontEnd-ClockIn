@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegistroPonto, Usuario, Setor, EspelhoPonto } from './app.model';
+import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada } from './app.model';
 import { Observable } from 'rxjs';
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 import { stringify } from 'querystring';
-import { formatDate } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 import * as moment from 'moment';
 
 @Injectable({
@@ -16,11 +16,11 @@ import * as moment from 'moment';
 
 export class AppService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public location: Location) {
   }
 
   /* Variáveis */
-  urlBase = 'http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';
+  urlBase = 'http://localhost:3001'; /*'http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';*/
   idUsuario = 2;
 
 
@@ -77,10 +77,31 @@ export class AppService {
   buscarEspelhoPonto(idUsuario: number) {
     return this.http.get<EspelhoPonto[]>(`${this.urlBase}/espelhoPonto/periodoEspelho?idUsuario=${idUsuario}&status=0`);
   }
-  
+
   alterarStatusEspelho(espelhoPonto: EspelhoPonto): Observable<EspelhoPonto> {
     const url = `${this.urlBase}/espelhoPonto/${espelhoPonto.idEspelhoPonto}`;
     return this.http.put<EspelhoPonto>(url, espelhoPonto);
   }
 
+  recarregarPagina(): void {
+    window.location.reload();
+  }
+
+  criarGenerico(table: any, ponto: any) {
+    return this.http.post(`${this.urlBase}/${table}/`, ponto);
+  }
+
+  listarGenerico(table: any) {
+    return this.http.get<Array<any>>(`${this.urlBase}/${table}/`);
+  }
+
+  updateJornada(jornada: Jornada): Observable<Jornada> {
+    //modificado o idJornada por conta do MOK. ao apontar a API, utilizar o idJornada
+    const url = `${this.urlBase}/jornada/${jornada.id}`;
+    return this.http.put<Jornada>(url, jornada);
+  }
+
+  buscarJornadaID(idJornada: number): Observable<Jornada[]> {
+    return this.http.get<Jornada[]>(`${this.urlBase}/jornada/${idJornada}`);
+  }
 }
