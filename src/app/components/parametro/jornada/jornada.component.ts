@@ -61,7 +61,6 @@ export class JornadaComponent implements OnInit {
   criarJornada(frm) {
     this.appService.criarGenerico('jornada', this.jornada).subscribe(
       success => {
-        this.appService.recarregarPagina();
         this.alerta.next(this.mensagemSucesso = (`Jornada Inserida com Sucesso.`));
       },
       error => {
