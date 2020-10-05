@@ -74,12 +74,13 @@ export class EspelhopontoComponent implements OnInit {
     this.appService.alterarStatusEspelho(espelhoPonto).subscribe(
       success => {
         this.alerta.next(this.mensagemEspelhoOk = (`Alteração Realizada com Sucesso.`));
+        this.buscarEspelhoPontoAprovado();
       },
       error => {
         this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel realizar a alteração.'));
       }
     )
-    this.buscarEspelhoPontoAprovado();
+    
   }
 
   buscarEspelhoPontoAprovado() {

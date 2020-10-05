@@ -13,7 +13,7 @@
         <div class="header pt-4 mb-3">
           <h1 class="header-title">Editar Marcações</h1>
         </div>
-        <div class="row " >
+        <div class="row ">
           <div class="col-12 col-lg-12 col-xxl-6 pb-5">
             <div class="card flex-fill">
               <div class="card-header">
@@ -47,9 +47,10 @@
                 </div>
               </div>
               <div class="card-footer text-center">
-                  <pagination-controls class="m-0" (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo">
-                  </pagination-controls>
-                  <button type="button" id="btnNovo" class="btn btn-primary btn float-right mr-5 mt-0" data-toggle="modal"
+                <pagination-controls class="m-0" (pageChange)="paginaAtual = $event" previousLabel="Anterior"
+                  nextLabel="Próximo">
+                </pagination-controls>
+                <button type="button" id="btnNovo" class="btn btn-primary btn float-right mr-5 mt-0" data-toggle="modal"
                   data-target="#inserirMarcacao">Novo</button>
               </div>
               <!--Table-->
@@ -84,7 +85,8 @@
                                         <label for="horaRegistro">Horário</label>
                                         <input [(ngModel)]="registroPonto.horaRegistro" class="form-control"
                                           id="horaRegistro" name="horaRegistro" placeholder="Horário"
-                                          [value]="ponto.horaRegistro" type="time" required="true" autofocus="">
+                                          [value]="ponto.horaRegistro" type="time" required="true" autofocus=""
+                                          minlength="5" maxlength="5">
                                       </div>
                                       <div class="col-md-12">
                                         <label for="justificaPonto">Justificativa</label>

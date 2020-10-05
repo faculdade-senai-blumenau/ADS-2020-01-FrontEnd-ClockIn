@@ -1,4 +1,3 @@
-import { AppComponent } from './../../app.component';
 import { AppService } from 'src/app/app.service';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
@@ -43,20 +42,20 @@ export class HomeComponent implements OnInit {
   listaDePontos: any;
   ponto: any;
 
+
   constructor(private datePipe: DatePipe,
-    private appService: AppService,
-    private appComponent: AppComponent) {
+    private appService: AppService) {
   }
 
   ngOnInit(): void {
-    this.clockHandle = setInterval(() => {
-      this.listarRelatorioSemanal();
-    }, 300);
+
+    this.listarRegistrosPontoSemanal();
+
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
       this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
-    }, 1000);
+    });
 
     /* Retorna Informações do Usuario pelo ID Usuario*/
     this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
@@ -82,11 +81,26 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
-  /* Retorna a lista de Pontos */
-  listarRelatorioSemanal() {
+  listarRegistrosPontoSemanal(){
     const dataInicial = moment().subtract(7, 'days').format();
-    this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
+    this.listaDePontos = this.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
+  } 
+
+  buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
+    this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe((registroPonto) => {
+      this.registroPonto = registroPonto;
+      const groups = new Set(this.registroPonto
+        .filter(i => i.dataRegistro >= dataInicial && (i.dataRegistro <= dataFinal || dataFinal == null))
+        .map(item => item.dataRegistro));
+
+      this.listaDePontos = [];
+      groups.forEach(g =>
+        this.listaDePontos.push({
+          dataRegistro: g,
+          values: this.registroPonto.filter(i => i.dataRegistro === g)
+        }),
+      );
+    });
   }
 
   registrarPonto(): void {
@@ -97,6 +111,7 @@ export class HomeComponent implements OnInit {
       justificaPonto: 0,
       JustificaReprocacao: ''
     };
+
     this.appService.registrarPonto(this.ponto).subscribe(
       success => {
         this.dataHoraBatida = new Date();
@@ -105,6 +120,7 @@ export class HomeComponent implements OnInit {
         this.botaoPonto.next(this.desabilitar = '2');
         this.botaoPonto.next(this.btnPontoMensagem = 'Ponto Registrado');
         this.alerta.next(this.mensagemSucesso = (`Ponto Registrado com Sucesso em: `));
+        this.listarRegistrosPontoSemanal();
       },
       error => {
         this.botaoPonto.next(this.btnPonto = 'danger btn-lg');

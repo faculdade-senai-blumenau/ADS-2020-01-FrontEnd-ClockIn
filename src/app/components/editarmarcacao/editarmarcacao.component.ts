@@ -52,10 +52,7 @@ export class EditarMarcacaoComponent implements OnInit {
       justificativaReprovacao: ''
     };
 
-    this.clockHandle = setInterval(() => {
-      const dataInicial = moment().subtract(30, 'days').format();
-      this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
-    }, 500);
+    this.listarRegistrosPontoEditarMarcacao();
 
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
@@ -63,6 +60,28 @@ export class EditarMarcacaoComponent implements OnInit {
         this.mensagem='', this.mensagemErro='', this.mensagemSucesso=''
       });
     }, 1000);
+  }
+
+  listarRegistrosPontoEditarMarcacao(){
+    const dataInicial = moment().subtract(30, 'days').format();
+    this.listaDePontos = this.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
+  } 
+
+  buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
+    this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe((registroPonto) => {
+      this.registroPonto = registroPonto;
+      const groups = new Set(this.registroPonto
+        .filter(i => i.dataRegistro >= dataInicial && (i.dataRegistro <= dataFinal || dataFinal == null))
+        .map(item => item.dataRegistro));
+
+      this.listaDePontos = [];
+      groups.forEach(g =>
+        this.listaDePontos.push({
+          dataRegistro: g,
+          values: this.registroPonto.filter(i => i.dataRegistro === g)
+        }),
+      );
+    });
   }
 
   buscarRegistroPontoID(idRegistroPonto: number) {
@@ -74,6 +93,7 @@ export class EditarMarcacaoComponent implements OnInit {
     this.appService.updateRegistroPonto(this.registroPonto).subscribe(
       success => {
         this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
+        this.listarRegistrosPontoEditarMarcacao();
       },
       error => {
         this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
@@ -85,6 +105,7 @@ export class EditarMarcacaoComponent implements OnInit {
     this.appService.criar(this.ponto).subscribe(
       success => {
         this.alerta.next(this.mensagemSucesso = (`Registro Inserido com Sucesso.`));
+        this.listarRegistrosPontoEditarMarcacao();
       },
       error => {
         this.alerta.next(this.mensagemErro= 'Não foi possível inserir o registro.');
