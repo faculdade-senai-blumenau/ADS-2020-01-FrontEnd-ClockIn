@@ -29,7 +29,7 @@ export class EditarMarcacaoComponent implements OnInit {
   ponto: any;
 
   urlBase = this.appService.buscarUrlBase();
-  idUsuario = this.appService.buscarUsuario();
+  idUsuario = this.appService.buscarUsuario(); 
 
   public paginaAtual = 1;
 
@@ -41,8 +41,6 @@ export class EditarMarcacaoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.registroPonto = {};
-
     this.ponto = {
       idRegistroPonto: '',
       idUsuario: this.appService.buscarUsuario(),
@@ -50,7 +48,7 @@ export class EditarMarcacaoComponent implements OnInit {
       horaRegistro: '',
       justificaPonto: '',
       justificativaReprovacao: ''
-    };
+    }; 
 
     this.listarRegistrosPontoEditarMarcacao();
 
@@ -73,7 +71,6 @@ export class EditarMarcacaoComponent implements OnInit {
       const groups = new Set(this.registroPonto
         .filter(i => i.dataRegistro >= dataInicial && (i.dataRegistro <= dataFinal || dataFinal == null))
         .map(item => item.dataRegistro));
-
       this.listaDePontos = [];
       groups.forEach(g =>
         this.listaDePontos.push({

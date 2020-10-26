@@ -77,16 +77,16 @@
                                                         <strong class="text-gray-dark">
                                                             <p>Cargo</p>
                                                         </strong>
-                                                        {{setor.usuario.cargo["nomeCargo"]}}
+                                                        {{usuario.cargo["nomeCargo"]}}
                                                     </div>
                                                     <div class="d-flex justify-content-between ">
                                                         <strong class="text-gray-dark">
                                                             <p>Escala</p>
                                                         </strong>
-                                                        <p>{{setor.usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}}
-                                                            {{setor.usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}}
-                                                            {{setor.usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}}
-                                                            {{setor.usuario.jornada["finalTarde"].split(":")[0]}}:{{usuario.jornada["finalTarde"].split(":")[1]}}
+                                                        <p>{{usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}}
+                                                            {{usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}}
+                                                            {{usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}}
+                                                            {{usuario.jornada["finalTarde"].split(":")[0]}}:{{usuario.jornada["finalTarde"].split(":")[1]}}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -124,7 +124,6 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-
                                 </div>
                                 <div class="modal-body text-center" style="font-size: 20px;">
                                     Deseja confirmar o registro do ponto?

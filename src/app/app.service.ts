@@ -108,7 +108,7 @@ export class AppService {
 
   updateSetor(setor: Setor): Observable<Setor> {
     //modificado o idSetor por conta do MOK. ao apontar a API, utilizar o idSetor
-    const url = `${this.urlBase}/setor/${setor.id}`;
+    const url = `${this.urlBase}/setor/${setor.idSetor}`;
     return this.http.put<Setor>(url, setor);
   }
 

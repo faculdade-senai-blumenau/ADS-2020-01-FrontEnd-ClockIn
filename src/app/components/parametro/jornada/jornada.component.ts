@@ -29,11 +29,12 @@ export class JornadaComponent implements OnInit {
     private appService: AppService) { }
 
   ngOnInit(): void {
+
     this.editarJornada = {};
     this.listarJornada = this.listar();
 
     this.jornada = {
-      id: '',
+      idJornada: '',
       inicioManha: '',
       finalManha: '',
       inicioTarde: '',

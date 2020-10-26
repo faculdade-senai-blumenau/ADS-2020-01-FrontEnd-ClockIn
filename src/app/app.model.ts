@@ -29,6 +29,7 @@ export interface RegistroPonto {
 
 export interface Setor {
     idSetor?: number;
+    idUsuario: Usuario;
     descricaoSetor: string;
 }
 
@@ -39,10 +40,10 @@ export interface Cargo {
 
 export interface Jornada {
     idJornada?: number;
-    inicioManha: string;
-    finalManha: string;
-    inicioTarde: string;
-    finalTarde: string;
+    inicioManha: any;
+    finalManha: any;
+    inicioTarde: any;
+    finalTarde: any;
 }
 
 export interface EspelhoPonto {
