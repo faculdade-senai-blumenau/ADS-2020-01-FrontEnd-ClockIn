@@ -89,8 +89,8 @@ export class AppService {
   }
 
 
-  criarGenerico(table: any, ponto: any) {
-    return this.http.post(`${this.urlBase}/${table}/`, ponto);
+  criarGenerico(table: any, object: any) {
+    return this.http.post(`${this.urlBase}/${table}/`, object);
   }
 
   listarGenerico(table: any) {
@@ -103,8 +103,17 @@ export class AppService {
     return this.http.put<Jornada>(url, jornada);
   }
 
+  updateSetor(setor: Setor): Observable<Setor> {
+    //modificado o idSetor por conta do MOK. ao apontar a API, utilizar o idSetor
+    const url = `${this.urlBase}/setor/${setor.id}`;
+    return this.http.put<Setor>(url, setor);
+  }
+
   buscarJornadaID(idJornada: number): Observable<Jornada[]> {
     return this.http.get<Jornada[]>(`${this.urlBase}/jornada/${idJornada}`);
   }
 
+  buscarSetorID(idSetor: number): Observable<Setor[]> {
+    return this.http.get<Setor[]>(`${this.urlBase}/setor/${idSetor}`);
+  }
 }
