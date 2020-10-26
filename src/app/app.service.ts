@@ -30,15 +30,18 @@ export class AppService {
     return this.urlBase;
   }
 
-  /* Retorna o usuario logado no sistema */
   buscarUsuario() {
     return this.idUsuario;
   }
 
-  /* Retorna a lista de pontos - Recebe como parametro a quantidade de dias a partir da data atual*/
   buscarRegistrosPontoUsuario(idUsuario: number) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/usuario/${idUsuario}`);
   }
+
+  buscarRegistrosPontoAprovacoesPendentes() {
+    return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/`);
+  }
+
   buscarRegistrosPontoUsuarioRange(idUsuario: number, dataInicial: any, dataFinal: any) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/espelhoPonto/periodoPonto?dataInicial=${dataInicial}&dataFinal=${dataFinal}&idUsuario=${idUsuario}`);
   }
@@ -89,8 +92,8 @@ export class AppService {
   }
 
 
-  criarGenerico(table: any, ponto: any) {
-    return this.http.post(`${this.urlBase}/${table}/`, ponto);
+  criarGenerico(table: any, jornada: any) {
+    return this.http.post(`${this.urlBase}/${table}/`, jornada);
   }
 
   listarGenerico(table: any) {
@@ -99,7 +102,7 @@ export class AppService {
 
   updateJornada(jornada: Jornada): Observable<Jornada> {
     //modificado o idJornada por conta do MOK. ao apontar a API, utilizar o idJornada
-    const url = `${this.urlBase}/jornada/${jornada.id}`;
+    const url = `${this.urlBase}/jornada/${jornada.idJornada}`;
     return this.http.put<Jornada>(url, jornada);
   }
 

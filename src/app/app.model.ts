@@ -20,7 +20,7 @@ export interface Usuario {
 
 export interface RegistroPonto {
     idRegistroPonto?: number;
-    idUsuario: number;
+    idUsuario: Usuario;
     dataRegistro: DatePipe;
     horaRegistro: DatePipe;
     justificaPonto: number;
@@ -43,7 +43,7 @@ export interface Cargo {
 
 export interface Jornada {
     //modificado o idJornada por conta do MOK. ao apontar a API, utilizar o idJornada
-    id?: number;
+    idJornada?: number;
     inicioManha: string;
     finalManha: string;
     inicioTarde: string;
