@@ -11,15 +11,101 @@
                         <div class="card flex-fill">
                             <div class="card-header">
                                 <h5 class="card-title">Aprovações Pendentes</h5>
-                                <h6 class="card-subtitle text-muted">Descrição Aqui
-                                </h6>
+                                <h6 class="card-subtitle text-muted">Alterações de registros de ponto aguardando
+                                    aprovação</h6>
                             </div>
-                            <div class="table-responsive">
-                                <!-- Relatório Semanal -->
-                                <div class="text-center">
-                                    
+                            <div class="table-responsive table-striped text-center ">
+                                <div class="card-body text-center ">
+                                    <!--Table-->
+                                    <table class="table " id='TabelaAprovacoesPendentes'>
+                                        <thead class="thead-light ">
+                                            <tr>
+                                                <th>Colaborador</th>
+                                                <th>Data</th>
+                                                <th colspan="8">Horarios</th>
+                                                <th>Ação</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let ponto of listaDePontos | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
+                                                <td class="text-center">{{ponto.idUsuario}}</td>
+                                                <td class="text-center m-2">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}
+                                                </td>
+                                                <td class="text-center m-2" *ngFor="let ponto of ponto.pontos">
+                                                    <p data-toggle="modal" data-target="#editarMarcacao">
+                                                        {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-footer text-center float-center">
+                                    <pagination-controls class="m-0" (pageChange)="paginaAtual = $event"
+                                        previousLabel="Anterior" nextLabel="Próximo">
+                                    </pagination-controls>
+                                    <button type="button" id="btnAprovarTodos"
+                                        class="btn btn-success btn float-center mr-5 mt-0" data-toggle="modal"
+                                        data-target="#modalAprovarMarcacaoTodos">Aprovar Todos</button>
+                                    <button type="button" id="btnReprovarTodos"
+                                        class="btn btn-danger btn float-center mr-5 mt-0" data-toggle="modal"
+                                        data-target="#modalRerovarMarcacaoTodos">Reprovar Todos</button>
+                                </div>
+                                <!--Table-->
+                            </div>
+                            <div class="modal fade" id="modalAprovarMarcacaoTodos" tabindex="-1" role="dialog"
+                                aria-labelledby="modalAprovarMarcacaoTodosLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+
+                                        </div>
+                                        <div class="modal-body text-center" style="font-size: 20px;">
+                                            Deseja aprovar todas as edições de ponto?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cancelar</button>
+                                            <span class="d-inline-block" data-toggle="modal"
+                                                data-target="modalAprovarMarcacaoTodos">
+                                                <button type="button" class="btn btn-success"
+                                                    data-dismiss="modal">Confirmar</button>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="modal fade" id="modalRerovarMarcacaoTodos" tabindex="-1" role="dialog"
+                            aria-labelledby="modalRerovarMarcacaoTodosLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    </div>
+                                    <div class="modal-body text-center" style="font-size: 20px;">
+                                        Deseja reprovar todas as edições de ponto?
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="justificaPonto">Justificativa</label>
+                                        <input type [(ngModel)]="registroPonto.justificativaReprovacao"
+                                          class="custom-select  form-control" id="justificativaReprovacao" name="justificaPonto"
+                                          placeholder="justificativa Reprovacao" type="number" aria-controls="datatables-basic"
+                                         required>
+                                          
+                                      </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Cancelar</button>
+                                        <span class="d-inline-block" data-toggle="modal"
+                                            data-target="modalRerovarMarcacaoTodos">
+                                            <button type="button" class="btn btn-success"
+                                                data-dismiss="modal">Confirmar</button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
