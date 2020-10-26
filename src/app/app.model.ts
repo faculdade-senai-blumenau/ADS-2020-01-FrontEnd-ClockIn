@@ -28,7 +28,6 @@ export interface RegistroPonto {
 }
 
 export interface Setor {
-    //modificado o idSetor por conta do MOK. ao apontar a API, utilizar o idSetor
     idSetor?: number;
     idUsuario: Usuario;
     descricaoSetor: string;
@@ -40,7 +39,6 @@ export interface Cargo {
 }
 
 export interface Jornada {
-    //modificado o idJornada por conta do MOK. ao apontar a API, utilizar o idJornada
     idJornada?: number;
     inicioManha: any;
     finalManha: any;
