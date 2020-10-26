@@ -29,7 +29,7 @@ export interface RegistroPonto {
 
 export interface Setor {
     //modificado o idSetor por conta do MOK. ao apontar a API, utilizar o idSetor
-    id?: number;
+    idSetor?: number;
     descricaoSetor: string;
 }
 
