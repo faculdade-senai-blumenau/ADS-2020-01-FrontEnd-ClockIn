@@ -62,6 +62,7 @@ export class JornadaComponent implements OnInit {
     this.appService.criarGenerico('jornada', this.jornada).subscribe(
       success => {
         this.alerta.next(this.mensagemSucesso = (`Jornada Inserida com Sucesso.`));
+        this.listarJornada = this.listar();
       },
       error => {
         this.alerta.next(this.mensagemErro = 'Não foi possível inserir a jornada.');
