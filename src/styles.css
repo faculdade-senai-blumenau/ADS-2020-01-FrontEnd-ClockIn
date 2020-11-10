@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-size: .9375rem;
@@ -27,6 +28,7 @@ p {
 .row {
   margin: 0px !important;
 }
+
 
 .thead th {
   font-weight: bold !important;
@@ -69,7 +71,7 @@ p {
 .card-body {
   flex: 1 1 auto !important;
   min-height: 1px !important;
-  padding: 1.25rem !important;
+  padding: 1.25rem;
   padding-bottom: 0px !important;
 }
 
@@ -84,7 +86,7 @@ p {
 }
 
 .table thead th{
-  padding: 5px 10px !important;
+  padding: 5px 10px;
   background-color: #153d77 !important;
   color: white !important;
 }
@@ -96,4 +98,9 @@ p {
 
 .card-title, .modal-title {
   color: #1e2653 !important;
+}
+
+.ngx-pagination {
+  margin-top: 10px !important;
+  padding: 5px !important;
 }

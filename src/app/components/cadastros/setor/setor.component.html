@@ -2,22 +2,19 @@
 
     <!--Table-->
     <table class="table " id='TabelaInserirSetor'>
-        <thead class="thead-light text-center">
+        <thead>
             <tr>
-                <th>Descrição</th>
-                <th>Responsável</th>
-                <th>Ação</th>
+                <th>Descrição Setor</th>
+                <th>Usuario Responsável</th>
             </tr>
         </thead>
         <tbody>
-            <!-- ONDE SERÁ LISTADO OS SETORES -->
-            <tr>
-                <td></td>
-                <td></td>
-                <td class="text-center">
-                    <button type="button" id="btnEditarSetor" class="btn btn-primary btn float-right"
-                        data-toggle="modal" data-target="#editarSetor"
-                        (click)="buscarSetorID(setor.id)">Editar</button>
+            <tr *ngFor="let setor of listaDeSetores">
+                <td>{{ setor.descricaoSetor }}</td>
+                <td>{{ setor.idUsuario}}</td>
+                <td>
+                    <button type="button" id="btnEditarUsuario" class="btn btn-primary" data-toggle="modal"
+                        data-target="#editarSetor" (click)="buscarSetorID(setor.idSetor)">Editar</button>
                 </td>
             </tr>
         </tbody>
@@ -27,12 +24,11 @@
         data-target="#inserirSetor">Cadastrar</button>
 </div>
 
-<!-- Modal Editar-->
 <div class="modal fade" id="editarSetor" tabindex="-1" role="dialog" aria-labelledby="editarSetor" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">
+                <h5 class="modal-title" id="editarSetor">
                     Editar Setores</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -46,20 +42,32 @@
                                 <section>
                                     <div class="container">
                                         <form>
-                                            <label for="Descricao">Descrição</label>
-                                            <div class="row">
-                                                <div class="col-md-6 pb-2 pt-1">
-                                                    <input [(ngModel)]="editarSetor.descricaoSetor"
-                                                        class="form-control time-mask" id="descricaoSetor"
-                                                        name="descricaoSetor" type="text" required placeholder="00:00"
-                                                        [value]="setor.descricaoSetor" minlength="1"
-                                                        maxlength="99" autocomplete="on">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="nome">Nome</label>
+                                                    <input [(ngModel)]="setor.descricaoSetor" class="form-control"
+                                                        id="descricaoSetor" name="descricaoSetor"
+                                                        [value]="setor.descricaoSetor" type="text"
+                                                        placeholder="Descrição Setor">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="inputState">Responsável</label>
+                                                    <select id="inputState" class="form-control">
+                                                        <option *ngFor="let usuario of listaDeUsuarios"
+                                                          [(ngModel)]="usuario.idUsuario"
+                                                            value={{usuario.nomeUsuario}} (click)="listarUsuarios()">
+                                                            {{usuario.nomeUsuario}}
+                                                        </option>
+                                                        <option>...</option>
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-success float-right  m-2" (click)="updateSetor()"
-                                                data-dismiss="modal">Confirmar</button>
-                                            <button class="btn btn-danger float-right  m-2"
-                                                data-dismiss="modal">Cancelar</button>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-success" (click)="updateSetor()"
+                                                    data-dismiss="modal">Confirmar</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </section>
@@ -91,13 +99,24 @@
                                 <section>
                                     <div class="container">
                                         <form method="post" #frm="ngForm">
-                                            <label for="descricao">Descrição</label>
                                             <div class="row">
-                                                <div class="col-md-12 pb-2 pt-1">
+                                                <div class="form-group col-md-6">
+                                                    <label for="descricaoSetor">Descrição</label>
                                                     <input [(ngModel)]="setor.descricaoSetor" class="form-control"
                                                         id="descricaoSetor" name="descricaoSetor" type="text" required
                                                         placeholder="Descrição do setor" minlength="1" maxlength="99"
                                                         autocomplete="on">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="inputState">Responsável</label>
+                                                    <select id="inputState" class="form-control">
+                                                        <option *ngFor="let usuario of listaDeUsuarios"
+                                                        [(ngModel)]="usuario.idUsuario"
+                                                        value={{usuario.nomeUsuario}} (click)="listarUsuarios()">
+                                                        {{usuario.nomeUsuario}}
+                                                        </option>
+                                                        <option>...</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <button type="submit" (click)="criarSetor(frm)"

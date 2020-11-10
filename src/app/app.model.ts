@@ -2,6 +2,9 @@ import { DatePipe } from '@angular/common';
 
 export interface Usuario {
     idUsuario?: string;
+    cargo: Cargo;
+    jornada: Jornada;
+    setor: Setor;
     nomeUsuario: string;
     cpf: string;
     rg: string;
@@ -13,9 +16,6 @@ export interface Usuario {
     senha: string;
     foto: string;
     cargoConfianca: boolean;
-    idCargo: number;
-    cargo: Cargo;
-    jornada: Jornada;
 }
 
 export interface RegistroPonto {
@@ -52,4 +52,17 @@ export interface EspelhoPonto {
     dataInicial: any;
     dataFinal: any;
     status: number;
+}
+
+export interface Endereco {
+    idEndereco?: number;
+    idUsuario: number;
+    idEmpresa: number;
+    cep: string;
+    rua: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
 }

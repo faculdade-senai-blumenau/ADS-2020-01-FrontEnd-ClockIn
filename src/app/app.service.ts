@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada } from './app.model';
+import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada, Endereco } from './app.model';
 import { Observable } from 'rxjs';
-import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
-import { stringify } from 'querystring';
 import { formatDate, Location } from '@angular/common';
-import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +31,16 @@ export class AppService {
     return this.idUsuario;
   }
 
+  buscarUsuarios() {
+    return this.http.get<Usuario>(`${this.urlBase}/usuario`);
+  }
+
   buscarRegistrosPontoUsuario(idUsuario: number) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/usuario/${idUsuario}`);
   }
 
   buscarRegistrosPontoAprovacoesPendentes() {
-    return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/`);
+    return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/aprovacaoPendente`);
   }
 
   buscarRegistrosPontoUsuarioRange(idUsuario: number, dataInicial: any, dataFinal: any) {
@@ -74,6 +75,7 @@ export class AppService {
   listar() {
     return this.http.get<Array<any>>(`${this.urlBase}/registroPonto/`);
   }
+  
   criar(ponto: any) {
     return this.http.post(`${this.urlBase}/registroPonto/`, ponto);
   }
@@ -118,5 +120,9 @@ export class AppService {
 
   buscarSetorID(idSetor: number): Observable<Setor[]> {
     return this.http.get<Setor[]>(`${this.urlBase}/setor/${idSetor}`);
+  }
+
+  buscarEnderecoUsuario(idUsuario: number): Observable<Endereco[]> {
+    return this.http.get<Endereco[]>(`${this.urlBase}/endereco/${idUsuario}`);
   }
 }
