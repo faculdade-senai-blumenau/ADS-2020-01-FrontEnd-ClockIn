@@ -17,33 +17,52 @@ export class SetorComponent implements OnInit {
     mensagem = '';
     mensagemSucesso = '';
     mensagemErro = '';
-
     clockHandle;
-    editarSetor: any;
+    listaDeSetores: any;
+    listaDeUsuarios: any;
+    usuario: any;
     setor: any;
-    listarSetor: any;
+
     /* Variaveis Fim */
 
     constructor(private appComponent: AppComponent,
         private appService: AppService) { }
 
     ngOnInit(): void {
-        this.editarSetor = {};
+        this.listaDeSetores = this.listarSetores();
+        this.listaDeUsuarios = this.listarUsuarios();
 
         this.setor = {
-            id: '',
+            idSetor: '',
+            usuario: '',
             descricaoSetor: ''
         };
+
+
     }
 
+    listarSetores() {
+        this.appService.listarGenerico('setor').subscribe(setor => {
+          this.listaDeSetores = setor;
+        });
+    }
+
+    listarUsuarios() {
+        this.appService.listarGenerico('usuario').subscribe(usuario => {
+          this.listaDeUsuarios = usuario;
+        });
+    }
+    
     buscarSetorID(idSetor: number) {
+        this.setor = [];
         this.appService.buscarSetorID(idSetor).subscribe(
-            resposta => this.editarSetor = resposta);
+            resposta => this.setor = resposta);
     }
 
     updateSetor() {
-        this.appService.updateSetor(this.editarSetor).subscribe(
+        this.appService.updateSetor(this.setor).subscribe(
             success => {
+                this.listaDeSetores = this.listarSetores();
                 this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
             },
             error => {
@@ -55,12 +74,14 @@ export class SetorComponent implements OnInit {
     criarSetor(frm) {
         this.appService.criarGenerico('setor', this.setor).subscribe(
             success => {
+                this.listaDeSetores = this.listarSetores();
                 this.alerta.next(this.mensagemSucesso = (`Setor Inserido com Sucesso.`));
             },
             error => {
                 this.alerta.next(this.mensagemErro = 'Não foi possível inserir setor.');
             }
         );
+
         frm.reset();
     }
 }

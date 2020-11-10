@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   dataAtual: string;
   dataHoraBatida: Date;
   usuario: Usuario;
-  setor: Setor;
 
   /* Variaveis alerta */
   public alerta = new Subject<string>();
@@ -59,11 +58,6 @@ export class HomeComponent implements OnInit {
       /* Retorna Informações do Usuario pelo ID Usuario*/
       this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
         this.usuario = usuario;
-      });
-
-      /* Retorna Setor do Usuario pelo ID Usuario*/
-      this.appService.buscarSetorUsuario(this.idUsuario).subscribe((setor) => {
-        this.setor = setor;
       });
 
       /* Remove o alerta após o tempo determinado (milisegundos) */
