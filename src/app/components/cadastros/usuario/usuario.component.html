@@ -27,18 +27,20 @@
                 <td>{{ usuario.cargo.nomeCargo }}</td>
                 <td>{{ usuario.setor.descricaoSetor }}</td>
                 <td>
-                    <button type="button" id="btnEditarUsuario" class="btn btn-primary" data-toggle="modal"
-                        data-target="#editarUsuario" (click)="buscarUsuarioPeloID(usuario.idUsuario)">Editar</button>
                     <button type="button" id="btnReprovar" class="btn btn-danger" data-toggle="modal"
                         data-target="#excluirUsuario" (click)="buscarUsuarioPeloID(usuario.idUsuario)">Excluir
                     </button>
+                    <button type="button" id="btnEditarUsuario" class="btn btn-primary" data-toggle="modal"
+                        data-target="#editarUsuario" (click)="buscarUsuarioPeloID(usuario.idUsuario)">Editar</button>
 
                 </td>
             </tr>
         </tbody>
     </table>
-    <button type="button" id="btnCadastrarUsuario" class="btn btn-primary btn float-right" data-toggle="modal"
-        data-target="#inserirUsuario" (click)="limparObjetoUsuario()">Cadastrar</button>
+    <div class="text-center">
+        <button type="button" id="btnCadastrarCargo" class="btn btn-primary btn-lg" data-toggle="modal"
+            data-target="#inserirUsuario" (click)="limparObjetoUsuario()">Cadastrar</button>
+    </div>
 </div>
 
 <!-- Modal Editar-->

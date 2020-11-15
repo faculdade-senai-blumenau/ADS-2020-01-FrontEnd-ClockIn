@@ -5,9 +5,10 @@
 </ngb-alert>
 <div class="table-responsive table-striped" style="width:100%">
     <!--Table-->
-    <table class="table text-center" id="TabelaInserirSetor">
+    <table id="datatables-setor" class="table table-striped text-center" style="width:100%">
         <thead>
             <tr>
+                <th>Código</th>
                 <th>Descrição Setor</th>
                 <th>Usuario Responsável</th>
                 <th>Ação</th>
@@ -15,20 +16,23 @@
         </thead>
         <tbody>
             <tr *ngFor="let setor of setores">
+                <td>{{ setor.idSetor }}</td>
                 <td>{{ setor.descricaoSetor }}</td>
                 <td>{{ setor.idUsuario}}</td>
                 <td>
-                    <button type="button" id="btnEditarSetor" class="btn btn-primary" data-toggle="modal"
-                        data-target="#editarSetor" (click)="buscarSetorPeloID(setor.idSetor)">Editar</button>
                     <button type="button" id="btnExcluirSetor" class="btn btn-danger" data-toggle="modal"
                         data-target="#excluirSetor" (click)="buscarSetorPeloID(setor.idSetor)">Excluir</button>
+                    <button type="button" id="btnEditarSetor" class="btn btn-primary btn-group" data-toggle="modal"
+                        data-target="#editarSetor" (click)="buscarSetorPeloID(setor.idSetor)">Editar</button>
                 </td>
             </tr>
         </tbody>
     </table>
     <!--Table-->
-    <button type="button" id="btnCadastrarSetor" class="btn btn-primary btn float-right" data-toggle="modal"
+    <div class="text-center">
+        <button type="button" id="btnCadastrarCargo" class="btn btn-primary btn-lg" data-toggle="modal"
         data-target="#inserirSetor" (click)="limparObjetoSetor()">Cadastrar</button>
+    </div>
 </div>
 <!-- Modal Editar-->
 <div class="modal fade" id="editarSetor" tabindex="-1" role="dialog" aria-labelledby="editarSetor" aria-hidden="true">
