@@ -1,21 +1,8 @@
-
-
 .table {
   margin: 0 auto;
   border: 0;
 }
 
-.table thead th {
-  padding: 5px 10px;
-  background-color: #153d77;
-  color: white;
-}
-
-.table tr td {
-  padding: 5px 10px;
-  text-align: center;
-  cursor: pointer;
-}
 .card {
   margin-bottom: 10px;
 }

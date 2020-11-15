@@ -11,8 +11,6 @@ import { EditarMarcacaoComponent } from './components/editarmarcacao/editarmarca
 import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/aprovacoespendentes.component';
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 import { LoginComponent } from './components/login/login.component';
-import {JornadaComponent } from './components/parametro/jornada/jornada.component';
-
 
 const routes: Routes = [
 
@@ -25,7 +23,6 @@ const routes: Routes = [
   { path: 'relatorios', component: RelatoriosComponent },
   { path: 'aprovacoespendentes', component: AprovacoesPendentesComponent },
   { path: 'parametros', component: ParametroComponent },
-  { path: 'jornada', component: JornadaComponent },
   { path: '**', component: PagenotfoundComponent }
 ];
 

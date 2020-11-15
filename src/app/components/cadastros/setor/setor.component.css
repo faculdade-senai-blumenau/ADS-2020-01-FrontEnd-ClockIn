@@ -1,11 +1,10 @@
-#TabelaInserirJornada thead th{
+#TabelaInserirSetor thead th{
     padding: 5px 10px;
     background-color: #153d77;
     color: white;
   }
   
-  #TabelaInserirJornada tr td {
+  #TabelaInserirSetor tr td {
     padding: 2px 4px;
     text-align: center;
   }
-

@@ -2,10 +2,13 @@ import { DatePipe } from '@angular/common';
 
 export interface Usuario {
     idUsuario?: string;
+    cargo: Cargo;
+    jornada: Jornada;
+    setor: Setor;
     nomeUsuario: string;
     cpf: string;
     rg: string;
-    dataNascimento: Date;
+    dataNascimento: any;
     telefone: string;
     ativo: boolean;
     gestor: boolean;
@@ -13,27 +16,22 @@ export interface Usuario {
     senha: string;
     foto: string;
     cargoConfianca: boolean;
-    idCargo: number;
-    cargo: Cargo;
-    jornada: Jornada;
 }
 
 export interface RegistroPonto {
     idRegistroPonto?: number;
-    idUsuario: number;
+    idUsuario: Usuario;
     dataRegistro: DatePipe;
     horaRegistro: DatePipe;
     justificaPonto: number;
     justificativaReprovacao: string;
+    edicaoAprovada: number;
 }
 
 export interface Setor {
     idSetor?: number;
-    idUsuario: number;
+    idUsuario: Usuario;
     descricaoSetor: string;
-    usuario: Usuario;
-    cargo: Cargo;
-    jornada: Jornada;
 }
 
 export interface Cargo {
@@ -42,12 +40,11 @@ export interface Cargo {
 }
 
 export interface Jornada {
-    //modificado o idJornada por conta do MOK. ao apontar a API, utilizar o idJornada
-    id?: number;
-    inicioManha: string;
-    finalManha: string;
-    inicioTarde: string;
-    finalTarde: string;
+    idJornada?: number;
+    inicioManha: any;
+    finalManha: any;
+    inicioTarde: any;
+    finalTarde: any;
 }
 
 export interface EspelhoPonto {
@@ -56,4 +53,17 @@ export interface EspelhoPonto {
     dataInicial: any;
     dataFinal: any;
     status: number;
+}
+
+export interface Endereco {
+    idEndereco?: number;
+    idUsuario: number;
+    idEmpresa: number;
+    cep: string;
+    rua: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
 }
