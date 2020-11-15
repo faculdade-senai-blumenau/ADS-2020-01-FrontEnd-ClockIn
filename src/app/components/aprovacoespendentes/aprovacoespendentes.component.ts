@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { Subject } from 'rxjs/internal/Subject';
 import { AppService } from 'src/app/app.service';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 
 @Component({
   selector: 'app-aprovacoespendentes',
@@ -21,9 +22,14 @@ export class AprovacoesPendentesComponent implements OnInit {
   mensagemSucesso = '';
   mensagemErro = '';
 
+  dataRegistro: any;
+  usuario: any;
+
   clockHandle;
   listaDePontos: any;
   registroPonto: any;
+  registroPontoVisualizar: any;
+  listaDePontosAprovacao: any;
   ponto: any;
 
   urlBase = this.appService.buscarUrlBase();
@@ -44,7 +50,8 @@ export class AprovacoesPendentesComponent implements OnInit {
       dataRegistro: '',
       horaRegistro: '',
       justificaPonto: '',
-      justificativaReprovacao: ''
+      justificativaReprovacao: '',
+      edicaoAprovada: ''
     };
 
 
@@ -59,38 +66,101 @@ export class AprovacoesPendentesComponent implements OnInit {
   listarRegistrosAprovacoesPendentes() {
     this.appService.buscarRegistrosPontoAprovacoesPendentes().subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
-
       const grupoData = new Set(this.registroPonto.map(item => item.dataRegistro));
       const grupoUsuario = new Set(this.registroPonto.map(item => item.idUsuario));
       this.listaDePontos = [];
-      grupoData.forEach(gd =>  grupoUsuario.forEach (gu =>
+      grupoData.forEach(gd => grupoUsuario.forEach(gu =>
         this.listaDePontos.push({
           usuario: gu,
           dataRegistro: gd,
           listaPonto: this.registroPonto.filter(i => i.dataRegistro === gd)
-          
         }),
       ));
-    //console.log(this.listaDePontos)
     });
   }
 
-  buscarRegistroPontoAprovacao(idUsuario: number) {
-    this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe(
-      resposta => this.registroPonto = resposta);
-      console.log(this.listaDePontos)
+  buscarRegistroPontoAprovacao() {
+    this.appService.buscarRegistrosPontoAprovacoesPendentes().subscribe(
+      resposta => this.listaDePontosAprovacao = resposta);
   }
 
-  updateRegistroPonto() {
-    this.appService.updateRegistroPonto(this.registroPonto).subscribe(
-      success => {
-        this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
-        this.listarRegistrosAprovacoesPendentes();
-        
-      },
-      error => {
-        this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
-      }
-    );
+
+  aprovacaoPendenteVisualizar(dataRegistro: any, idUsuario: number) {
+    this.appService.aprovacaoPendenteVisualizar(dataRegistro, idUsuario).subscribe((registroPonto) => {
+      this.registroPontoVisualizar = registroPonto;
+      console.log(this.registroPonto);
+    })
+  }
+
+  aprovarEdicaoTodos() {
+    this.registroPonto.forEach(element => {
+      this.ponto = {
+        idRegistroPonto: element.idRegistroPonto,
+        idUsuario: element.idUsuario,
+        dataRegistro: element.dataRegistro,
+        horaRegistro: element.horaRegistro,
+        justificaPonto: element.justificaPonto,
+        justificativaReprovacao: '',
+        edicaoAprovada: 1
+      };
+      console.log(this.ponto)
+      this.appService.updateRegistroPonto(this.ponto).subscribe(
+        success => {
+          this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
+          this.listarRegistrosAprovacoesPendentes();
+        },
+        error => {
+          this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
+        }
+      );
+    });
+  }
+
+  reprovarEdicaoTodos() {
+    this.registroPonto.forEach(element => {
+      this.ponto = {
+        idRegistroPonto: element.idRegistroPonto,
+        idUsuario: element.idUsuario,
+        dataRegistro: element.dataRegistro,
+        horaRegistro: element.horaRegistro,
+        justificaPonto: '',
+        justificativaReprovacao: 'teste',
+        edicaoAprovada: 0
+      };
+      console.log(this.ponto)
+      this.appService.updateRegistroPonto(this.ponto).subscribe(
+        success => {
+          this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
+          this.listarRegistrosAprovacoesPendentes();
+        },
+        error => {
+          this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
+        }
+      );
+    });
+  }
+
+  reprovarEdicaoSelecionado() {
+    this.registroPontoVisualizar.forEach(element => {
+      this.ponto = {
+        idRegistroPonto: element.idRegistroPonto,
+        idUsuario: element.idUsuario,
+        dataRegistro: element.dataRegistro,
+        horaRegistro: element.horaRegistro,
+        justificaPonto: '',
+        justificativaReprovacao: 'teste',
+        edicaoAprovada: 0
+      };
+      console.log(this.ponto)
+      this.appService.updateRegistroPonto(this.ponto).subscribe(
+        success => {
+          this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
+          this.listarRegistrosAprovacoesPendentes();
+        },
+        error => {
+          this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
+        }
+      );
+    });
   }
 }

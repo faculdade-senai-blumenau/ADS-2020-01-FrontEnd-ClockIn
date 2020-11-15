@@ -14,7 +14,7 @@
                 <h6 class="card-subtitle text-muted">Cadastros Gerais do Sistema.
                 </h6>
               </div>
-              <div class="card-body text-center pr-0 pl-0">
+              <div class="card-body pr-0 pl-0">
                 <div class="col-12 col-lg-12">
                   <div class="tab">
                     <ul class="nav nav-tabs" role="tablist">
@@ -22,6 +22,8 @@
                           aria-selected="true">Usuarios</a></li>
                       <li class="nav-item"><a class="nav-link" href="#setores" data-toggle="tab" role="tab"
                           aria-selected="false">Setores</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#jornadas" data-toggle="tab" role="tab"
+                          aria-selected="false">Jornadas</a></li>
                       <li class="nav-item"><a class="nav-link" href="#empresa" data-toggle="tab" role="tab"
                           aria-selected="false">Empresa</a></li>
                     </ul>
@@ -31,20 +33,19 @@
                         <app-usuario></app-usuario>
                       </div>
                       <div class="tab-pane" id="setores" role="tabpanel">
-                        <div class="tab-pane active" id="usuarios" role="tabpanel">
-                          <app-setor></app-setor>
-                        </div>
+                        <h4 class="tab-title">Cadastro de Setores</h4>
+                        <app-setor></app-setor>
+                      </div>
+                      <div class="tab-pane" id="jornadas" role="tabpanel">
+                        <h4 class="tab-title">Cadastro de Jornadas</h4>
+                        <app-jornada></app-jornada>
                       </div>
                       <div class="tab-pane" id="empresa" role="tabpanel">
-                        <div class="tab-pane active" id="usuarios" role="tabpanel">
-                          <h4 class="tab-title">Cadastro Empresa</h4>
-                        </div>
+                        <h4 class="tab-title">Cadastro da Empresa</h4>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-footer">
               </div>
             </div>
           </div>

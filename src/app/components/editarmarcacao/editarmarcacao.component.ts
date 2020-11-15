@@ -35,9 +35,7 @@ export class EditarMarcacaoComponent implements OnInit {
 
   /* Variaveis Fim */
 
-  constructor(private appComponent: AppComponent,
-    private appService: AppService
-  ) { }
+  constructor(private appService: AppService ) { }
 
   ngOnInit(): void {
 

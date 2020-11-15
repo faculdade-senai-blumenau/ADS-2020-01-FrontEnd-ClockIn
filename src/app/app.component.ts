@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
 import { AppService } from './app.service';
 import { DatePipe } from '@angular/common';
-import { RegistroPonto } from './app.model';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +14,13 @@ export class AppComponent implements OnInit {
   urlBase = this.appService.buscarUrlBase();
   idUsuario = this.appService.buscarUsuario();
   dataInicialFiltro: DatePipe;
+  dtTrigger: any;
+
 
   constructor(private appService: AppService) {
   }
 
   ngOnInit() {
-    this.buscarRegistrosPonto(this.idUsuario, null, null);
   }
 
   /* Retorna lista de registros da tabela de pontos */
@@ -32,7 +31,6 @@ export class AppComponent implements OnInit {
       .filter(i => i.dataRegistro >= dataInicial && (i.dataRegistro <= dataFinal || dataFinal == null))
       .map(item => item.dataRegistro));
     this.listaDePontos = [];
-
     groups.forEach(g =>
       this.listaDePontos.push({
         dataRegistro: g,
@@ -41,5 +39,6 @@ export class AppComponent implements OnInit {
     );
     return (this.listaDePontos);
   }
+
 }
 

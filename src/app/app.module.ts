@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -26,9 +25,9 @@ import { AprovacoesPendentesComponent } from './components/aprovacoespendentes/a
 import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
 import { LoginComponent } from './components/login/login.component';
 import { DataTablesModule } from 'angular-datatables';
-import { JornadaComponent } from './components/parametro/jornada/jornada.component';
 import { SetorComponent } from './components/cadastros/setor/setor.component';
 import { UsuarioComponent } from './components/cadastros/usuario/usuario.component';
+import { JornadaComponent } from './components/cadastros/jornada/jornada.component';
 
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent, HomeComponent, RelatoriosComponent,

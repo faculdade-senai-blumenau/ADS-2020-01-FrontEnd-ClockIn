@@ -103,7 +103,8 @@ export class HomeComponent implements OnInit {
       dataRegistro: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
       horaRegistro: this.relogio,
       justificaPonto: 0,
-      JustificaReprocacao: ''
+      JustificaReprocacao: '',
+      edicaoAprovada: 0
     };
 
     this.appService.registrarPonto(this.ponto).subscribe(

@@ -1,4 +1,9 @@
 <app-nav></app-nav>
+<!-- Alertas -->
+<ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''"> {{ mensagemSucesso }}
+</ngb-alert>
+<ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''"> {{ mensagemErro }}
+</ngb-alert>
 <div class="wrapper">
     <div class="main">
         <main class="content">
@@ -57,102 +62,44 @@
                                             <table class="table " id='TabelaAprovacoesPendentesBotoes'>
                                                 <thead class="thead-light ">
                                                     <tr>
-                                                        <th colspan="2">Ação</th>
+                                                        <th colspan="3">Ação</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr
-                                                        *ngFor="let pontos of listaDePontos" >
-                                                        <td>
-                                                            <button type="button" id="btnAprovar"
-                                                                class="btn btn-success btn-sm float-right mr-0 mt-0"
+                                                        *ngFor="let pontos of listaDePontos | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
+                                                        <div class="btn-group btn-group-md mb-1">
+                                                            <button
+                                                                *ngFor="let registoPonto of pontos.listaPonto  | slice:0:1; let i=index"
+                                                                type="button" class="btn btn-secondary"
                                                                 data-toggle="modal"
-                                                                data-target="#modalAprovarMarcacao" 
-                                                                (click)="buscarRegistroPontoAprovacao(ponto.idUsuario)" >Aprovar
-                                                                
+                                                                data-target="#modalVisualizarAprovacao"
+                                                                (click)="aprovacaoPendenteVisualizar(registoPonto.dataRegistro, ponto.idUsuario)">
+                                                                Visualizar
                                                             </button>
-                                                        </td>
-                                                        <td>
-                                                            <button type="button" id="btnReprovar"
-                                                                class="btn btn-danger btn-sm float-right mr-0 mt-0"
-                                                                data-toggle="modal"
-                                                                data-target="#modalReprovarMarcacao"
-                                                                (click)="buscarRegistroPontoAprovacao(ponto.idUsuario)">Reprovar
-                                                            </button>
-                                                        </td>
+                                                        </div>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 col-lg-12 col-xxl-6 pb-5">
                                     <div class="card-footer text-center float-center">
-                                        <button type="button" id="btnAprovar"
-                                            class="btn btn-success btn float-center mr-2 ml-2 mt-0" data-toggle="modal"
-                                            data-target="#modalAprovarMarcacao">Aprovar </button>
                                         <button type="button" id="btnReprovar"
                                             class="btn btn-danger btn float-center mr-2 ml-2 mt-0" data-toggle="modal"
-                                            data-target="#modalReprovarMarcacao">Reprovar </button>
+                                            data-target="#modalReprovarMarcacao"
+                                            (click)="buscarRegistroPontoAprovacao()">Reprovar Todos </button>
+                                        <button type="button" id="btnAprovar"
+                                            class="btn btn-success btn float-center mr-2 ml-2 mt-0" data-toggle="modal"
+                                            data-target="#modalAprovarMarcacao"
+                                            (click)="buscarRegistroPontoAprovacao()">Aprovar Todos </button>
+
                                         <pagination-controls class="pt-0" (pageChange)="paginaAtual = $event"
                                             previousLabel="Anterior" nextLabel="Próximo">
                                         </pagination-controls>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal fade" id="modalAprovarMarcacao" tabindex="-1" role="dialog"
-                                aria-labelledby="modalAprovarMarcacaoLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        </div>
-                                        <div class="modal-body text-center" style="font-size: 20px;">
-                                            Deseja aprovar as edições de ponto?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger"
-                                                data-dismiss="modal">Cancelar</button>
-                                            <span class="d-inline-block" data-toggle="modal"
-                                                data-target="modalAprovarMarcacao">
-                                                <button type="button" class="btn btn-success"
-                                                    data-dismiss="modal" (click)= "updateRegistroPonto()">Confirmar</button>
-                                                    
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal fade" id="modalReprovarMarcacao" tabindex="-1" role="dialog"
-                                aria-labelledby="modalReprovarMarcacaoLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        </div>
-                                        <div class="modal-body text-center" style="font-size: 20px;">
-                                            Deseja reprovar as edições de ponto?
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="justificaPonto">Por favor informe a justificativa de
-                                                reprovação</label>
-                                            <input type [(ngModel)]="registroPonto.justificativaReprovacao"
-                                                class="custom-select  form-control" id="justificativaReprovacao"
-                                                name="justificaPonto" placeholder="justificativa Reprovacao" type="text"
-                                                aria-controls="datatables-basic" required>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger"
-                                                data-dismiss="modal">Cancelar</button>
-                                            <span class="d-inline-block" data-toggle="modal"
-                                                data-target="modalReprovarMarcacao">
-                                                <button type="button" class="btn btn-success"
-                                                    data-dismiss="modal">Confirmar</button>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -161,5 +108,125 @@
                 </div>
             </div>
         </main>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAprovarMarcacao" tabindex="-1" role="dialog"
+    aria-labelledby="modalAprovarMarcacaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body text-center" style="font-size: 20px;">
+                Deseja aprovar todas as edições de ponto?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <span class="d-inline-block" data-toggle="modal" data-target="modalAprovarMarcacao">
+                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                        (click)="aprovarEdicaoTodos()">Confirmar</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalReprovarMarcacao" tabindex="-1" role="dialog"
+    aria-labelledby="modalReprovarMarcacaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body text-center" style="font-size: 20px;">
+                Deseja reprovar todas edições as edições de ponto?
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">Por favor informe a justificativa de
+                                    reprovação</font>
+                            </font>
+                        </h5>
+                    </div>
+                    <textarea type [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
+                        placeholder="Textarea"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
+                    <button type="button" class="btn btn-success" (click)="reprovarEdicaoTodos()"
+                        data-dismiss="modal">Confirmar</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalVisualizarAprovacao" tabindex="-1" role="dialog"
+    aria-labelledby="modalVisualizarAprovacao" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Aprovação de Edição de Registro Ponto
+            </div>
+            <div class="col-12 col-lg-12 col-xxl-6 pb-5">
+                <div class="card flex-fill">
+                    <div class="col-12 col-lg-12 col-xxl-3">
+                        <div class="table-responsive table-striped text-center" style="width:100%">
+
+                            <div class="card-body text-center ">
+                                <!--Table-->
+                                <table class="table" id="">
+                                    <thead class="thead-light ">
+                                        <tr>
+                                            <th>Hora Registro</th>
+                                            <th>Justificativa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let ponto of registroPontoVisualizar let i = index">
+                                            <td>
+                                                {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
+                                            </td>
+                                            <td>
+                                                {{ponto.justificaPonto}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body text-center" style="font-size: 18px;">
+                Deseja reprovar as edições de ponto?
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">Por favor informe a justificativa de
+                                    reprovação</font>
+                            </font>
+                        </h5>
+                    </div>
+                    <textarea type [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
+                        placeholder="Textarea"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
+                    <button type="button" class="btn btn-success" (click)="reprovarEdicaoSelecionado()"
+                        data-dismiss="modal">Confirmar</button>
+                </span>
+            </div>
+        </div>
     </div>
 </div>
