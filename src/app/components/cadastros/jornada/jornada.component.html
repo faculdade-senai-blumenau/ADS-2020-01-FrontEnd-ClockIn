@@ -1,41 +1,47 @@
 <div class="table-responsive table-striped">
+    <!-- Alertas -->
+    <ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''"> {{ mensagemSucesso }}
+    </ngb-alert>
+    <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''"> {{ mensagemErro }}
+    </ngb-alert>
 
-        <!--Table-->
-        <table class="table " id='TabelaInserirJornada'>
-            <thead class="thead-light text-center">
-                <tr>
-                    <th>Entrada</th>
-                    <th>Saída</th>
-                    <th>Entrada</th>
-                    <th>Saída</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let jornada of listarJornada">
-                    <td class="text-center">
-                        {{jornada["inicioManha"].split(":")[0]}}:{{jornada["inicioManha"].split(":")[1]}}
+    <!--Table-->
+    <table class="table " id='TabelaInserirJornada'>
+        <thead class="thead-light text-center">
+            <tr>
+                <th>Entrada</th>
+                <th>Saída</th>
+                <th>Entrada</th>
+                <th>Saída</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let jornada of jornadas">
+                <td class="text-center">
+                    {{jornada["inicioManha"].split(":")[0]}}:{{jornada["inicioManha"].split(":")[1]}}
+                </td>
+                <td class="text-center">
+                    {{jornada["finalManha"].split(":")[0]}}:{{jornada["finalManha"].split(":")[1]}}
+                </td>
+                <td class="text-center">
+                    {{jornada["inicioTarde"].split(":")[0]}}:{{jornada["inicioTarde"].split(":")[1]}}
+                </td>
+                <td class="text-center">
+                    {{jornada["finalTarde"].split(":")[0]}}:{{jornada["finalTarde"].split(":")[1]}}
+                </td>
+                <td class="text-center">
+                    <button type="button" id="btnEditarJornada" class="btn btn-primary" data-toggle="modal"
+                        data-target="#editarJornada" (click)="buscarJornadaPeloID(jornada.idJornada)">Editar</button>
+                    <button type="button" id="btnExcluirJornada" class="btn btn-danger" data-toggle="modal"
+                        data-target="#excluirJornada" (click)="buscarJornadaPeloID(jornada.idJornada)">Excluir</button>
                     </td>
-                    <td class="text-center">
-                        {{jornada["finalManha"].split(":")[0]}}:{{jornada["finalManha"].split(":")[1]}}
-                    </td>
-                    <td class="text-center">
-                        {{jornada["inicioTarde"].split(":")[0]}}:{{jornada["inicioTarde"].split(":")[1]}}
-                    </td>
-                    <td class="text-center">
-                        {{jornada["finalTarde"].split(":")[0]}}:{{jornada["finalTarde"].split(":")[1]}}
-                    </td>
-                    <td class="text-center">
-                        <button type="button" id="btnEditarJornada" class="btn btn-primary btn float-right"
-                            data-toggle="modal" data-target="#editarJornada"
-                            (click)="buscarJornadaID(jornada.idJornada)">Editar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <!--Table-->
-        <button type="button" id="btnCadastrarJornada" class="btn btn-primary btn float-right" data-toggle="modal"
-        data-target="#inserirJornada">Cadastrar</button>
+            </tr>
+        </tbody>
+    </table>
+    <!--Table-->
+    <button type="button" id="btnCadastrarJornada" class="btn btn-primary btn float-right" data-toggle="modal"
+        data-target="#inserirJornada" (click)="limparObjetoJornada()" >Cadastrar</button>
 </div>
 
 <!-- Modal Editar-->
@@ -61,14 +67,14 @@
                                             <label for="Manha">Manhã</label>
                                             <div class="row">
                                                 <div class="col-md-6 pb-2 pt-1">
-                                                    <input [(ngModel)]="editarJornada.inicioManha"
+                                                    <input [(ngModel)]="jornada.inicioManha"
                                                         class="form-control time-mask" id="inicioManha"
                                                         name="inicioManha" type="time" required placeholder="00:00"
                                                         [value]="jornada.inicioManha" minlength="5" maxlength="5"
                                                         autocomplete="on">
                                                 </div>
                                                 <div class="col-md-6 pb-2 pt-1">
-                                                    <input [(ngModel)]="editarJornada.finalManha"
+                                                    <input [(ngModel)]="jornada.finalManha"
                                                         class="form-control time-mask" id="finalManha" name="finalManha"
                                                         type="time" required placeholder="00:00" minlength="5"
                                                         [value]="jornada.finalManha" maxlength="5" autocomplete="on">
@@ -77,14 +83,14 @@
                                             <label for="Tarde">Tarde</label>
                                             <div class="row">
                                                 <div class="col-md-6 pb-2 pt-1">
-                                                    <input [(ngModel)]="editarJornada.inicioTarde"
+                                                    <input [(ngModel)]="jornada.inicioTarde"
                                                         class="form-control time-mask" id="inicioTarde"
                                                         name="inicioTarde" type="time" required placeholder="00:00"
                                                         [value]="jornada.inicioTarde" minlength=" 5" maxlength="5"
                                                         autocomplete="on">
                                                 </div>
                                                 <div class="col-md-6 pb-2 pt-1">
-                                                    <input [(ngModel)]="editarJornada.finalTarde"
+                                                    <input [(ngModel)]="jornada.finalTarde"
                                                         class="form-control time-mask" id="finalTarde" name="finalTarde"
                                                         type="time" required placeholder="00:00" minlength="5"
                                                         [value]="jornada.finalTarde" maxlength="5" autocomplete="on">
@@ -157,7 +163,7 @@
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-success float-right  m-2"
-                                            (click)="criarJornada(frm)" data-dismiss="modal">Salvar</button>
+                                                (click)="criarJornada(frm)" data-dismiss="modal">Salvar</button>
                                             <button class="btn btn-secondary float-right  m-2"
                                                 data-dismiss="modal">Fechar</button>
                                         </form>
@@ -165,6 +171,38 @@
                                 </section>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Excluir-->
+<div class="modal fade" id="excluirJornada" tabindex="-1" role="dialog" aria-labelledby="excluirJornada"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="excluirJornada">
+                    Excluir Jornadas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-body text-center" style="font-size: 18px;">
+                        Tem certeza que deseja excluir a jornada selecionada?
+                        <p style="color: red">Atenção - Esta ação não pode ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <span class="d-inline-block" data-toggle="modal" data-target="modalExcluirJornada">
+                            <button type="button" class="btn btn-success" data-dismiss="modal"
+                                (click)="excluirJornada(jornada.idJornada)">Confirmar </button>
+                               
+                        </span>
                     </div>
                 </div>
             </div>

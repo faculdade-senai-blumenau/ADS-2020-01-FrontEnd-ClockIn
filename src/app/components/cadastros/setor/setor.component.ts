@@ -1,8 +1,10 @@
+import { Setor } from 'src/app/app.model';
 
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from './../../../app.component';
 import { AppService } from 'src/app/app.service';
 import { Subject } from 'rxjs/internal/Subject';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 @Component({
     selector: 'app-setor',
     templateUrl: './setor.component.html',
@@ -18,9 +20,8 @@ export class SetorComponent implements OnInit {
     mensagemSucesso = '';
     mensagemErro = '';
     clockHandle;
-    listaDeSetores: any;
-    listaDeUsuarios: any;
-    usuario: any;
+    setores: any;
+    usuarios: any;
     setor: any;
 
     /* Variaveis Fim */
@@ -29,40 +30,46 @@ export class SetorComponent implements OnInit {
         private appService: AppService) { }
 
     ngOnInit(): void {
-        this.listaDeSetores = this.listarSetores();
-        this.listaDeUsuarios = this.listarUsuarios();
+
+        this.clockHandle = setInterval(() => {
+            /* Remove o alerta após o tempo determinado (milisegundos) */
+            this.alerta.pipe(debounceTime(5000)).subscribe(() => {
+                this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''
+            });
+        }, 1000);
+
+        this.listarSetores();
+        this.listarUsuarios();
 
         this.setor = {
             idSetor: '',
-            usuario: '',
+            idUsuario: '',
             descricaoSetor: ''
         };
-
-
     }
 
     listarSetores() {
-        this.appService.listarGenerico('setor').subscribe(setor => {
-          this.listaDeSetores = setor;
+        this.appService.listarGenerico('setor').subscribe((setores) => {
+            this.setores = setores;
         });
     }
 
     listarUsuarios() {
-        this.appService.listarGenerico('usuario').subscribe(usuario => {
-          this.listaDeUsuarios = usuario;
+        this.appService.listarGenerico('usuario').subscribe(usuarios => {
+            this.usuarios = usuarios;
         });
     }
-    
-    buscarSetorID(idSetor: number) {
-        this.setor = [];
-        this.appService.buscarSetorID(idSetor).subscribe(
-            resposta => this.setor = resposta);
+
+    buscarSetorPeloID(idSetor: number) {
+        this.appService.buscarRegistroIDGenerico('setor', idSetor).subscribe(setor => {
+            this.setor = setor;
+        });
     }
 
-    updateSetor() {
-        this.appService.updateSetor(this.setor).subscribe(
+    updateSetor(idSetor: number) {
+        this.appService.updateGenerico('setor', idSetor, this.setor).subscribe(
             success => {
-                this.listaDeSetores = this.listarSetores();
+                this.setores = this.listarSetores();
                 this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
             },
             error => {
@@ -71,17 +78,31 @@ export class SetorComponent implements OnInit {
         );
     }
 
-    criarSetor(frm) {
+    criarSetor() {
         this.appService.criarGenerico('setor', this.setor).subscribe(
             success => {
-                this.listaDeSetores = this.listarSetores();
+                this.setores = this.listarSetores();
                 this.alerta.next(this.mensagemSucesso = (`Setor Inserido com Sucesso.`));
             },
             error => {
                 this.alerta.next(this.mensagemErro = 'Não foi possível inserir setor.');
             }
         );
+    }
 
-        frm.reset();
+    excluirSetor(idSetor: number) {
+        this.appService.excluirGenerico('setor', idSetor).subscribe(
+            success => {
+                this.listarSetores();
+                this.alerta.next(this.mensagemSucesso = (`Setor excluído com sucesso`));
+            },
+            error => {
+                this.alerta.next(this.mensagemErro = ('Não foi possível excluir o setor selecionado.'));
+            }
+        );
+    }
+
+    limparObjetoSetor() {
+        this.setor = {};
     }
 }

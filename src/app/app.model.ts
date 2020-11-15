@@ -8,7 +8,7 @@ export interface Usuario {
     nomeUsuario: string;
     cpf: string;
     rg: string;
-    dataNascimento: Date;
+    dataNascimento: any;
     telefone: string;
     ativo: boolean;
     gestor: boolean;
@@ -25,6 +25,7 @@ export interface RegistroPonto {
     horaRegistro: DatePipe;
     justificaPonto: number;
     justificativaReprovacao: string;
+    edicaoAprovada: number;
 }
 
 export interface Setor {
