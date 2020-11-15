@@ -1,0 +1,150 @@
+<!-- Alertas -->
+<ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''"> {{ mensagemSucesso }}
+</ngb-alert>
+<ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''"> {{ mensagemErro }}
+</ngb-alert>
+<div class="table-responsive table-striped" style="width:100%">
+    <!--Table-->
+    <table class="table text-center" id="TabelaInserirCargo">
+        <thead>
+            <tr>
+                <th>Descrição Cargo</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cargo of cargos">
+                <td>{{ cargo.nomeCargo }}</td>
+                <td>
+                    <button type="button" id="btnEditarCargo" class="btn btn-primary" data-toggle="modal"
+                        data-target="#editarCargo" (click)="buscarCargoPeloID(cargo.idCargo)">Editar</button>
+                    <button type="button" id="btnExcluirCargo" class="btn btn-danger" data-toggle="modal"
+                        data-target="#excluirCargo" (click)="buscarCargoPeloID(cargo.idCargo)">Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--Table-->
+    <button type="button" id="btnCadastrarCargo" class="btn btn-primary btn float-right" data-toggle="modal"
+        data-target="#inserirCargo" (click)="limparObjetoCargo()">Cadastrar</button>
+</div>
+<!-- Modal Editar-->
+<div class="modal fade" id="editarCargo" tabindex="-1" role="dialog" aria-labelledby="editarCargo" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarCargo">
+                    Editar Cargos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 p-0">
+                        <div class="modal-container">
+                            <div class="contact-form ">
+                                <section>
+                                    <div class="container">
+                                        <form>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="nome">Nome</label>
+                                                    <input [(ngModel)]="cargo.nomeCargo" class="form-control"
+                                                        id="cargoEditar" name="nomeCargo"
+                                                        [value]="cargo.nomeCargo" type="text"
+                                                        placeholder="Descrição Cargo">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-success"
+                                                    (click)="updateCargo(cargo.idCargo)"
+                                                    data-dismiss="modal">Confirmar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Criar-->
+<div class="modal fade" id="inserirCargo" tabindex="-1" role="dialog" aria-labelledby="inserirCargo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    Cadastro de Cargos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 p-0">
+                        <div class="modal-container">
+                            <div class="contact-form ">
+                                <section>
+                                    <div class="container">
+                                        <form>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="nomeCargo">Descrição</label>
+                                                    <input [(ngModel)]="cargo.nomeCargo" class="form-control"
+                                                        id="nomeCargo" name="nomeCargo" type="text" required
+                                                        placeholder="Descrição do cargo" minlength="1" maxlength="99">
+                                                </div>
+                                            </div>
+                                            <button type="submit" (click)="criarCargo()"
+                                                class="btn btn-success float-right  m-2" data-dismiss="modal">Salvar
+                                            </button>
+                                            <button class="btn btn-secondary float-right  m-2"
+                                                data-dismiss="modal">Fechar</button>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Excluir-->
+<div class="modal fade" id="excluirCargo" tabindex="-1" role="dialog" aria-labelledby="excluirCargo" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="excluirCargo">
+                    Excluir Cargos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-body text-center" style="font-size: 20px;">
+                        Tem certeza que deseja excluir o cargo selecionado?
+                        <p style="color: red">Atenção - Esta ação não pode ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <span class="d-inline-block" data-toggle="modal" data-target="modalAprovarMarcacao">
+                            <button type="button" class="btn btn-success" data-dismiss="modal"
+                                (click)="excluirCargo(cargo.idCargo)">Confirmar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
