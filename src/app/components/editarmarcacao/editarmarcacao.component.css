@@ -1,15 +1,4 @@
 
-#TabelaEditarPonto thead th {
-  padding: 5px 10px;
-  background-color: rgb(49, 60, 109);
-  color: white;
-}
-
-#TabelaEditarPonto tr td {
-  padding: 4px 6px;
-  text-align: center;
-  
-}
 #TabelaEditarPonto tr td:hover {
   text-align: center;
   background-color: rgb(54, 97, 153);
@@ -19,11 +8,11 @@
 }
 
 .card {
-  min-height: 500px;
+  min-height: 400px;
 }
 
 .table-responsive {
-  min-height: 400px;
+  min-height: 300px;
 }
 
 

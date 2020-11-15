@@ -14,33 +14,44 @@
                 <h6 class="card-subtitle text-muted">Cadastros Gerais do Sistema.
                 </h6>
               </div>
-              <div class="card-body text-center pr-0 pl-0">
+              <div class="card-body pr-0 pl-0">
                 <div class="col-12 col-lg-12">
                   <div class="tab">
-                    <ul class="nav nav-tabs"  role="tablist">
-                      <li class="nav-item" ><a class="nav-link active" href="#tab-1" data-toggle="tab" role="tab" aria-selected="true">Usuarios</a></li>
-                      <li class="nav-item"><a class="nav-link" href="#tab-2" data-toggle="tab" role="tab" aria-selected="false">Setores</a></li>
-                      <li class="nav-item"><a class="nav-link" href="#tab-3" data-toggle="tab" role="tab" aria-selected="false">Empresa</a></li>
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item"><a class="nav-link active" href="#usuarios" data-toggle="tab" role="tab"
+                          aria-selected="true">Usuarios</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#setores" data-toggle="tab" role="tab"
+                          aria-selected="false">Setores</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#jornadas" data-toggle="tab" role="tab"
+                          aria-selected="false">Jornadas</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#cargos" data-toggle="tab" role="tab"
+                            aria-selected="false">Cargos</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#empresa" data-toggle="tab" role="tab"
+                          aria-selected="false">Empresa</a></li>
                     </ul>
                     <div class="tab-content">
-                      <div class="tab-pane active" id="tab-1" role="tabpanel">
-                        <h4 class="tab-title">Cadastro de Usuarios</h4>
+                      <div class="tab-pane active" id="usuarios" role="tabpanel">
+                        <h4 class="tab-title text-center">Cadastro de Usuarios</h4>
+                        <app-usuario></app-usuario>
                       </div>
-                      <div class="tab-pane" id="tab-2" role="tabpanel">
-                        <div class="tab-pane active" id="tab-1" role="tabpanel">
-                          <app-setor></app-setor>
-                        </div>
+                      <div class="tab-pane" id="setores" role="tabpanel">
+                        <h4 class="tab-title text-center">Cadastro de Setores</h4>
+                        <app-setor></app-setor>
                       </div>
-                      <div class="tab-pane" id="tab-3" role="tabpanel">
-                        <div class="tab-pane active" id="tab-1" role="tabpanel">
-                          <h4 class="tab-title">Cadastro Empresa</h4>
-                        </div>
+                      <div class="tab-pane" id="jornadas" role="tabpanel">
+                        <h4 class="tab-title text-center">Cadastro de Jornadas</h4>
+                        <app-jornada></app-jornada>
+                      </div>
+                      <div class="tab-pane" id="cargos" role="tabpanel">
+                        <h4 class="tab-title text-center">Cadastro de Cargos</h4>
+                        <app-cargos></app-cargos>
+                      </div>
+                      <div class="tab-pane" id="empresa" role="tabpanel">
+                        <h4 class="tab-title text-center">Cadastro da Empresa</h4>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-footer">
               </div>
             </div>
           </div>

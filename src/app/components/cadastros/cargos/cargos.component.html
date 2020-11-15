@@ -5,38 +5,36 @@
 </ngb-alert>
 <div class="table-responsive table-striped" style="width:100%">
     <!--Table-->
-    <table class="table text-center" id="TabelaInserirSetor">
+    <table class="table text-center" id="TabelaInserirCargo">
         <thead>
             <tr>
-                <th>Descrição Setor</th>
-                <th>Usuario Responsável</th>
+                <th>Descrição Cargo</th>
                 <th>Ação</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let setor of setores">
-                <td>{{ setor.descricaoSetor }}</td>
-                <td>{{ setor.idUsuario}}</td>
+            <tr *ngFor="let cargo of cargos">
+                <td>{{ cargo.nomeCargo }}</td>
                 <td>
-                    <button type="button" id="btnEditarSetor" class="btn btn-primary" data-toggle="modal"
-                        data-target="#editarSetor" (click)="buscarSetorPeloID(setor.idSetor)">Editar</button>
-                    <button type="button" id="btnExcluirSetor" class="btn btn-danger" data-toggle="modal"
-                        data-target="#excluirSetor" (click)="buscarSetorPeloID(setor.idSetor)">Excluir</button>
+                    <button type="button" id="btnEditarCargo" class="btn btn-primary" data-toggle="modal"
+                        data-target="#editarCargo" (click)="buscarCargoPeloID(cargo.idCargo)">Editar</button>
+                    <button type="button" id="btnExcluirCargo" class="btn btn-danger" data-toggle="modal"
+                        data-target="#excluirCargo" (click)="buscarCargoPeloID(cargo.idCargo)">Excluir</button>
                 </td>
             </tr>
         </tbody>
     </table>
     <!--Table-->
-    <button type="button" id="btnCadastrarSetor" class="btn btn-primary btn float-right" data-toggle="modal"
-        data-target="#inserirSetor" (click)="limparObjetoSetor()">Cadastrar</button>
+    <button type="button" id="btnCadastrarCargo" class="btn btn-primary btn float-right" data-toggle="modal"
+        data-target="#inserirCargo" (click)="limparObjetoCargo()">Cadastrar</button>
 </div>
 <!-- Modal Editar-->
-<div class="modal fade" id="editarSetor" tabindex="-1" role="dialog" aria-labelledby="editarSetor" aria-hidden="true">
+<div class="modal fade" id="editarCargo" tabindex="-1" role="dialog" aria-labelledby="editarCargo" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editarSetor">
-                    Editar Setores</h5>
+                <h5 class="modal-title" id="editarCargo">
+                    Editar Cargos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -52,28 +50,17 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="nome">Nome</label>
-                                                    <input [(ngModel)]="setor.descricaoSetor" class="form-control"
-                                                        id="setorEditar" name="descricaoSetor"
-                                                        [value]="setor.descricaoSetor" type="text"
-                                                        placeholder="Descrição Setor">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="idUsuario">Responsável</label>
-                                                    <select [(ngModel)]="setor.idUsuario" class="form-control"
-                                                        id="idUsuario" name="idUsuario" type="text">
-                                                        <option *ngFor="let usuario of usuarios"
-                                                            [value]=usuario.idUsuario>
-                                                            {{usuario.nomeUsuario}}
-                                                        </option>
-                                                        <option>...</option>
-                                                    </select>
+                                                    <input [(ngModel)]="cargo.nomeCargo" class="form-control"
+                                                        id="cargoEditar" name="nomeCargo"
+                                                        [value]="cargo.nomeCargo" type="text"
+                                                        placeholder="Descrição Cargo">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger"
                                                     data-dismiss="modal">Cancelar</button>
                                                 <button type="button" class="btn btn-success"
-                                                    (click)="updateSetor(setor.idSetor)"
+                                                    (click)="updateCargo(cargo.idCargo)"
                                                     data-dismiss="modal">Confirmar</button>
                                             </div>
                                         </form>
@@ -89,12 +76,12 @@
 </div>
 
 <!-- Modal Criar-->
-<div class="modal fade" id="inserirSetor" tabindex="-1" role="dialog" aria-labelledby="inserirSetor" aria-hidden="true">
+<div class="modal fade" id="inserirCargo" tabindex="-1" role="dialog" aria-labelledby="inserirCargo" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">
-                    Cadastro de Setores</h5>
+                    Cadastro de Cargos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -109,24 +96,13 @@
                                         <form>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="descricaoSetor">Descrição</label>
-                                                    <input [(ngModel)]="setor.descricaoSetor" class="form-control"
-                                                        id="descricaoSetor" name="descricaoSetor" type="text" required
-                                                        placeholder="Descrição do setor" minlength="1" maxlength="99">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="idUsuario">Responsável</label>
-                                                    <select [(ngModel)]="setor.idUsuario" class="form-control"
-                                                        id="idUsuario" name="idUsuario" type="text">
-                                                        <option *ngFor="let usuario of usuarios"
-                                                            [value]=usuario.idUsuario>
-                                                            {{usuario.nomeUsuario}}
-                                                        </option>
-                                                        <option>...</option>
-                                                    </select>
+                                                    <label for="nomeCargo">Descrição</label>
+                                                    <input [(ngModel)]="cargo.nomeCargo" class="form-control"
+                                                        id="nomeCargo" name="nomeCargo" type="text" required
+                                                        placeholder="Descrição do cargo" minlength="1" maxlength="99">
                                                 </div>
                                             </div>
-                                            <button type="submit" (click)="criarSetor()"
+                                            <button type="submit" (click)="criarCargo()"
                                                 class="btn btn-success float-right  m-2" data-dismiss="modal">Salvar
                                             </button>
                                             <button class="btn btn-secondary float-right  m-2"
@@ -144,12 +120,12 @@
 </div>
 
 <!-- Modal Excluir-->
-<div class="modal fade" id="excluirSetor" tabindex="-1" role="dialog" aria-labelledby="excluirSetor" aria-hidden="true">
+<div class="modal fade" id="excluirCargo" tabindex="-1" role="dialog" aria-labelledby="excluirCargo" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="excluirSetor">
-                    Excluir Setores</h5>
+                <h5 class="modal-title" id="excluirCargo">
+                    Excluir Cargos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -157,14 +133,14 @@
             <div class="modal-body">
                 <div class="modal-content">
                     <div class="modal-body text-center" style="font-size: 20px;">
-                        Tem certeza que deseja excluir o setor selecionado?
+                        Tem certeza que deseja excluir o cargo selecionado?
                         <p style="color: red">Atenção - Esta ação não pode ser desfeita.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         <span class="d-inline-block" data-toggle="modal" data-target="modalAprovarMarcacao">
                             <button type="button" class="btn btn-success" data-dismiss="modal"
-                                (click)="excluirSetor(setor.idSetor)">Confirmar</button>
+                                (click)="excluirCargo(cargo.idCargo)">Confirmar</button>
                         </span>
                     </div>
                 </div>

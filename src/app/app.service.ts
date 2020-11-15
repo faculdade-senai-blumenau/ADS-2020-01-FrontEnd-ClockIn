@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada } from './app.model';
+import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada, Endereco } from './app.model';
 import { Observable } from 'rxjs';
-import { EspelhopontoComponent } from './components/espelhoponto/espelhoponto.component';
-import { stringify } from 'querystring';
-import { formatDate, Location } from '@angular/common';
-import * as moment from 'moment';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +17,7 @@ export class AppService {
   }
 
   /* Variáveis */
-  urlBase = 'http://localhost:5000'; 
+  urlBase = 'http://localhost:5000';
   /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com'; */
   idUsuario = 2;
 
@@ -30,15 +27,26 @@ export class AppService {
     return this.urlBase;
   }
 
-  /* Retorna o usuario logado no sistema */
   buscarUsuario() {
     return this.idUsuario;
   }
 
-  /* Retorna a lista de pontos - Recebe como parametro a quantidade de dias a partir da data atual*/
+  buscarUsuarios() {
+    return this.http.get<Usuario>(`${this.urlBase}/usuario`);
+  }
+
   buscarRegistrosPontoUsuario(idUsuario: number) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/usuario/${idUsuario}`);
   }
+
+  buscarRegistrosPontoAprovacoesPendentes() {
+    return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/aprovacaoPendente`);
+  }
+
+  aprovacaoPendenteVisualizar(dataRegistro: any, idUsuario: number) {
+    return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/visualizarAprovacaoPendente?dataRegistro=${dataRegistro}&idUsuario=${idUsuario}`);
+  }
+
   buscarRegistrosPontoUsuarioRange(idUsuario: number, dataInicial: any, dataFinal: any) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/espelhoPonto/periodoPonto?dataInicial=${dataInicial}&dataFinal=${dataFinal}&idUsuario=${idUsuario}`);
   }
@@ -71,6 +79,7 @@ export class AppService {
   listar() {
     return this.http.get<Array<any>>(`${this.urlBase}/registroPonto/`);
   }
+
   criar(ponto: any) {
     return this.http.post(`${this.urlBase}/registroPonto/`, ponto);
   }
@@ -88,32 +97,42 @@ export class AppService {
     return this.http.put<EspelhoPonto>(url, espelhoPonto);
   }
 
-
-  criarGenerico(table: any, object: any) {
-    return this.http.post(`${this.urlBase}/${table}/`, object);
-  }
-
-  listarGenerico(table: any) {
-    return this.http.get<Array<any>>(`${this.urlBase}/${table}/`);
-  }
-
   updateJornada(jornada: Jornada): Observable<Jornada> {
-    //modificado o idJornada por conta do MOK. ao apontar a API, utilizar o idJornada
-    const url = `${this.urlBase}/jornada/${jornada.id}`;
-    return this.http.put<Jornada>(url, jornada);
+    return this.http.put<Jornada>(`${this.urlBase}/jornada/${jornada.idJornada}`, jornada);
   }
 
-  updateSetor(setor: Setor): Observable<Setor> {
-    //modificado o idSetor por conta do MOK. ao apontar a API, utilizar o idSetor
-    const url = `${this.urlBase}/setor/${setor.id}`;
-    return this.http.put<Setor>(url, setor);
-  }
 
   buscarJornadaID(idJornada: number): Observable<Jornada[]> {
     return this.http.get<Jornada[]>(`${this.urlBase}/jornada/${idJornada}`);
   }
 
-  buscarSetorID(idSetor: number): Observable<Setor[]> {
-    return this.http.get<Setor[]>(`${this.urlBase}/setor/${idSetor}`);
+  buscarEnderecoUsuario(idUsuario: number): Observable<Endereco[]> {
+    return this.http.get<Endereco[]>(`${this.urlBase}/endereco/${idUsuario}`);
   }
+
+  listarEnderecos() {
+    return this.http.get<Array<any>>(`${this.urlBase}/endereco/`);
+  }
+
+
+  listarGenerico(table: any) {
+    return this.http.get<Array<any>>(`${this.urlBase}/${table}`);
+  }
+
+  buscarRegistroIDGenerico(table: any, idRegistro: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlBase}/${table}/${idRegistro}`);
+  }
+  
+  criarGenerico(table: any, objeto: any) {
+    return this.http.post(`${this.urlBase}/${table}/`, objeto);
+  }
+
+  updateGenerico(table: any, idRegistro: any, objeto: any): Observable<any> {
+    return this.http.put<Jornada>(`${this.urlBase}/${table}/${idRegistro}`, objeto);
+  }
+
+  excluirGenerico(table: any, idRegistro: any) {
+    return this.http.delete(`${this.urlBase}/${table}/${idRegistro}`);
+  }
+
 }
