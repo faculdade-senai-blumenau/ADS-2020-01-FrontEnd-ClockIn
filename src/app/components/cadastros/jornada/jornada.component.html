@@ -6,9 +6,10 @@
     </ngb-alert>
 
     <!--Table-->
-    <table class="table " id='TabelaInserirJornada'>
+    <table id="datatables-jornada" class="table table-striped text-center" style="width:100%">
         <thead class="thead-light text-center">
             <tr>
+                <th>Código</th>
                 <th>Entrada</th>
                 <th>Saída</th>
                 <th>Entrada</th>
@@ -18,6 +19,9 @@
         </thead>
         <tbody>
             <tr *ngFor="let jornada of jornadas">
+                <td class="text-center">
+                    {{jornada.idJornada}}
+                </td>
                 <td class="text-center">
                     {{jornada["inicioManha"].split(":")[0]}}:{{jornada["inicioManha"].split(":")[1]}}
                 </td>
@@ -31,17 +35,19 @@
                     {{jornada["finalTarde"].split(":")[0]}}:{{jornada["finalTarde"].split(":")[1]}}
                 </td>
                 <td class="text-center">
-                    <button type="button" id="btnEditarJornada" class="btn btn-primary" data-toggle="modal"
-                        data-target="#editarJornada" (click)="buscarJornadaPeloID(jornada.idJornada)">Editar</button>
                     <button type="button" id="btnExcluirJornada" class="btn btn-danger" data-toggle="modal"
                         data-target="#excluirJornada" (click)="buscarJornadaPeloID(jornada.idJornada)">Excluir</button>
-                    </td>
+                    <button type="button" id="btnEditarJornada" class="btn btn-primary" data-toggle="modal"
+                        data-target="#editarJornada" (click)="buscarJornadaPeloID(jornada.idJornada)">Editar</button>
+                </td>
             </tr>
         </tbody>
     </table>
     <!--Table-->
-    <button type="button" id="btnCadastrarJornada" class="btn btn-primary btn float-right" data-toggle="modal"
-        data-target="#inserirJornada" (click)="limparObjetoJornada()" >Cadastrar</button>
+    <div class="text-center">
+        <button type="button" id="btnCadastrarCargo" class="btn btn-primary btn-lg" data-toggle="modal"
+            data-target="#inserirJornada" (click)="limparObjetoJornada()">Cadastrar</button>
+    </div>
 </div>
 
 <!-- Modal Editar-->
@@ -201,7 +207,7 @@
                         <span class="d-inline-block" data-toggle="modal" data-target="modalExcluirJornada">
                             <button type="button" class="btn btn-success" data-dismiss="modal"
                                 (click)="excluirJornada(jornada.idJornada)">Confirmar </button>
-                               
+
                         </span>
                     </div>
                 </div>

@@ -151,7 +151,7 @@
                         </h5>
                     </div>
                     <textarea type [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
-                        placeholder="Textarea"></textarea>
+                        placeholder="Justificativa"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -192,8 +192,17 @@
                                             <td>
                                                 {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
                                             </td>
-                                            <td>
-                                                {{ponto.justificaPonto}}
+                                            <td *ngIf="(ponto.justificaPonto == 1)">
+                                                Esquecimento
+                                            </td>
+                                            <td *ngIf="(ponto.justificaPonto == 2)">
+                                                Trabalho Externo
+                                            </td>
+                                            <td *ngIf="(ponto.justificaPonto == 3)">
+                                                Sistema Indisponível
+                                            </td>
+                                            <td *ngIf="(ponto.justificaPonto == 0)">
+                                                -
                                             </td>
                                         </tr>
                                     </tbody>
@@ -211,13 +220,13 @@
                     <div class="card-header">
                         <h5 class="card-title mb-0">
                             <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Por favor informe a justificativa de
+                                <font style="vertical-align: inherit;">Por favor, informe a justificativa de
                                     reprovação</font>
                             </font>
                         </h5>
                     </div>
                     <textarea type [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
-                        placeholder="Textarea"></textarea>
+                        placeholder="Justificativa"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

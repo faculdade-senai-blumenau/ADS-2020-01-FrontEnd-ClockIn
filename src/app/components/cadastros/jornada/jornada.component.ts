@@ -29,6 +29,31 @@ export class JornadaComponent implements OnInit {
     private appService: AppService) { }
 
   ngOnInit(): void {
+
+    $(function () {
+      // Datatables basic
+      $('#datatables-jornada').DataTable({
+        responsive: true,
+        language: {
+          emptyTable: "Nenhum registro encontrado",
+          info: "Exibindo _START_ a _END_ de _TOTAL_ registros",
+          infoEmpty: "Exibindo 0 a 0 de 0 registros",
+          infoFiltered: "(Filtrado do total de _MAX_ registros)",
+          lengthMenu: "Listar _MENU_ Registros",
+          loadingRecords: "Carregando...",
+          processing: "Processando...",
+          search: "Procurar:",
+          zeroRecords: "Nenhum registro encontrado",
+          paginate: {
+            first: "Primeira",
+            last: "Última",
+            next: "Próxima",
+            previous: "Anterior"
+          }
+        }
+      });
+    });
+    
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
