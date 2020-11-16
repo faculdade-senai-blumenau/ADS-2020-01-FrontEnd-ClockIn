@@ -12,7 +12,7 @@
                     <h1 class="header-title">Aprovações Pendentes</h1>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-lg-12 col-xxl-6 pb-5">
+                    <div class="col-12 col-lg-12 pb-5">
                         <div class="card flex-fill">
                             <div class="card-header">
                                 <h5 class="card-title">Aprovações Pendentes</h5>
@@ -20,7 +20,7 @@
                                     aprovação</h6>
                             </div>
                             <div class="row">
-                                <div class="col-10 col-lg-10 col-xxl-3 pr-0 pl-1 mr-0">
+                                <div class="col-10 col-lg-10 pr-0 pl-1 mr-0">
                                     <div class="table-responsive table-striped text-center ">
                                         <div class="card-body text-center pr-0 mr-0">
                                             <!--Table-->
@@ -55,7 +55,7 @@
                                         <!--Table-->
                                     </div>
                                 </div>
-                                <div class="col-2 col-lg-2 col-xxl-2 pl-0 ml-0">
+                                <div class="col-2 col-lg-2 pl-0 ml-0">
                                     <div class="table-responsive text-center pl-0 ml-0">
                                         <div class="card-body text-center pl-0 ml-0">
                                             <!--Table-->
@@ -86,16 +86,16 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 col-lg-12 col-xxl-6 pb-5">
+                                <div class="col-12 col-lg-12 pb-5">
                                     <div class="card-footer text-center float-center">
                                         <button type="button" id="btnReprovar"
                                             class="btn btn-danger btn float-center mr-2 ml-2 mt-0" data-toggle="modal"
                                             data-target="#modalReprovarMarcacao"
-                                            (click)="buscarRegistroPontoAprovacao()">Reprovar Todos </button>
+                                            (click)="buscarRegistroPontoAprovacao()">Reprovar  </button>
                                         <button type="button" id="btnAprovar"
                                             class="btn btn-success btn float-center mr-2 ml-2 mt-0" data-toggle="modal"
                                             data-target="#modalAprovarMarcacao"
-                                            (click)="buscarRegistroPontoAprovacao()">Aprovar Todos </button>
+                                            (click)="buscarRegistroPontoAprovacao()">Aprovar  </button>
 
                                         <pagination-controls class="pt-0" (pageChange)="paginaAtual = $event"
                                             previousLabel="Anterior" nextLabel="Próximo">
@@ -124,7 +124,7 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalAprovarMarcacao">
                     <button type="button" class="btn btn-success" data-dismiss="modal"
-                        (click)="aprovarEdicaoTodos()">Confirmar</button>
+                        (click)="aprovarEdicao()">Confirmar</button>
                 </span>
             </div>
         </div>
@@ -151,13 +151,15 @@
                         </h5>
                     </div>
                     <textarea type [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
-                        placeholder="Justificativa"></textarea>
+                    id="justificativaReprovacao" name="justificativaReprovacao"
+                        placeholder="Justificativa" [value]="registroPonto.justificativaReprovacao">
+                    </textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
-                    <button type="button" class="btn btn-success" (click)="reprovarEdicaoTodos()"
+                    <button type="button" class="btn btn-success" (click)="reprovarEdicao()"
                         data-dismiss="modal">Confirmar</button>
                 </span>
             </div>
@@ -173,36 +175,54 @@
             <div class="modal-header">
                 Aprovação de Edição de Registro Ponto
             </div>
-            <div class="col-12 col-lg-12 col-xxl-6 pb-5">
+            <div class="col-12 col-lg-12  pb-5">
                 <div class="card flex-fill">
-                    <div class="col-12 col-lg-12 col-xxl-3">
+                    <div class="col-12 col-lg-12 ">
                         <div class="table-responsive table-striped text-center" style="width:100%">
-
                             <div class="card-body text-center ">
+                                <div *ngFor="let pontos of listaDePontos  | slice:0:1; let i=index">
+                                    <div *ngFor="let registoPonto of pontos.listaPonto | slice:0:1; let i=index">
+                                        <h4 class="header-title">
+                                            <font
+                                                style="vertical-align: inherit;color: darkslategrey; font-size: 18px;">
+                                                {{registoPonto.usuario["nomeUsuario"]}} -
+                                                {{registoPonto.dataRegistro | date: 'dd/MM/yyyy' }}
+
+                                            </font>
+                                        </h4>
+                                    </div>
+                                </div>
                                 <!--Table-->
                                 <table class="table" id="">
                                     <thead class="thead-light ">
                                         <tr>
                                             <th>Hora Registro</th>
                                             <th>Justificativa</th>
+                                            <th>Justificativa Reprovação</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let ponto of registroPontoVisualizar let i = index">
+                                        <tr *ngFor="let ponto of registroPonto let i = index">
                                             <td>
                                                 {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
                                             </td>
-                                            <td *ngIf="(ponto.justificaPonto == 1)">
+                                            <td *ngIf="ponto.justificaPonto == 1">
                                                 Esquecimento
                                             </td>
-                                            <td *ngIf="(ponto.justificaPonto == 2)">
+                                            <td *ngIf="ponto.justificaPonto == 2">
                                                 Trabalho Externo
                                             </td>
-                                            <td *ngIf="(ponto.justificaPonto == 3)">
+                                            <td *ngIf="ponto.justificaPonto == 3">
                                                 Sistema Indisponível
                                             </td>
-                                            <td *ngIf="(ponto.justificaPonto == 0)">
+                                            <td *ngIf="ponto.justificaPonto == 0">
                                                 -
+                                            </td>
+                                            <td *ngIf="!ponto.justificativaReprovacao">
+                                                -
+                                            </td>
+                                            <td *ngIf="ponto.justificativaReprovacao">
+                                                {{ponto.justificativaReprovacao}}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -211,9 +231,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-body text-center" style="font-size: 18px;">
-                Deseja reprovar as edições de ponto?
             </div>
             <div class="col-md-12">
                 <div class="card">
@@ -225,15 +242,18 @@
                             </font>
                         </h5>
                     </div>
-                    <textarea type [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
-                        placeholder="Justificativa"></textarea>
+                    <textarea type [(ngModel)]="ponto.justificativaReprovacao" class="form-control" rows="2"
+                        placeholder="Justificativa"
+                    [value]="ponto.justificativaReprovacao"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-danger" (click)="reprovarEdicao()"
+                    data-dismiss="modal">Reprovar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
-                    <button type="button" class="btn btn-success" (click)="reprovarEdicaoSelecionado()"
-                        data-dismiss="modal">Confirmar</button>
+                    <button type="button" class="btn btn-success" (click)="aprovarEdicao()"
+                        data-dismiss="modal">Aprovar</button>
                 </span>
             </div>
         </div>

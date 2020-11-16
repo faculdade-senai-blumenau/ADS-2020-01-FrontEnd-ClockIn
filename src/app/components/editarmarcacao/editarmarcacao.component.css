@@ -7,10 +7,6 @@
   cursor: pointer;
 }
 
-.card {
-  min-height: 400px;
-}
-
 .table-responsive {
   min-height: 300px;
 }

@@ -26,8 +26,7 @@ export class SetorComponent implements OnInit {
 
     /* Variaveis Fim */
 
-    constructor(private appComponent: AppComponent,
-        private appService: AppService) { }
+    constructor( private appService: AppService) { }
 
     ngOnInit(): void {
         $(function () {
@@ -101,7 +100,7 @@ export class SetorComponent implements OnInit {
         );
     }
 
-    criarSetor() {
+    inserirSetor() {
         this.appService.criarGenerico('setor', this.setor).subscribe(
             success => {
                 this.setores = this.listarSetores();
