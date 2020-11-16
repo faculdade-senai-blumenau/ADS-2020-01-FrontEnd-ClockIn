@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-parametro',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParametroComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit(): void {
+    if(this.appService.getUsuarioLogado()==null){
+      this.router.navigate(["/login"]);
+    }
   }
 
 }

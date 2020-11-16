@@ -19,7 +19,8 @@ export class AppService {
   /* Variáveis */
   urlBase = 'http://localhost:5000';
   /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com'; */
-  idUsuario = 2;
+  idUsuario: any;
+  usuario: any;
 
 
   /* Retorna a url padrão */
@@ -29,6 +30,16 @@ export class AppService {
 
   buscarUsuario() {
     return this.idUsuario;
+  }
+  declararUsuario(usuario){
+    this.usuario=usuario
+  }
+  getUsuarioLogado(){
+    return this.usuario;
+  }
+
+  setarUsuario(idUsuario){
+    this.idUsuario=idUsuario;
   }
 
   buscarUsuarios() {
@@ -82,6 +93,10 @@ export class AppService {
 
   criar(ponto: any) {
     return this.http.post(`${this.urlBase}/registroPonto/`, ponto);
+  }
+
+  logar(loginUsuario: any){
+    return this.http.post(`${this.urlBase}/login/`, loginUsuario);
   }
 
   buscarEspelhoPonto(idUsuario: number) {

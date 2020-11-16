@@ -22,14 +22,15 @@
       <li>
         <a class="nav-link" routerLink="/relatorios">Relatórios</a>
       </li>
-      <li>
-        <a class="nav-link" routerLink="/aprovacoespendentes">Aprovações Pendentes</a>
+      <li >
+        
+        <a *ngIf=usuarioGestor() class="nav-link" routerLink="/aprovacoespendentes">Aprovações Pendentes</a>
       </li>
       <li>
-        <a class="nav-link" routerLink="/cadastros">Cadastros</a>
+        <a *ngIf=usuarioGestor() class="nav-link" routerLink="/cadastros">Cadastros</a>
       </li>
       <li>
-        <a class="nav-link" routerLink="/parametros">Parâmetros</a>
+        <a *ngIf=usuarioGestor() class="nav-link" routerLink="/parametros">Parâmetros</a>
       </li>
       <li>
         <a class="nav-link" routerLink="/login">Sair</a>

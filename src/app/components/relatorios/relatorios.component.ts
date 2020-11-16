@@ -21,7 +21,8 @@ import autoTable from 'jspdf-autotable';
 export class RelatoriosComponent implements OnInit {
 
   constructor(private appComponent: AppComponent,
-    private appService: AppService) { }
+    private appService: AppService, private router: Router) { }
+    
 
   listaDePontos: any;
   dataInicial: any;
@@ -32,7 +33,9 @@ export class RelatoriosComponent implements OnInit {
   idUsuario = this.appService.buscarUsuario();
 
   ngOnInit(): void {
-
+    if(this.appService.getUsuarioLogado()==null){
+      this.router.navigate(["/login"]);
+    }
   }
 
   gerarRelatorio() {

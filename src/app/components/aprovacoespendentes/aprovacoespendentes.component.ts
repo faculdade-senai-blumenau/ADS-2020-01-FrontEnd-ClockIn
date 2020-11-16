@@ -5,6 +5,7 @@ import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { Subject } from 'rxjs/internal/Subject';
 import { AppService } from 'src/app/app.service';
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-aprovacoespendentes',
@@ -36,10 +37,12 @@ export class AprovacoesPendentesComponent implements OnInit {
 
 
   public paginaAtual = 1;
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit(): void {
-
+    if(this.appService.getUsuarioLogado()==null){
+      this.router.navigate(["/login"]);
+    }
     this.listarRegistrosAprovacoesPendentes();
 
     this.registroPonto = {};

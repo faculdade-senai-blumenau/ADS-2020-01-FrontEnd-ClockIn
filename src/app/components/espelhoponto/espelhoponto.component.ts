@@ -10,6 +10,7 @@ import html2canvas from 'html2canvas';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import autoTable from 'jspdf-autotable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-espelhoponto',
@@ -36,10 +37,13 @@ export class EspelhopontoComponent implements OnInit {
   espelhoPontoAprovado: EspelhoPonto[];
 
   constructor(private appComponent: AppComponent,
-    private appService: AppService) { }
+    private appService: AppService, private router: Router) { }
+    
 
   ngOnInit() {
-
+    if(this.appService.getUsuarioLogado()==null){
+      this.router.navigate(["/login"]);
+    }
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
