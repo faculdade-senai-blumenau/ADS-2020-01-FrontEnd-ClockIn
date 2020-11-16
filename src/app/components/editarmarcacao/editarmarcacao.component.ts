@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editarmarcacao',
@@ -35,10 +36,12 @@ export class EditarMarcacaoComponent implements OnInit {
 
   /* Variaveis Fim */
 
-  constructor(private appService: AppService ) { }
+  constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit(): void {
-
+    if(this.appService.getUsuarioLogado()==null){
+      this.router.navigate(["/login"]);
+    }
     this.ponto = {
       idRegistroPonto: '',
       idUsuario: this.appService.buscarUsuario(),

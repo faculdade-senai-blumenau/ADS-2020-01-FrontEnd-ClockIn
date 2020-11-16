@@ -5,6 +5,7 @@ import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { Usuario, Setor } from 'src/app/app.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -43,11 +44,13 @@ export class HomeComponent implements OnInit {
 
 
   constructor(private datePipe: DatePipe,
-    private appService: AppService) {
+    private appService: AppService, private router: Router) {
   }
 
   ngOnInit(): void {
-
+    if(this.appService.getUsuarioLogado()==null){
+      this.router.navigate(["/login"]);
+    }
     this.listarRegistrosPontoSemanal();
 
     /* Retorna a data e hora atual */

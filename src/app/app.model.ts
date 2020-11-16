@@ -11,7 +11,7 @@ export interface Usuario {
     dataNascimento: any;
     telefone: string;
     ativo: boolean;
-    gestor: boolean;
+    gestor: any;
     login: string;
     senha: string;
     foto: string;
