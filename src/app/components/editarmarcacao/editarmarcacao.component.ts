@@ -60,6 +60,9 @@ export class EditarMarcacaoComponent implements OnInit {
       });
     }, 1000);
   }
+  sessao(){
+    this.appService.controlaSessao()
+  }
 
   listarRegistrosPontoEditarMarcacao(){
     const dataInicial = moment().subtract(30, 'days').format();

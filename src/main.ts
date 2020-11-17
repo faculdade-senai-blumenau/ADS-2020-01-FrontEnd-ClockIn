@@ -9,6 +9,10 @@ if (environment.production) {
   enableProdMode();
 }
 
+function sessao(e){
+  console.log(e.type);
+}
+
 platformBrowserDynamic().bootstrapModule(AppModule).then(ref => {
   // Ensure Angular destroys itself on hot reloads.
   if (window['ngRef']) {

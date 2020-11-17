@@ -55,6 +55,9 @@ export class EspelhopontoComponent implements OnInit {
     this.buscarEspelhoPontoAprovado();
 
   }
+  sessao(){
+    this.appService.controlaSessao()
+  }
   getEspelhoPonto() {
     this.appService.buscarEspelhoPonto(this.idUsuario).subscribe(
       resposta => this.espelhoPonto = resposta

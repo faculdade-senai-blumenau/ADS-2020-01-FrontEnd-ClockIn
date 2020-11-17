@@ -37,6 +37,9 @@ export class RelatoriosComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
   }
+  sessao(){
+    this.appService.controlaSessao();
+  }
 
   gerarRelatorio() {
     this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario,this.dataInicial, this.dataFinal);

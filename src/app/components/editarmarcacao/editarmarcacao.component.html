@@ -6,7 +6,7 @@
 <!-- Alerta Sucesso ao Registrar Ponto -->
 <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''"> {{ mensagemErro }}
 </ngb-alert>
-<div class="wrapper">
+<div class="wrapper" (mouseover)="sessao()">
   <div class="main">
     <main class="content">
       <div class="container p-0">
