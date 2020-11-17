@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/app.model';
 import { AppService } from 'src/app/app.service';
 import { UsuarioComponent } from '../../cadastros/usuario/usuario.component';
@@ -12,7 +13,7 @@ import { HomeComponent } from '../../home/home.component';
 export class NavComponent implements OnInit {
   usuario: Usuario;
   isGestor='';
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private router: Router) { }
   
   ngOnInit() {
     
@@ -25,6 +26,13 @@ export class NavComponent implements OnInit {
     } else {
       return true;
     }
+    
+  }
+
+   logout(){
+    
+    this.appService.declararUsuario(null);
+    this.router.navigate(["/login"]);
     
   }
 
