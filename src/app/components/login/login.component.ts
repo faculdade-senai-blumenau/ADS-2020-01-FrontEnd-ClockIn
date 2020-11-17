@@ -37,10 +37,17 @@ export class LoginComponent implements OnInit {
     this.alertaLogin.pipe(debounceTime(5000)).subscribe(() => {
       this.mensagemErroLogin = ''
     });
+    if (this.appService.getDeslogado()){
+      this.erroLogin("Sessão Expirada");
+    }
     
   }
+  
   getUsuarioLogado(){
     return this.usuarioLogado;
+  }
+  erroLogin(mensagem){
+    this.alertaLogin.next(this.mensagemErroLogin = (mensagem));
   }
   login(email,senha){
     this.loginUsuario={
@@ -54,7 +61,7 @@ export class LoginComponent implements OnInit {
         
         if (this.usuarioLogado == null){
           //alert("Usuário ou Senha Inválidos")
-          this.alertaLogin.next(this.mensagemErroLogin = (`Usuário ou Senha inválidos!`));
+          this.erroLogin('Usuário ou Senha inválidos!');
           
           
         } else {

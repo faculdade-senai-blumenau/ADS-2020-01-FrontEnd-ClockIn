@@ -24,6 +24,7 @@ export class AppService {
   usuario: any;
   tempoDaSessao=600000;
   t: any;
+  deslogado: any;
 
 
   controlaSessao(){
@@ -34,6 +35,7 @@ export class AppService {
     },this.buscaTempoDaSessao())
   }
   logoutSessao(): any{
+    this.deslogado=true;
     this.declararUsuario(null);
     this.router.navigate(["/login"]);
     return 1;
@@ -42,7 +44,12 @@ export class AppService {
   buscarUrlBase() {
     return this.urlBase;
   }
-
+  setDeslogado(e){
+    this.deslogado=e;
+  }
+  getDeslogado(){
+    return this.deslogado;
+  }
   buscaTempoDaSessao(){
     return this.tempoDaSessao;
   }
