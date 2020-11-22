@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada, Endereco } from './app.model';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +11,44 @@ import { Location } from '@angular/common';
 
 export class AppService {
 
-  constructor(private http: HttpClient, public location: Location) {
+  constructor(private http: HttpClient, public location: Location, private router: Router) {
   }
 
   urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';
 
   idUsuario: any;
   usuario: any;
+  tempoDaSessao=600000;
+  t: any;
+  deslogado: any;
 
 
+  controlaSessao(){
+    console.log("mouse");
+    clearTimeout(this.t);
+    this.t=setTimeout(()=>{
+      this.logoutSessao();
+    },this.buscaTempoDaSessao())
+  }
+  logoutSessao(): any{
+    this.deslogado=true;
+    this.declararUsuario(null);
+    this.router.navigate(["/login"]);
+    return 1;
+  }
   /* Retorna a url padrão */
   buscarUrlBase() {
     return this.urlBase;
   }
-
+  setDeslogado(e){
+    this.deslogado=e;
+  }
+  getDeslogado(){
+    return this.deslogado;
+  }
+  buscaTempoDaSessao(){
+    return this.tempoDaSessao;
+  }
   buscarUsuario() {
     return this.idUsuario;
   }

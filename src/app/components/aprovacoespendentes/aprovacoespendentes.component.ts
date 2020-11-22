@@ -66,6 +66,10 @@ export class AprovacoesPendentesComponent implements OnInit {
     }, 1000);
   }
 
+  sessao(){
+    this.appService.controlaSessao()
+  }
+
   listarRegistrosAprovacoesPendentes() {
     this.appService.buscarRegistrosPontoAprovacoesPendentes().subscribe((registroPonto) => {
       this.registroPonto = registroPonto;

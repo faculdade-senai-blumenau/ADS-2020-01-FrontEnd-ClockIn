@@ -20,4 +20,7 @@ export class CadastrosComponent implements OnInit {
     }
 
   }
+  sessao(){
+    this.appService.controlaSessao()
+  }
 }
