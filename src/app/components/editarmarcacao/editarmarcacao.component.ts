@@ -30,7 +30,7 @@ export class EditarMarcacaoComponent implements OnInit {
   ponto: any;
 
   urlBase = this.appService.buscarUrlBase();
-  idUsuario = this.appService.buscarUsuario(); 
+  idUsuario = this.appService.buscarUsuario();
 
   public paginaAtual = 1;
 
@@ -49,14 +49,14 @@ export class EditarMarcacaoComponent implements OnInit {
       horaRegistro: '',
       justificaPonto: '',
       justificativaReprovacao: ''
-    }; 
+    };
 
     this.listarRegistrosPontoEditarMarcacao();
 
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
-        this.mensagem='', this.mensagemErro='', this.mensagemSucesso=''
+        this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''
       });
     }, 1000);
   }
@@ -64,10 +64,10 @@ export class EditarMarcacaoComponent implements OnInit {
     this.appService.controlaSessao()
   }
 
-  listarRegistrosPontoEditarMarcacao(){
+  listarRegistrosPontoEditarMarcacao() {
     const dataInicial = moment().subtract(30, 'days').format();
     this.listaDePontos = this.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
-  } 
+  }
 
   buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
     this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe((registroPonto) => {
@@ -100,18 +100,31 @@ export class EditarMarcacaoComponent implements OnInit {
         this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
       }
     );
-  }
+  };
 
-  criar(frm) {
-    this.appService.criar(this.ponto).subscribe(
+
+  inserirRegistroPonto() {
+    console.log(this.ponto);
+    this.appService.criarGenerico('registroPonto', this.ponto).subscribe(
       success => {
-        this.alerta.next(this.mensagemSucesso = (`Registro Inserido com Sucesso.`));
+        this.limparObjetoPonto();
         this.listarRegistrosPontoEditarMarcacao();
+        this.alerta.next(this.mensagemSucesso = (`Setor Inserido com Sucesso.`));
       },
       error => {
-        this.alerta.next(this.mensagemErro= 'Não foi possível inserir o registro.');
+        this.alerta.next(this.mensagemErro = 'Não foi possível inserir setor.');
       }
     );
-    frm.reset();
+  }
+
+  limparObjetoPonto() {
+    this.ponto = {
+      idRegistroPonto: '',
+      idUsuario: this.appService.buscarUsuario(),
+      dataRegistro: '',
+      horaRegistro: '',
+      justificaPonto: '',
+      justificativaReprovacao: ''
+    };
   }
 }

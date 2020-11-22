@@ -57,14 +57,14 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="nome">Nome</label>
                                                     <input [(ngModel)]="setor.descricaoSetor" class="form-control"
-                                                        id="setorEditar" name="descricaoSetor"
+                                                        id="descricaoSetorEditar" name="descricaoSetorEditar"
                                                         [value]="setor.descricaoSetor" type="text"
                                                         placeholder="Descrição Setor">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="idUsuario">Responsável</label>
                                                     <select [(ngModel)]="setor.idUsuario" class="form-control"
-                                                        id="idUsuario" name="idUsuario" type="text">
+                                                        id="idUsuarioEditar" name="idUsuarioEditar" type="text">
                                                         <option *ngFor="let usuario of usuarios"
                                                             [value]=usuario.idUsuario>
                                                             {{usuario.nomeUsuario}}
@@ -130,7 +130,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <button type="submit" (click)="criarSetor()"
+                                            <button type="submit" (click)="inserirSetor()"
                                                 class="btn btn-success float-right  m-2" data-dismiss="modal">Salvar
                                             </button>
                                             <button class="btn btn-secondary float-right  m-2"

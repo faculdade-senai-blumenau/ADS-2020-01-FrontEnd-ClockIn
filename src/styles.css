@@ -37,8 +37,8 @@ p {
   border-bottom: 0 !important;
 }
 
-.col-6, .col-12 {
-  padding: 0px !important;
+.col-6, .col-12, .col-lg-6, .col-sm-12 {
+  padding: 5px !important;
 }
 
 .tab .nav-tabs .nav-link.active {
@@ -68,12 +68,6 @@ p {
   padding: 0px 20px !important;
 }
 
-.card-body {
-  flex: 1 1 auto !important;
-  min-height: 1px !important;
-  padding: 1.25rem;
-  padding-bottom: 0px !important;
-}
 
 .ngx-pagination {
   margin: 1rem !important;

@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
@@ -54,7 +54,9 @@ export class UsuarioComponent implements OnInit {
         }
       });
     });
-  
+
+
+
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {

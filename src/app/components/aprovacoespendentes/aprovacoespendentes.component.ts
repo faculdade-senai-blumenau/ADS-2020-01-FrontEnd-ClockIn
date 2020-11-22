@@ -88,18 +88,17 @@ export class AprovacoesPendentesComponent implements OnInit {
 
   buscarRegistroPontoAprovacao() {
     this.appService.buscarRegistrosPontoAprovacoesPendentes().subscribe(
-      resposta => this.listaDePontosAprovacao = resposta);
+      resposta => this.listaDePontos = resposta);
   }
 
 
   aprovacaoPendenteVisualizar(dataRegistro: any, idUsuario: number) {
     this.appService.aprovacaoPendenteVisualizar(dataRegistro, idUsuario).subscribe((registroPonto) => {
-      this.registroPontoVisualizar = registroPonto;
-      console.log(this.registroPonto);
+      this.registroPonto = registroPonto;
     })
   }
 
-  aprovarEdicaoTodos() {
+  aprovarEdicao() {
     this.registroPonto.forEach(element => {
       this.ponto = {
         idRegistroPonto: element.idRegistroPonto,
@@ -107,7 +106,7 @@ export class AprovacoesPendentesComponent implements OnInit {
         dataRegistro: element.dataRegistro,
         horaRegistro: element.horaRegistro,
         justificaPonto: element.justificaPonto,
-        justificativaReprovacao: '',
+        justificativaReprovacao: element.justificativaReprovacao,
         edicaoAprovada: 1
       };
       console.log(this.ponto)
@@ -123,7 +122,7 @@ export class AprovacoesPendentesComponent implements OnInit {
     });
   }
 
-  reprovarEdicaoTodos() {
+  reprovarEdicao() {
     this.registroPonto.forEach(element => {
       this.ponto = {
         idRegistroPonto: element.idRegistroPonto,
@@ -131,31 +130,7 @@ export class AprovacoesPendentesComponent implements OnInit {
         dataRegistro: element.dataRegistro,
         horaRegistro: element.horaRegistro,
         justificaPonto: '',
-        justificativaReprovacao: 'teste',
-        edicaoAprovada: 0
-      };
-      console.log(this.ponto)
-      this.appService.updateRegistroPonto(this.ponto).subscribe(
-        success => {
-          this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
-          this.listarRegistrosAprovacoesPendentes();
-        },
-        error => {
-          this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
-        }
-      );
-    });
-  }
-
-  reprovarEdicaoSelecionado() {
-    this.registroPontoVisualizar.forEach(element => {
-      this.ponto = {
-        idRegistroPonto: element.idRegistroPonto,
-        idUsuario: element.idUsuario,
-        dataRegistro: element.dataRegistro,
-        horaRegistro: element.horaRegistro,
-        justificaPonto: '',
-        justificativaReprovacao: 'teste',
+        justificativaReprovacao: element.justificativaReprovacao,
         edicaoAprovada: 0
       };
       console.log(this.ponto)
