@@ -8,19 +8,13 @@ import { Location } from '@angular/common';
   providedIn: 'root'
 })
 
-/* Esta classe possui os métodos globais que retornam dados para os outros componentes*/
-/* Dessa forma evita a replicação do mesmo código em varios componentes*/
-
 export class AppService {
 
   constructor(private http: HttpClient, public location: Location) {
   }
 
-  /* Variáveis */
-  urlBase = 'http://localhost:5000';
-  /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com'; */
-  urlBaseCep = "https://viacep.com.br/ws";
-  
+  urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';
+
   idUsuario: any;
   usuario: any;
 
