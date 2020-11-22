@@ -26,32 +26,32 @@ export class SetorComponent implements OnInit {
 
     /* Variaveis Fim */
 
-    constructor( private appService: AppService) { }
+    constructor(private appService: AppService) { }
 
     ngOnInit(): void {
         $(function () {
             // Datatables basic
             $('#datatables-setor').DataTable({
-              responsive: true,
-              language: {
-                emptyTable: "Nenhum registro encontrado",
-                info: "Exibindo _START_ a _END_ de _TOTAL_ registros",
-                infoEmpty: "Exibindo 0 a 0 de 0 registros",
-                infoFiltered: "(Filtrado do total de _MAX_ registros)",
-                lengthMenu: "Listar _MENU_ Registros",
-                loadingRecords: "Carregando...",
-                processing: "Processando...",
-                search: "Procurar:",
-                zeroRecords: "Nenhum registro encontrado",
-                paginate: {
-                  first: "Primeira",
-                  last: "Última",
-                  next: "Próxima",
-                  previous: "Anterior"
+                responsive: true,
+                language: {
+                    emptyTable: "Nenhum registro encontrado",
+                    info: "Exibindo _START_ a _END_ de _TOTAL_ registros",
+                    infoEmpty: "Exibindo 0 a 0 de 0 registros",
+                    infoFiltered: "(Filtrado do total de _MAX_ registros)",
+                    lengthMenu: "Listar _MENU_ Registros",
+                    loadingRecords: "Carregando...",
+                    processing: "Processando...",
+                    search: "Procurar:",
+                    zeroRecords: "Nenhum registro encontrado",
+                    paginate: {
+                        first: "Primeira",
+                        last: "Última",
+                        next: "Próxima",
+                        previous: "Anterior"
+                    }
                 }
-              }
             });
-          });
+        });
 
         this.clockHandle = setInterval(() => {
             /* Remove o alerta após o tempo determinado (milisegundos) */
@@ -61,7 +61,6 @@ export class SetorComponent implements OnInit {
         }, 1000);
 
         this.listarSetores();
-        this.listarUsuarios();
 
         this.setor = {
             idSetor: '',
@@ -74,9 +73,6 @@ export class SetorComponent implements OnInit {
         this.appService.listarGenerico('setor').subscribe((setores) => {
             this.setores = setores;
         });
-    }
-
-    listarUsuarios() {
         this.appService.listarGenerico('usuario').subscribe(usuarios => {
             this.usuarios = usuarios;
         });
@@ -91,7 +87,7 @@ export class SetorComponent implements OnInit {
     updateSetor(idSetor: number) {
         this.appService.updateGenerico('setor', idSetor, this.setor).subscribe(
             success => {
-                this.setores = this.listarSetores();
+                this.listarSetores();
                 this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
             },
             error => {
@@ -103,7 +99,7 @@ export class SetorComponent implements OnInit {
     inserirSetor() {
         this.appService.criarGenerico('setor', this.setor).subscribe(
             success => {
-                this.setores = this.listarSetores();
+                this.listarSetores();
                 this.alerta.next(this.mensagemSucesso = (`Setor Inserido com Sucesso.`));
             },
             error => {

@@ -19,10 +19,73 @@
                 <h6 class="card-subtitle text-muted">Edição de marcações dos registros de ponto.
                 </h6>
               </div>
+              <!-- Criar-->
+              <div class="row">
+                <div class="col-12 d-flex-centered">
+                  <div class="card flex-fill">
+                    <div class="card-header pt-0 pb-0 text-center" style="font-size: 18px;">
+                      <h5 class="card-title">
+                        <font style="vertical-align: inherit;">
+                          <font style="vertical-align: inherit; font-size: 18px">Inserir Registro Ponto</font>
+                        </font>
+                      </h5>
+                    </div>
+                    <div class="card-body pt-0 pb-0">
+                      <div class="row">
+                        <div class="col-lg-3 col-sm-3 col-md-6 pb-2 pt-1">
+                          <label for="dataRegistro p-0">Data Registro</label>
+                          <input [(ngModel)]="ponto.dataRegistro" class="form-control" id="dataRegistro"
+                            name="dataRegistro" type="date" required>
+                        </div>
+                        <div class="col-lg-3  col-sm-3 col-md-6 pb-2 pt-1">
+                          <label for="horaRegistro">Hora Registro</label>
+                          <input [(ngModel)]="ponto.horaRegistro" class="form-control time-mask" id="horaRegistro"
+                            name="horaRegistro" type="time" required placeholder="00:00" minlength="5" maxlength="5"
+                            autocomplete="on">
+                        </div>
+                        <div class="col-lg-4 col-sm-4 col-md-6 pt-1">
+                          <label for="justificaPonto">Justificativa</label>
+                          <select [(ngModel)]="ponto.justificaPonto" class="custom-select  form-control"
+                            id="justificaPonto" name="justificaPonto" placeholder="Justificativa" type="number"
+                            aria-controls="datatables-basic" required>
+                            <option value="">
+                              <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;"></font>
+                              </font>
+                            </option>
+                            <option value="1">
+                              <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">Esquecimento</font>
+                              </font>
+                            </option>
+                            <option value="2">
+                              <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">Trabalho Externo</font>
+                              </font>
+                            </option>
+                            <option value="3">
+                              <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">Sistema Indisponível</font>
+                              </font>
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-lg-2 col-sm-12 col-md-6 ">
+                          <button type="submit" (click)="inserirRegistroPonto()"
+                            class="btn btn-success float-right  mt-4  ">Salvar
+                          </button>
+                          <button class="btn btn-secondary float-right  mt-4"
+                            (click)="limparObjetoPonto()">Limpar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="table-responsive table-striped text-center ">
-                <div class="card-body text-center ">
+                <div class="card-body text-center pt-0 ">
                   <!--Table-->
-                  <table class="table " id='TabelaEditarPonto'>
+                  <table class="table pt-0" id='TabelaEditarPonto' >
                     <thead class="thead-light ">
                       <tr>
                         <th>Data</th>
@@ -51,7 +114,7 @@
               </div>
               <!--Table-->
 
-              <!-- Modal Editar-->
+              <!-- Editar-->
               <div class="modal fade" id="editarMarcacao" tabindex="-1" role="dialog" aria-labelledby="editarMarcacao"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -108,10 +171,10 @@
                                         </select>
                                       </div>
                                       <div class="col-md-12 pb-2 pt-1">
-                                        <label for="horaRegistro">Horário</label>
-                                        <textarea type [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control"
-                                          rows="2" placeholder="Justificativa"
-                                          [value]="registroPonto.justificativaReprovacao" disabled></textarea>
+                                        <label for="horaRegistro">Justificativa Reprovação</label>
+                                        <textarea type [(ngModel)]="registroPonto.justificativaReprovacao"
+                                          class="form-control" rows="2" [value]="registroPonto.justificativaReprovacao"
+                                          disabled></textarea>
                                       </div>
                                     </div>
                                   </div>
@@ -130,67 +193,10 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Modal Criar-->
-              <div class="row">
-                <div class="col-12 d-flex-centered">
-                  <div class="card flex-fill">
-                    <div class="card-header pt-0 pb-0 text-center" style="font-size: 18px;">
-                      <h5 class="card-title">
-                        <font style="vertical-align: inherit;">
-                          <font style="vertical-align: inherit;">Inserir Registro Ponto</font>
-                        </font>
-                      </h5>
-                    </div>
-                    <div class="card-body ">
-                      <div class="row">
-                        <div class="col-lg-3 col-sm-3 col-md-6 pb-2 pt-1">
-                          <label for="dataRegistro p-0">Data Registro</label>
-                          <input [(ngModel)]="ponto.dataRegistro" class="form-control" id="dataRegistro"
-                            name="dataRegistro" type="date" required>
-                        </div>
-                        <div class="col-lg-3  col-sm-3 col-md-6 pb-2 pt-1">
-                          <label for="horaRegistro">Hora Registro</label>
-                          <input [(ngModel)]="ponto.horaRegistro" class="form-control time-mask" id="horaRegistro"
-                            name="horaRegistro" type="time" required placeholder="00:00" minlength="5" maxlength="5"
-                            autocomplete="on">
-                        </div>
-                        <div class="col-lg-4 col-sm-4 col-md-6 pt-1">
-                          <label for="justificaPonto">Justificativa</label>
-                          <select [(ngModel)]="ponto.justificaPonto" class="custom-select  form-control"
-                            id="justificaPonto" name="justificaPonto" placeholder="Justificativa" type="number"
-                            aria-controls="datatables-basic" required>
-                            <option value="">
-                              <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;"></font>
-                              </font>
-                            </option>
-                            <option value="1">
-                              <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Esquecimento</font>
-                              </font>
-                            </option>
-                            <option value="2">
-                              <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Trabalho Externo</font>
-                              </font>
-                            </option>
-                            <option value="3">
-                              <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Sistema Indisponível</font>
-                              </font>
-                            </option>
-                          </select>
-                        </div>
-                        <div class="col-lg-2 col-sm-12 col-md-6 ">
-                          <button type="submit" (click)="inserirRegistroPonto()"
-                            class="btn btn-success float-right  mt-4  ">Salvar
-                          </button>
-                          <button class="btn btn-secondary float-right  mt-4"
-                            (click)="limparObjetoPonto()">Limpar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

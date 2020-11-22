@@ -19,6 +19,8 @@ export class AppService {
   /* Variáveis */
   urlBase = 'http://localhost:5000';
   /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com'; */
+  urlBaseCep = "https://viacep.com.br/ws";
+  
   idUsuario: any;
   usuario: any;
 
@@ -40,6 +42,10 @@ export class AppService {
 
   setarUsuario(idUsuario){
     this.idUsuario=idUsuario;
+  }
+
+  consultaCepCorreios(cep: string) {
+    return this.http.get<any>(`${this.urlBaseCep}/${cep}/json`);
   }
 
   buscarUsuarios() {

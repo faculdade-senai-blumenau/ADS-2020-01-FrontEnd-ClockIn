@@ -74,7 +74,7 @@
                                                                 type="button" class="btn btn-secondary"
                                                                 data-toggle="modal"
                                                                 data-target="#modalVisualizarAprovacao"
-                                                                (click)="aprovacaoPendenteVisualizar(registoPonto.dataRegistro, ponto.idUsuario)">
+                                                                (click)="aprovacaoPendenteVisualizar(registoPonto.dataRegistro, registoPonto.idUsuario)">
                                                                 Visualizar
                                                             </button>
                                                         </div>
@@ -91,11 +91,11 @@
                                         <button type="button" id="btnReprovar"
                                             class="btn btn-danger btn float-center mr-2 ml-2 mt-0" data-toggle="modal"
                                             data-target="#modalReprovarMarcacao"
-                                            (click)="buscarRegistroPontoAprovacao()">Reprovar  </button>
+                                            (click)="buscarRegistroPontoAprovacao()">Reprovar </button>
                                         <button type="button" id="btnAprovar"
                                             class="btn btn-success btn float-center mr-2 ml-2 mt-0" data-toggle="modal"
                                             data-target="#modalAprovarMarcacao"
-                                            (click)="buscarRegistroPontoAprovacao()">Aprovar  </button>
+                                            (click)="buscarRegistroPontoAprovacao()">Aprovar </button>
 
                                         <pagination-controls class="pt-0" (pageChange)="paginaAtual = $event"
                                             previousLabel="Anterior" nextLabel="Próximo">
@@ -151,8 +151,8 @@
                         </h5>
                     </div>
                     <textarea type [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
-                    id="justificativaReprovacao" name="justificativaReprovacao"
-                        placeholder="Justificativa" [value]="registroPonto.justificativaReprovacao">
+                        id="justificativaReprovacao" name="justificativaReprovacao" placeholder="Justificativa"
+                        [value]="registroPonto.justificativaReprovacao">
                     </textarea>
                 </div>
             </div>
@@ -180,7 +180,7 @@
                     <div class="col-12 col-lg-12 ">
                         <div class="table-responsive table-striped text-center" style="width:100%">
                             <div class="card-body text-center ">
-                                <div *ngFor="let pontos of listaDePontos  | slice:0:1; let i=index">
+                                <div *ngFor="let pontos of listaDePontos | slice:0:1; let i=index">
                                     <div *ngFor="let registoPonto of pontos.listaPonto | slice:0:1; let i=index">
                                         <h4 class="header-title">
                                             <font
@@ -219,11 +219,11 @@
                                                 -
                                             </td>
                                             <td *ngIf="!ponto.justificativaReprovacao">
-                                                -
+                                                
                                             </td>
                                             <td *ngIf="ponto.justificativaReprovacao">
                                                 {{ponto.justificativaReprovacao}}
-                                            </td>
+                                            </td>          
                                         </tr>
                                     </tbody>
                                 </table>
@@ -242,9 +242,9 @@
                             </font>
                         </h5>
                     </div>
-                    <textarea type [(ngModel)]="ponto.justificativaReprovacao" class="form-control" rows="2"
-                        placeholder="Justificativa"
-                    [value]="ponto.justificativaReprovacao"></textarea>
+                    <textarea *ngFor="let ponto of registroPonto | slice:0:1; let i=index" type
+                        [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
+                        placeholder="Justificativa" [value]="registroPonto.justificativaReprovacao"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

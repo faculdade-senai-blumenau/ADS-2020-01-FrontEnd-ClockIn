@@ -24,6 +24,10 @@ export class UsuarioComponent implements OnInit {
   endereco: any;
   usuarios: any;
   enderecos: any;
+  setores: any[];
+  cargos: any[];
+  jornadas: any[];
+  enderecoCorreio: any;
 
   /* Variaveis Fim */
 
@@ -92,6 +96,21 @@ export class UsuarioComponent implements OnInit {
     this.appService.listarGenerico('endereco').subscribe((endereco) => {
       this.endereco = endereco;
     })
+    this.appService.listarGenerico('setor').subscribe((setor) => {
+      this.setores = setor;
+    })
+    this.appService.listarGenerico('cargo').subscribe((cargo) => {
+      this.cargos = cargo;
+    })
+    this.appService.listarGenerico('jornada').subscribe((jornada) => {
+      this.jornadas = jornada;
+    })
+  }
+
+  buscarEnderecoPeloCep(cep: string) {
+    this.appService.consultaCepCorreios(cep).subscribe((enderecoCorreio) => {
+      this.enderecoCorreio = enderecoCorreio;
+    })
   }
 
   buscarUsuarioPeloID(idUsuario: number) {
@@ -113,14 +132,23 @@ export class UsuarioComponent implements OnInit {
     );
   }
 
-  criarUsuario() {
+  inserirUsuario() {
     this.appService.criarGenerico('usuario', this.usuario).subscribe(
       success => {
+        this.inserirEndereco();
         this.listarUsuarios();
         this.alerta.next(this.mensagemSucesso = (`Usuario Inserido com Sucesso.`));
       },
       error => {
         this.alerta.next(this.mensagemErro = 'Não foi possível inserir usuario.');
+      }
+    );
+  }
+
+  inserirEndereco() {
+    this.appService.criarGenerico('endereco', this.endereco).subscribe(
+      error => {
+        this.alerta.next(this.mensagemErro = 'Não foi possível gravar o endereço.');
       }
     );
   }
@@ -139,5 +167,6 @@ export class UsuarioComponent implements OnInit {
 
   limparObjetoUsuario() {
     this.usuario = {};
+    this.endereco = {};
   }
 }
