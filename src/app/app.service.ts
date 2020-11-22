@@ -9,17 +9,13 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 
-/* Esta classe possui os métodos globais que retornam dados para os outros componentes*/
-/* Dessa forma evita a replicação do mesmo código em varios componentes*/
-
 export class AppService {
 
   constructor(private http: HttpClient, public location: Location, private router: Router) {
   }
 
-  /* Variáveis */
-  urlBase = 'http://localhost:5000';
-  /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com'; */
+  urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';
+
   idUsuario: any;
   usuario: any;
   tempoDaSessao=600000;
@@ -65,6 +61,10 @@ export class AppService {
 
   setarUsuario(idUsuario){
     this.idUsuario=idUsuario;
+  }
+
+  consultaCepCorreios(cep: string) {
+    return this.http.get<any>(`${this.urlBaseCep}/${cep}/json`);
   }
 
   buscarUsuarios() {

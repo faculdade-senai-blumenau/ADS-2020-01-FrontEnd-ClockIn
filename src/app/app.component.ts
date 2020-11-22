@@ -17,8 +17,6 @@ export class AppComponent implements OnInit {
   dataInicialFiltro: DatePipe;
   dtTrigger: any;
   
-
-
   constructor(private appService: AppService, private router: Router) {
   }
 
