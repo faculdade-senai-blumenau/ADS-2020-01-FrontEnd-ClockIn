@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +16,17 @@ export class AppComponent implements OnInit {
   idUsuario = this.appService.buscarUsuario();
   dataInicialFiltro: DatePipe;
   dtTrigger: any;
-
-  constructor(private appService: AppService) {
+  
+  constructor(private appService: AppService, private router: Router) {
   }
 
   ngOnInit() {
+    this.appService.setDeslogado(false);
+    this.appService.t=setTimeout(()=>{
+      this.appService.logoutSessao();
+    },this.appService.buscaTempoDaSessao()); 
   }
+  
 
   /* Retorna lista de registros da tabela de pontos */
   buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {

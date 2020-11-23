@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { Usuario, Setor } from 'src/app/app.model';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -41,11 +42,16 @@ export class HomeComponent implements OnInit {
   registroPonto: any;
   listaDePontos: any;
   ponto: any;
+  tempoDeSessao: any;
+  
+  
 
 
   constructor(private datePipe: DatePipe,
     private appService: AppService, private router: Router) {
   }
+  
+  
 
   ngOnInit(): void {
     if(this.appService.getUsuarioLogado()==null){
@@ -75,8 +81,13 @@ export class HomeComponent implements OnInit {
         this.botaoPonto.next(this.desabilitar = '1');
         this.botaoPonto.next(this.btnPontoMensagem = 'Registrar Ponto');
       });
+      
     
   }
+  sessao(){
+    this.appService.controlaSessao();
+  }
+  
 
   listarRegistrosPontoSemanal() {
     const dataInicial = moment().subtract(7, 'days').format();

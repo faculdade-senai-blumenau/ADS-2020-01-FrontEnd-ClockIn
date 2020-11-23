@@ -16,5 +16,8 @@ export class ParametroComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
   }
+  sessao(){
+    this.appService.controlaSessao();
+  }
 
 }
