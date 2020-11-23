@@ -90,8 +90,9 @@ export class EditarMarcacaoComponent implements OnInit {
       resposta => this.registroPonto = resposta);
   }
 
-  updateRegistroPonto() {
-    this.appService.updateRegistroPonto(this.registroPonto).subscribe(
+  updateRegistroPonto(idRegistroPonto: number) {
+    this.registroPonto.edicaoAprovada = 0;
+    this.appService.updateGenerico('registroPonto', idRegistroPonto, this.registroPonto).subscribe(
       success => {
         this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
         this.listarRegistrosPontoEditarMarcacao();
@@ -104,7 +105,6 @@ export class EditarMarcacaoComponent implements OnInit {
 
 
   inserirRegistroPonto() {
-    console.log(this.ponto);
     this.appService.criarGenerico('registroPonto', this.ponto).subscribe(
       success => {
         this.limparObjetoPonto();

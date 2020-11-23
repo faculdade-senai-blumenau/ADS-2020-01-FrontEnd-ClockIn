@@ -45,13 +45,13 @@
                         <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">23</td>
                         <div>
                           <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)"
-                            class="btn btn-outline-success btn-sm  m-2 " data-toggle="modal"
+                            class="btn btn-outline-success btn-md  m-2 " data-toggle="modal"
                             [attr.data-target]="'#ModalConfirmarAssinatura' + espelho.idEspelhoPonto">Assinar</button>
                           <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)"
-                            class="btn btn-outline-danger btn-sm m-2" data-toggle="modal"
+                            class="btn btn-outline-danger btn-md m-2" data-toggle="modal"
                             [attr.data-target]="'#ModalConfirmarReprovacao' + espelho.idEspelhoPonto">Reprovar</button>
                           <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)"
-                            class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
+                            class="btn btn-outline-secondary btn-md m-2 " data-toggle="modal"
                             data-target="#editarMarcacaoEspelho"
                             (click)="visualizarEspelhoPonto(espelho)">Visualizar</button>
                         </div>
@@ -121,9 +121,9 @@
                         Deseja confirmar a Assinatura?
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger btn-md" data-dismiss="modal">Cancelar</button>
                         <span class="d-inline-block" data-toggle="modal" data-target="ModalConfirmaOperacao">
-                          <button type="button" class="btn btn-success btn-sm" (click)="aprovarEspelhoPonto(espelho)"
+                          <button type="button" class="btn btn-success btn-md" (click)="aprovarEspelhoPonto(espelho)"
                             data-dismiss="modal">Confirmar</button>
                         </span>
                       </div>
@@ -142,9 +142,9 @@
                         Deseja confirmar a Reprovação?
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger btn-md" data-dismiss="modal">Cancelar</button>
                         <span class="d-inline-block" data-toggle="modal" data-target="ModalConfirmaOperacao">
-                          <button type="button" class="btn btn-success btn-sm" (click)="reprovarEspelhoPonto(espelho)"
+                          <button type="button" class="btn btn-success btn-md" (click)="reprovarEspelhoPonto(espelho)"
                             data-dismiss="modal">Confirmar</button>
                         </span>
                       </div>
@@ -181,7 +181,7 @@
                         <td *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)">23</td>
                         <div>
                           <button *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)"
-                            class="btn btn-outline-secondary btn-sm m-2 " data-toggle="modal"
+                            class="btn btn-outline-secondary btn-md m-2 " data-toggle="modal"
                             data-target="#editarMarcacaoEspelho"
                             (click)="visualizarEspelhoPonto(espelhoAprovado)">Visualizar</button>
                         </div>
@@ -251,9 +251,9 @@
                         Deseja confirmar a Assinatura?
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger btn-md" data-dismiss="modal">Cancelar</button>
                         <span class="d-inline-block" data-toggle="modal" data-target="ModalConfirmaOperacao">
-                          <button type="button" class="btn btn-success btn-sm" (click)="aprovarEspelhoPonto(espelho)"
+                          <button type="button" class="btn btn-success btn-md" (click)="aprovarEspelhoPonto(espelho)"
                             data-dismiss="modal">Confirmar</button>
                         </span>
                       </div>
@@ -272,9 +272,9 @@
                         Deseja confirmar a Reprovação?
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger btn-md" data-dismiss="modal">Cancelar</button>
                         <span class="d-inline-block" data-toggle="modal" data-target="ModalConfirmaOperacao">
-                          <button type="button" class="btn btn-success btn-sm" (click)="reprovarEspelhoPonto(espelho)"
+                          <button type="button" class="btn btn-success btn-md" (click)="reprovarEspelhoPonto(espelho)"
                             data-dismiss="modal">Confirmar</button>
                         </span>
                       </div>

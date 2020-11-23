@@ -8,7 +8,7 @@ export interface Usuario {
     nomeUsuario: string;
     cpf: string;
     rg: string;
-    dataNascimento: any;
+    dataNascimento: DatePipe;
     telefone: string;
     ativo: boolean;
     gestor: any;
@@ -16,6 +16,13 @@ export interface Usuario {
     senha: string;
     foto: string;
     cargoConfianca: boolean;
+    cep: string;
+    rua: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
 }
 
 export interface RegistroPonto {
@@ -32,6 +39,7 @@ export interface Setor {
     idSetor?: number;
     idUsuario: Usuario;
     descricaoSetor: string;
+    nomeResponsavel: string;
 }
 
 export interface Cargo {
@@ -53,17 +61,4 @@ export interface EspelhoPonto {
     dataInicial: any;
     dataFinal: any;
     status: number;
-}
-
-export interface Endereco {
-    idEndereco?: number;
-    idUsuario: number;
-    idEmpresa: number;
-    cep: string;
-    rua: string;
-    numero: string;
-    complemento: string;
-    bairro: string;
-    cidade: string;
-    estado: string;
 }

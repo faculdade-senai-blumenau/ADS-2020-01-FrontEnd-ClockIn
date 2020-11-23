@@ -18,7 +18,7 @@
             <tr *ngFor="let setor of setores">
                 <td>{{ setor.idSetor }}</td>
                 <td>{{ setor.descricaoSetor }}</td>
-                <td>{{ setor.idUsuario}}</td>
+                <td>{{ setor.nomeResponsavel}}</td>
                 <td>
                     <button type="button" id="btnExcluirSetor" class="btn btn-danger" data-toggle="modal"
                         data-target="#excluirSetor" (click)="buscarSetorPeloID(setor.idSetor)">Excluir</button>
@@ -31,7 +31,7 @@
     <!--Table-->
     <div class="text-center">
         <button type="button" id="btnCadastrarCargo" class="btn btn-primary btn-lg" data-toggle="modal"
-        data-target="#inserirSetor" (click)="limparObjetoSetor()">Cadastrar</button>
+            data-target="#inserirSetor" (click)="limparObjetoSetor()">Cadastrar</button>
     </div>
 </div>
 <!-- Modal Editar-->
@@ -71,6 +71,14 @@
                                                         </option>
                                                         <option>...</option>
                                                     </select>
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label for="nomeResponsavel">Nome Responsavel</label>
+                                                    <input [(ngModel)]="setor.nomeResponsavel" class="form-control"
+                                                        id="nomeResponsavelEditar" name="nomeResponsavelEditar"
+                                                        type="text">
+                                                    
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

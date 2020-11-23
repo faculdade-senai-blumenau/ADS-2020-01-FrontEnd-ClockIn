@@ -83,8 +83,8 @@ export class JornadaComponent implements OnInit {
       resposta => this.jornada = resposta);
   }
 
-  updateJornada() {
-    this.appService.updateJornada(this.jornada).subscribe(
+  updateJornada(idJornada: number) {
+    this.appService.updateGenerico('jornada', idJornada, this.jornada).subscribe(
       success => {
         this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
         this.listarJornada();

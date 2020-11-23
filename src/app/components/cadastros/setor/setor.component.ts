@@ -23,6 +23,7 @@ export class SetorComponent implements OnInit {
     setores: any;
     usuarios: any;
     setor: any;
+    usuario: import("d:/TCC/ADS-2020-01-FrontEnd-ClockIn/src/app/app.model").Usuario;
 
     /* Variaveis Fim */
 
@@ -65,7 +66,8 @@ export class SetorComponent implements OnInit {
         this.setor = {
             idSetor: '',
             idUsuario: '',
-            descricaoSetor: ''
+            descricaoSetor: '',
+            nomeResponsavel: ''
         };
     }
 
@@ -83,6 +85,11 @@ export class SetorComponent implements OnInit {
             this.setor = setor;
         });
     }
+
+    buscarUsuarioPeloID(idUsuario: number) {
+        this.appService.buscarUsuarioPeloID(idUsuario).subscribe(
+          resposta => this.usuario = resposta);
+      }
 
     updateSetor(idSetor: number) {
         this.appService.updateGenerico('setor', idSetor, this.setor).subscribe(

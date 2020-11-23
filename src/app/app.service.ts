@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada, Endereco } from './app.model';
+import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada } from './app.model';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
@@ -14,8 +14,9 @@ export class AppService {
   constructor(private http: HttpClient, public location: Location, private router: Router) {
   }
 
-  urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';
-
+  urlBase = 'http://localhost:5000'
+  /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';*/
+  urlBaseCep = 'http://viacep.com.br/ws'
   idUsuario: any;
   usuario: any;
   tempoDaSessao=600000;
@@ -91,10 +92,6 @@ export class AppService {
     return this.http.get<Usuario>(`${this.urlBase}/usuario/${idUsuario}`);
   }
 
-  buscarSetorUsuario(idUsuario: number): Observable<Setor> {
-    return this.http.get<Setor>(`${this.urlBase}/setor/${idUsuario}`);
-  }
-
   registrarPonto(ponto: RegistroPonto): Observable<RegistroPonto> {
     return this.http.post<RegistroPonto>(`${this.urlBase}/registroPonto/`, ponto);
   }
@@ -107,17 +104,8 @@ export class AppService {
     return this.http.get<RegistroPonto[]>(`${this.urlBase}/registroPonto/${idRegistroPonto}`);
   }
 
-  updateRegistroPonto(registroPonto: RegistroPonto): Observable<RegistroPonto> {
-    const url = `${this.urlBase}/registroPonto/${registroPonto.idRegistroPonto}`;
-    return this.http.put<RegistroPonto>(url, registroPonto);
-  }
-
   listar() {
     return this.http.get<Array<any>>(`${this.urlBase}/registroPonto/`);
-  }
-
-  criar(ponto: any) {
-    return this.http.post(`${this.urlBase}/registroPonto/`, ponto);
   }
 
   logar(loginUsuario: any){
@@ -137,23 +125,6 @@ export class AppService {
     return this.http.put<EspelhoPonto>(url, espelhoPonto);
   }
 
-  updateJornada(jornada: Jornada): Observable<Jornada> {
-    return this.http.put<Jornada>(`${this.urlBase}/jornada/${jornada.idJornada}`, jornada);
-  }
-
-
-  buscarJornadaID(idJornada: number): Observable<Jornada[]> {
-    return this.http.get<Jornada[]>(`${this.urlBase}/jornada/${idJornada}`);
-  }
-
-  buscarEnderecoUsuario(idUsuario: number): Observable<Endereco[]> {
-    return this.http.get<Endereco[]>(`${this.urlBase}/endereco/${idUsuario}`);
-  }
-
-  listarEnderecos() {
-    return this.http.get<Array<any>>(`${this.urlBase}/endereco/`);
-  }
-
 
   listarGenerico(table: any) {
     return this.http.get<Array<any>>(`${this.urlBase}/${table}`);
@@ -168,7 +139,7 @@ export class AppService {
   }
 
   updateGenerico(table: any, idRegistro: any, objeto: any): Observable<any> {
-    return this.http.put<Jornada>(`${this.urlBase}/${table}/${idRegistro}`, objeto);
+    return this.http.put<any>(`${this.urlBase}/${table}/${idRegistro}`, objeto);
   }
 
   excluirGenerico(table: any, idRegistro: any) {

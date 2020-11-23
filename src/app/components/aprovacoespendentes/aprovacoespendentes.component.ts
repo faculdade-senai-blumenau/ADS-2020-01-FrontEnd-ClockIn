@@ -109,8 +109,8 @@ export class AprovacoesPendentesComponent implements OnInit {
         justificativaReprovacao: element.justificativaReprovacao,
         edicaoAprovada: 1
       };
-      console.log(this.ponto)
-      this.appService.updateRegistroPonto(this.ponto).subscribe(
+      
+      this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
         success => {
           this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
           this.listarRegistrosAprovacoesPendentes();
@@ -131,10 +131,10 @@ export class AprovacoesPendentesComponent implements OnInit {
         horaRegistro: element.horaRegistro,
         justificaPonto: '',
         justificativaReprovacao: element.justificativaReprovacao,
-        edicaoAprovada: 0
+        edicaoAprovada: 2
       };
       console.log(this.ponto)
-      this.appService.updateRegistroPonto(this.ponto).subscribe(
+      this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
         success => {
           this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
           this.listarRegistrosAprovacoesPendentes();

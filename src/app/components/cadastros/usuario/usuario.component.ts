@@ -19,14 +19,11 @@ export class UsuarioComponent implements OnInit {
   mensagemSucesso = '';
   mensagemErro = '';
   clockHandle;
-
   usuario: any;
-  endereco: any;
   usuarios: any;
-  enderecos: any;
-  setores: any[];
-  cargos: any[];
-  jornadas: any[];
+  setoresCombo: any[];
+  cargosCombo: any[];
+  jornadasCombo: any[];
   enderecoCorreio: any;
 
   /* Variaveis Fim */
@@ -59,8 +56,6 @@ export class UsuarioComponent implements OnInit {
       });
     });
 
-
-
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
@@ -85,7 +80,14 @@ export class UsuarioComponent implements OnInit {
       login: '',
       senha: '',
       foto: '',
-      cargoConfianca: ''
+      cargoConfianca: '',
+      cep: '',
+      rua: '',
+      numero: '',
+      complemento: '',
+      bairro: '',
+      cidade: '',
+      estado: ''
     };
   }
 
@@ -93,17 +95,18 @@ export class UsuarioComponent implements OnInit {
     this.appService.listarGenerico('usuario').subscribe((usuarios) => {
       this.usuarios = usuarios;
     })
-    this.appService.listarGenerico('endereco').subscribe((endereco) => {
-      this.endereco = endereco;
+    console.log(this.usuarios)
+  }
+
+  buscarRegistrosCombo(){
+    this.appService.listarGenerico('setor').subscribe((setoresCombo) => {
+      this.setoresCombo = setoresCombo;
     })
-    this.appService.listarGenerico('setor').subscribe((setor) => {
-      this.setores = setor;
+    this.appService.listarGenerico('cargo').subscribe((setoresCombo) => {
+      this.cargosCombo = setoresCombo;
     })
-    this.appService.listarGenerico('cargo').subscribe((cargo) => {
-      this.cargos = cargo;
-    })
-    this.appService.listarGenerico('jornada').subscribe((jornada) => {
-      this.jornadas = jornada;
+    this.appService.listarGenerico('jornada').subscribe((setoresCombo) => {
+      this.jornadasCombo = setoresCombo;
     })
   }
 
@@ -116,8 +119,7 @@ export class UsuarioComponent implements OnInit {
   buscarUsuarioPeloID(idUsuario: number) {
     this.appService.buscarUsuarioPeloID(idUsuario).subscribe(
       resposta => this.usuario = resposta);
-    this.appService.buscarEnderecoUsuario(idUsuario).subscribe(
-      resposta => this.endereco = resposta);
+      this.buscarRegistrosCombo()
   }
 
   updateUsuario(idUsuario: number) {
@@ -135,7 +137,6 @@ export class UsuarioComponent implements OnInit {
   inserirUsuario() {
     this.appService.criarGenerico('usuario', this.usuario).subscribe(
       success => {
-        this.inserirEndereco();
         this.listarUsuarios();
         this.alerta.next(this.mensagemSucesso = (`Usuario Inserido com Sucesso.`));
       },
@@ -145,13 +146,6 @@ export class UsuarioComponent implements OnInit {
     );
   }
 
-  inserirEndereco() {
-    this.appService.criarGenerico('endereco', this.endereco).subscribe(
-      error => {
-        this.alerta.next(this.mensagemErro = 'Não foi possível gravar o endereço.');
-      }
-    );
-  }
 
   excluirUsuario(idUsuario: number) {
     this.appService.excluirGenerico('usuario', idUsuario).subscribe(
@@ -167,6 +161,5 @@ export class UsuarioComponent implements OnInit {
 
   limparObjetoUsuario() {
     this.usuario = {};
-    this.endereco = {};
   }
 }
