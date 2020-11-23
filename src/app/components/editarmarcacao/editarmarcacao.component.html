@@ -85,7 +85,7 @@
               <div class="table-responsive table-striped text-center ">
                 <div class="card-body text-center pt-0 ">
                   <!--Table-->
-                  <table class="table pt-0" id='TabelaEditarPonto' >
+                  <table class="table pt-0" id='TabelaEditarPonto'>
                     <thead class="thead-light ">
                       <tr>
                         <th>Data</th>
@@ -147,7 +147,8 @@
                                           [value]="ponto.horaRegistro" type="time" required="true" autofocus=""
                                           minlength="5" maxlength="5">
                                       </div>
-                                      <div class="col-md-12">
+
+                                      <div class="col-md-7">
                                         <label for="justificaPonto">Justificativa</label>
                                         <select [(ngModel)]="registroPonto.justificaPonto"
                                           class="custom-select  form-control" id="justificaPonto" name="justificaPonto"
@@ -170,7 +171,30 @@
                                           </option>
                                         </select>
                                       </div>
-                                      <div class="col-md-12 pb-2 pt-1">
+                                      <div class="col-md-5">
+                                        <label for="edicaoAprovada">Status Edição</label>
+                                        <p [(ngModel)]="registroPonto.edicaoAprovada" class="form-control"
+                                          id="edicaoAprovada" name="edicaoAprovada" aria-controls="datatables-basic"
+                                          disabled type="text" *ngIf="registroPonto.edicaoAprovada == 1"> Aprovada pelo
+                                          Gestor </p>
+                                        <p [(ngModel)]="registroPonto.edicaoAprovada" class="form-control"
+                                          id="edicaoAprovada" name="edicaoAprovada" aria-controls="datatables-basic"
+                                          disabled type="text"
+                                          *ngIf="registroPonto.edicaoAprovada == 2 && registroPonto.justificaPonto == 0"> 
+                                          Reprovada pelo Gestor </p>
+                                        <p [(ngModel)]="registroPonto.edicaoAprovada" class="form-control"
+                                          id="edicaoAprovada" name="edicaoAprovada" aria-controls="datatables-basic"
+                                          disabled type="text"
+                                          *ngIf="(registroPonto.edicaoAprovada == 0 && registroPonto.justificaPonto > 0) || 
+                                          (registroPonto.edicaoAprovada == 2 && registroPonto.justificaPonto > 0) ">
+                                          Aguardando Aprovação </p>                     
+                                        <p [(ngModel)]="registroPonto.edicaoAprovada" class="form-control"
+                                          id="edicaoAprovada" name="edicaoAprovada" aria-controls="datatables-basic"
+                                          disabled type="text"
+                                          *ngIf="registroPonto.edicaoAprovada == 0 && registroPonto.justificaPonto == 0">
+                                          Não Editado </p>
+                                      </div>
+                                      <div class="col-md-12 pb-2 pt-2">
                                         <label for="horaRegistro">Justificativa Reprovação</label>
                                         <textarea type [(ngModel)]="registroPonto.justificativaReprovacao"
                                           class="form-control" rows="2" [value]="registroPonto.justificativaReprovacao"
@@ -187,7 +211,8 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                      <button type="button" class="btn btn-success" (click)="updateRegistroPonto()"
+                      <button type="button" class="btn btn-success"
+                        (click)="updateRegistroPonto(registroPonto.idRegistroPonto)"
                         data-dismiss="modal">Confirmar</button>
                     </div>
                   </div>
