@@ -15,34 +15,33 @@
                 </h6>
               </div>
               <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <label for="dataInicial">Data Inicial</label>
-                        <input [(ngModel)]="dataInicial" class="form-control pt-0" id="dataInicial" type="date"
-                          name="datasingle" required="">
-                      </div>
-                      <div class="col-md-3">
-                        <label for="dataFinal">Data Final</label>
-                        <input [(ngModel)]="dataFinal" class="form-control pt-0" id="dataFinal" type="date"
-                          name="datasingle" required>
-                      </div>
-                      <div class="col-md-2 pt-4 mt-2">
-                        <button type="button" class="btn btn-primary btn form-control" (click)="gerarRelatorio()">Gerar
-                          Relatório</button>
-                      </div>
-                      <div class="col-md-2 pt-4 m-0 mt-2">
-                        <button type="button" class="btn btn-secondary btn form-control"
-                          (click)="imprimirRelatorio()">Imprimir</button>
-                      </div>
-                      <div class="col-md-2 pt-4 mt-2">
-                        <button type="button" class="btn btn-secondary btn form-control"
-                          (click)="limparRelatorio()">Limpar Pesquisa</button>
-                      </div>
-                    </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="dataInicial">Data Inicial</label>
+                    <input [(ngModel)]="dataInicial" class="form-control pt-0" id="dataInicial" type="date"
+                      name="datasingle" required="">
                   </div>
-                </form>
+                  <div class="col-md-3">
+                    <label for="dataFinal">Data Final</label>
+                    <input [(ngModel)]="dataFinal" class="form-control pt-0" id="dataFinal" type="date"
+                      name="datasingle" required>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="gerarRelatorio" style="color: white;"> - </label>
+                    <button type="button" class="btn btn-primary btn form-control" (click)="gerarRelatorio()">Gerar
+                      Relatório</button>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="imprimirRelatorio" style="color: white;"> - </label>
+                    <button type="button" class="btn btn-secondary btn form-control"
+                      (click)="imprimirRelatorio()">Imprimir</button>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="limparPesquisa" style="color: white;"> - </label>
+                    <button type="button" class="btn btn-secondary btn form-control" (click)="limparPesquisa()">Limpar
+                      Pesquisa</button>
+                  </div>
+                </div>
               </div>
               <div class="table-responsive">
                 <div class="card-body text-center">
