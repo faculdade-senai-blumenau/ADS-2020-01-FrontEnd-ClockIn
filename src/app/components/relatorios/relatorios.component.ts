@@ -8,8 +8,8 @@ import { AppComponent } from 'src/app/app.component';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import * as jsPDF from 'jspdf'; 
-import 'jspdf-autotable' ;
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import autoTable from 'jspdf-autotable';
 
@@ -22,7 +22,7 @@ export class RelatoriosComponent implements OnInit {
 
   constructor(private appComponent: AppComponent,
     private appService: AppService, private router: Router) { }
-    
+
 
   listaDePontos: any;
   dataInicial: any;
@@ -33,23 +33,23 @@ export class RelatoriosComponent implements OnInit {
   idUsuario = this.appService.buscarUsuario();
 
   ngOnInit(): void {
-    if(this.appService.getUsuarioLogado()==null){
+    if (this.appService.getUsuarioLogado() == null) {
       this.router.navigate(["/login"]);
     }
   }
-  sessao(){
+  sessao() {
     this.appService.controlaSessao();
   }
 
   gerarRelatorio() {
-    this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario,this.dataInicial, this.dataFinal);
+    this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, this.dataInicial, this.dataFinal);
   }
 
-  limparRelatorio() {
+  limparPesquisa() {
     this.listaDePontos = this.listaDePontosVazia;
     this.dataFinal = '';
     this.dataInicial = '';
-  }  
+  }
 
   imprimirRelatorio() {
     const pdf = new jsPDF()
