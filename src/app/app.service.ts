@@ -4,6 +4,7 @@ import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada } from './app.mode
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'
@@ -146,4 +147,14 @@ export class AppService {
     return this.http.delete(`${this.urlBase}/${table}/${idRegistro}`);
   }
 
+  buscaEstados() {
+    return this.http.get<any[]>('assets/dados/estados.json');
+  }
+
+  buscaCidades(id: number) {
+    return this.http.get<any>('assets/dados/cidades.json')
+    .pipe(
+      map((cidades: any) => cidades.filter(c => c.estado == id))
+    );
+  }
 }
