@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
     if (this.appService.getDeslogado()){
       this.erroLogin("Sessão Expirada");
     }
+    this.appService.setParametro();
+    //alert(this.appService.parametro.tempoSessao);
     
   }
   

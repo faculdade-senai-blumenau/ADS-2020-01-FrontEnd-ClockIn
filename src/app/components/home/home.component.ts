@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit {
     if(this.appService.getUsuarioLogado()==null){
       this.router.navigate(["/login"]);
     }
+    
     this.listarRegistrosPontoSemanal();
 
     /* Retorna a data e hora atual */
@@ -82,10 +83,23 @@ export class HomeComponent implements OnInit {
         this.botaoPonto.next(this.btnPontoMensagem = 'Registrar Ponto');
       });
       
+
+      
     
   }
   sessao(){
+    
     this.appService.controlaSessao();
+    
+  }
+  usuarioComum() {
+    
+    if (this.appService.getUsuarioLogado().cargoConfianca == 1){
+      return false;
+    } else {
+      return true;
+    }
+    
   }
   
 
@@ -120,7 +134,7 @@ export class HomeComponent implements OnInit {
       JustificaReprocacao: '',
       edicaoAprovada: 0
     };
-
+    
     this.appService.registrarPonto(this.ponto).subscribe(
       success => {
         this.dataHoraBatida = new Date();

@@ -15,7 +15,7 @@ export interface Usuario {
     login: string;
     senha: string;
     foto: string;
-    cargoConfianca: boolean;
+    cargoConfianca: any;
     cep: string;
     rua: string;
     numero: string;
@@ -61,4 +61,11 @@ export interface EspelhoPonto {
     dataInicial: any;
     dataFinal: any;
     status: number;
+}
+export interface Parametro {
+    idParametro?: number;
+    tempoLimite: any;
+    tipoNotificacao: any;
+    tempSessao: any;
+    tempoSessao: any;
 }

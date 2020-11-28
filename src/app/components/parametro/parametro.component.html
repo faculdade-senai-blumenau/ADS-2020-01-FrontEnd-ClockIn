@@ -1,4 +1,8 @@
 <app-nav></app-nav>
+<ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''"> {{ mensagemSucesso }}
+</ngb-alert>
+<ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''"> {{ mensagemErro }}
+</ngb-alert>
 <div class="wrapper" (mouseover)="sessao()">
     <div class="main">
         <main class="content">
@@ -7,7 +11,7 @@
                     <h1 class="header-title">Parâmetros</h1>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-lg-12 col-xxl-6 pb-5">
+                    <div class="col-12 col-lg-12 pb-5">
                         <div class="card flex-fill">
                             <div class="card-header">
                                 <h5 class="card-title">Parâmetros</h5>
@@ -24,6 +28,22 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-3 col-md-6 pb-2 pt-1">
+                                      <label for="tempoSessao p-0">Tempo da Sessão</label>
+                                      
+                                        <input [(ngModel)]="tempoSessao" class="form-control" id="tempoSessao"
+                                        name="tempoSessao" type="number" ngModel required>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" (click)="updateParametros()"
+                                        class="btn btn-primary btn-lg">Salvar
+                                    </button>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
