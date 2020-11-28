@@ -81,7 +81,7 @@ export class AppService {
     
   }
   alterarParametros(parametro:Parametro){
-    alert(parametro.tempSessao);
+    
     console.log(parametro);
     
     return this.http.put<any>(`${this.urlBase}/parametro/1`,parametro);

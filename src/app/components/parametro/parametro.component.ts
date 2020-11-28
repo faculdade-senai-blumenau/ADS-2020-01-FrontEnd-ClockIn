@@ -52,7 +52,8 @@ export class ParametroComponent implements OnInit {
     this.parametro.tempSessao=this.tempoSessao;
     this.parametro.tempoSessao=this.tempoSessao;
     
-    alert(this.parametro.tempSessao);
+   
+    
     this.appService.alterarParametros(this.parametro).subscribe(
       success => {
           
