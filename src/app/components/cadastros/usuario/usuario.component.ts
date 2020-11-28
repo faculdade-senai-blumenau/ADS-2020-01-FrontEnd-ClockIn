@@ -98,7 +98,7 @@ export class UsuarioComponent implements OnInit {
     console.log(this.usuarios)
   }
 
-  buscarRegistrosCombo(){
+  buscarRegistrosCombo() {
     this.appService.listarGenerico('setor').subscribe((setoresCombo) => {
       this.setoresCombo = setoresCombo;
     })
@@ -110,16 +110,21 @@ export class UsuarioComponent implements OnInit {
     })
   }
 
+  
   buscarEnderecoPeloCep(cep: string) {
     this.appService.consultaCepCorreios(cep).subscribe((enderecoCorreio) => {
-      this.enderecoCorreio = enderecoCorreio;
+      this.usuario.rua = enderecoCorreio.logradouro;
+      this.usuario.bairro = enderecoCorreio.bairro;
+      this.usuario.cidade = enderecoCorreio.localidade;
+      this.usuario.estado = enderecoCorreio.uf;
+      $("#numero").focus();
     })
   }
 
   buscarUsuarioPeloID(idUsuario: number) {
     this.appService.buscarUsuarioPeloID(idUsuario).subscribe(
       resposta => this.usuario = resposta);
-      this.buscarRegistrosCombo()
+    this.buscarRegistrosCombo()
   }
 
   updateUsuario(idUsuario: number) {

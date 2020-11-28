@@ -84,7 +84,6 @@ export class EmpresaComponent implements OnInit {
     this.appService.listarGenerico('empresa').subscribe((empresas) => {
       this.empresas = empresas;
     })
-    console.log(this.empresas)
   }
 
   buscarEnderecoPeloCep(cep: string) {

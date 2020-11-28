@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   relogio: string;
   dataAtual: string;
   dataHoraBatida: Date;
-  usuario: Usuario;
+  usuario = this.appService.getUsuarioLogado()
 
   /* Variaveis alerta */
   public alerta = new Subject<string>();
@@ -36,21 +36,17 @@ export class HomeComponent implements OnInit {
   disablePonto = '';
   desabilitar = '1';
 
-  urlBase = this.appService.buscarUrlBase();
-  idUsuario = this.appService.buscarUsuario();
 
   registroPonto: any;
   listaDePontos: any;
   ponto: any;
   tempoDeSessao: any;
   
-  
 
 
   constructor(private datePipe: DatePipe,
     private appService: AppService, private router: Router) {
   }
-  
   
 
   ngOnInit(): void {
@@ -64,10 +60,6 @@ export class HomeComponent implements OnInit {
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
       this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
     });
-      /* Retorna Informações do Usuario pelo ID Usuario*/
-      this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
-        this.usuario = usuario;
-      });
 
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
@@ -91,7 +83,7 @@ export class HomeComponent implements OnInit {
 
   listarRegistrosPontoSemanal() {
     const dataInicial = moment().subtract(7, 'days').format();
-    this.listaDePontos = this.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
+    this.listaDePontos = this.buscarRegistrosPonto(this.usuario.idUsuario, dataInicial, null);
   };
 
   buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
@@ -113,7 +105,7 @@ export class HomeComponent implements OnInit {
 
   registrarPonto(): void {
     this.ponto = {
-      idUsuario: this.idUsuario,
+      idUsuario: this.usuario.idUsuario,
       dataRegistro: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
       horaRegistro: this.relogio,
       justificaPonto: 0,
@@ -132,10 +124,10 @@ export class HomeComponent implements OnInit {
         this.listarRegistrosPontoSemanal();
       },
       error => {
-        this.dataHoraBatida = new Date();
+        this.dataHoraBatida = null;
         this.botaoPonto.next(this.btnPonto = 'danger btn-lg');
         this.botaoPonto.next(this.btnPontoMensagem = 'Erro ao Registrar');
-        this.alerta.next(this.mensagemSucesso = 'Erro ao Registrar Ponto - Tente Novamente mais Tarde');
+        this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto - Tente Novamente mais Tarde');
       }
     );
   }

@@ -60,7 +60,8 @@
                                             <img src="https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png"
                                                 class="card-img-top" alt="Usuario" style="width: 120px; height: 100px;">
                                         </div>
-                                        <h2 class="card-title text-center mt-2" style="font-size: x-large;">
+                                        <h2 id="nomeUsuario" name="nomeUsuario" class="card-title text-center mt-2"
+                                            style="font-size: x-large;">
                                             {{usuario.nomeUsuario}}</h2>
                                     </div>
                                     <div class="col-md-7">
@@ -83,9 +84,12 @@
                                                         <strong class="text-gray-dark">
                                                             <p>Escala</p>
                                                         </strong>
-                                                        <p>{{usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}} - 
-                                                            {{usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}} - 
-                                                            {{usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}} - 
+                                                        <p>{{usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}}
+                                                            -
+                                                            {{usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}}
+                                                            -
+                                                            {{usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}}
+                                                            -
                                                             {{usuario.jornada["finalTarde"].split(":")[0]}}:{{usuario.jornada["finalTarde"].split(":")[1]}}
                                                         </p>
                                                     </div>
@@ -129,8 +133,7 @@
                                     Deseja confirmar o registro do ponto?
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger"
-                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     <span class="d-inline-block" data-toggle="modal" data-target="ModalRegistroPonto">
                                         <button type="button" class="btn btn-success" (click)="registrarPonto()"
                                             data-dismiss="modal">Confirmar</button>

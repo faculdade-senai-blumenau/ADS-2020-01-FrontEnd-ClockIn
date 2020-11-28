@@ -195,28 +195,28 @@
                                         <form>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label for="nome">Nome</label>
+                                                    <label for="nomeEmpresa">Nome</label>
                                                     <input [(ngModel)]="empresa.nomeEmpresa" class="form-control"
                                                         id="nomeEmpresa" name="nomeEmpresa"
                                                         [value]="empresa.nomeEmpresa" type="text"
                                                         placeholder="Nome Empresa">
                                                 </div>
                                                 <div class="form-group col-md-2">
-                                                    <label for="cnpj">CNPJ</label>
+                                                    <label for="cnpjEmpresa">CNPJ</label>
                                                     <input [(ngModel)]="empresa.cnpj" class="form-control" id="cnpj"
-                                                        name="cnpj" [value]="empresa.cnpj" type="text"
+                                                        name="cnpjEmpresa" [value]="empresa.cnpj" type="text"
                                                         placeholder="CNPJ">
                                                 </div>
                                                 <div class="form-group col-md-2">
-                                                    <label for="telefone">Telefone </label>
+                                                    <label for="telefoneEmpresa">Telefone </label>
                                                     <input [(ngModel)]="empresa.telefone" class="form-control"
-                                                        id="telefone" name="telefone" [value]="empresa.telefone"
+                                                        id="telefoneEmpresa" name="telefoneEmpresa" [value]="empresa.telefone"
                                                         type="text">
                                                 </div>
                                                 <div class="form-group col-md-5">
                                                     <label class="form-label ">Logo</label>
-                                                    <input [(ngModel)]="empresa.logo" class="form-control" id="dataLogo"
-                                                        name="dataLogo" [value]="empresa.logo" type="file">
+                                                    <input [(ngModel)]="empresa.logo" class="form-control" id="logoEmpresa"
+                                                        name="logoEmpresa" [value]="empresa.logo" type="file">
                                                 </div>
                                             </div>
                                         </form>
@@ -240,39 +240,39 @@
                                                         <div class="form-group col-md-2">
                                                             <label for="cep">CEP</label>
                                                             <input [(ngModel)]="empresa.cep" class="form-control"
-                                                                id="cep" name="cep" [value]="empresa.cep"
+                                                                id="cepEmpresa" name="cepEmpresa" [value]="empresa.cep"
                                                                 (blur)="buscarEnderecoPeloCep(empresa.cep)">
                                                         </div>
                                                         <div class="form-group col-md-5">
                                                             <label for="rua">Rua</label>
                                                             <input [(ngModel)]="empresa.rua" class="form-control"
-                                                                id="rua" name="rua" [value]="empresa.rua">
+                                                                id="ruaEmpresa" name="ruaEmpresa" [value]="empresa.rua">
                                                         </div>
                                                         <div class="form-group col-md-1">
                                                             <label for="numero">Numero</label>
                                                             <input [(ngModel)]="empresa.numero" class="form-control"
-                                                                id="numero" name="numero" [value]="empresa.numero">
+                                                                id="numeroEmpresa" name="numeroEmpresa" [value]="empresa.numero">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="complemento">Complemento</label>
                                                             <input [(ngModel)]="empresa.complemento"
-                                                                class="form-control" id="complemento" name="complemento"
+                                                                class="form-control" id="complementoEmpresa" name="complementoEmpresa"
                                                                 [value]="empresa.complemento">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="bairro">Bairro</label>
                                                             <input [(ngModel)]="empresa.bairro" class="form-control"
-                                                                id="bairro" name="bairro" [value]="empresa.bairro">
+                                                                id="bairroEmpresa" name="bairroEmpresa" [value]="empresa.bairro">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="cidade">Cidade</label>
                                                             <input [(ngModel)]="empresa.cidade" class="form-control"
-                                                                id="cidade" name="cidade" [value]="empresa.cidade">
+                                                                id="cidadeEmpresa" name="cidadeEmpresa" [value]="empresa.cidade">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="estado">Estado</label>
                                                             <input [(ngModel)]="empresa.estado" class="form-control"
-                                                                id="estado" name="estado" [value]="empresa.estado">
+                                                                id="estadoEmpresa" name="estadoEmpresa" [value]="empresa.estado">
                                                         </div>
                                                     </div>
                                                 </div>
