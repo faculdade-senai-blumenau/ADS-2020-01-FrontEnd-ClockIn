@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada } from './app.model';
+import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada, Parametro } from './app.model';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
@@ -20,13 +20,14 @@ export class AppService {
   urlBaseCep = 'http://viacep.com.br/ws'
   idUsuario: any;
   usuario: any;
-  tempoDaSessao=600000;
+  
+  
   t: any;
   deslogado: any;
-
-
+  parametro: Parametro;
+  tempoDaSessao:any;
   controlaSessao(){
-    console.log("mouse");
+    
     clearTimeout(this.t);
     this.t=setTimeout(()=>{
       this.logoutSessao();
@@ -48,8 +49,12 @@ export class AppService {
   getDeslogado(){
     return this.deslogado;
   }
+  setarTempoDaSessao(tempo){
+    this.tempoDaSessao=tempo;
+  }
   buscaTempoDaSessao(){
-    return this.tempoDaSessao;
+    
+    return this.parametro.tempSessao;
   }
   buscarUsuario() {
     return this.idUsuario;
@@ -63,6 +68,28 @@ export class AppService {
 
   setarUsuario(idUsuario){
     this.idUsuario=idUsuario;
+  }
+  setParametro(){
+    this.buscaParametro().subscribe((parametro) => {
+      this.parametro = parametro;
+      
+    });
+    
+    
+  
+  
+    
+    
+  }
+  alterarParametros(parametro:Parametro){
+    
+    console.log(parametro);
+    
+    return this.http.put<any>(`${this.urlBase}/parametro/1`,parametro);
+  }
+
+  buscaParametro(){
+    return this.http.get<Parametro>(`${this.urlBase}/parametro/1`);
   }
 
   consultaCepCorreios(cep: string) {

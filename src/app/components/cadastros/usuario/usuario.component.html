@@ -71,9 +71,10 @@
                                         <form>
                                             <div class="form-row">
                                                 <div class="form-group col-md-2">
-                                                    <img src="https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png"
+                                                    <img src={{usuario.foto}}
+                                                    onerror="this.src='https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png'"
                                                         class="img-fluid rounded-circle mb-2"
-                                                        style="width: 100px; height: 80px;">
+                                                        style="width: 100px; height: 100px;">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="nome">Nome</label>
@@ -145,8 +146,13 @@
                                                 <div class="form-group col-md-5">
                                                     <label class="form-label ">Foto</label>
                                                     <input [(ngModel)]="usuario.foto" class="form-control"
+<<<<<<< HEAD
                                                         id="foto" name="foto" [value]="usuario.foto"
                                                         type="file">
+=======
+                                                        id="fotoEditar" name="fotoEditar" [value]="usuario.foto"
+                                                        type="file" (change)="alterarImagem($event.target.files)" accept="image/*">
+>>>>>>> 0446529d6e6730e2f6fd6c39a1dd44164b2890e4
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label class="form-label ">Usuario</label>

@@ -25,6 +25,7 @@ export class UsuarioComponent implements OnInit {
   cargosCombo: any[];
   jornadasCombo: any[];
   enderecoCorreio: any;
+  
 
   /* Variaveis Fim */
 
@@ -90,6 +91,7 @@ export class UsuarioComponent implements OnInit {
       estado: ''
     };
   }
+  
 
   listarUsuarios() {
     this.appService.listarGenerico('usuario').subscribe((usuarios) => {
@@ -137,6 +139,22 @@ export class UsuarioComponent implements OnInit {
         this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
       }
     );
+  }
+
+  
+  alterarImagem(imagem:any){
+    let reader=new FileReader();
+    reader.readAsDataURL(imagem[0]);
+    
+    reader.onload =  (e) => {
+     this.usuario.foto=reader.result;
+      
+      
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+   // console.log(this.usuario.foto);
   }
 
   inserirUsuario() {

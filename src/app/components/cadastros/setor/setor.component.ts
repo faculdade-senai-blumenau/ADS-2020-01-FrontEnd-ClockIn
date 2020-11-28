@@ -23,7 +23,7 @@ export class SetorComponent implements OnInit {
     setores: any;
     usuarios: any;
     setor: any;
-    usuario: import("d:/TCC/ADS-2020-01-FrontEnd-ClockIn/src/app/app.model").Usuario;
+    usuario:any;
 
     /* Variaveis Fim */
 
