@@ -15,7 +15,7 @@ export class AppService {
   constructor(private http: HttpClient, public location: Location, private router: Router) {
   }
 
-  urlBase = 'http://localhost:5000'
+  urlBase = 'http://clockinapi-env.eba-ckvnxj6m.us-east-1.elasticbeanstalk.com'
   /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';*/
   urlBaseCep = 'http://viacep.com.br/ws'
   idUsuario: any;

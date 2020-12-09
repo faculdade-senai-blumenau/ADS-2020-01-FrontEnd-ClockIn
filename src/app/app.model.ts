@@ -14,7 +14,7 @@ export interface Usuario {
     gestor: any;
     login: string;
     senha: string;
-    foto: string;
+    foto: any;
     cargoConfianca: any;
     cep: string;
     rua: string;
