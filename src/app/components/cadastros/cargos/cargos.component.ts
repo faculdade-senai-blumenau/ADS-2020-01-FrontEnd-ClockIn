@@ -83,10 +83,10 @@ updateCargo(idCargo: number) {
     this.appService.updateGenerico('cargo', idCargo, this.cargo).subscribe(
         success => {
             this.listarCargos();
-            this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
+            this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
         },
         error => {
-            this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
+            this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
         }
     );
 }

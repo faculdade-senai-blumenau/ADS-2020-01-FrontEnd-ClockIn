@@ -1,8 +1,6 @@
-#TabelaAprovacoesPendentesBotoes td {
-    padding-top: 3px !important;
-    padding-bottom: 2.5px !important;
-}
-.table tr td {
-    padding: 7px 8px !important;
-    text-align: center !important;
-}
+
+#TabelaAprovacoesPendentes tr:hover{
+    cursor: pointer;
+    background-color: rgb(211, 215, 219);
+    font-style: bolder;
+  }

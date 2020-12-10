@@ -57,10 +57,10 @@ export class ParametroComponent implements OnInit {
     this.appService.alterarParametros(this.parametro).subscribe(
       success => {
           
-          this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
+          this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
       },
       error => {
-          this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
+          this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
       }
   );
   }

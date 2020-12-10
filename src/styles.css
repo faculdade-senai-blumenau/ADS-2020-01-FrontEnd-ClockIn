@@ -100,10 +100,6 @@ p {
   text-align: center !important;
 }
 
-.card-title, .modal-title {
-  color: #1e2653 !important;
-}
-
 .ngx-pagination {
   margin-top: 10px !important;
   padding: 5px !important;

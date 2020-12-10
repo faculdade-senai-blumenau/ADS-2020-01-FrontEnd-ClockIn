@@ -53,7 +53,7 @@ export class JornadaComponent implements OnInit {
         }
       });
     });
-    
+
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
@@ -65,6 +65,7 @@ export class JornadaComponent implements OnInit {
 
     this.jornada = {
       idJornada: '',
+      descricaoJornada: '',
       inicioManha: '',
       finalManha: '',
       inicioTarde: '',
@@ -84,18 +85,20 @@ export class JornadaComponent implements OnInit {
   }
 
   updateJornada(idJornada: number) {
+    this.limparMemsagens();
     this.appService.updateGenerico('jornada', idJornada, this.jornada).subscribe(
       success => {
-        this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
+        this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
         this.listarJornada();
       },
       error => {
-        this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
+        this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
       }
     );
   }
 
   criarJornada(frm) {
+    this.limparMemsagens();
     this.appService.criarGenerico('jornada', this.jornada).subscribe(
       success => {
         this.alerta.next(this.mensagemSucesso = (`Jornada Inserida com Sucesso.`));
@@ -109,6 +112,7 @@ export class JornadaComponent implements OnInit {
   }
 
   excluirJornada(idJornada: number) {
+    this.limparMemsagens();
     this.appService.excluirGenerico('jornada', idJornada).subscribe(
       success => {
         this.listarJornada();
@@ -120,8 +124,11 @@ export class JornadaComponent implements OnInit {
     );
   }
 
+  limparMemsagens() {
+    this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''
+  }
+
   limparObjetoJornada() {
     this.jornada = {};
-}
-
+  }
 }

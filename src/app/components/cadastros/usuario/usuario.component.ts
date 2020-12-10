@@ -36,7 +36,7 @@ export class UsuarioComponent implements OnInit {
     $(function () {
       // Datatables basic
       $('#datatables-usuario').DataTable({
-        responsive: true,
+        responsive: true, 
         language: {
           emptyTable: "Nenhum registro encontrado",
           info: "Exibindo _START_ a _END_ de _TOTAL_ registros",
@@ -133,10 +133,10 @@ export class UsuarioComponent implements OnInit {
     this.appService.updateGenerico('usuario', idUsuario, this.usuario).subscribe(
       success => {
         this.listarUsuarios();
-        this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
+        this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
       },
       error => {
-        this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
+        this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
       }
     );
   }
@@ -147,14 +147,12 @@ export class UsuarioComponent implements OnInit {
     reader.readAsDataURL(imagem[0]);
     
     reader.onload =  (e) => {
-     this.usuario.foto=reader.result;
-      
-      
+     this.usuario.foto=reader.result;  
     };
+    
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
-   // console.log(this.usuario.foto);
   }
 
   inserirUsuario() {

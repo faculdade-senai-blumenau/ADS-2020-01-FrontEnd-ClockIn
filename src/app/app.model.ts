@@ -49,6 +49,7 @@ export interface Cargo {
 
 export interface Jornada {
     idJornada?: number;
+    descricaoJornada: any;
     inicioManha: any;
     finalManha: any;
     inicioTarde: any;

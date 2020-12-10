@@ -21,31 +21,25 @@
                 <td>{{ empresa.cnpj }}</td>
                 <td>{{ empresa.telefone }}</td>
                 <td>
-                    <button type="button" id="btnReprovar" class="btn btn-danger" data-toggle="modal"
-                        data-target="#excluirEmpresa" (click)="buscarEmpresaPeloID(empresa.idEmpresa)">Excluir
+                    <button type="button" id="btnReprovar" class="btn btn-danger" data-toggle="modal" data-target="#excluirEmpresa" (click)="buscarEmpresaPeloID(empresa.idEmpresa)">Excluir
                     </button>
-                    <button type="button" id="btnEditarEmpresa" class="btn btn-primary" data-toggle="modal"
-                        data-target="#editarEmpresa" (click)="buscarEmpresaPeloID(empresa.idEmpresa)">Editar</button>
-
+                    <button type="button" id="btnEmpresa" class="btn btn-primary" data-toggle="modal" data-target="#cadastroEmpresa" (click)="buscarEmpresaPeloID(empresa.idEmpresa)">Empresa</button>
                 </td>
             </tr>
         </tbody>
     </table>
     <div class="text-center">
-        <button type="button" id="btnCadastrarEmpresa" class="btn btn-primary btn-lg" data-toggle="modal"
-            data-target="#inserirEmpresa" (click)="limparObjetoEmpresa()">Cadastrar</button>
-
+        <button type="button" id="btnCadastrarEmpresa" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#cadastroEmpresa" (click)="limparObjetoEmpresa()">Cadastrar</button>
     </div>
 </div>
 
-<!-- Modal Editar-->
-<div class="modal fade" id="editarEmpresa" tabindex="-1" role="dialog" aria-labelledby="editarEmpresa"
-    aria-hidden="true">
+<!-- Cadastro Empresa-->
+<div class="modal fade" id="cadastroEmpresa" tabindex="-1" role="dialog" aria-labelledby="cadastroEmpresa" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editarEmpresa">
-                    Editar Empresas</h5>
+                <h5 class="modal-title" id="cadastroEmpresa">
+                    Cadastro Empresas</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -60,36 +54,25 @@
                                     <div class="container">
                                         <form>
                                             <div class="form-row">
-                                                <div class="form-group col-md-2">
-                                                    <img src="https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png"
-                                                        class="img-fluid rounded-circle mb-2"
-                                                        style="width: 100px; height: 80px;">
+                                                <div class="form-group col-md-2 text-center">
+                                                    <img src={{empresa.logo}} onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1mca8gOido3IHe9dQhpCxG6NmhPobfvZWCg&usqp=CAU'" class="img-fluid rounded-circle mb-2" style="width: 120px; height: 120px;">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="nome">NomeEmpresa</label>
-                                                    <input [(ngModel)]="empresa.nomeEmpresa" class="form-control"
-                                                        id="nomeEmpresaEditar" name="nomeEmpresaEditar"
-                                                        [value]="empresa.nomeEmpresa" type="text"
-                                                        placeholder="Nome Empresa">
+                                                    <input [(ngModel)]="empresa.nomeEmpresa" class="form-control" id="nomeEmpresa" name="nomeEmpresa" [value]="empresa.nomeEmpresa" type="text" placeholder="Nome Empresa">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="cnpj">CNPJ</label>
-                                                    <input [(ngModel)]="empresa.cnpj" class="form-control"
-                                                        id="cnpjEditar" name="cnpjEditar" [value]="empresa.cnpj"
-                                                        type="text" placeholder="CNPJ">
+                                                    <input [(ngModel)]="empresa.cnpj" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" [value]="empresa.cnpj" type="text" placeholder="CNPJ">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="telefone">Telefone </label>
-                                                    <input [(ngModel)]="empresa.telefone" class="form-control"
-                                                        id="telefoneEditar" name="telefoneEditar"
-                                                        [value]="empresa.telefone" type="text">
+                                                    <input [(ngModel)]="empresa.telefone" class="form-control" id="telefoneEmpresa" name="telefoneEmpresa" [value]="empresa.telefone" type="text">
                                                 </div>
 
                                                 <div class="form-group col-md-5">
                                                     <label class="form-label ">Logo</label>
-                                                    <input [(ngModel)]="empresa.logo" class="form-control"
-                                                        id="logoEditar" name="logoEditar" [value]="empresa.logo"
-                                                        type="file">
+                                                    <input [(ngModel)]="empresa.logo" class="form-control" id="logo" name="logo" [value]="empresa.logo" type="file" (change)="alterarImagem($event.target.files)" accept="image/*">
                                                 </div>
 
                                             </div>
@@ -113,50 +96,38 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-2">
                                                             <label for="cep">CEP</label>
-                                                            <input [(ngModel)]="empresa.cep" class="form-control"
-                                                                id="cep" name="cep" [value]="empresa.cep"
-                                                                (blur)="buscarEnderecoPeloCep(empresa.cep)">
+                                                            <input [(ngModel)]="empresa.cep" class="form-control" id="cep" name="cep" [value]="empresa.cep" (blur)="buscarEnderecoPeloCep(empresa.cep)">
                                                         </div>
                                                         <div class="form-group col-md-5">
                                                             <label for="rua">Rua</label>
-                                                            <input [(ngModel)]="empresa.rua" class="form-control"
-                                                                id="rua" name="rua" [value]="empresa.rua">
+                                                            <input [(ngModel)]="empresa.rua" class="form-control" id="rua" name="rua" [value]="empresa.rua">
                                                         </div>
                                                         <div class="form-group col-md-1">
                                                             <label for="numero">Numero</label>
-                                                            <input [(ngModel)]="empresa.numero" class="form-control"
-                                                                id="numero" name="numero" [value]="empresa.numero">
+                                                            <input [(ngModel)]="empresa.numero" class="form-control" id="numero" name="numero" [value]="empresa.numero">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="complemento">Complemento</label>
-                                                            <input [(ngModel)]="empresa.complemento"
-                                                                class="form-control" id="complemento" name="complemento"
-                                                                [value]="empresa.complemento">
+                                                            <input [(ngModel)]="empresa.complemento" class="form-control" id="complemento" name="complemento" [value]="empresa.complemento">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="bairro">Bairro</label>
-                                                            <input [(ngModel)]="empresa.bairro" class="form-control"
-                                                                id="bairro" name="bairro" [value]="empresa.bairro">
+                                                            <input [(ngModel)]="empresa.bairro" class="form-control" id="bairro" name="bairro" [value]="empresa.bairro">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="cidade">Cidade</label>
-                                                            <input [(ngModel)]="empresa.cidade" class="form-control"
-                                                                id="cidade" name="cidade" [value]="empresa.cidade">
+                                                            <input [(ngModel)]="empresa.cidade" class="form-control" id="cidade" name="cidade" [value]="empresa.cidade">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="estado">Estado</label>
-                                                            <input [(ngModel)]="empresa.estado" class="form-control"
-                                                                id="estado" name="estado" [value]="empresa.estado">
+                                                            <input [(ngModel)]="empresa.estado" class="form-control" id="estado" name="estado" [value]="empresa.estado">
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancelar</button>
-                                                    <button type="button" class="btn btn-success"
-                                                        (click)="updateEmpresa(empresa.idEmpresa)"
-                                                        data-dismiss="modal">Confirmar</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-success" (click)="cadastrarEditarEmpresa()" data-dismiss="modal">Confirmar</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -165,129 +136,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal Inserir-->
-<div class="modal fade" id="inserirEmpresa" tabindex="-1" role="dialog" aria-labelledby="inserirEmpresa"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="inserirEmpresa">
-                    Empresas</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h4 class="tab-title text-center">Dados Empresa</h4>
-                <div class="row">
-                    <div class="col-md-12 p-0">
-                        <div class="modal-container">
-                            <div class="contact-form ">
-                                <section>
-                                    <div class="container">
-                                        <form>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-4">
-                                                    <label for="nomeEmpresa">Nome</label>
-                                                    <input [(ngModel)]="empresa.nomeEmpresa" class="form-control"
-                                                        id="nomeEmpresa" name="nomeEmpresa"
-                                                        [value]="empresa.nomeEmpresa" type="text"
-                                                        placeholder="Nome Empresa">
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <label for="cnpjEmpresa">CNPJ</label>
-                                                    <input [(ngModel)]="empresa.cnpj" class="form-control" id="cnpj"
-                                                        name="cnpjEmpresa" [value]="empresa.cnpj" type="text"
-                                                        placeholder="CNPJ">
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <label for="telefoneEmpresa">Telefone </label>
-                                                    <input [(ngModel)]="empresa.telefone" class="form-control"
-                                                        id="telefoneEmpresa" name="telefoneEmpresa" [value]="empresa.telefone"
-                                                        type="text">
-                                                </div>
-                                                <div class="form-group col-md-5">
-                                                    <label class="form-label ">Logo</label>
-                                                    <input [(ngModel)]="empresa.logo" class="form-control" id="logoEmpresa"
-                                                        name="logoEmpresa" [value]="empresa.logo" type="file">
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <h4 class="tab-title text-center">Endereco</h4>
-                    <div class="row">
-                        <div class="col-md-12 p-0">
-                            <div class="modal-container">
-                                <div class="contact-form ">
-                                    <section>
-                                        <div class="container">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-2">
-                                                            <label for="cep">CEP</label>
-                                                            <input [(ngModel)]="empresa.cep" class="form-control"
-                                                                id="cepEmpresa" name="cepEmpresa" [value]="empresa.cep"
-                                                                (blur)="buscarEnderecoPeloCep(empresa.cep)">
-                                                        </div>
-                                                        <div class="form-group col-md-5">
-                                                            <label for="rua">Rua</label>
-                                                            <input [(ngModel)]="empresa.rua" class="form-control"
-                                                                id="ruaEmpresa" name="ruaEmpresa" [value]="empresa.rua">
-                                                        </div>
-                                                        <div class="form-group col-md-1">
-                                                            <label for="numero">Numero</label>
-                                                            <input [(ngModel)]="empresa.numero" class="form-control"
-                                                                id="numeroEmpresa" name="numeroEmpresa" [value]="empresa.numero">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="complemento">Complemento</label>
-                                                            <input [(ngModel)]="empresa.complemento"
-                                                                class="form-control" id="complementoEmpresa" name="complementoEmpresa"
-                                                                [value]="empresa.complemento">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="bairro">Bairro</label>
-                                                            <input [(ngModel)]="empresa.bairro" class="form-control"
-                                                                id="bairroEmpresa" name="bairroEmpresa" [value]="empresa.bairro">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="cidade">Cidade</label>
-                                                            <input [(ngModel)]="empresa.cidade" class="form-control"
-                                                                id="cidadeEmpresa" name="cidadeEmpresa" [value]="empresa.cidade">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="estado">Estado</label>
-                                                            <input [(ngModel)]="empresa.estado" class="form-control"
-                                                                id="estadoEmpresa" name="estadoEmpresa" [value]="empresa.estado">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" (click)="inserirEmpresa()"
-                        data-dismiss="modal">Confirmar</button>
                 </div>
             </div>
         </div>
@@ -295,8 +143,7 @@
 </div>
 
 <!-- Modal Excluir-->
-<div class="modal fade" id="excluirEmpresa" tabindex="-1" role="dialog" aria-labelledby="excluirEmpresa"
-    aria-hidden="true">
+<div class="modal fade" id="excluirEmpresa" tabindex="-1" role="dialog" aria-labelledby="excluirEmpresa" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

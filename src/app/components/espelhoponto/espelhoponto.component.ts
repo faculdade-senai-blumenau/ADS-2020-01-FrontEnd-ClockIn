@@ -34,7 +34,7 @@ export class EspelhopontoComponent implements OnInit {
   ponto: any;
   espelhoPonto: any;
   idUsuario = this.appService.buscarUsuario();
-  espelhoPontoAprovado: EspelhoPonto[];
+  espelhoPontoAprovado: any;
 
   constructor(private appComponent: AppComponent,
     private appService: AppService, private router: Router) { }
@@ -50,9 +50,9 @@ export class EspelhopontoComponent implements OnInit {
         this.mensagemEspelhoErro = '', this.mensagemEspelhoOk = '';
       });
     }, 1000);
-
     this.getEspelhoPonto();
-    this.buscarEspelhoPontoAprovado();
+    this.getEspelhoPontoAprovado();
+    this.visualizarEspelhoPonto(1,'01-01-2020','01-01-2020')
 
   }
   sessao(){
@@ -64,14 +64,22 @@ export class EspelhopontoComponent implements OnInit {
     );
   }
 
+  getEspelhoPontoAprovado() {
+    this.appService.buscarEspelhoPontoAprovado(this.idUsuario).subscribe(
+      resposta => this.espelhoPontoAprovado = resposta
+    );
+  }
+
   reprovarEspelhoPonto(espelhoPonto) {
     espelhoPonto.status = 2;
     this.appService.alterarStatusEspelho(espelhoPonto).subscribe(
       success => {
-        this.alerta.next(this.mensagemEspelhoOk = (`Alteração Realizada com Sucesso.`));
+        this.getEspelhoPonto();
+        this.alerta.next(this.mensagemEspelhoOk = (`Registro salvo com sucesso.`));
+  
       },
       error => {
-        this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel realizar a alteração.'));
+        this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel salvar o registro.'));
       }
     )
   }
@@ -80,24 +88,19 @@ export class EspelhopontoComponent implements OnInit {
     espelhoPonto.status = 1;
     this.appService.alterarStatusEspelho(espelhoPonto).subscribe(
       success => {
-        this.alerta.next(this.mensagemEspelhoOk = (`Alteração Realizada com Sucesso.`));
-        this.buscarEspelhoPontoAprovado();
+        this.getEspelhoPontoAprovado();
+        this.alerta.next(this.mensagemEspelhoOk = (`Registro salvo com sucesso.`));
+
       },
       error => {
-        this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel realizar a alteração.'));
+        this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel salvar o registro.'));
       }
     )
     
   }
 
-  buscarEspelhoPontoAprovado() {
-    this.appService.buscarEspelhoPontoAprovado(this.idUsuario).subscribe(
-      resposta => this.espelhoPontoAprovado = resposta
-    );
-  }
-
-  visualizarEspelhoPonto(espelhoPonto) {
-    this.listaDePontos = this.appComponent.buscarRegistrosPonto(espelhoPonto.idUsuario, espelhoPonto.dataInicial, espelhoPonto.dataFinal);
+  visualizarEspelhoPonto(idUsuario: number, dataInicial: string, dataFinal:string) {
+    this.listaDePontos = this.appComponent.buscarRegistrosPonto(idUsuario, dataInicial, dataFinal);
   }
 
   imprimirEspelho() {

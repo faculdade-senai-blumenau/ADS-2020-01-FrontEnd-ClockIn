@@ -1,24 +1,5 @@
 
 
-#tabelaRelatorio thead th{
-  padding: 5px 10px;
-  background-color: #153d77;
-  color: white;
-}
-
-#tabelaRelatorio tr td {
-  padding: 2px 4px;
-  text-align: center;
-  
-}
-
-.card {
-  min-height: 500px;
-}
-
-.table-responsive {
-  min-height: 400px;
-}
 
 
 
