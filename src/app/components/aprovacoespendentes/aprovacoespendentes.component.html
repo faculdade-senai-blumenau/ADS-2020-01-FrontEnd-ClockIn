@@ -20,10 +20,9 @@
                                     aprovação</h6>
                             </div>
                             <div class="row">
-                                <div class="col-10 col-lg-10 pr-0 pl-1 mr-0">
+                                <div class="col-12 col-lg-12 pr-0 pl-1 mr-0">
                                     <div class="table-responsive table-striped text-center ">
                                         <div class="card-body text-center pr-0 mr-0">
-                                            <!--Table-->
                                             <table class="table " id='TabelaAprovacoesPendentes'>
                                                 <thead class="thead-light ">
                                                     <tr>
@@ -37,47 +36,30 @@
                                                         *ngFor="let pontos of listaDePontos | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
                                                         <td
                                                             *ngFor="let registoPonto of pontos.listaPonto | slice:0:1; let i=index">
-                                                            {{registoPonto.usuario["nomeUsuario"]}}
+                                                            <p (click)="aprovacaoPendenteVisualizar(registoPonto.dataRegistro, registoPonto.idUsuario)"
+                                                                data-toggle="modal"
+                                                                data-target="#modalVisualizarAprovacao">
+                                                                {{registoPonto.usuario["nomeUsuario"]}}
+                                                            </p>
                                                         </td>
                                                         <td
                                                             *ngFor="let registoPonto of pontos.listaPonto | slice:0:1; let i=index">
-                                                            {{registoPonto.dataRegistro | date: 'dd/MM/yyyy' }}
+                                                            <p (click)="aprovacaoPendenteVisualizar(registoPonto.dataRegistro, registoPonto.idUsuario)"
+                                                                data-toggle="modal"
+                                                                data-target="#modalVisualizarAprovacao">
+                                                                {{registoPonto.dataRegistro | date: 'dd/MM/yyyy' }}
+                                                            </p>
+
                                                         </td>
                                                         <td class="pl-2 pr-2"
-                                                            *ngFor="let registoPonto of pontos.listaPonto ">
-                                                            {{registoPonto["horaRegistro"].split(":")[0]}}:{{registoPonto["horaRegistro"].split(":")[1]}}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <!--Table-->
-                                    </div>
-                                </div>
-                                <div class="col-2 col-lg-2 pl-0 ml-0">
-                                    <div class="table-responsive text-center pl-0 ml-0">
-                                        <div class="card-body text-center pl-0 ml-0">
-                                            <!--Table-->
-                                            <table class="table " id='TabelaAprovacoesPendentesBotoes'>
-                                                <thead class="thead-light ">
-                                                    <tr>
-                                                        <th colspan="3">Ação</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr
-                                                        *ngFor="let pontos of listaDePontos | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
-                                                        <div class="btn-group btn-group-md mb-1">
-                                                            <button
-                                                                *ngFor="let registoPonto of pontos.listaPonto  | slice:0:1; let i=index"
-                                                                type="button" class="btn btn-secondary"
+                                                            *ngFor="let registoPonto of pontos.listaPonto">
+                                                            <p (click)="aprovacaoPendenteVisualizar(registoPonto.dataRegistro, registoPonto.idUsuario)"
                                                                 data-toggle="modal"
-                                                                data-target="#modalVisualizarAprovacao"
-                                                                (click)="aprovacaoPendenteVisualizar(registoPonto.dataRegistro, registoPonto.idUsuario)">
-                                                                Visualizar
-                                                            </button>
-                                                        </div>
+                                                                data-target="#modalVisualizarAprovacao">
+                                                                {{registoPonto["horaRegistro"].split(":")[0]}}:{{registoPonto["horaRegistro"].split(":")[1]}}
+                                                            </p>
+                                                        </td>
+
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -89,11 +71,13 @@
                                 <div class="col-12 col-lg-12 pb-5">
                                     <div class="card-footer text-center float-center">
                                         <button type="button" id="btnReprovar"
-                                            class="btn btn-danger btn float-center mr-2 ml-2 mt-0" data-toggle="modal"
+                                            class="btn btn-danger btn float-center mr-2 ml-2 mt-0 {{desabilitarBotao}} "
+                                            [disabled]="desabilitar !== '1'" data-toggle="modal"
                                             data-target="#modalReprovarMarcacao"
                                             (click)="buscarRegistroPontoAprovacao()">Reprovar Todos </button>
                                         <button type="button" id="btnAprovar"
-                                            class="btn btn-success btn float-center mr-2 ml-2 mt-0" data-toggle="modal"
+                                            class="btn btn-success btn float-center mr-2 ml-2 mt-0 {{desabilitarBotao}}"
+                                            [disabled]="desabilitar !== '1'" data-toggle="modal"
                                             data-target="#modalAprovarMarcacao"
                                             (click)="buscarRegistroPontoAprovacao()">Aprovar Todos</button>
 
@@ -124,7 +108,7 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalAprovarMarcacao">
                     <button type="button" class="btn btn-success" data-dismiss="modal"
-                        (click)="aprovarEdicao()">Confirmar</button>
+                        (click)="aprovarReprovarEdicao(1)">Confirmar</button>
                 </span>
             </div>
         </div>
@@ -150,8 +134,8 @@
                             </font>
                         </h5>
                     </div>
-                    <textarea type [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
-                        id="justificativaReprovacao" name="justificativaReprovacao" placeholder="Justificativa"
+                    <textarea type="text" [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control"
+                        rows="2" id="justificativaReprovacao" name="justificativaReprovacao" placeholder="Justificativa"
                         [value]="registroPonto.justificativaReprovacao">
                     </textarea>
                 </div>
@@ -159,7 +143,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
-                    <button type="button" class="btn btn-success" (click)="reprovarEdicao()"
+                    <button type="button" class="btn btn-success" (click)="aprovarReprovarEdicao(2)"
                         data-dismiss="modal">Confirmar</button>
                 </span>
             </div>
@@ -181,14 +165,14 @@
                         <div class="table-responsive table-striped text-center" style="width:100%">
                             <div class="card-body text-center ">
                                 <div *ngFor="let pontos of listaDePontos | slice:0:1; let i=index">
-                                    <div *ngFor="let registoPonto of pontos.listaPonto | slice:0:1; let i=index">
+                                    <div *ngFor="let ponto of pontos.listaPonto | slice:0:1; let i=index">
                                         <h4 class="header-title">
                                             <font
-                                                style="vertical-align: inherit;color: darkslategrey; font-size: 18px;">
-                                                {{registoPonto.usuario["nomeUsuario"]}} -
-                                                {{registoPonto.dataRegistro | date: 'dd/MM/yyyy' }}
-
+                                                style="vertical-align: inherit;color: rgb(30, 32, 32); font-size: 18px;">
+                                                {{ponto.usuario["nomeUsuario"]}} -
+                                                {{ponto.dataRegistro | date: 'dd/MM/yyyy' }}
                                             </font>
+
                                         </h4>
                                     </div>
                                 </div>
@@ -218,12 +202,13 @@
                                             <td *ngIf="ponto.justificaPonto == 0">
                                                 -
                                             </td>
-                                            <td *ngIf="!ponto.justificativaReprovacao">
-                                                
+                                            
+                                            <td>
+                                                <input *ngIf="ponto.justificaPonto" type="text" [(ngModel)]="ponto.justificativaReprovacao"
+                                                    class="form-control" rows="2" id="justificativaReprovacao"
+                                                    name="justificativaReprovacao" placeholder="Justificativa"
+                                                    [value]="ponto.justificativaReprovacao">
                                             </td>
-                                            <td *ngIf="ponto.justificativaReprovacao">
-                                                {{ponto.justificativaReprovacao}}
-                                            </td>          
                                         </tr>
                                     </tbody>
                                 </table>
@@ -242,17 +227,17 @@
                             </font>
                         </h5>
                     </div>
-                    <textarea *ngFor="let ponto of registroPonto | slice:0:1; let i=index" type
-                        [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control" rows="2"
-                        placeholder="Justificativa" [value]="registroPonto.justificativaReprovacao"></textarea>
+                    <textarea *ngFor="let ponto of registroPonto | slice:0:1; let i=index" type="text"
+                        [(ngModel)]="ponto.justificativaReprovacao" class="form-control" rows="2"
+                        placeholder="Justificativa" [value]="ponto.justificativaReprovacao" ></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-danger" (click)="reprovarEdicao()"
+                <button type="button" class="btn btn-danger" (click)="aprovarReprovarEdicao(2)"
                     data-dismiss="modal">Reprovar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
-                    <button type="button" class="btn btn-success" (click)="aprovarEdicao()"
+                    <button type="button" class="btn btn-success" (click)="aprovarReprovarEdicao(1)"
                         data-dismiss="modal">Aprovar</button>
                 </span>
             </div>

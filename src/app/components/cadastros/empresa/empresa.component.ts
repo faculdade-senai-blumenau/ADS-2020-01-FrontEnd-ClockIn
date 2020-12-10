@@ -88,7 +88,11 @@ export class EmpresaComponent implements OnInit {
 
   buscarEnderecoPeloCep(cep: string) {
     this.appService.consultaCepCorreios(cep).subscribe((enderecoCorreio) => {
-      this.enderecoCorreio = enderecoCorreio;
+      this.empresa.rua = enderecoCorreio.logradouro;
+      this.empresa.bairro = enderecoCorreio.bairro;
+      this.empresa.cidade = enderecoCorreio.localidade;
+      this.empresa.estado = enderecoCorreio.uf;
+      $("#numero").focus();
     })
   }
 
@@ -97,26 +101,15 @@ export class EmpresaComponent implements OnInit {
       resposta => this.empresa = resposta);
   }
 
-  updateEmpresa(idEmpresa: number) {
-    this.appService.updateGenerico('empresa', idEmpresa, this.empresa).subscribe(
-      success => {
-        this.listarEmpresas();
-        this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
-      },
-      error => {
-        this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
-      }
-    );
-  }
 
-  inserirEmpresa() {
+  cadastrarEditarEmpresa() {
     this.appService.criarGenerico('empresa', this.empresa).subscribe(
       success => {
         this.listarEmpresas();
-        this.alerta.next(this.mensagemSucesso = (`Empresa Inserido com Sucesso.`));
+        this.alerta.next(this.mensagemSucesso = (`Registro salvo com Sucesso.`));
       },
       error => {
-        this.alerta.next(this.mensagemErro = 'Não foi possível inserir empresa.');
+        this.alerta.next(this.mensagemErro = 'Não foi possível salvar o registro.');
       }
     );
   }
@@ -126,12 +119,26 @@ export class EmpresaComponent implements OnInit {
     this.appService.excluirGenerico('empresa', idEmpresa).subscribe(
       success => {
         this.listarEmpresas();
-        this.alerta.next(this.mensagemSucesso = (`Empresa excluído com sucesso`));
+        this.alerta.next(this.mensagemSucesso = (`Empresa excluída com sucesso`));
       },
       error => {
-        this.alerta.next(this.mensagemErro = ('Não foi possível excluir o empresa selecionado.'));
+        this.alerta.next(this.mensagemErro = ('Não foi possível excluir a empresa selecionada.'));
       }
     );
+  }
+  
+  alterarImagem(imagem:any){
+    let reader=new FileReader();
+    reader.readAsDataURL(imagem[0]);
+    
+    reader.onload =  (e) => {
+     this.empresa.logo=reader.result;
+      
+      
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
   }
 
   limparObjetoEmpresa() {

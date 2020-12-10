@@ -45,15 +45,15 @@
                         <td *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)">23</td>
                         <div>
                           <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)"
-                            class="btn btn-outline-success btn-md  m-2 " data-toggle="modal"
+                            class="btn btn-success btn-md  m-2 " data-toggle="modal"
                             [attr.data-target]="'#ModalConfirmarAssinatura' + espelho.idEspelhoPonto">Assinar</button>
                           <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)"
-                            class="btn btn-outline-danger btn-md m-2" data-toggle="modal"
+                            class="btn btn-danger btn-md m-2" data-toggle="modal"
                             [attr.data-target]="'#ModalConfirmarReprovacao' + espelho.idEspelhoPonto">Reprovar</button>
                           <button *ngIf="(espelho.status == 0 && espelho.idUsuario == idUsuario)"
-                            class="btn btn-outline-secondary btn-md m-2 " data-toggle="modal"
+                            class="btn btn-secondary btn-md m-2 " data-toggle="modal"
                             data-target="#editarMarcacaoEspelho"
-                            (click)="visualizarEspelhoPonto(espelho)">Visualizar</button>
+                            (click)="visualizarEspelhoPonto(espelho.idUsuario, espelho.dataInicial, espelho.dataFinal)">Visualizar</button>
                         </div>
                       </tr>
                     </tbody>
@@ -172,18 +172,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let espelhoAprovado of espelhoPontoAprovado">
-                        <td *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)">
-                          {{espelhoAprovado.dataInicial | date: 'dd/MM/yyyy'}}</td>
-                        <td *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)">
-                          {{espelhoAprovado.dataFinal | date: 'dd/MM/yyyy'}}</td>
-                        <td *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)">220 hs</td>
-                        <td *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)">23</td>
+                      <tr *ngFor="let espelho of espelhoPontoAprovado">
+                        <td *ngIf="(espelho.status == 1 && espelho.idUsuario == idUsuario)">
+                          {{espelho.dataInicial | date: 'dd/MM/yyyy'}}</td>
+                        <td *ngIf="(espelho.status == 1 && espelho.idUsuario == idUsuario)">
+                          {{espelho.dataFinal | date: 'dd/MM/yyyy'}}</td>
+                        <td *ngIf="(espelho.status == 1 && espelho.idUsuario == idUsuario)">220 hs</td>
+                        <td *ngIf="(espelho.status == 1 && espelho.idUsuario == idUsuario)">23</td>
                         <div>
-                          <button *ngIf="(espelhoAprovado.status == 1 && espelhoAprovado.idUsuario == idUsuario)"
-                            class="btn btn-outline-secondary btn-md m-2 " data-toggle="modal"
+                          <button *ngIf="(espelho.status == 1 && espelho.idUsuario == idUsuario)"
+                            class="btn btn-secondary btn-md m-2 " data-toggle="modal"
                             data-target="#editarMarcacaoEspelho"
-                            (click)="visualizarEspelhoPonto(espelhoAprovado)">Visualizar</button>
+                            (click)="visualizarEspelhoPonto(espelho.idUsuario, espelho.dataInicial, espelho.dataFinal)">Visualizar</button>
                         </div>
                       </tr>
                     </tbody>

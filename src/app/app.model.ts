@@ -14,7 +14,7 @@ export interface Usuario {
     gestor: any;
     login: string;
     senha: string;
-    foto: string;
+    foto: any;
     cargoConfianca: any;
     cep: string;
     rua: string;
@@ -49,6 +49,7 @@ export interface Cargo {
 
 export interface Jornada {
     idJornada?: number;
+    descricaoJornada: any;
     inicioManha: any;
     finalManha: any;
     inicioTarde: any;

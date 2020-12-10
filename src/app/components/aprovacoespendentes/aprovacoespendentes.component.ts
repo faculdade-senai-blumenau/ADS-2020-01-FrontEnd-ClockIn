@@ -32,6 +32,8 @@ export class AprovacoesPendentesComponent implements OnInit {
   registroPontoVisualizar: any;
   listaDePontosAprovacao: any;
   ponto: any;
+  desabilitarBotao: any;
+  desabilitar = '1';
 
   urlBase = this.appService.buscarUrlBase();
 
@@ -40,7 +42,7 @@ export class AprovacoesPendentesComponent implements OnInit {
   constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit(): void {
-    if(this.appService.getUsuarioLogado()==null){
+    if (this.appService.getUsuarioLogado() == null) {
       this.router.navigate(["/login"]);
     }
     this.listarRegistrosAprovacoesPendentes();
@@ -66,31 +68,32 @@ export class AprovacoesPendentesComponent implements OnInit {
     }, 1000);
   }
 
-  sessao(){
+  sessao() {
     this.appService.controlaSessao()
   }
 
   listarRegistrosAprovacoesPendentes() {
     this.appService.buscarRegistrosPontoAprovacoesPendentes().subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
+      if(Object.keys(registroPonto).length === 0){
+        this.desabilitarBotao = "disabled"
+        this.desabilitar = '2';
+      };
       const grupoData = new Set(this.registroPonto.map(item => item.dataRegistro));
-      const grupoUsuario = new Set(this.registroPonto.map(item => item.idUsuario));
       this.listaDePontos = [];
-      grupoData.forEach(gd => grupoUsuario.forEach(gu =>
+      grupoData.forEach(gd =>
         this.listaDePontos.push({
-          usuario: gu,
           dataRegistro: gd,
           listaPonto: this.registroPonto.filter(i => i.dataRegistro === gd)
         }),
-      ));
+      );
     });
   }
 
   buscarRegistroPontoAprovacao() {
     this.appService.buscarRegistrosPontoAprovacoesPendentes().subscribe(
-      resposta => this.listaDePontos = resposta);
+      resposta => this.registroPonto = resposta);
   }
-
 
   aprovacaoPendenteVisualizar(dataRegistro: any, idUsuario: number) {
     this.appService.aprovacaoPendenteVisualizar(dataRegistro, idUsuario).subscribe((registroPonto) => {
@@ -98,51 +101,28 @@ export class AprovacoesPendentesComponent implements OnInit {
     })
   }
 
-  aprovarEdicao() {
+  aprovarReprovarEdicao(statusEdicao: number) {
     this.registroPonto.forEach(element => {
-      this.ponto = {
-        idRegistroPonto: element.idRegistroPonto,
-        idUsuario: element.idUsuario,
-        dataRegistro: element.dataRegistro,
-        horaRegistro: element.horaRegistro,
-        justificaPonto: element.justificaPonto,
-        justificativaReprovacao: element.justificativaReprovacao,
-        edicaoAprovada: 1
-      };
-      
-      this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
-        success => {
-          this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
-          this.listarRegistrosAprovacoesPendentes();
-        },
-        error => {
-          this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
-        }
-      );
-    });
-  }
-
-  reprovarEdicao() {
-    this.registroPonto.forEach(element => {
-      this.ponto = {
-        idRegistroPonto: element.idRegistroPonto,
-        idUsuario: element.idUsuario,
-        dataRegistro: element.dataRegistro,
-        horaRegistro: element.horaRegistro,
-        justificaPonto: '',
-        justificativaReprovacao: element.justificativaReprovacao,
-        edicaoAprovada: 2
-      };
-      console.log(this.ponto)
-      this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
-        success => {
-          this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
-          this.listarRegistrosAprovacoesPendentes();
-        },
-        error => {
-          this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
-        }
-      );
+      if (element.justificaPonto != 0) {
+        this.ponto = {
+          idRegistroPonto: element.idRegistroPonto,
+          idUsuario: element.idUsuario,
+          dataRegistro: element.dataRegistro,
+          horaRegistro: element.horaRegistro,
+          justificaPonto: '',
+          justificativaReprovacao: element.justificativaReprovacao,
+          edicaoAprovada: statusEdicao
+        };
+        this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
+          success => {
+            this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
+            this.listarRegistrosAprovacoesPendentes();
+          },
+          error => {
+            this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
+          }
+        );
+      }
     });
   }
 }

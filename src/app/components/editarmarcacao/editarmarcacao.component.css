@@ -1,15 +1,19 @@
 
-#TabelaEditarPonto tr td:hover {
-  text-align: center;
-  background-color: rgb(54, 97, 153);
-  color:white;
-  font-style: bold;
+#TabelaEditarPonto tr td:hover{
   cursor: pointer;
+  background-color: rgb(211, 215, 219);
+  font-style: bolder;
 }
 
-.table-responsive {
-  min-height: 300px;
+[data-color="1"] {
+  color: green;
+  font-weight: bolder;
 }
-
-
-
+[data-color="2"] {
+  color: red ;
+  font-weight: bolder;
+} 
+[data-color="3"] {
+  color: rgb(54, 97, 153);
+  font-weight: bolder;
+}

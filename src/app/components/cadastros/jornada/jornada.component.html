@@ -10,6 +10,7 @@
         <thead class="thead-light text-center">
             <tr>
                 <th>Código</th>
+                <th>Descrição</th>
                 <th>Entrada</th>
                 <th>Saída</th>
                 <th>Entrada</th>
@@ -21,6 +22,9 @@
             <tr *ngFor="let jornada of jornadas">
                 <td class="text-center">
                     {{jornada.idJornada}}
+                </td>
+                <td class="text-center">
+                    {{jornada["descricaoJornada"]}}
                 </td>
                 <td class="text-center">
                     {{jornada["inicioManha"].split(":")[0]}}:{{jornada["inicioManha"].split(":")[1]}}
@@ -70,32 +74,44 @@
                                 <section>
                                     <div class="container">
                                         <form>
-                                            <label for="Manha">Manhã</label>
+                                            <div class="form-group col-md-12">
+                                                <label for="nome">Descricao</label>
+                                                <input [(ngModel)]="jornada.descricaoJornada" class="form-control"
+                                                    id="descricaoJornadaEditar" name="descricaoJornadaEditar"
+                                                    [value]="jornada.descricaoJornada" type="text"
+                                                    placeholder="Descrição Jornada">
+                                            </div>
+                                            
                                             <div class="row">
                                                 <div class="col-md-6 pb-2 pt-1">
+                                                    <label for="Manha">Entrada</label>
                                                     <input [(ngModel)]="jornada.inicioManha"
                                                         class="form-control time-mask" id="inicioManhaEditar"
                                                         name="inicioManhaEditar" type="time" required placeholder="00:00"
                                                         [value]="jornada.inicioManha" minlength="5" maxlength="5"
                                                         autocomplete="on">
                                                 </div>
+                                                
                                                 <div class="col-md-6 pb-2 pt-1">
+                                                    <label for="Tarde">Saída</label>
                                                     <input [(ngModel)]="jornada.finalManha"
                                                         class="form-control time-mask" id="finalManhaEditar" name="finalManhaEditar"
                                                         type="time" required placeholder="00:00" minlength="5"
                                                         [value]="jornada.finalManha" maxlength="5" autocomplete="on">
                                                 </div>
                                             </div>
-                                            <label for="Tarde">Tarde</label>
                                             <div class="row">
                                                 <div class="col-md-6 pb-2 pt-1">
+                                                    <label for="Manha">Entrada</label>
                                                     <input [(ngModel)]="jornada.inicioTarde"
                                                         class="form-control time-mask" id="inicioTardeEditar"
                                                         name="inicioTardeEditar" type="time" required placeholder="00:00"
                                                         [value]="jornada.inicioTarde" minlength=" 5" maxlength="5"
                                                         autocomplete="on">
                                                 </div>
+                                                
                                                 <div class="col-md-6 pb-2 pt-1">
+                                                    <label for="Tarde">Saída</label>
                                                     <input [(ngModel)]="jornada.finalTarde"
                                                         class="form-control time-mask" id="finalTardeEditar" name="finalTardeEditar"
                                                         type="time" required placeholder="00:00" minlength="5"
@@ -138,34 +154,48 @@
                                 <section>
                                     <div class="container">
                                         <form method="post" #frm="ngForm">
-                                            <label for="Manha">Manhã</label>
+                                            <div class="form-group col-md-12">
+                                                <label for="nome">Descricao</label>
+                                                <input [(ngModel)]="jornada.descricaoJornada" class="form-control"
+                                                    id="descricaoJornada" name="descricaoJornada"
+                                                    [value]="jornada.descricaoJornada" type="text"
+                                                    placeholder="Descrição Jornada">
+                                            </div>
+                                            
                                             <div class="row">
                                                 <div class="col-md-6 pb-2 pt-1">
+                                                    <label for="Manha">Entrada</label>
                                                     <input [(ngModel)]="jornada.inicioManha"
                                                         class="form-control time-mask" id="inicioManha"
                                                         name="inicioManha" type="time" required placeholder="00:00"
-                                                        minlength="5" maxlength="5" autocomplete="on">
+                                                        [value]="jornada.inicioManha" minlength="5" maxlength="5"
+                                                        autocomplete="on">
                                                 </div>
+                                                
                                                 <div class="col-md-6 pb-2 pt-1">
+                                                    <label for="Tarde">Saída</label>
                                                     <input [(ngModel)]="jornada.finalManha"
                                                         class="form-control time-mask" id="finalManha" name="finalManha"
                                                         type="time" required placeholder="00:00" minlength="5"
-                                                        maxlength="5" autocomplete="on">
+                                                        [value]="jornada.finalManha" maxlength="5" autocomplete="on">
                                                 </div>
                                             </div>
-                                            <label for="Tarde">Tarde</label>
                                             <div class="row">
                                                 <div class="col-md-6 pb-2 pt-1">
+                                                    <label for="Manha">Entrada</label>
                                                     <input [(ngModel)]="jornada.inicioTarde"
                                                         class="form-control time-mask" id="inicioTarde"
                                                         name="inicioTarde" type="time" required placeholder="00:00"
-                                                        minlength="5" maxlength="5" autocomplete="on">
+                                                        [value]="jornada.inicioTarde" minlength=" 5" maxlength="5"
+                                                        autocomplete="on">
                                                 </div>
+                                                
                                                 <div class="col-md-6 pb-2 pt-1">
+                                                    <label for="Tarde">Saída</label>
                                                     <input [(ngModel)]="jornada.finalTarde"
                                                         class="form-control time-mask" id="finalTarde" name="finalTarde"
                                                         type="time" required placeholder="00:00" minlength="5"
-                                                        maxlength="5" autocomplete="on">
+                                                        [value]="jornada.finalTarde" maxlength="5" autocomplete="on">
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-success float-right  m-2"

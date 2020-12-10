@@ -20,75 +20,69 @@ export class AppService {
   urlBaseCep = 'http://viacep.com.br/ws'
   idUsuario: any;
   usuario: any;
-  
-  
+
+
   t: any;
   deslogado: any;
   parametro: Parametro;
-  tempoDaSessao:any;
-  controlaSessao(){
-    
+  tempoDaSessao: any;
+
+  controlaSessao() {
     clearTimeout(this.t);
-    this.t=setTimeout(()=>{
+    this.t = setTimeout(() => {
       this.logoutSessao();
-    },this.buscaTempoDaSessao())
+    }, this.buscaTempoDaSessao())
   }
-  logoutSessao(): any{
-    this.deslogado=true;
+
+  logoutSessao(): any {
+    this.deslogado = true;
     this.declararUsuario(null);
     this.router.navigate(["/login"]);
     return 1;
   }
-  /* Retorna a url padrão */
+
   buscarUrlBase() {
     return this.urlBase;
   }
-  setDeslogado(e){
-    this.deslogado=e;
+  setDeslogado(e) {
+    this.deslogado = e;
   }
-  getDeslogado(){
+  getDeslogado() {
     return this.deslogado;
   }
-  setarTempoDaSessao(tempo){
-    this.tempoDaSessao=tempo;
+  setarTempoDaSessao(tempo) {
+    this.tempoDaSessao = tempo;
   }
-  buscaTempoDaSessao(){
-    
+  buscaTempoDaSessao() {
+
     return this.parametro.tempSessao;
   }
   buscarUsuario() {
     return this.idUsuario;
   }
-  declararUsuario(usuario){
-    this.usuario=usuario
+  declararUsuario(usuario) {
+    this.usuario = usuario
   }
-  getUsuarioLogado(){
+  getUsuarioLogado() {
     return this.usuario;
   }
 
-  setarUsuario(idUsuario){
-    this.idUsuario=idUsuario;
+  setarUsuario(idUsuario) {
+    this.idUsuario = idUsuario;
   }
-  setParametro(){
+  setParametro() {
     this.buscaParametro().subscribe((parametro) => {
       this.parametro = parametro;
-      
+
     });
-    
-    
-  
-  
-    
-    
+
   }
-  alterarParametros(parametro:Parametro){
-    
+  alterarParametros(parametro: Parametro) {
     console.log(parametro);
-    
-    return this.http.put<any>(`${this.urlBase}/parametro/1`,parametro);
+    return this.http.put<any>(`${this.urlBase}/parametro/1`, parametro);
   }
 
-  buscaParametro(){
+  buscaParametro() {
     return this.http.get<Parametro>(`${this.urlBase}/parametro/1`);
   }
 
@@ -136,7 +130,7 @@ export class AppService {
     return this.http.get<Array<any>>(`${this.urlBase}/registroPonto/`);
   }
 
-  logar(loginUsuario: any){
+  logar(loginUsuario: any) {
     return this.http.post(`${this.urlBase}/login/`, loginUsuario);
   }
 
@@ -161,7 +155,7 @@ export class AppService {
   buscarRegistroIDGenerico(table: any, idRegistro: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.urlBase}/${table}/${idRegistro}`);
   }
-  
+
   criarGenerico(table: any, objeto: any) {
     return this.http.post(`${this.urlBase}/${table}/`, objeto);
   }
@@ -180,8 +174,8 @@ export class AppService {
 
   buscaCidades(id: number) {
     return this.http.get<any>('assets/dados/cidades.json')
-    .pipe(
-      map((cidades: any) => cidades.filter(c => c.estado == id))
-    );
+      .pipe(
+        map((cidades: any) => cidades.filter(c => c.estado == id))
+      );
   }
 }

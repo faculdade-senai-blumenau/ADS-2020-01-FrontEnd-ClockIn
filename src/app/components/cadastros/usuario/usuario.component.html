@@ -32,25 +32,21 @@
                 <td>{{ usuario.cargo["nomeCargo"] }}</td>
                 <td>{{ usuario.setor["descricaoSetor"] }}</td>
                 <td>
-                    <button type="button" id="btnReprovar" class="btn btn-danger" data-toggle="modal"
-                        data-target="#excluirUsuario" (click)="buscarUsuarioPeloID(usuario.idUsuario)">Excluir
+                    <button type="button" id="btnReprovar" class="btn btn-danger" data-toggle="modal" data-target="#excluirUsuario" (click)="buscarUsuarioPeloID(usuario.idUsuario)">Excluir
                     </button>
-                    <button type="button" id="btnEditarUsuario" class="btn btn-primary" data-toggle="modal"
-                        data-target="#cadastroUsuario" (click)="buscarUsuarioPeloID(usuario.idUsuario)">Editar</button>
+                    <button type="button" id="btnEditarUsuario" class="btn btn-primary" data-toggle="modal" data-target="#cadastroUsuario" (click)="buscarUsuarioPeloID(usuario.idUsuario)">Editar</button>
 
                 </td>
             </tr>
         </tbody>
     </table>
     <div class="text-center">
-        <button type="button" id="btnCadastrarCargo" class="btn btn-primary btn-lg" data-toggle="modal"
-            data-target="#cadastroUsuario" (click)="limparObjetoUsuario()">Cadastrar</button>
+        <button type="button" id="btnCadastrarCargo" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#cadastroUsuario" (click)="limparObjetoUsuario()">Cadastrar</button>
     </div>
 </div>
 
 <!-- Modal Cadastro-->
-<div class="modal fade" id="cadastroUsuario" tabindex="-1" role="dialog" aria-labelledby="cadastroUsuario"
-    aria-hidden="true">
+<div class="modal fade" id="cadastroUsuario" tabindex="-1" role="dialog" aria-labelledby="cadastroUsuario" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -70,48 +66,33 @@
                                     <div class="container">
                                         <form>
                                             <div class="form-row">
-                                                <div class="form-group col-md-2">
-                                                    <img src={{usuario.foto}}
-                                                    onerror="this.src='https://pickaface.net/gallery/avatar/byotavio56f0b2aeb17c9.png'"
-                                                        class="img-fluid rounded-circle mb-2"
-                                                        style="width: 100px; height: 100px;">
+                                                <div class="form-group col-md-2 text-center">
+                                                    <img src={{usuario.foto}} onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSCO5w5eo5UWuyGADF5IT44kp04HjyH_Y7_g&usqp=CAU'" class="img-fluid rounded-circle mb-2" style="width: 120px; height: 120px;">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="nome">Nome</label>
-                                                    <input [(ngModel)]="usuario.nomeUsuario" class="form-control"
-                                                        id="nomeUsuario" name="nomeUsuario"
-                                                        [value]="usuario.nomeUsuario" type="text"
-                                                        placeholder="Nome Completo">
+                                                    <input [(ngModel)]="usuario.nomeUsuario" class="form-control" id="nomeUsuario" name="nomeUsuario" [value]="usuario.nomeUsuario" type="text" placeholder="Nome Completo">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="cpf">CPF</label>
-                                                    <input [(ngModel)]="usuario.cpf" class="form-control" id="cpf"
-                                                        name="cpf" [value]="usuario.cpf" type="text"
-                                                        placeholder="CPF">
+                                                    <input [(ngModel)]="usuario.cpf" class="form-control" id="cpf" name="cpf" [value]="usuario.cpf" type="text" placeholder="CPF">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="rg">RG</label>
-                                                    <input [(ngModel)]="usuario.rg" class="form-control" id="rg"
-                                                        name="rg" [value]="usuario.rg" type="text"
-                                                        placeholder="RG">
+                                                    <input [(ngModel)]="usuario.rg" class="form-control" id="rg" name="rg" [value]="usuario.rg" type="text" placeholder="RG">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="telefone">Telefone </label>
-                                                    <input [(ngModel)]="usuario.telefone" class="form-control"
-                                                        id="telefone" name="telefone"
-                                                        [value]="usuario.telefone" type="text">
+                                                    <input [(ngModel)]="usuario.telefone" class="form-control" id="telefone" name="telefone" [value]="usuario.telefone" type="text">
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="dataNascimento">Data Nascimento</label>
-                                                    <input [(ngModel)]="usuario.dataNascimento" class="form-control"
-                                                        id="dataNascimento" name="dataNascimento"
-                                                        [value]="usuario.dataNascimento" type="date">
+                                                    <input [(ngModel)]="usuario.dataNascimento" class="form-control" id="dataNascimento" name="dataNascimento" [value]="usuario.dataNascimento" type="date">
                                                 </div>
 
                                                 <div class="form-group col-md-3">
                                                     <label for="idCargo">Cargo</label>
-                                                    <select [(ngModel)]="usuario.idCargo" class="form-control"
-                                                        id="idCargo" name="idCargo" type="text">
+                                                    <select [(ngModel)]="usuario.idCargo" class="form-control" id="idCargo" name="idCargo" type="text">
                                                         <option *ngFor="let cargo of cargosCombo" [value]=cargo.idCargo>
                                                             {{cargo.nomeCargo}}
                                                         </option>
@@ -120,9 +101,9 @@
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="idSetor">Setor</label>
-                                                    <select [(ngModel)]="usuario.idSetor" class="form-control"
-                                                        id="idSetor" name="idSetor" type="text">
-                                                        <option *ngFor="let setor of setoresCombo" [value]=setor.idSetor>
+                                                    <select [(ngModel)]="usuario.idSetor" class="form-control" id="idSetor" name="idSetor" type="text">
+                                                        <option *ngFor="let setor of setoresCombo"
+                                                            [value]=setor.idSetor>
                                                             {{setor.descricaoSetor}}
                                                         </option>
                                                         <option>...</option>
@@ -130,13 +111,15 @@
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="idJornada">Jornada</label>
-                                                    <select [(ngModel)]="usuario.idJornada" class="form-control"
-                                                        id="idJornada" name="idJornada" type="text">
+                                                    <select [(ngModel)]="usuario.idJornada" class="form-control" id="idJornada" name="idJornada" type="text">
                                                         <option *ngFor="let jornada of jornadasCombo"
                                                             [value]=jornada.idJornada>
-                                                            {{usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}} -
-                                                            {{usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}} -
-                                                            {{usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}} -
+                                                            {{usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}}
+                                                            -
+                                                            {{usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}}
+                                                            -
+                                                            {{usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}}
+                                                            -
                                                             {{usuario.jornada["finalTarde"].split(":")[0]}}:{{usuario.jornada["finalTarde"].split(":")[1]}}
                                                         </option>
                                                         <option>...</option>
@@ -145,47 +128,32 @@
 
                                                 <div class="form-group col-md-5">
                                                     <label class="form-label ">Foto</label>
-                                                    <input [(ngModel)]="usuario.foto" class="form-control"
-<<<<<<< HEAD
-                                                        id="foto" name="foto" [value]="usuario.foto"
-                                                        type="file">
-=======
-                                                        id="fotoEditar" name="fotoEditar" [value]="usuario.foto"
-                                                        type="file" (change)="alterarImagem($event.target.files)" accept="image/*">
->>>>>>> 0446529d6e6730e2f6fd6c39a1dd44164b2890e4
+                                                    <input [(ngModel)]="usuario.foto" class="form-control" id="foto" name="foto" [value]="usuario.foto" type="file" (change)="alterarImagem($event.target.files)" accept="image/*">
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label class="form-label ">Usuario</label>
-                                                    <input [(ngModel)]="usuario.login" class="form-control"
-                                                        id="login" name="login" [value]="usuario.login"
-                                                        type="text">
+                                                    <input [(ngModel)]="usuario.login" class="form-control" id="login" name="login" [value]="usuario.login" type="text">
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label class="form-label ">Senha</label>
-                                                    <input [(ngModel)]="usuario.senha" class="form-control"
-                                                        id="senha" name="senha" [value]="usuario.senha"
-                                                        type="text">
+                                                    <input [(ngModel)]="usuario.senha" class="form-control" id="senha" name="senha" [value]="usuario.senha" type="text">
                                                 </div>
                                                 <div class="form-group col-md-2 pt-1">
-                                                    <label [(ngModel)]="usuario.gestor"
-                                                        class="custom-control custom-checkbox m-0">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="gestor" name="gestor"
-                                                            [value]="usuario.gestor">
+                                                    <label [(ngModel)]="usuario.gestor" class="custom-control custom-checkbox m-0">
+                                                        <input type="checkbox" class="custom-control-input" id="gestor"
+                                                            name="gestor" [value]="usuario.gestor">
                                                         <span class="custom-control-label">Administrador</span>
                                                     </label>
                                                 </div>
                                                 <div class="form-group col-md-2 pt-1">
-                                                    <label [(ngModel)]="usuario.ativo"
-                                                        class="custom-control custom-checkbox m-0">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="ativo" name="ativo" [value]="usuario.ativo">
+                                                    <label [(ngModel)]="usuario.ativo" class="custom-control custom-checkbox m-0">
+                                                        <input type="checkbox" class="custom-control-input" id="ativo"
+                                                            name="ativo" [value]="usuario.ativo">
                                                         <span class="custom-control-label">Usuário Ativo</span>
                                                     </label>
                                                 </div>
                                                 <div class="form-group col-md-3 pt-1">
-                                                    <label [(ngModel)]="usuario.cargoConfianca"
-                                                        class="custom-control custom-checkbox m-0">
+                                                    <label [(ngModel)]="usuario.cargoConfianca" class="custom-control custom-checkbox m-0">
                                                         <input type="checkbox" class="custom-control-input"
                                                             id="cargoConfianca" name="cargoConfianca"
                                                             [value]="usuario.cargoConfianca">
@@ -213,50 +181,38 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-2">
                                                             <label for="cep">CEP</label>
-                                                            <input [(ngModel)]="usuario.cep" class="form-control" 
-                                                                id="usuarioCep" name="usuarioCep" [value]="usuario.cep"
-                                                                (blur)="buscarEnderecoPeloCep(usuario.cep)" required>
+                                                            <input [(ngModel)]="usuario.cep" class="form-control" id="usuarioCep" name="usuarioCep" [value]="usuario.cep" (blur)="buscarEnderecoPeloCep(usuario.cep)" required>
                                                         </div>
                                                         <div class="form-group col-md-5">
                                                             <label for="rua">Rua</label>
-                                                            <input [(ngModel)]="usuario.rua" class="form-control"
-                                                                id="usuarioRua" name="usuarioRua" [value]="usuario.logradouro" disabled>
+                                                            <input [(ngModel)]="usuario.rua" class="form-control" id="usuarioRua" name="usuarioRua" [value]="usuario.logradouro" disabled>
                                                         </div>
                                                         <div class="form-group col-md-1">
                                                             <label for="numero">Numero</label>
-                                                            <input [(ngModel)]="usuario.numero" class="form-control"
-                                                                id="usuarioNumero" name="usuarioNumero" [value]="usuario.numero">
+                                                            <input [(ngModel)]="usuario.numero" class="form-control" id="usuarioNumero" name="usuarioNumero" [value]="usuario.numero">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="complemento">Complemento</label>
-                                                            <input [(ngModel)]="usuario.complemento"
-                                                                class="form-control" id="usuarioComplemento" name="usuarioComplemento"
-                                                                [value]="usuario.complemento">
+                                                            <input [(ngModel)]="usuario.complemento" class="form-control" id="usuarioComplemento" name="usuarioComplemento" [value]="usuario.complemento">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="bairro">Bairro</label>
-                                                            <input [(ngModel)]="usuario.bairro" class="form-control"
-                                                                id="usuarioBairro" name="usuarioBairro" [value]="usuario.bairro"disabled>
+                                                            <input [(ngModel)]="usuario.bairro" class="form-control" id="usuarioBairro" name="usuarioBairro" [value]="usuario.bairro" disabled>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="cidade">Cidade</label>
-                                                            <input [(ngModel)]="usuario.cidade" class="form-control"
-                                                                id="usuarioCidade" name="usuarioCidade" [value]="usuario.cidade"disabled>
+                                                            <input [(ngModel)]="usuario.cidade" class="form-control" id="usuarioCidade" name="usuarioCidade" [value]="usuario.cidade" disabled>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="estado">Estado</label>
-                                                            <input [(ngModel)]="usuario.estado" class="form-control"
-                                                                id="usuarioEstado" name="usuarioEstado" [value]="usuario.estado"disabled>
+                                                            <input [(ngModel)]="usuario.estado" class="form-control" id="usuarioEstado" name="usuarioEstado" [value]="usuario.estado" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancelar</button>
-                                                    <button type="button" class="btn btn-success"
-                                                        (click)="inserirUsuario()"
-                                                        data-dismiss="modal">Confirmar</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-success" (click)="inserirUsuario()" data-dismiss="modal">Confirmar</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -272,8 +228,7 @@
 </div>
 
 <!-- Modal Excluir-->
-<div class="modal fade" id="excluirUsuario" tabindex="-1" role="dialog" aria-labelledby="excluirUsuario"
-    aria-hidden="true">
+<div class="modal fade" id="excluirUsuario" tabindex="-1" role="dialog" aria-labelledby="excluirUsuario" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
