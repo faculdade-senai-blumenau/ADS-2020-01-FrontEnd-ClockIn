@@ -8,6 +8,8 @@ import { AppComponent } from 'src/app/app.component';
 import { AppService } from 'src/app/app.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { AppModule } from 'src/app/app.module';
 
 
 @Component({
@@ -23,10 +25,11 @@ export class LoginComponent implements OnInit {
   usuarioLogado: any;
   mensagemErroLogin='';
   public alertaLogin = new Subject<string>();
-  constructor(private appService: AppService,  private router: Router) { }
-  
+  constructor(private appService: AppService,  private router: Router, private appComponent: AppComponent) { }
+  public loading = false;
 
   ngOnInit(): void {
+    
     this.loginUsuario={
       usuario: '',
       senha: ''
@@ -52,6 +55,7 @@ export class LoginComponent implements OnInit {
     this.alertaLogin.next(this.mensagemErroLogin = (mensagem));
   }
   login(email,senha){
+    this.appComponent.setLoading(true);
     this.loginUsuario={
       usuario: email.value,
       senha: senha.value
@@ -62,11 +66,12 @@ export class LoginComponent implements OnInit {
         this.usuarioLogado = resposta
         
         if (this.usuarioLogado == null){
-          //alert("Usuário ou Senha Inválidos")
+          this.appComponent.setLoading(false);
           this.erroLogin('Usuário ou Senha inválidos!');
           
           
         } else {
+          this.appComponent.setLoading(false);
           this.appService.setarUsuario(this.usuarioLogado.idUsuario);
           this.appService.declararUsuario(this.usuarioLogado);
           this.router.navigate(['/home']);

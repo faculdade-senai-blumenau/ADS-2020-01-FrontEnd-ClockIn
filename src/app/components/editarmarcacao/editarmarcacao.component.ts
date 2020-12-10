@@ -36,7 +36,7 @@ export class EditarMarcacaoComponent implements OnInit {
 
   /* Variaveis Fim */
 
-  constructor(private appService: AppService, private router: Router) { }
+  constructor(private appService: AppService, private router: Router,private appComponent: AppComponent) { }
 
   ngOnInit(): void {
     if(this.appService.getUsuarioLogado()==null){

@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { Usuario, Setor } from 'src/app/app.model';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class HomeComponent implements OnInit {
 
 
   constructor(private datePipe: DatePipe,
-    private appService: AppService, private router: Router) {
+    private appService: AppService, private router: Router, private appComponent: AppComponent) {
   }
   
 
@@ -96,11 +97,14 @@ export class HomeComponent implements OnInit {
   
 
   listarRegistrosPontoSemanal() {
+    
     const dataInicial = moment().subtract(7, 'days').format();
     this.listaDePontos = this.buscarRegistrosPonto(this.usuario.idUsuario, dataInicial, null);
+    
   };
 
   buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
+    this.appComponent.setLoading(true);
     this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
       const groups = new Set(this.registroPonto
@@ -114,10 +118,12 @@ export class HomeComponent implements OnInit {
           values: this.registroPonto.filter(i => i.dataRegistro === g)
         }),
       );
+      this.appComponent.setLoading(false);
     });
   }
 
   registrarPonto(): void {
+    this.appComponent.setLoading(true);
     this.ponto = {
       idUsuario: this.usuario.idUsuario,
       dataRegistro: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
@@ -128,6 +134,7 @@ export class HomeComponent implements OnInit {
     };
     
     this.appService.registrarPonto(this.ponto).subscribe(
+      
       success => {
         this.dataHoraBatida = new Date();
         this.botaoPonto.next(this.btnPonto = 'success btn-lg');
@@ -144,5 +151,6 @@ export class HomeComponent implements OnInit {
         this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto - Tente Novamente mais Tarde');
       }
     );
+    this.appComponent.setLoading(false);
   }
 }

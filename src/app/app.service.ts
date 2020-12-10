@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegistroPonto, Usuario, Setor, EspelhoPonto, Jornada, Parametro } from './app.model';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AppService {
 
   constructor(private http: HttpClient, public location: Location, private router: Router) {
   }
-
+  public loading=false;
   urlBase = 'http://clockinapi-env.eba-ckvnxj6m.us-east-1.elasticbeanstalk.com'
   /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';*/
   urlBaseCep = 'http://viacep.com.br/ws'
