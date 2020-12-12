@@ -27,6 +27,7 @@
     "datatables": "^1.10.18",
     "datatables.net": "^1.10.21",
     "datatables.net-dt": "^1.10.21",
+    "file-saver": "^2.0.5",
     "html2canvas": "^1.0.0-rc.5",
     "jquery": "^3.5.1",
     "jspdf": "^1.5.3",

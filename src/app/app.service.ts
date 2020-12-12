@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { AppComponent } from './app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +97,7 @@ export class AppService {
   }
 
   buscarRegistrosPontoUsuario(idUsuario: number) {
+    
     return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/usuario/${idUsuario}`);
   }
 

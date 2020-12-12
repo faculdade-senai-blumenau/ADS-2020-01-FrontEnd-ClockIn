@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   idUsuario = this.appService.buscarUsuario();
   dataInicialFiltro: DatePipe;
   dtTrigger: any;
-  private loading=false;  
+   
   constructor(private appService: AppService, private router: Router) {
     
   }
@@ -28,12 +28,7 @@ export class AppComponent implements OnInit {
       this.appService.logoutSessao();
     },this.appService.buscaTempoDaSessao()); 
   }
-  getLoading(){
-    return this.loading;
-  }
-  setLoading(x: boolean){
-    this.loading=x;
-  }
+  
 
   /* Retorna lista de registros da tabela de pontos */
   buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {

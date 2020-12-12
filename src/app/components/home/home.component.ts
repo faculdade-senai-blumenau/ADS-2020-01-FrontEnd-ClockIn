@@ -113,7 +113,7 @@ export class HomeComponent implements OnInit {
   };
 
   buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
-    this.appComponent.setLoading(true);
+   
     this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
       const groups = new Set(this.registroPonto
@@ -127,12 +127,12 @@ export class HomeComponent implements OnInit {
           values: this.registroPonto.filter(i => i.dataRegistro === g)
         }),
       );
-      this.appComponent.setLoading(false);
+      
     });
   }
 
   registrarPonto(): void {
-    this.appComponent.setLoading(true);
+    
     this.limparMemsagens();
     this.ponto = {
       idUsuario: this.idUsuario,
@@ -161,7 +161,7 @@ export class HomeComponent implements OnInit {
         this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto - Tente Novamente mais Tarde');
       }
     );
-    this.appComponent.setLoading(false);
+    
   }
 
 

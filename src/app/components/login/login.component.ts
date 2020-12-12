@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     this.alertaLogin.next(this.mensagemErroLogin = (mensagem));
   }
   login(email,senha){
-    this.appComponent.setLoading(true);
+    
     this.loginUsuario={
       usuario: email.value,
       senha: senha.value
@@ -66,12 +66,12 @@ export class LoginComponent implements OnInit {
         this.usuarioLogado = resposta
         
         if (this.usuarioLogado == null){
-          this.appComponent.setLoading(false);
+          
           this.erroLogin('Usuário ou Senha inválidos!');
           
           
         } else {
-          this.appComponent.setLoading(false);
+          
           this.appService.setarUsuario(this.usuarioLogado.idUsuario);
           this.appService.declararUsuario(this.usuarioLogado);
           this.router.navigate(['/home']);

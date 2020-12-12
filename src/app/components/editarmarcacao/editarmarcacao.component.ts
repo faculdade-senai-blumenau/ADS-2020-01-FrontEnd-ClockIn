@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./editarmarcacao.component.css']
 })
 export class EditarMarcacaoComponent implements OnInit {
-
+  
   /* Variaveis */
   public alerta = new Subject<string>();
   staticAlertClosed = true;
@@ -31,18 +31,23 @@ export class EditarMarcacaoComponent implements OnInit {
   ponto: any;
   idUsuario = this.appService.buscarUsuario();
   dataAtual = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-
+  loadingvar=0;
   public paginaAtual = 1;
   statusEdicaoDescricao: any;
-
+ 
+  
   /* Variaveis Fim */
 
-  constructor(private appService: AppService, private router: Router,private appComponent: AppComponent, private datePipe: DatePipe) { }
+  constructor(private appService: AppService, private router: Router,private appComponent: AppComponent, private datePipe: DatePipe) {
+    
+   }
   
   ngOnInit(): void {
     if (this.appService.getUsuarioLogado() == null) {
       this.router.navigate(["/login"]);
     }
+    
+    
     this.ponto = {
       idRegistroPonto: '',
       idUsuario: '',
@@ -52,9 +57,9 @@ export class EditarMarcacaoComponent implements OnInit {
       justificativaReprovacao: '',
       edicaoAprovada: 0
     };
-
+    
     this.listarRegistrosPontoEditarMarcacao();
-
+    
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
@@ -67,13 +72,16 @@ export class EditarMarcacaoComponent implements OnInit {
   }
 
   listarRegistrosPontoEditarMarcacao() {
+    
     this.limparObjetoPonto();
     const dataInicial = moment().subtract(30, 'days').format();
     this.listaDePontos = this.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
   }
 
   buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
+   
     this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe((registroPonto) => {
+      
       this.registroPonto = registroPonto;
       const groups = new Set(this.registroPonto
         .filter(i => i.dataRegistro >= dataInicial && (i.dataRegistro <= dataFinal || dataFinal == null))
@@ -85,6 +93,7 @@ export class EditarMarcacaoComponent implements OnInit {
           values: this.registroPonto.filter(i => i.dataRegistro === g)
         }),
       );
+      
      });
   }
 
@@ -127,4 +136,5 @@ export class EditarMarcacaoComponent implements OnInit {
   limparObjetoPonto() {
     this.ponto = {};
   }
+  
 }
