@@ -33,6 +33,7 @@ export class SetorComponent implements OnInit {
         $(function () {
             // Datatables basic
             $('#datatables-setor').DataTable({
+                destroy: true,
                 responsive: true,
                 language: {
                     emptyTable: "Nenhum registro encontrado",
@@ -81,13 +82,13 @@ export class SetorComponent implements OnInit {
     }
 
     buscarSetorPeloID(idSetor: number) {
-        this.appService.buscarRegistroIDGenerico('setor', idSetor).subscribe(setor => {
+        this.appService.buscarPorIDGenerico('setor', idSetor).subscribe(setor => {
             this.setor = setor;
         });
     }
 
     buscarUsuarioPeloID(idUsuario: number) {
-        this.appService.buscarUsuarioPeloID(idUsuario).subscribe(
+        this.appService.buscarPorIDGenerico('usuario', idUsuario).subscribe(
           resposta => this.usuario = resposta);
       }
 
@@ -104,6 +105,7 @@ export class SetorComponent implements OnInit {
     }
 
     inserirSetor() {
+        this.limparMemsagens()
         this.appService.criarGenerico('setor', this.setor).subscribe(
             success => {
                 this.listarSetores();
@@ -116,6 +118,7 @@ export class SetorComponent implements OnInit {
     }
 
     excluirSetor(idSetor: number) {
+        this.limparMemsagens()
         this.appService.excluirGenerico('setor', idSetor).subscribe(
             success => {
                 this.listarSetores();
@@ -130,4 +133,7 @@ export class SetorComponent implements OnInit {
     limparObjetoSetor() {
         this.setor = {};
     }
+
+  limparMemsagens() {
+    this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''}
 }

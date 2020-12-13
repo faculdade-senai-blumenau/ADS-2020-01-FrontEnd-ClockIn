@@ -50,13 +50,8 @@ export class ParametroComponent implements OnInit {
   }
   updateParametros(){
     this.parametro.tempSessao=this.tempoSessao;
-    this.parametro.tempoSessao=this.tempoSessao;
-    
-   
-    
     this.appService.alterarParametros(this.parametro).subscribe(
       success => {
-          
           this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
       },
       error => {

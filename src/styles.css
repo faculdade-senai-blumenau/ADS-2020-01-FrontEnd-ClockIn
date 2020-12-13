@@ -11,14 +11,19 @@ body {
 #alert {
   display: block;
   position: fixed;
-  top: 4%;
-  left: 15%;
-  width: 70%;
+  top: 9%;
+  left: 20%;
+  width: 60%;
   font-size: medium;
   z-index: 99999;
   align-items: center;
   padding: .85rem;
   box-sizing: border-box;
+}
+
+#alertaCampoObrigatorio {
+  padding: 2px;
+  color: #f30808;
 }
 
 p {

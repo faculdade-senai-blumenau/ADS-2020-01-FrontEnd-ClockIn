@@ -10,10 +10,12 @@
     </ngb-alert>
 
     <!-- Alerta Erro ao Registrar Ponto -->
-    <ngb-alert *ngIf="mensagemUsuarioErro" id=alert type="danger" (close)="mensagemUsuarioErro = ''">{{ mensagemUsuarioErro }}
+    <ngb-alert *ngIf="mensagemUsuarioErro" id=alert type="danger" (close)="mensagemUsuarioErro = ''">
+        {{ mensagemUsuarioErro }}
     </ngb-alert>
     <!-- Alerta Sucesso ao Registrar Ponto -->
-    <ngb-alert *ngIf="mensagemUsuarioSucesso" id=alert type="success" (close)="mensagemUsuarioSucesso = ''">{{ mensagemUsuarioSucesso }}
+    <ngb-alert *ngIf="mensagemUsuarioSucesso" id=alert type="success" (close)="mensagemUsuarioSucesso = ''">
+        {{ mensagemUsuarioSucesso }}
     </ngb-alert>
 </div>
 <div class="wrapper" (mouseover)="sessao()">
@@ -42,7 +44,10 @@
                                         <strong>{{ relogio }}</strong>
                                     </h3>
                                     <!-- Botão Registrar Ponto -->
-                                    <button type="button" class="btn btn-primary" class="btn btn-{{btnPonto}} {{disablePonto}} mb-2 mt-1" id="registrarBtn" [disabled]="desabilitar !== '1'" data-toggle="modal" data-target="#ModalRegistroPonto">
+                                    <button type="button" class="btn btn-primary"
+                                        class="btn btn-{{btnPonto}} {{disablePonto}} mb-2 mt-1" id="registrarBtn"
+                                        [disabled]="desabilitar !== '1'" data-toggle="modal"
+                                        data-target="#ModalRegistroPonto">
                                         {{btnPontoMensagem}}
                                     </button>
                                 </div>
@@ -54,15 +59,19 @@
                         <div class="card flex-fill">
                             <div class="card-header">
                                 <h5 class="card-title">Informações Usuário</h5>
-                                <h6 class="card-subtitle text-muted">Confira aqui algumas informações básicas do seu cadastro.
+                                <h6 class="card-subtitle text-muted">Confira aqui algumas informações básicas do seu
+                                    cadastro.
                                 </h6>
                             </div>
                             <div class="card-body text-center ">
                                 <div class="row m-0">
                                     <div class="col-md-5 pt-2 pb-2 pl-0 pr-0">
 
-                                        <img src={{usuario.foto}} onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQACGFpr0iqURE_6EHYMm-AGXfhXC1Nzf4ucA&usqp=CAU'" class="img-fluid rounded-circle mb-2" style="width: 120px; height: 120px;">
-                                        <h2 id="nomeUsuario" name="nomeUsuario" class="card-title text-center mt-2" style="font-size: x-large;">
+                                        <img src={{usuario.foto}}
+                                            onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQACGFpr0iqURE_6EHYMm-AGXfhXC1Nzf4ucA&usqp=CAU'"
+                                            class="img-fluid rounded-circle mb-2" style="width: 120px; height: 120px;">
+                                        <h2 id="nomeUsuario" name="nomeUsuario" class="card-title text-center mt-2"
+                                            style="font-size: x-large;">
                                             {{usuario.nomeUsuario}}</h2>
                                     </div>
                                     <div class="col-md-7">
@@ -84,8 +93,13 @@
                                                         <strong class="text-gray-dark">
                                                             <p>Escala</p>
                                                         </strong>
-                                                        <p>{{usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}} - {{usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}}
-                                                            - {{usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}} - {{usuario.jornada["finalTarde"].split(":")[0]}}:{{usuario.jornada["finalTarde"].split(":")[1]}}
+                                                        <p>{{usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}}
+                                                            -
+                                                            {{usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}}
+                                                            -
+                                                            {{usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}}
+                                                            -
+                                                            {{usuario.jornada["finalTarde"].split(":")[0]}}:{{usuario.jornada["finalTarde"].split(":")[1]}}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -113,15 +127,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <button type="button" id="btnEditarUsuario" class="btn btn-primary mt-3"
-                                            data-toggle="modal" data-target="#cadastroUsuario"
-                                            (click)="buscarUsuarioPeloID()">Editar Cadastro</button> -->
+            
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="ModalRegistroPonto" tabindex="-1" role="dialog" aria-labelledby="ModalRegistroPontoLabel" aria-hidden="true">
+                    <div class="modal fade" id="ModalRegistroPonto" tabindex="-1" role="dialog"
+                        aria-labelledby="ModalRegistroPontoLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -161,7 +174,7 @@
                                                 <tr *ngFor="let ponto of listaDePontos">
                                                     <td class="text-center">{{ponto.dataRegistro | date: 'dd/MM/yyyy'}}
                                                     </td>
-                                                    <td class="text-center" *ngFor="let ponto of ponto.values">
+                                                    <td class="text-center" *ngFor="let ponto of ponto.horaRegistro">
                                                         {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
                                                     </td>
                                                 </tr>
@@ -175,163 +188,5 @@
                 </div>
             </div>
         </main>
-    </div>
-</div>
-
-
-<!-- Modal Cadastro-->
-<div class="modal fade" id="cadastroUsuario" tabindex="-1" role="dialog" aria-labelledby="cadastroUsuario" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cadastroUsuario">
-                    Editar Usuarios</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h4 class="tab-title text-center">Dados Pessoais</h4>
-                <div class="row">
-                    <div class="col-md-12 p-0">
-                        <div class="modal-container">
-                            <div class="contact-form ">
-                                <section>
-                                    <div class="container">
-                                        <form>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-2 text-center">
-                                                    <img src={{usuario.foto}} onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSCO5w5eo5UWuyGADF5IT44kp04HjyH_Y7_g&usqp=CAU'" class="img-fluid rounded-circle mb-2" style="width: 120px; height: 120px;">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="nome">Nome</label>
-                                                    <input [(ngModel)]="usuario.nomeUsuario" class="form-control" id="nomeUsuario" name="nomeUsuario" [value]="usuario.nomeUsuario" type="text" disabled placeholder="Nome Completo">
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <label for="cpf">CPF</label>
-                                                    <input [(ngModel)]="usuario.cpf" class="form-control" id="cpf" name="cpf" [value]="usuario.cpf" type="text" disabled>
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <label for="rg">RG</label>
-                                                    <input [(ngModel)]="usuario.rg" class="form-control" id="rg" name="rg" [value]="usuario.rg" type="text" disabled>
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <label for="telefone">Telefone </label>
-                                                    <input [(ngModel)]="usuario.telefone" class="form-control" id="telefone" name="telefone" [value]="usuario.telefone" type="text">
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <label for="dataNascimento">Data Nascimento</label>
-                                                    <input [(ngModel)]="usuario.dataNascimento" class="form-control" id="dataNascimento" name="dataNascimento" [value]="usuario.dataNascimento" type="date">
-                                                </div>
-
-                                                <div class="form-group col-md-3">
-                                                    <label for="idCargo">Cargo</label>
-                                                    <select [(ngModel)]="usuario.idCargo" class="form-control" id="idCargo" name="idCargo" type="text" disabled>
-                                                        <option *ngFor="let cargo of cargosCombo" [value]=cargo.idCargo>
-                                                            {{cargo.nomeCargo}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <label for="idSetor">Setor</label>
-                                                    <select [(ngModel)]="usuario.idSetor" class="form-control" id="idSetor" name="idSetor" type="text" disabled>
-                                                        <option *ngFor="let setor of setoresCombo"
-                                                            [value]=setor.idSetor>
-                                                            {{setor.descricaoSetor}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <label for="idJornada">Jornada</label>
-                                                    <select [(ngModel)]="usuario.idJornada" class="form-control" id="idJornada" name="idJornada" type="text" disabled>
-                                                        <option *ngFor="let jornada of jornadasCombo"
-                                                            [value]=jornada.idJornada disabled>
-                                                            {{usuario.jornada["inicioManha"].split(":")[0]}}:{{usuario.jornada["inicioManha"].split(":")[1]}}
-                                                            -
-                                                            {{usuario.jornada["finalManha"].split(":")[0]}}:{{usuario.jornada["finalManha"].split(":")[1]}}
-                                                            -
-                                                            {{usuario.jornada["inicioTarde"].split(":")[0]}}:{{usuario.jornada["inicioTarde"].split(":")[1]}}
-                                                            -
-                                                            {{usuario.jornada["finalTarde"].split(":")[0]}}:{{usuario.jornada["finalTarde"].split(":")[1]}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group col-md-5">
-                                                    <label class="form-label ">Foto</label>
-                                                    <input [(ngModel)]="usuario.foto" class="form-control" id="foto" name="foto" [value]="usuario.foto" type="file" (change)="alterarImagem($event.target.files)" accept="image/*">
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <label class="form-label ">Usuario</label>
-                                                    <input [(ngModel)]="usuario.login" class="form-control" id="login" name="login" [value]="usuario.login" type="text" disabled>
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <label class="form-label ">Senha</label>
-                                                    <input [(ngModel)]="usuario.senha" class="form-control" id="senha" name="senha" [value]="usuario.senha" type="text">
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <h4 class="tab-title text-center">Endereco</h4>
-                    <div class="row">
-                        <div class="col-md-12 p-0">
-                            <div class="modal-container">
-                                <div class="contact-form ">
-                                    <section>
-                                        <div class="container">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-2">
-                                                            <label for="cep">CEP</label>
-                                                            <input [(ngModel)]="usuario.cep" class="form-control" id="usuarioCep" name="usuarioCep" [value]="usuario.cep" (blur)="buscarEnderecoPeloCep(usuario.cep)" required>
-                                                        </div>
-                                                        <div class="form-group col-md-5">
-                                                            <label for="rua">Rua</label>
-                                                            <input [(ngModel)]="usuario.rua" class="form-control" id="usuarioRua" name="usuarioRua" [value]="usuario.rua" disabled>
-                                                        </div>
-                                                        <div class="form-group col-md-1">
-                                                            <label for="numero">Numero</label>
-                                                            <input [(ngModel)]="usuario.numero" class="form-control" id="usuarioNumero" name="usuarioNumero" [value]="usuario.numero">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="complemento">Complemento</label>
-                                                            <input [(ngModel)]="usuario.complemento" class="form-control" id="usuarioComplemento" name="usuarioComplemento" [value]="usuario.complemento">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="bairro">Bairro</label>
-                                                            <input [(ngModel)]="usuario.bairro" class="form-control" id="usuarioBairro" name="usuarioBairro" [value]="usuario.bairro" disabled>
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="cidade">Cidade</label>
-                                                            <input [(ngModel)]="usuario.cidade" class="form-control" id="usuarioCidade" name="usuarioCidade" [value]="usuario.cidade" disabled>
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="estado">Estado</label>
-                                                            <input [(ngModel)]="usuario.estado" class="form-control" id="usuarioEstado" name="usuarioEstado" [value]="usuario.estado" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                                    <button type="button" class="btn btn-success" (click)="updateUsuario()" data-dismiss="modal">Confirmar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

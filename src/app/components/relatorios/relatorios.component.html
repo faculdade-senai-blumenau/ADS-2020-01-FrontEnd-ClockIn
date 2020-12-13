@@ -1,4 +1,9 @@
 <app-nav></app-nav>
+<!-- Alertas -->
+<ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''"> {{ mensagemSucesso }}
+</ngb-alert>
+<ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''"> {{ mensagemErro }}
+</ngb-alert>
 <div class="wrapper" (mouseover)="sessao()">
   <div class="main">
     <main class="content">
@@ -20,11 +25,19 @@
                     <label for="dataInicial">Data Inicial</label>
                     <input [(ngModel)]="dataInicial" class="form-control pt-0" id="dataInicial" type="date"
                       name="datasingle" required="">
+                      <div *ngIf="alertDataInicial" id=alertaCampoObrigatorio
+                      (change)="verificaCamposObrigatorios()">
+                      {{alertDataInicial}}
+                  </div>
                   </div>
                   <div class="col-md-3">
                     <label for="dataFinal">Data Final</label>
                     <input [(ngModel)]="dataFinal" class="form-control pt-0" id="dataFinal" type="date"
                       name="datasingle" required>
+                      <div *ngIf="alertDataFinal" id=alertaCampoObrigatorio
+                      (change)="verificaCamposObrigatorios()">
+                      {{alertDataFinal}}
+                  </div>
                   </div>
                   <div class="col-md-2">
                     <label for="gerarRelatorio" style="color: white;"> - </label>

@@ -17,3 +17,6 @@
   color: rgb(54, 97, 153);
   font-weight: bolder;
 }
+[data-color="0"] {
+  color: rgb(24, 25, 26);
+}

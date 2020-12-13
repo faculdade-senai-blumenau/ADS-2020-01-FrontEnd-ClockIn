@@ -40,9 +40,6 @@ export class LoginComponent implements OnInit {
     if (this.appService.getDeslogado()){
       this.erroLogin("Sessão Expirada");
     }
-    this.appService.setParametro();
-    //alert(this.appService.parametro.tempoSessao);
-    
   }
   
   getUsuarioLogado(){
@@ -60,24 +57,19 @@ export class LoginComponent implements OnInit {
      
       resposta => {
         this.usuarioLogado = resposta
-        
-        if (this.usuarioLogado == null){
-          //alert("Usuário ou Senha Inválidos")
-          this.erroLogin('Usuário ou Senha inválidos!');
-          
-          
-        } else {
-          this.appService.setarUsuario(this.usuarioLogado.idUsuario);
-          this.appService.declararUsuario(this.usuarioLogado);
-          this.router.navigate(['/home']);
-         
+        console.log(this.loginUsuario)
+        if (this.loginUsuario.email != "" && this.loginUsuario.senha != "") {
+          if (this.usuarioLogado == null){
+            this.erroLogin('Usuário ou Senha inválidos!');
+          } else {
+            this.appService.setarUsuario(this.usuarioLogado.idUsuario);
+            this.appService.declararUsuario(this.usuarioLogado);
+            this.router.navigate(['/home']);
+            email.reset();
+            senha.reset();
+          }
         }
       }
-      
     );
-    
-    email.reset();
-    senha.reset();
-
   }
 }

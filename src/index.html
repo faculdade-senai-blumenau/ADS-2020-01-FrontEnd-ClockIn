@@ -8,7 +8,7 @@
     <title>Sistema ClockIn</title>
     <meta name="descrição" content="Sistema de Controle de Ponto Online">
     <meta name="autores" content="Alexandre, Marcio e Raul">
-    <script type="text/javascript" language="javascript" src="https://spark.bootlab.io/js/app.js"></script>
+    <script type="text/javascript" language="javascript" src="js/app.js"></script>
     <link rel="stylesheet" type="text/css" href="https://spark.bootlab.io/css/modern.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
     <script type="text/javascript" language="javascript" src="https://spark.bootlab.io/js/settings.js"></script>
@@ -20,94 +20,17 @@
     <!-- ChatBot -->
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
+    <script type="text/javascript" language="javascript" src="js/app.js"></script>
     <script>
-        $(function() {
-            $("select[name=\"validation-select2\"]").select2({
-                allowClear: true,
-                placeholder: "Select gear...",
-            }).change(function() {
-                $(this).valid();
-            });
-            $("select[name=\"validation-select2-multi\"]").select2({
-                placeholder: "Select gear...",
-            }).change(function() {
-                $(this).valid();
-            });
-            $("input[name=\"validation-bs-tagsinput\"]").on("itemAdded itemRemoved", function() {
+        $(function () {
+            $("input[name=\"validation-bs-tagsinput\"]").on("itemAdded itemRemoved", function () {
                 $(this).valid();
             });
             $("#validation-form").validate({
-                ignore: ".ignore, .select2-input",
                 focusInvalid: false,
                 rules: {
-                    "validation-email": {
-                        required: true,
-                        email: true
-                    },
-                    "validation-password": {
-                        required: true,
-                        minlength: 6,
-                        maxlength: 20
-                    },
-                    "validation-password-confirmation": {
-                        required: true,
-                        minlength: 6,
-                        equalTo: "input[name=\"validation-password\"]"
-                    },
-                    "validation-required": {
+                    "required": {
                         required: true
-                    },
-                    "validation-url": {
-                        required: true,
-                        url: true
-                    },
-                    "validation-select": {
-                        required: true
-                    },
-                    "validation-multiselect": {
-                        required: true,
-                        minlength: 2
-                    },
-                    "validation-select2": {
-                        required: true
-                    },
-                    "validation-select2-multi": {
-                        required: true,
-                        minlength: 2
-                    },
-                    "validation-text": {
-                        required: true
-                    },
-                    "validation-file": {
-                        required: true
-                    },
-                    "validation-radios": {
-                        required: true
-                    },
-                    "validation-radios-custom": {
-                        required: true
-                    },
-                    "validation-checkbox": {
-                        required: true
-                    },
-                    "validation-checkbox-custom": {
-                        required: true
-                    },
-                    "validation-checkbox-group-1": {
-                        require_from_group: [1, "input[name=\"validation-checkbox-group-1\"], input[name=\"validation-checkbox-group-2\"]"]
-                    },
-                    "validation-checkbox-group-2": {
-                        require_from_group: [1, "input[name=\"validation-checkbox-group-1\"], input[name=\"validation-checkbox-group-2\"]"]
-                    },
-                    "validation-checkbox-custom-group-1": {
-                        require_from_group: [1,
-                            "input[name=\"validation-checkbox-custom-group-1\"], input[name=\"validation-checkbox-custom-group-2\"]"
-                        ]
-                    },
-                    "validation-checkbox-custom-group-2": {
-                        require_from_group: [1,
-                            "input[name=\"validation-checkbox-custom-group-1\"], input[name=\"validation-checkbox-custom-group-2\"]"
-                        ]
                     }
                 },
 
@@ -121,7 +44,7 @@
                         error.addClass("jquery-validation-error small form-text invalid-feedback")
                     );
                 },
-                highlight: function(element) {
+                highlight: function (element) {
                     var $el = $(element);
                     var $parent = $el.parents(".form-group");
                     $el.addClass("is-invalid");
@@ -130,7 +53,7 @@
                         $el.parent().addClass("is-invalid");
                     }
                 },
-                unhighlight: function(element) {
+                unhighlight: function (element) {
                     $(element).parents(".form-group").find(".is-invalid").removeClass("is-invalid");
                 }
             });

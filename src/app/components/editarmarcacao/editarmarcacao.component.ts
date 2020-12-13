@@ -24,16 +24,20 @@ export class EditarMarcacaoComponent implements OnInit {
   mensagem = '';
   mensagemSucesso = '';
   mensagemErro = '';
-
+  alertDataRegistro = '';
+  alertHoraRegistro = '';
+  alertJustificaPonto = '';
   clockHandle;
+
   listaDePontos: any;
   registroPonto: any;
   ponto: any;
   idUsuario = this.appService.buscarUsuario();
-  dataAtual = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
   public paginaAtual = 1;
   statusEdicaoDescricao: any;
+  dataColor: number;
+
 
   /* Variaveis Fim */
 
@@ -53,10 +57,11 @@ export class EditarMarcacaoComponent implements OnInit {
       horaRegistro: '',
       justificaPonto: 0,
       justificativaReprovacao: '',
-      edicaoAprovada: 0
+      edicaoAprovada: 0,
+      espelhoPonto: ''
     };
 
-    this.listarRegistrosPontoEditarMarcacao();
+    this.listarRegistrosPontoEditarMarcacao(this.idUsuario);
 
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
@@ -69,51 +74,72 @@ export class EditarMarcacaoComponent implements OnInit {
     this.appService.controlaSessao()
   }
 
-  listarRegistrosPontoEditarMarcacao() {
+  listarRegistrosPontoEditarMarcacao(idUsuario: number) {
     this.limparObjetoPonto();
-    const dataInicial = moment().subtract(30, 'days').format();
-    this.listaDePontos = this.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
-  }
-
-  buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
-    this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe((registroPonto) => {
+    this.appService.buscarRegistrosPontoEditarMarcacao(idUsuario).subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
-      const groups = new Set(this.registroPonto
-        .filter(i => i.dataRegistro >= dataInicial && (i.dataRegistro <= dataFinal || dataFinal == null))
-        .map(item => item.dataRegistro));
-      this.listaDePontos = [];
-      groups.forEach(g =>
-        this.listaDePontos.push({
-          dataRegistro: g,
-          values: this.registroPonto.filter(i => i.dataRegistro === g)
-        }),
-      );
-     });
+      this.listaDePontos = this.registroPonto.reduce((r,{dataRegistro})=>{
+        if(!r.some(o=>o.dataRegistro==dataRegistro)){
+          r.push({dataRegistro,horaRegistro:this.registroPonto.filter(v=>v.dataRegistro==dataRegistro)});
+    }
+    return r;
+    },[]);
+    });
   }
 
   buscarRegistroPontoID(idRegistroPonto: number) {
     this.limparObjetoPonto();
-    this.appService.buscarRegistroPontoID(idRegistroPonto).subscribe(
-      resposta => this.ponto = resposta
+    this.appService.buscarPorIDGenerico('registroPonto', idRegistroPonto).subscribe(
+      resposta => this.ponto = this.alterarStatusEdicao(resposta)
+
       );
   }
 
   cadastrarEditarRegistroPonto() {
+    this.limparMensagens()
     this.ponto.idUsuario = this.idUsuario
-    this.appService.criarGenerico('registroPonto', this.ponto).subscribe(
-      success => {
-        this.listarRegistrosPontoEditarMarcacao();
-        this.statusEdicaoDescricao = ""
-        this.alerta.next(this.mensagemSucesso = (`Registro salvo com Sucesso.`));
-      },
-      error => {
-        this.alerta.next(this.mensagemErro = 'Não foi possível salvar o registro.');
-      }
-    );
+    this.verificaCamposObrigatorios();
+    if(this.ponto.dataRegistro && this.ponto.horaRegistro && this.ponto.justificaPonto ){
+      this.appService.criarGenerico('registroPonto', this.ponto).subscribe(
+        success => {
+          this.listarRegistrosPontoEditarMarcacao(this.idUsuario);
+          this.alerta.next(this.mensagemSucesso = (`Registro salvo com Sucesso.`));
+        },
+        error => {
+          this.alerta.next(this.mensagemErro = 'Não foi possível salvar o registro.');
+        }
+      );
+    }
+    else {
+      this.alerta.next(this.mensagemErro = 'Favor informar todos os campos obrigatórios.');
+    }
+  }
+
+  verificaCamposObrigatorios(){
+    this.ponto.idUsuario = this.idUsuario
+    if (!this.ponto.dataRegistro){
+      this.alerta.next(this.alertDataRegistro = 'Campo Obrigatório');
+    }else {
+      this.alerta.next(this.alertDataRegistro = '');
+    }
+    if (!this.ponto.horaRegistro){
+      this.alerta.next(this.alertHoraRegistro = 'Campo Obrigatório');
+    }else{
+      this.alerta.next(this.alertHoraRegistro = '');
+    }
+    if (!this.ponto.justificaPonto){
+      this.alerta.next(this.alertJustificaPonto = 'Campo Obrigatório');
+    }else{
+      this.alerta.next(this.alertJustificaPonto = '');
+    }
   }
 
   alterarStatusEdicao(ponto) {
-    if (ponto.edicaoAprovada == 1) {
+    this.statusEdicaoDescricao = "";
+    if (ponto.edicaoAprovada === 0 && ponto.justificaPonto === 0){
+      this.statusEdicaoDescricao = "Não Editado"
+    }
+    else if (ponto.edicaoAprovada == 1) {
       this.statusEdicaoDescricao = "Aprovada pelo Gestor"
     }
     else if (ponto.edicaoAprovada == 2 && ponto.justificaPonto == 0) {
@@ -122,12 +148,20 @@ export class EditarMarcacaoComponent implements OnInit {
     else if ((ponto.edicaoAprovada == 0 && ponto.justificaPonto > 0) || (ponto.edicaoAprovada == 2 && ponto.justificaPonto > 0)) {
       this.statusEdicaoDescricao = "Aguardando Aprovação"
     }
-    else {
-      this.statusEdicaoDescricao = "Não Editado"
-    }
+    return ponto
   }
 
   limparObjetoPonto() {
     this.ponto = {};
+    this.registroPonto = {};
+  }
+
+  limparMensagens() {
+    this.mensagem = '';
+    this.mensagemSucesso = '';
+    this.mensagemErro = '';
+    this.alertDataRegistro = '';
+    this.alertHoraRegistro = '';
+    this.alertJustificaPonto = '';
   }
 }

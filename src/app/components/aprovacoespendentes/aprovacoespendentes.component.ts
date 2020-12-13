@@ -101,7 +101,32 @@ export class AprovacoesPendentesComponent implements OnInit {
     })
   }
 
-  aprovarReprovarEdicao(statusEdicao: number) {
+  aprovarEdicao(statusEdicao: number) {
+    this.registroPonto.forEach(element => {
+      if (element.justificaPonto != 0) {
+        this.ponto = {
+          idRegistroPonto: element.idRegistroPonto,
+          idUsuario: element.idUsuario,
+          dataRegistro: element.dataRegistro,
+          horaRegistro: element.horaRegistro,
+          justificaPonto: element.justificaPonto,
+          justificativaReprovacao: element.justificativaReprovacao,
+          edicaoAprovada: statusEdicao
+        };
+        this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
+          success => {
+            this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
+            this.listarRegistrosAprovacoesPendentes();
+          },
+          error => {
+            this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
+          }
+        );
+      }
+    });
+  }
+
+  reprovarEdicao(statusEdicao: number) {
     this.registroPonto.forEach(element => {
       if (element.justificaPonto != 0) {
         this.ponto = {

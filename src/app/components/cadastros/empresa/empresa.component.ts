@@ -97,7 +97,7 @@ export class EmpresaComponent implements OnInit {
   }
 
   buscarEmpresaPeloID(idEmpresa: number) {
-    this.appService.buscarRegistroIDGenerico('empresa', idEmpresa).subscribe(
+    this.appService.buscarPorIDGenerico('empresa', idEmpresa).subscribe(
       resposta => this.empresa = resposta);
   }
 

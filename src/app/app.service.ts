@@ -15,7 +15,8 @@ export class AppService {
   constructor(private http: HttpClient, public location: Location, private router: Router) {
   }
 
-  urlBase = 'http://clockinapi-env.eba-ckvnxj6m.us-east-1.elasticbeanstalk.com'
+  urlBase = 'http://localhost:5000'
+  /* urlBase = 'http://clockinapi-env.eba-ckvnxj6m.us-east-1.elasticbeanstalk.com' */
   /* urlBase = 'https://cors-anywhere.herokuapp.com/http://Clockin-env.eba-tuvab2zq.sa-east-1.elasticbeanstalk.com';*/
   urlBaseCep = 'http://viacep.com.br/ws'
   idUsuario: any;
@@ -54,12 +55,14 @@ export class AppService {
     this.tempoDaSessao = tempo;
   }
   buscaTempoDaSessao() {
-
+  
     return this.parametro.tempSessao;
   }
+
   buscarUsuario() {
     return this.idUsuario;
   }
+
   declararUsuario(usuario) {
     this.usuario = usuario
   }
@@ -90,44 +93,24 @@ export class AppService {
     return this.http.get<any>(`${this.urlBaseCep}/${cep}/json`);
   }
 
-  buscarUsuarios() {
-    return this.http.get<Usuario>(`${this.urlBase}/usuario`);
-  }
-
   buscarRegistrosPontoUsuario(idUsuario: number) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/usuario/${idUsuario}`);
+  }
+
+  buscarRegistroPontoSemanal(dataLimite: any, idUsuario: number ) {
+    return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/registroPontoSemanal?dataLimite=${dataLimite}&idUsuario=${idUsuario}`);
   }
 
   buscarRegistrosPontoAprovacoesPendentes() {
     return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/aprovacaoPendente`);
   }
 
+  buscarRegistrosPontoEditarMarcacao(idUsuario: number) {
+    return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/editarMarcacao/${idUsuario}`);
+  }
+
   aprovacaoPendenteVisualizar(dataRegistro: any, idUsuario: number) {
     return this.http.get<RegistroPonto>(`${this.urlBase}/registroPonto/visualizarAprovacaoPendente?dataRegistro=${dataRegistro}&idUsuario=${idUsuario}`);
-  }
-
-  buscarRegistrosPontoUsuarioRange(idUsuario: number, dataInicial: any, dataFinal: any) {
-    return this.http.get<RegistroPonto>(`${this.urlBase}/espelhoPonto/periodoPonto?dataInicial=${dataInicial}&dataFinal=${dataFinal}&idUsuario=${idUsuario}`);
-  }
-
-  buscarUsuarioPeloID(idUsuario: number): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.urlBase}/usuario/${idUsuario}`);
-  }
-
-  registrarPonto(ponto: RegistroPonto): Observable<RegistroPonto> {
-    return this.http.post<RegistroPonto>(`${this.urlBase}/registroPonto/`, ponto);
-  }
-
-  buscarPontoUsuario(idUsuario: number): Observable<RegistroPonto[]> {
-    return this.http.get<RegistroPonto[]>(`${this.urlBase}/registroPonto/usuario/${idUsuario}`);
-  }
-
-  buscarRegistroPontoID(idRegistroPonto: number): Observable<RegistroPonto[]> {
-    return this.http.get<RegistroPonto[]>(`${this.urlBase}/registroPonto/${idRegistroPonto}`);
-  }
-
-  listar() {
-    return this.http.get<Array<any>>(`${this.urlBase}/registroPonto/`);
   }
 
   logar(loginUsuario: any) {
@@ -147,12 +130,11 @@ export class AppService {
     return this.http.put<EspelhoPonto>(url, espelhoPonto);
   }
 
-
   listarGenerico(table: any) {
     return this.http.get<Array<any>>(`${this.urlBase}/${table}`);
   }
 
-  buscarRegistroIDGenerico(table: any, idRegistro: number): Observable<any[]> {
+  buscarPorIDGenerico(table: any, idRegistro: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.urlBase}/${table}/${idRegistro}`);
   }
 
@@ -168,14 +150,4 @@ export class AppService {
     return this.http.delete(`${this.urlBase}/${table}/${idRegistro}`);
   }
 
-  buscaEstados() {
-    return this.http.get<any[]>('assets/dados/estados.json');
-  }
-
-  buscaCidades(id: number) {
-    return this.http.get<any>('assets/dados/cidades.json')
-      .pipe(
-        map((cidades: any) => cidades.filter(c => c.estado == id))
-      );
-  }
 }
