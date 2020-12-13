@@ -143,16 +143,8 @@ export class UsuarioComponent implements OnInit {
 
   
   alterarImagem(imagem:any){
-    let reader=new FileReader();
-    reader.readAsDataURL(imagem[0]);
-    
-    reader.onload =  (e) => {
-     this.usuario.foto=reader.result;  
-    };
-    
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
+    this.usuario.foto=this.usuario.cpf+"."+imagem[0].name.split(".")[1];
+    this.appService.salvarFoto(imagem,this.usuario.cpf+"."+imagem[0].name.split(".")[1])
   }
 
   inserirUsuario() {

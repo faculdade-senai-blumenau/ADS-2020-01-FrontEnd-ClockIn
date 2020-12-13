@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { AppComponent } from './app.component';
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,12 @@ export class AppService {
     this.t = setTimeout(() => {
       this.logoutSessao();
     }, this.buscaTempoDaSessao())
+  }
+
+  salvarFoto(canvas,nomeDaImagem){
+    canvas.toBlob(function(blob) {
+      saveAs(blob, nomeDaImagem);
+  });
   }
 
   logoutSessao(): any {
