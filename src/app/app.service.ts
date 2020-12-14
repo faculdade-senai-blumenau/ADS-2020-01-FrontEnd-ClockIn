@@ -23,7 +23,7 @@ export class AppService {
   urlBaseCep = 'http://viacep.com.br/ws'
   idUsuario: any;
   usuario: any;
-
+  ctx:any;
 
   t: any;
   deslogado: any;
@@ -37,11 +37,7 @@ export class AppService {
     }, this.buscaTempoDaSessao())
   }
 
-  salvarFoto(canvas,nomeDaImagem){
-    canvas.toBlob(function(blob) {
-      saveAs(blob, nomeDaImagem);
-  });
-  }
+  
 
   logoutSessao(): any {
     this.deslogado = true;

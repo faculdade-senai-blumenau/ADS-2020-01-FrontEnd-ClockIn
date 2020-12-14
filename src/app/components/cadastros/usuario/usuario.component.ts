@@ -143,8 +143,7 @@ export class UsuarioComponent implements OnInit {
 
   
   alterarImagem(imagem:any){
-    this.usuario.foto=this.usuario.cpf+"."+imagem[0].name.split(".")[1];
-    this.appService.salvarFoto(imagem,this.usuario.cpf+"."+imagem[0].name.split(".")[1])
+   
   }
 
   inserirUsuario() {
