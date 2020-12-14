@@ -23,7 +23,7 @@ export class SetorComponent implements OnInit {
     setores: any;
     usuarios: any;
     setor: any;
-    usuario:any;
+    usuario: any;
 
     /* Variaveis Fim */
 
@@ -33,6 +33,7 @@ export class SetorComponent implements OnInit {
         $(function () {
             // Datatables basic
             $('#datatables-setor').DataTable({
+                destroy: true,
                 responsive: true,
                 language: {
                     emptyTable: "Nenhum registro encontrado",
@@ -64,10 +65,7 @@ export class SetorComponent implements OnInit {
         this.listarSetores();
 
         this.setor = {
-            idSetor: '',
-            idUsuario: '',
-            descricaoSetor: '',
-            nomeResponsavel: ''
+            idSetor: '', idUsuario: '', descricaoSetor: '', nomeResponsavel: ''
         };
     }
 
@@ -81,18 +79,21 @@ export class SetorComponent implements OnInit {
     }
 
     buscarSetorPeloID(idSetor: number) {
-        this.appService.buscarRegistroIDGenerico('setor', idSetor).subscribe(setor => {
+        this.appService.buscarPorIDGenerico('setor', idSetor).subscribe(setor => {
             this.setor = setor;
         });
     }
 
     buscarUsuarioPeloID(idUsuario: number) {
-        this.appService.buscarUsuarioPeloID(idUsuario).subscribe(
-          resposta => this.usuario = resposta);
-      }
+        this.appService.buscarPorIDGenerico('usuario', idUsuario).subscribe(
+            resposta => this.usuario = resposta);
+    }
 
-    updateSetor(idSetor: number) {
-        this.appService.updateGenerico('setor', idSetor, this.setor).subscribe(
+    updateSetor(idSetor: number, setor) {
+
+        this.buscarUsuarioPeloID(this.setor.idUsuario)
+        this.setor.nomeResponsavel = this.usuario.nomeUsuario
+        this.appService.updateGenerico('setor', idSetor, setor).subscribe(
             success => {
                 this.listarSetores();
                 this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
@@ -104,6 +105,9 @@ export class SetorComponent implements OnInit {
     }
 
     inserirSetor() {
+        this.limparMemsagens()
+        this.buscarUsuarioPeloID(this.setor.idUsuario)
+        this.setor.nomeResponsavel = this.usuario.nomeUsuario
         this.appService.criarGenerico('setor', this.setor).subscribe(
             success => {
                 this.listarSetores();
@@ -116,6 +120,7 @@ export class SetorComponent implements OnInit {
     }
 
     excluirSetor(idSetor: number) {
+        this.limparMemsagens()
         this.appService.excluirGenerico('setor', idSetor).subscribe(
             success => {
                 this.listarSetores();
@@ -129,5 +134,9 @@ export class SetorComponent implements OnInit {
 
     limparObjetoSetor() {
         this.setor = {};
+    }
+
+    limparMemsagens() {
+        this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''
     }
 }

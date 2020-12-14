@@ -30,6 +30,7 @@ ngOnInit(): void {
   $(function () {
     // Datatables basic
     $('#datatables-cargo').DataTable({
+      destroy: true,
       responsive: true,
       language: {
         emptyTable: "Nenhum registro encontrado",
@@ -74,12 +75,13 @@ listarCargos() {
 
 
 buscarCargoPeloID(idCargo: number) {
-    this.appService.buscarRegistroIDGenerico('cargo', idCargo).subscribe(cargo => {
+    this.appService.buscarPorIDGenerico('cargo', idCargo).subscribe(cargo => {
         this.cargo = cargo;
     });
 }
 
 updateCargo(idCargo: number) {
+    this.limparMemsagens();
     this.appService.updateGenerico('cargo', idCargo, this.cargo).subscribe(
         success => {
             this.listarCargos();
@@ -92,6 +94,7 @@ updateCargo(idCargo: number) {
 }
 
 criarCargo() {
+    this.limparMemsagens();
     this.appService.criarGenerico('cargo', this.cargo).subscribe(
         success => {
             this.listarCargos();
@@ -104,6 +107,7 @@ criarCargo() {
 }
 
 excluirCargo(idCargo: number) {
+    this.limparMemsagens();
     this.appService.excluirGenerico('cargo', idCargo).subscribe(
         success => {
             this.listarCargos();
@@ -114,6 +118,9 @@ excluirCargo(idCargo: number) {
         }
     );
 }
+limparMemsagens() {
+    this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''
+  }
 
 limparObjetoCargo() {
     this.cargo = {};

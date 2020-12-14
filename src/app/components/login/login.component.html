@@ -3,36 +3,33 @@
     <ngb-alert *ngIf="mensagemErroLogin" id=alert type="danger" (close)="mensagemErroLogin = ''">{{ mensagemErroLogin }}
     </ngb-alert>
 </div>
-
 <div class="main">
     <main class="content">
         <div class="row justify-content-center">
-            <div class="col-lg-5">
+            <div class="col-5">
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                     <div class="card-header">
-                        <h3 class="text-center font-weight-light my-4">Acesso ao Sistema</h3>
+                        <h1 class="header-little text-center col-12" style="font-size:xx-large; color:#153d77;">
+                            Sistema ClockIn
+                        </h1>
                     </div>
                     <div class="card-body">
-                        <form method="post" #loginData="ngForm" (ngSubmit)="login(email,senha)">
+                        <form method="post" #loginData="ngForm" (ngSubmit)="login(email,senha)" id="validation-form" novalidate="novalidate">
                             <div class="form-group"><label class="small mb-1"
                                     for="inputEmailAddress">Usuario</label><input class="form-control py-4"
-                                    id="inputEmailAddress" name="email" ngModel #email="ngModel" type="text" placeholder="Insira seu Usuário" /></div>
+                                    id="inputEmailAddress" name="email" ngModel #email="ngModel" type="text" placeholder="Insira seu Usuário" required/></div>
                             <div class="form-group"><label class="small mb-1" for="inputPassword">Senha</label><input
-                                    class="form-control py-4" id="inputPasswork" name="senha" ngModel #senha="ngModel" type="password"
+                                    class="form-control py-4" id="inputPassword" name="senha" ngModel #senha="ngModel" type="password"
                                     placeholder="Insira sua Senha" required /></div>
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox"><input class="custom-control-input"
                                         id="rememberPasswordCheck" type="checkbox" /><label class="custom-control-label"
                                         for="rememberPasswordCheck">Lembrar Senha</label></div>
                             </div>
-                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a
-                                    class="small">Esqueceu sua Senha?</a>
-                                    <button type="submit" class="btn btn-primary"
-                                    >Login</button></div>
+                            <div class="form-group d-flex align-items-center justify-content-center mt-4 mb-0">
+                                    <button type="submit" class="btn btn-lg btn-primary"
+                                    >Entrar</button></div>
                         </form>
-                    </div>
-                    <div class="card-footer text-center">
-                        <div>Sistema ClockIn</div>
                     </div>
                 </div>
             </div>

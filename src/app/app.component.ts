@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
-import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +14,6 @@ export class AppComponent implements OnInit {
   
   urlBase = this.appService.buscarUrlBase();
   idUsuario = this.appService.buscarUsuario();
-  dataInicialFiltro: DatePipe;
   dtTrigger: any;
    
   constructor(private appService: AppService, private router: Router) {
@@ -46,6 +44,5 @@ export class AppComponent implements OnInit {
     );
     return (this.listaDePontos);
   }
-
 }
 

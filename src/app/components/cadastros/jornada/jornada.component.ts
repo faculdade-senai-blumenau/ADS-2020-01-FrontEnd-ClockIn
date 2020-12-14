@@ -33,6 +33,7 @@ export class JornadaComponent implements OnInit {
     $(function () {
       // Datatables basic
       $('#datatables-jornada').DataTable({
+        destroy: true,
         responsive: true,
         language: {
           emptyTable: "Nenhum registro encontrado",
@@ -80,7 +81,7 @@ export class JornadaComponent implements OnInit {
   }
 
   buscarJornadaPeloID(idJornada: number) {
-    this.appService.buscarRegistroIDGenerico('jornada', idJornada).subscribe(
+    this.appService.buscarPorIDGenerico('jornada', idJornada).subscribe(
       resposta => this.jornada = resposta);
   }
 
@@ -131,4 +132,5 @@ export class JornadaComponent implements OnInit {
   limparObjetoJornada() {
     this.jornada = {};
   }
+  
 }

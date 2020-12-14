@@ -4,7 +4,6 @@ import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
-import { Usuario, Setor } from 'src/app/app.model';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 
@@ -50,28 +49,27 @@ export class HomeComponent implements OnInit {
   setoresCombo: any[];
   cargosCombo: any[];
   jornadasCombo: any[];
-
+  dataLimite = moment().subtract(7, 'days').format('yyyy-MM-DD');
 
   constructor(private datePipe: DatePipe,
     private appService: AppService, private router: Router, private appComponent: AppComponent) {
   }
-
 
   ngOnInit(): void {
     if (this.appService.getUsuarioLogado() == null) {
       this.router.navigate(["/login"]);
     }
 
-    this.listarRegistrosPontoSemanal();
+    this.listarRegistroPontoSemanal(this.dataLimite, this.idUsuario);
 
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-      this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
+      this.relogio = this.datePipe.transform(new Date(), 'HH:mm');
     });
 
     /* Retorna Informações do Usuario pelo ID Usuario*/
-    this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe((usuario) => {
+    this.appService.buscarPorIDGenerico('usuario', this.idUsuario).subscribe((usuario) => {
       this.usuario = usuario;
     });
 
@@ -91,12 +89,10 @@ export class HomeComponent implements OnInit {
 
   }
   sessao() {
-
     this.appService.controlaSessao();
 
   }
   usuarioComum() {
-
     if (this.appService.getUsuarioLogado().cargoConfianca == 1) {
       return false;
     } else {
@@ -106,33 +102,20 @@ export class HomeComponent implements OnInit {
   }
 
 
-  listarRegistrosPontoSemanal() {
-    
-    const dataInicial = moment().subtract(7, 'days').format();
-    this.listaDePontos = this.buscarRegistrosPonto(this.idUsuario, dataInicial, null);
-  };
-
-  buscarRegistrosPonto(idUsuario: number, dataInicial: string, dataFinal: string) {
-   
-    this.appService.buscarRegistrosPontoUsuario(idUsuario).subscribe((registroPonto) => {
+  listarRegistroPontoSemanal(dataLimite: any, idUsuario: number) {
+    this.appService.buscarRegistroPontoSemanal(dataLimite, idUsuario).subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
-      const groups = new Set(this.registroPonto
-        .filter(i => i.dataRegistro >= dataInicial && (i.dataRegistro <= dataFinal || dataFinal == null))
-        .map(item => item.dataRegistro));
-
-      this.listaDePontos = [];
-      groups.forEach(g =>
-        this.listaDePontos.push({
-          dataRegistro: g,
-          values: this.registroPonto.filter(i => i.dataRegistro === g)
-        }),
-      );
-      
-    });
+      this.listaDePontos = this.registroPonto.reduce((r, { dataRegistro }) => {
+        if (!r.some(o => o.dataRegistro == dataRegistro)) {
+          r.push({ dataRegistro, horaRegistro: this.registroPonto.filter(v => v.dataRegistro == dataRegistro) });
+        }
+        return r;
+      }, []);
+    })
   }
 
   registrarPonto(): void {
-    
+
     this.limparMemsagens();
     this.ponto = {
       idUsuario: this.idUsuario,
@@ -140,11 +123,12 @@ export class HomeComponent implements OnInit {
       horaRegistro: this.relogio,
       justificaPonto: 0,
       JustificaReprocacao: '',
-      edicaoAprovada: 0
+      edicaoAprovada: 0,
+      espelhoPonto: 0,
+      color: ''
     };
 
-    this.appService.registrarPonto(this.ponto).subscribe(
-      
+    this.appService.criarGenerico('registroPonto', this.ponto).subscribe(
       success => {
         this.dataHoraBatida = new Date();
         this.botaoPonto.next(this.btnPonto = 'success btn-lg');
@@ -152,7 +136,7 @@ export class HomeComponent implements OnInit {
         this.botaoPonto.next(this.desabilitar = '2');
         this.botaoPonto.next(this.btnPontoMensagem = 'Ponto Registrado');
         this.alerta.next(this.mensagemSucesso = (`Ponto Registrado com Sucesso em:  `));
-        this.listarRegistrosPontoSemanal();
+        this.listarRegistroPontoSemanal(this.dataLimite, this.idUsuario);
       },
       error => {
         this.dataHoraBatida = null;
@@ -161,65 +145,11 @@ export class HomeComponent implements OnInit {
         this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto - Tente Novamente mais Tarde');
       }
     );
-    
-  }
 
-
-  buscarUsuarioPeloID() {
-    this.appService.buscarUsuarioPeloID(this.idUsuario).subscribe(
-      resposta => this.usuario = resposta);
-    this.buscarRegistrosCombo()
-  }
-
-  buscarRegistrosCombo() {
-    this.appService.listarGenerico('setor').subscribe((setoresCombo) => {
-      this.setoresCombo = setoresCombo;
-    })
-    this.appService.listarGenerico('cargo').subscribe((setoresCombo) => {
-      this.cargosCombo = setoresCombo;
-    })
-    this.appService.listarGenerico('jornada').subscribe((setoresCombo) => {
-      this.jornadasCombo = setoresCombo;
-    })
-  }
-
-
-  buscarEnderecoPeloCep(cep: string) {
-    this.appService.consultaCepCorreios(cep).subscribe((enderecoCorreio) => {
-      this.usuario.rua = enderecoCorreio.logradouro;
-      this.usuario.bairro = enderecoCorreio.bairro;
-      this.usuario.cidade = enderecoCorreio.localidade;
-      this.usuario.estado = enderecoCorreio.uf;
-      $("#numero").focus();
-    })
-  }
-
-  alterarImagem(imagem: any) {
-    let reader = new FileReader();
-    reader.readAsDataURL(imagem[0]);
-
-    reader.onload = (e) => {
-      this.usuario.foto = reader.result;
-
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
-  }
-
-  updateUsuario() {
-    this.limparMemsagens()
-    this.appService.updateGenerico('usuario', this.idUsuario, this.usuario).subscribe(
-      success => {
-        this.alerta.next(this.mensagemUsuarioSucesso = (`Registro salvo com sucesso.`));
-      },
-      error => {
-        this.alerta.next(this.mensagemUsuarioErro = ('Não foi possível salvar o registro.'));
-      }
-    );
   }
 
   limparMemsagens() {
     this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''
-    this.mensagemUsuarioErro = '', this.mensagemUsuarioSucesso = '' }
+    this.mensagemUsuarioErro = '', this.mensagemUsuarioSucesso = ''
+  }
 }

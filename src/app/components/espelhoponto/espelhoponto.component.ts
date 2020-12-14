@@ -74,11 +74,12 @@ export class EspelhopontoComponent implements OnInit {
     
   }
 
-  reprovarEspelhoPonto(espelhoPonto) {
-    espelhoPonto.status = 2;
+  aprovarReprovarEspelhoPonto(status: number, espelhoPonto) {
+    espelhoPonto.status = status;
     this.appService.alterarStatusEspelho(espelhoPonto).subscribe(
       success => {
-        this.getEspelhoPonto();
+    this.getEspelhoPonto();
+    this.getEspelhoPontoAprovado();
         this.alerta.next(this.mensagemEspelhoOk = (`Registro salvo com sucesso.`));
   
       },
@@ -86,21 +87,6 @@ export class EspelhopontoComponent implements OnInit {
         this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel salvar o registro.'));
       }
     )
-  }
-  
-  aprovarEspelhoPonto(espelhoPonto) {
-    espelhoPonto.status = 1;
-    this.appService.alterarStatusEspelho(espelhoPonto).subscribe(
-      success => {
-        this.getEspelhoPontoAprovado();
-        this.alerta.next(this.mensagemEspelhoOk = (`Registro salvo com sucesso.`));
-
-      },
-      error => {
-        this.alerta.next(this.mensagemEspelhoErro = ('Não foi possivel salvar o registro.'));
-      }
-    )
-    
   }
 
   visualizarEspelhoPonto(idUsuario: number, dataInicial: string, dataFinal:string) {

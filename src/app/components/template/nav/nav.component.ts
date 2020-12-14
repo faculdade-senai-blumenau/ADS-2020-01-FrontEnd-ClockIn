@@ -17,26 +17,20 @@ export class NavComponent implements OnInit {
   constructor(private appService: AppService, private router: Router, public appComponent: AppComponent) { }
   
   ngOnInit() {
-    
   }
   loading(){
     
   }
    usuarioGestor() {
-    
     if (this.appService.getUsuarioLogado().gestor == 0){
       return false;
     } else {
       return true;
     }
-    
   }
 
    logout(){
-    
     this.appService.declararUsuario(null);
     this.router.navigate(["/login"]);
-    
   }
-
 }

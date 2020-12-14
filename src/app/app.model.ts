@@ -33,6 +33,8 @@ export interface RegistroPonto {
     justificaPonto: number;
     justificativaReprovacao: string;
     edicaoAprovada: number;
+    espelhoPonto: number;
+    color: String;
 }
 
 export interface Setor {
@@ -64,9 +66,9 @@ export interface EspelhoPonto {
     status: number;
 }
 export interface Parametro {
+    tempoSessao: number;
     idParametro?: number;
     tempoLimite: any;
     tipoNotificacao: any;
     tempSessao: any;
-    tempoSessao: any;
 }

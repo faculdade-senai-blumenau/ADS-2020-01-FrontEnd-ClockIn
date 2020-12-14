@@ -36,6 +36,7 @@ export class UsuarioComponent implements OnInit {
     $(function () {
       // Datatables basic
       $('#datatables-usuario').DataTable({
+        destroy: true,
         responsive: true, 
         language: {
           emptyTable: "Nenhum registro encontrado",
@@ -97,7 +98,6 @@ export class UsuarioComponent implements OnInit {
     this.appService.listarGenerico('usuario').subscribe((usuarios) => {
       this.usuarios = usuarios;
     })
-    console.log(this.usuarios)
   }
 
   buscarRegistrosCombo() {
@@ -124,12 +124,13 @@ export class UsuarioComponent implements OnInit {
   }
 
   buscarUsuarioPeloID(idUsuario: number) {
-    this.appService.buscarUsuarioPeloID(idUsuario).subscribe(
+    this.appService.buscarPorIDGenerico('usuario', idUsuario).subscribe(
       resposta => this.usuario = resposta);
     this.buscarRegistrosCombo()
   }
 
   updateUsuario(idUsuario: number) {
+    this.limparMemsagens()
     this.appService.updateGenerico('usuario', idUsuario, this.usuario).subscribe(
       success => {
         this.listarUsuarios();
@@ -140,26 +141,22 @@ export class UsuarioComponent implements OnInit {
       }
     );
   }
-
-  
-  alterarImagem(imagem:any){
-   
-  }
-
   inserirUsuario() {
+    this.limparMemsagens()
     this.appService.criarGenerico('usuario', this.usuario).subscribe(
       success => {
         this.listarUsuarios();
-        this.alerta.next(this.mensagemSucesso = (`Usuario Inserido com Sucesso.`));
+        this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
       },
       error => {
-        this.alerta.next(this.mensagemErro = 'Não foi possível inserir usuario.');
+        this.alerta.next(this.mensagemErro = 'Não foi possível salvar o registro.');
       }
     );
   }
 
 
   excluirUsuario(idUsuario: number) {
+    this.limparMemsagens()
     this.appService.excluirGenerico('usuario', idUsuario).subscribe(
       success => {
         this.listarUsuarios();
@@ -174,4 +171,7 @@ export class UsuarioComponent implements OnInit {
   limparObjetoUsuario() {
     this.usuario = {};
   }
+
+  limparMemsagens() {
+    this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''}
 }

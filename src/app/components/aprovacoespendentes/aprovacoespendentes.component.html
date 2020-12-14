@@ -105,10 +105,11 @@
                 Deseja aprovar todas as edições de ponto?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="limparMensagens()">Cancelar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalAprovarMarcacao">
-                    <button type="button" class="btn btn-success" data-dismiss="modal"
-                        (click)="aprovarReprovarEdicao(1)">Confirmar</button>
+                    <button type="button" class="btn btn-success"
+                        (click)="aprovarEdicao(1, 'green', justificativaReprovacao)"
+                        data-dismiss="modal" >Confirmar</button>
                 </span>
             </div>
         </div>
@@ -129,22 +130,24 @@
                     <div class="card-header">
                         <h5 class="card-title mb-0">
                             <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Por favor informe a justificativa de
+                                <font style="vertical-align: inherit;">Por favor, informe a justificativa de
                                     reprovação</font>
                             </font>
                         </h5>
                     </div>
-                    <textarea type="text" [(ngModel)]="registroPonto.justificativaReprovacao" class="form-control"
-                        rows="2" id="justificativaReprovacao" name="justificativaReprovacao" placeholder="Justificativa"
-                        [value]="registroPonto.justificativaReprovacao">
-                    </textarea>
+                    <textarea [(ngModel)]="justificativaReprovacao" type="text" class="form-control" rows="2"
+                        placeholder="Justificativa" [value]="justificativaReprovacao"></textarea>
+                    <div *ngIf="alertJustificativaReprovacao" id=alertaCampoObrigatorio>
+                        {{alertJustificativaReprovacao}}
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="limparMensagens()">Cancelar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
-                    <button type="button" class="btn btn-success" (click)="aprovarReprovarEdicao(2)"
-                        data-dismiss="modal">Confirmar</button>
+                    <button type="button" class="btn btn-success"
+                        (click)="reprovarEdicao(2, 'red', justificativaReprovacao)"
+                        [attr.data-dismiss]="modalDismiss">Confirmar</button>
                 </span>
             </div>
         </div>
@@ -182,7 +185,6 @@
                                         <tr>
                                             <th>Hora Registro</th>
                                             <th>Justificativa</th>
-                                            <th>Justificativa Reprovação</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -202,13 +204,6 @@
                                             <td *ngIf="ponto.justificaPonto == 0">
                                                 -
                                             </td>
-                                            
-                                            <td>
-                                                <input *ngIf="ponto.justificaPonto" type="text" [(ngModel)]="ponto.justificativaReprovacao"
-                                                    class="form-control" rows="2" id="justificativaReprovacao"
-                                                    name="justificativaReprovacao" placeholder="Justificativa"
-                                                    [value]="ponto.justificativaReprovacao">
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -227,17 +222,20 @@
                             </font>
                         </h5>
                     </div>
-                    <textarea *ngFor="let ponto of registroPonto | slice:0:1; let i=index" type="text"
-                        [(ngModel)]="ponto.justificativaReprovacao" class="form-control" rows="2"
-                        placeholder="Justificativa" [value]="ponto.justificativaReprovacao" ></textarea>
+                    <textarea [(ngModel)]="justificativaReprovacao" type="text" class="form-control" rows="2"
+                        placeholder="Justificativa" [value]="justificativaReprovacao"></textarea>
+                    <div *ngIf="alertJustificativaReprovacao" id=alertaCampoObrigatorio>
+                        {{alertJustificativaReprovacao}}
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-danger" (click)="aprovarReprovarEdicao(2)"
-                    data-dismiss="modal">Reprovar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="limparMensagens()">Fechar</button>
+                <button type="button" class="btn btn-danger" (click)="reprovarEdicao(2, 'red', justificativaReprovacao)"
+                    [attr.data-dismiss]="modalDismiss">Reprovar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
-                    <button type="button" class="btn btn-success" (click)="aprovarReprovarEdicao(1)"
+                    <button type="button" class="btn btn-success"
+                        (click)="aprovarEdicao(1, 'green', justificativaReprovacao)"
                         data-dismiss="modal">Aprovar</button>
                 </span>
             </div>
