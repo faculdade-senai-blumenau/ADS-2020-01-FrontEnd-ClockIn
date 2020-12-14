@@ -51,18 +51,6 @@ export class EditarMarcacaoComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
 
-    this.ponto = {
-      idRegistroPonto: '',
-      idUsuario: '',
-      dataRegistro: '',
-      horaRegistro: '',
-      justificaPonto: 0,
-      justificativaReprovacao: '',
-      edicaoAprovada: 0,
-      espelhoPonto: '',
-      color: ''
-    };
-
     this.listarRegistrosPontoEditarMarcacao(this.idUsuario);
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
@@ -96,26 +84,46 @@ export class EditarMarcacaoComponent implements OnInit {
       resposta => this.registroPonto = this.alterarStatusEdicao(resposta));
   }
 
-  cadastrarEditarRegistroPonto(color, ponto) {
-    this.limparMensagens()
+  editarRegistroPonto(ponto) {
     this.ponto = {
-      idRegistroPonto: this.ponto.idRegistroPonto,
-      idUsuario: this.idUsuario,
-      dataRegistro: this.ponto.dataRegistro,
-      horaRegistro: this.ponto.horaRegistro,
-      justificaPonto: this.ponto.justificaPonto,
+      idRegistroPonto: '',
+      idUsuario: '',
+      dataRegistro: '',
+      horaRegistro: '',
+      justificaPonto: 0,
       justificativaReprovacao: '',
       edicaoAprovada: 0,
-      color: color
-    }
-    this.ponto = this.alterarStatusEdicao(ponto)
-    console.log(this.ponto);
+      espelhoPonto: 0,
+      color: 'blue'
+    };
+
+    this.limparMensagens();
+    this.ponto = this.alterarStatusEdicao(ponto);
     this.verificaCamposObrigatorios(ponto);
     if (ponto.dataRegistro && ponto.horaRegistro && ponto.justificaPonto) {
       this.appService.criarGenerico('registroPonto', ponto).subscribe(
         success => {
           this.listarRegistrosPontoEditarMarcacao(this.idUsuario);
-          
+          this.alerta.next(this.mensagemSucesso = (`Registro salvo com Sucesso.`));
+        },
+        error => {
+          this.alerta.next(this.mensagemErro = 'Não foi possível salvar o registro.');
+        }
+      );
+    }
+    else {
+      this.alerta.next(this.mensagemErro = 'Favor informar todos os campos obrigatórios.');
+    }
+  }
+
+  cadastrarRegistroPonto(ponto) {
+    this.limparMensagens()
+    this.verificaCamposObrigatorios(ponto);
+    ponto.color = 'blue';
+    if (ponto.dataRegistro && ponto.horaRegistro && ponto.justificaPonto) {
+      this.appService.criarGenerico('registroPonto', ponto).subscribe(
+        success => {
+          this.listarRegistrosPontoEditarMarcacao(this.idUsuario);
           this.alerta.next(this.mensagemSucesso = (`Registro salvo com Sucesso.`));
         },
         error => {
