@@ -51,7 +51,6 @@ export class EditarMarcacaoComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
 
-
     this.ponto = {
       idRegistroPonto: '',
       idUsuario: '',
