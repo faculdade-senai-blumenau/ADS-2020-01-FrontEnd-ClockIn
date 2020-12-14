@@ -104,28 +104,7 @@
                 </div>
               </div>
               <!-- Modal Fim-->
-            
-              <div *ngFor="let espelho of espelhoPonto">
-                <div class="modal fade" [attr.id]="'ModalConfirmarReprovacao' + espelho.idEspelhoPonto" tabindex="-1"
-                  role="dialog" aria-labelledby="ModalConfirmarReprovacaoLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                      </div>
-                      <div class="modal-body text-center" style="font-size: 20px;">
-                        Deseja confirmar a Reprovação?
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-md" data-dismiss="modal">Cancelar</button>
-                        <span class="d-inline-block" data-toggle="modal" data-target="ModalConfirmaOperacao">
-                          <button type="button" class="btn btn-success btn-md" (click)="aprovarReprovarEspelhoPonto(2,espelho)"
-                            data-dismiss="modal">Confirmar</button>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          
             </div>
             <div class="card flex-fill">
               <div class="card-header">

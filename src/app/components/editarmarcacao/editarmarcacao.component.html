@@ -4,6 +4,9 @@
 </ngb-alert>
 <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''"> {{ mensagemErro }}
 </ngb-alert>
+
+
+
 <div class="wrapper" (mouseover)="sessao()">
     <div class="main">
         <main class="content">
@@ -37,8 +40,7 @@
                                                     <label for="dataRegistro p-0">Data Registro</label>
                                                     <input [(ngModel)]="ponto.dataRegistro" class="form-control"
                                                         id="dataRegistro" name="dataRegistro" type="date" required>
-                                                    <div *ngIf="alertDataRegistro" id=alertaCampoObrigatorio
-                                                        (change)="verificaCamposObrigatorios()">
+                                                    <div *ngIf="alertDataRegistro" id=alertaCampoObrigatorio>
                                                         {{alertDataRegistro}}
                                                     </div>
                                                 </div>
@@ -49,8 +51,7 @@
                                                         class="form-control time-mask" id="horaRegistro"
                                                         name="horaRegistro" type="time" required placeholder="00:00"
                                                         minlength="5" maxlength="5" autocomplete="on">
-                                                    <div *ngIf="alertHoraRegistro" id=alertaCampoObrigatorio
-                                                        (change)="verificaCamposObrigatorios()">
+                                                    <div *ngIf="alertHoraRegistro" id=alertaCampoObrigatorio>
                                                         {{alertHoraRegistro}}
                                                     </div>
                                                 </div>
@@ -59,7 +60,7 @@
                                                     <select [(ngModel)]="ponto.justificaPonto"
                                                         class="custom-select  form-control" id="justificaPonto"
                                                         name="justificaPonto" placeholder="Justificativa" type="number"
-                                                        aria-controls="datatables-basic" required>
+                                                         required>
                                                         <option value="1">
                                                             <font style="vertical-align: inherit;">
                                                                 <font style="vertical-align: inherit;">Esquecimento
@@ -80,12 +81,11 @@
                                                             </font>
                                                         </option>
                                                     </select>
-                                                    <div *ngIf="alertJustificaPonto" id=alertaCampoObrigatorio
-                                                        (blur)="verificaCamposObrigatorios()">
+                                                    <div *ngIf="alertJustificaPonto" id=alertaCampoObrigatorio>
                                                         {{alertJustificaPonto}} </div>
                                                 </div>
                                                 <div class=" col-lg-2 col-sm-12 col-md-6 ">
-                                                    <button type=" submit" (click)="cadastrarEditarRegistroPonto()"
+                                                    <button type=" submit" (click)="cadastrarEditarRegistroPonto(ponto)"
                                                         class="btn btn-success float-right  mt-4  ">Salvar
                                                     </button>
                                                     <button class="btn btn-secondary float-right  mt-4"
@@ -108,46 +108,19 @@
                                         </thead>
                                         <tbody>
                                             <tr
-                                                *ngFor="let ponto of listaDePontos | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
+                                                *ngFor="let registroPonto of listaDePontos | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
                                                 <td>
-                                                    <p class="p-0 m-0" [(ngModel)]="ponto.dataRegistro">
-                                                        {{ponto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
+                                                    <p class="p-0 m-0" [(ngModel)]="registroPonto.dataRegistro" disabled>
+                                                        {{registroPonto.dataRegistro | date: 'dd/MM/yyyy'}}</p>
                                                 </td>
-                                                <td class="text-center" data-color="0" *ngFor="let ponto of ponto.horaRegistro">
-                                                    <p class="p-0 m-0" [(ngModel)]="ponto.dataRegistro"
-                                                        data-toggle="modal" data-target="#editarMarcacao"
-                                                        (click)="buscarRegistroPontoID(ponto.idRegistroPonto)"
-                                                        id="edicaoAprovada" name="edicaoAprovada"
-                                                        aria-controls="datatables-basic" disabled type="text"
-                                                        *ngIf="ponto.edicaoAprovada == 1" data-color="1">
-                                                        {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
-                                                    </p>
-                                                    <p class="p-0 m-0" [(ngModel)]="ponto.dataRegistro"
-                                                        data-toggle="modal" data-target="#editarMarcacao"
-                                                        (click)="buscarRegistroPontoID(ponto.idRegistroPonto)"
-                                                        id="edicaoAprovada" name="edicaoAprovada"
-                                                        aria-controls="datatables-basic" disabled type="text"
-                                                        *ngIf="ponto.edicaoAprovada == 2 && ponto.justificaPonto == 0"
-                                                        data-color="2">
-                                                        {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
-                                                    </p>
-                                                    <p class="p-0 m-0" [(ngModel)]="ponto.dataRegistro"
-                                                        data-toggle="modal" data-target="#editarMarcacao"
-                                                        (click)="buscarRegistroPontoID(ponto.idRegistroPonto)"
-                                                        id="edicaoAprovada" name="edicaoAprovada"
-                                                        aria-controls="datatables-basic" disabled type="text"
-                                                        *ngIf="(ponto.edicaoAprovada == 0 && ponto.justificaPonto> 0) || (ponto.edicaoAprovada == 2 && registroPonto.justificaPonto> 0) "
-                                                        data-color="3">
-                                                        {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
-                                                    </p>
-                                                    <p class="p-0 m-0" [(ngModel)]="ponto.dataRegistro"
-                                                        data-toggle="modal" data-target="#editarMarcacao"
-                                                        (click)="buscarRegistroPontoID(ponto.idRegistroPonto)"
-                                                        id="edicaoAprovada" name="edicaoAprovada"
-                                                        aria-controls="datatables-basic" disabled type="text"
-                                                        *ngIf="ponto.edicaoAprovada == 0 && ponto.justificaPonto == 0"
-                                                        data-color="0">
-                                                        {{ponto["horaRegistro"].split(":")[0]}}:{{ponto["horaRegistro"].split(":")[1]}}
+                                                <td class="text-center"
+                                                    *ngFor="let registroPonto of registroPonto.horaRegistro">
+                                                    <p class="p-0 m-0"  [attr.data-color]="registroPonto.color"
+                                                        [(ngModel)]="registroPonto.horaRegistro" data-toggle="modal"
+                                                        data-target="#editarMarcacao"
+                                                        (click)="buscarRegistroPontoID(registroPonto.idRegistroPonto)"
+                                                        id="horaRegistro" name="horaRegistro"  type="text">
+                                                        {{registroPonto["horaRegistro"].split(":")[0]}}:{{registroPonto["horaRegistro"].split(":")[1]}}
                                                     </p>
                                                 </td>
                                             </tr>
@@ -171,7 +144,7 @@
                                             <h4 class="modal-title" id="exampleModalLongTitle">Editar Registro
                                                 Ponto
                                             </h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss=modal (click)="limparMensagens()" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -187,85 +160,56 @@
                                                                             <div class="col-md-6 pb-2 pt-1">
                                                                                 <label for="dataRegistro">Data
                                                                                     Registro</label>
-                                                                                <input [(ngModel)]="ponto.dataRegistro"
-                                                                                    class="form-control"
-                                                                                    id="dataRegistro"
-                                                                                    name="dataRegistro"
-                                                                                    [value]="registroPonto.dataRegistro"
-                                                                                    type="date" required disabled>
+                                                                                <input
+                                                                                    [(ngModel)]="registroPonto.dataRegistro"
+                                                                                    class="form-control" id="dataRegistro" name="dataRegistro"
+                                                                                    [value]="registroPonto.dataRegistro" type="date" required disabled>
                                                                             </div>
                                                                             <div class="col-md-6 pb-2 pt-1">
                                                                                 <label for="horaRegistro">Hora
                                                                                     Registro</label>
-                                                                                <input [(ngModel)]="ponto.horaRegistro"
-                                                                                    class="form-control time-mask"
-                                                                                    id="horaRegistro"
-                                                                                    name="horaRegistro" type="time"
-                                                                                    required placeholder="00:00"
-                                                                                    minlength="5" maxlength="5"
-                                                                                    autocomplete="on">
+                                                                                <input
+                                                                                    [(ngModel)]="registroPonto.horaRegistro"  class="form-control time-mask"
+                                                                                    id="horaRegistro" name="horaRegistro" type="time"
+                                                                                    required placeholder="00:00" minlength="5" maxlength="5"
+                                                                                    autocomplete="on" >
+                                                                                    <div *ngIf="alertHoraRegistro" id=alertaCampoObrigatorio>
+                                                                                        {{alertHoraRegistro}} </div>
                                                                             </div>
+                                                                           
                                                                             <div class="col-md-7">
                                                                                 <label
                                                                                     for="justificaPonto">Justificativa</label>
                                                                                 <select
-                                                                                    [(ngModel)]="ponto.justificaPonto"
-                                                                                    class="custom-select  form-control"
-                                                                                    id="justificaPonto"
-                                                                                    name="justificaPonto"
-                                                                                    placeholder="Justificativa"
-                                                                                    type="number"
-                                                                                    aria-controls="datatables-basic"
+                                                                                    [(ngModel)]="registroPonto.justificaPonto"
+                                                                                    class="custom-select  form-control"  id="justificaPonto"
+                                                                                    name="justificaPonto" placeholder="Justificativa" type="number"
                                                                                     placeholder="Selecione..."
-                                                                                    (change)="alterarStatusEdicao(ponto)">
-                                                                                    <option value="1">
-                                                                                        <font
-                                                                                            style="vertical-align: inherit;">
-                                                                                            <font
-                                                                                                style="vertical-align: inherit;">
-                                                                                                Esquecimento
-                                                                                            </font>
-                                                                                        </font>
-                                                                                    </option>
-                                                                                    <option value="2">
-                                                                                        <font
-                                                                                            style="vertical-align: inherit;">
-                                                                                            <font
-                                                                                                style="vertical-align: inherit;">
-                                                                                                Trabalho Externo
-                                                                                            </font>
-                                                                                        </font>
-                                                                                    </option>
-                                                                                    <option value="3">
-                                                                                        <font
-                                                                                            style="vertical-align: inherit;">
-                                                                                            <font
-                                                                                                style="vertical-align: inherit;">
-                                                                                                Sistema
-                                                                                                Indisponível
-                                                                                            </font>
-                                                                                        </font>
-                                                                                    </option>
+                                                                                    (change)="alterarStatusEdicao(registroPonto)">
+                                                                                    <option value="1">Esquecimento</option>
+                                                                                    <option value="2">Trabalho Externo
+                                                                                    <option value="3"> Sistema Indisponível </option>
+                                                                                    <option value="4"> Registro Incorreto </option>
                                                                                 </select>
+                                                                                <div *ngIf="alertJustificaPonto" id=alertaCampoObrigatorio>
+                                                                                    {{alertJustificaPonto}} </div>
                                                                             </div>
                                                                             <div class="col-md-5">
                                                                                 <label for="edicaoAprovada">Status
                                                                                     Edição</label>
-                                                                                <p [(ngModel)]="ponto.edicaoAprovada"
+                                                                                <p [(ngModel)]="registroPonto.edicaoAprovada"
                                                                                     class="form-control"
                                                                                     id="edicaoAprovada"
                                                                                     name="edicaoAprovada"
-                                                                                    aria-controls="datatables-basic"
                                                                                     disabled type="text">
                                                                                     {{statusEdicaoDescricao}}
                                                                                 </p>
 
                                                                             </div>
                                                                             <div class="col-md-12 pb-2 pt-2">
-                                                                                <label for="horaRegistro">Justificativa
-                                                                                    Reprovação</label>
+                                                                                <label for="horaRegistro">Observação</label>
                                                                                 <textarea type
-                                                                                    [(ngModel)]="ponto.justificativaReprovacao"
+                                                                                    [(ngModel)]="registroPonto.justificativaReprovacao"
                                                                                     class="form-control" rows="2"
                                                                                     [value]="registroPonto.justificativaReprovacao"
                                                                                     disabled></textarea>
@@ -281,10 +225,10 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger"
-                                                data-dismiss="modal">Cancelar</button>
+                                                data-dismiss="modal" (click)="this.limparMensagens()">Cancelar</button>
                                             <button type="button" class="btn btn-success"
-                                                (click)="cadastrarEditarRegistroPonto()"
-                                                data-dismiss="modal">Confirmar</button>
+                                                (click)="cadastrarEditarRegistroPonto(registroPonto)"
+                                                [attr.data-dismiss]="modalDismiss">Confirmar</button>
                                         </div>
                                     </div>
                                 </div>

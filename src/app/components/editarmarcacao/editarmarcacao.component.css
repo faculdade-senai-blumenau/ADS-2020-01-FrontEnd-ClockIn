@@ -5,18 +5,15 @@
   font-style: bolder;
 }
 
-[data-color="1"] {
+[data-color='green'] {
   color: green;
   font-weight: bolder;
 }
-[data-color="2"] {
+[data-color='red'] {
   color: red ;
   font-weight: bolder;
 } 
-[data-color="3"] {
-  color: rgb(54, 97, 153);
+[data-color='blue'] {
+  color: rgb(27, 73, 133);
   font-weight: bolder;
-}
-[data-color="0"] {
-  color: rgb(24, 25, 26);
 }

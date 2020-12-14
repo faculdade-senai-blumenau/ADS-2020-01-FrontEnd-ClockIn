@@ -1,4 +1,5 @@
 <app-nav></app-nav>
+
 <div class="col-md-10 m-0 p-0" id="alertaHome">
     <!-- Alerta Erro ao Registrar Ponto -->
     <ngb-alert *ngIf="mensagemErro" id=alert type="danger" (close)="mensagemErro = ''">{{ mensagemErro }}
@@ -6,7 +7,7 @@
     <!-- Alerta Sucesso ao Registrar Ponto -->
     <ngb-alert *ngIf="mensagemSucesso" id=alert type="success" (close)="mensagemSucesso = ''">{{ mensagemSucesso }}
         <strong> {{ dataHoraBatida | date: 'dd/MM/yyyy' }} as </strong>
-        <strong> {{ dataHoraBatida | date: 'HH:mm:ss' }}</strong>
+        <strong> {{ dataHoraBatida | date: 'HH:mm' }}</strong>
     </ngb-alert>
 
     <!-- Alerta Erro ao Registrar Ponto -->

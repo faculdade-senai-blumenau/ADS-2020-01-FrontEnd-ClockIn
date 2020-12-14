@@ -8,16 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  
   listaDePontos: any;
   registroPonto: any;
-
+  
   urlBase = this.appService.buscarUrlBase();
   idUsuario = this.appService.buscarUsuario();
   dtTrigger: any;
-  
+   
   constructor(private appService: AppService, private router: Router) {
+    
   }
-
+  
   ngOnInit() {
     this.appService.setDeslogado(false);
     this.appService.t=setTimeout(()=>{

@@ -22,6 +22,7 @@ export class AprovacoesPendentesComponent implements OnInit {
   mensagem = '';
   mensagemSucesso = '';
   mensagemErro = '';
+  alertJustificativaReprovacao = '';
 
   dataRegistro: any;
   usuario: any;
@@ -34,11 +35,14 @@ export class AprovacoesPendentesComponent implements OnInit {
   ponto: any;
   desabilitarBotao: any;
   desabilitar = '1';
+  justificativaReprovacao: '';
+  modalDismiss = '';
 
   urlBase = this.appService.buscarUrlBase();
 
 
   public paginaAtual = 1;
+
   constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit(): void {
@@ -75,7 +79,7 @@ export class AprovacoesPendentesComponent implements OnInit {
   listarRegistrosAprovacoesPendentes() {
     this.appService.buscarRegistrosPontoAprovacoesPendentes().subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
-      if(Object.keys(registroPonto).length === 0){
+      if (Object.keys(registroPonto).length === 0) {
         this.desabilitarBotao = "disabled"
         this.desabilitar = '2';
       };
@@ -91,42 +95,22 @@ export class AprovacoesPendentesComponent implements OnInit {
   }
 
   buscarRegistroPontoAprovacao() {
+    this.modalDismiss = '';
+    this.justificativaReprovacao = ''
     this.appService.buscarRegistrosPontoAprovacoesPendentes().subscribe(
       resposta => this.registroPonto = resposta);
   }
 
   aprovacaoPendenteVisualizar(dataRegistro: any, idUsuario: number) {
+    this.modalDismiss = '';
+    this.justificativaReprovacao = ''
     this.appService.aprovacaoPendenteVisualizar(dataRegistro, idUsuario).subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
     })
   }
 
-  aprovarEdicao(statusEdicao: number) {
-    this.registroPonto.forEach(element => {
-      if (element.justificaPonto != 0) {
-        this.ponto = {
-          idRegistroPonto: element.idRegistroPonto,
-          idUsuario: element.idUsuario,
-          dataRegistro: element.dataRegistro,
-          horaRegistro: element.horaRegistro,
-          justificaPonto: element.justificaPonto,
-          justificativaReprovacao: element.justificativaReprovacao,
-          edicaoAprovada: statusEdicao
-        };
-        this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
-          success => {
-            this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
-            this.listarRegistrosAprovacoesPendentes();
-          },
-          error => {
-            this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
-          }
-        );
-      }
-    });
-  }
-
-  reprovarEdicao(statusEdicao: number) {
+  aprovarReprovarEdicao(statusEdicao: number, color: String, justificativaReprovacao: String) {
+    this.limparMensagens()
     this.registroPonto.forEach(element => {
       if (element.justificaPonto != 0) {
         this.ponto = {
@@ -135,19 +119,40 @@ export class AprovacoesPendentesComponent implements OnInit {
           dataRegistro: element.dataRegistro,
           horaRegistro: element.horaRegistro,
           justificaPonto: '',
-          justificativaReprovacao: element.justificativaReprovacao,
-          edicaoAprovada: statusEdicao
+          justificativaReprovacao: justificativaReprovacao,
+          edicaoAprovada: statusEdicao,
+          color: color
         };
-        this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
-          success => {
-            this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
-            this.listarRegistrosAprovacoesPendentes();
-          },
-          error => {
-            this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
-          }
-        );
+        this.verificaCamposObrigatorios(this.ponto);
+        if (this.ponto.justificativaReprovacao) {
+          this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
+            success => {
+              this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
+              this.listarRegistrosAprovacoesPendentes();
+            },
+            error => {
+              this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
+            }
+          );
+        } else {
+          this.alerta.next(this.mensagemErro = 'Favor informar a justificatida de reprovação.');
+        }
       }
     });
+  }
+
+  verificaCamposObrigatorios(ponto) {
+    if (!ponto.justificativaReprovacao) {
+      this.alerta.next(this.alertJustificativaReprovacao = 'Campo Obrigatório');
+    } else {
+      this.modalDismiss = 'modal'
+    }
+  }
+
+  limparMensagens() {
+    this.mensagem = '';
+    this.mensagemSucesso = '';
+    this.mensagemErro = '';
+    this.alertJustificativaReprovacao = '';
   }
 }

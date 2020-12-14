@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule } from '@angular/router';
+import { PreloadAllModules, RouterModule, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -30,6 +30,7 @@ import { UsuarioComponent } from './components/cadastros/usuario/usuario.compone
 import { JornadaComponent } from './components/cadastros/jornada/jornada.component';
 import { CargosComponent } from './components/cadastros/cargos/cargos.component';
 import { EmpresaComponent } from './components/cadastros/empresa/empresa.component';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent, HomeComponent, RelatoriosComponent,
@@ -37,7 +38,14 @@ import { EmpresaComponent } from './components/cadastros/empresa/empresa.compone
     AprovacoesPendentesComponent, CadastrosComponent, LoginComponent, JornadaComponent, SetorComponent, UsuarioComponent, CargosComponent, EmpresaComponent],
 
   imports: [RouterModule, BrowserModule, AppRoutingModule, HttpClientModule, DataTablesModule,
-    ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule, NgxPaginationModule],
+    ReactiveFormsModule, NgbModule, NgbPaginationModule, Ng2SearchPipeModule, FormsModule, NgxPaginationModule,NgxLoadingModule.forRoot({
+      
+      backdropBackgroundColour: 'rgba(0,0,0,0.1)', 
+      backdropBorderRadius: '4px',
+      primaryColour: '#ffffff', 
+      secondaryColour: '#ffffff', 
+      tertiaryColour: '#ffffff'
+  })],
 
   providers: [
     { provide: AppService },

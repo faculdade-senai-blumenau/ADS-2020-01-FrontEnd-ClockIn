@@ -34,6 +34,7 @@ export interface RegistroPonto {
     justificativaReprovacao: string;
     edicaoAprovada: number;
     espelhoPonto: number;
+    color: number;
 }
 
 export interface Setor {

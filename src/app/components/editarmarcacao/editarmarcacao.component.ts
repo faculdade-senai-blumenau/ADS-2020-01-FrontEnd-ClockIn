@@ -37,19 +37,21 @@ export class EditarMarcacaoComponent implements OnInit {
   public paginaAtual = 1;
   statusEdicaoDescricao: any;
   dataColor: number;
-
-
+  loadingvar = 0;
+  color = '';
+  modalDismiss = '';
   /* Variaveis Fim */
 
-  constructor(
-    private appService: AppService,
-    private datePipe: DatePipe,
-    private router: Router) { }
+  constructor(private appService: AppService, private router: Router, private appComponent: AppComponent, private datePipe: DatePipe) {
+
+  }
 
   ngOnInit(): void {
     if (this.appService.getUsuarioLogado() == null) {
       this.router.navigate(["/login"]);
     }
+
+
     this.ponto = {
       idRegistroPonto: '',
       idUsuario: '',
@@ -58,11 +60,11 @@ export class EditarMarcacaoComponent implements OnInit {
       justificaPonto: 0,
       justificativaReprovacao: '',
       edicaoAprovada: 0,
-      espelhoPonto: ''
+      espelhoPonto: '',
+      color: 'blue'
     };
 
     this.listarRegistrosPontoEditarMarcacao(this.idUsuario);
-
     this.clockHandle = setInterval(() => {
       /* Remove o alerta após o tempo determinado (milisegundos) */
       this.alerta.pipe(debounceTime(5000)).subscribe(() => {
@@ -78,29 +80,28 @@ export class EditarMarcacaoComponent implements OnInit {
     this.limparObjetoPonto();
     this.appService.buscarRegistrosPontoEditarMarcacao(idUsuario).subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
-      this.listaDePontos = this.registroPonto.reduce((r,{dataRegistro})=>{
-        if(!r.some(o=>o.dataRegistro==dataRegistro)){
-          r.push({dataRegistro,horaRegistro:this.registroPonto.filter(v=>v.dataRegistro==dataRegistro)});
-    }
-    return r;
-    },[]);
+      this.listaDePontos = this.registroPonto.reduce((r, { dataRegistro }) => {
+        if (!r.some(o => o.dataRegistro == dataRegistro)) {
+          r.push({ dataRegistro, horaRegistro: this.registroPonto.filter(v => v.dataRegistro == dataRegistro) });
+        }
+        return r;
+      }, []);
     });
   }
 
   buscarRegistroPontoID(idRegistroPonto: number) {
+    this.modalDismiss = '';
     this.limparObjetoPonto();
     this.appService.buscarPorIDGenerico('registroPonto', idRegistroPonto).subscribe(
-      resposta => this.ponto = this.alterarStatusEdicao(resposta)
-
-      );
+      resposta => this.registroPonto = this.alterarStatusEdicao(resposta));
   }
 
-  cadastrarEditarRegistroPonto() {
+  cadastrarEditarRegistroPonto(ponto) {
     this.limparMensagens()
     this.ponto.idUsuario = this.idUsuario
-    this.verificaCamposObrigatorios();
-    if(this.ponto.dataRegistro && this.ponto.horaRegistro && this.ponto.justificaPonto ){
-      this.appService.criarGenerico('registroPonto', this.ponto).subscribe(
+    this.verificaCamposObrigatorios(ponto);
+    if (ponto.dataRegistro && ponto.horaRegistro && ponto.justificaPonto) {
+      this.appService.criarGenerico('registroPonto', ponto).subscribe(
         success => {
           this.listarRegistrosPontoEditarMarcacao(this.idUsuario);
           this.alerta.next(this.mensagemSucesso = (`Registro salvo com Sucesso.`));
@@ -115,40 +116,45 @@ export class EditarMarcacaoComponent implements OnInit {
     }
   }
 
-  verificaCamposObrigatorios(){
-    this.ponto.idUsuario = this.idUsuario
-    if (!this.ponto.dataRegistro){
+  verificaCamposObrigatorios(ponto) {
+    ponto.idUsuario = this.idUsuario
+    if (!ponto.dataRegistro) {
       this.alerta.next(this.alertDataRegistro = 'Campo Obrigatório');
-    }else {
+    } else {
       this.alerta.next(this.alertDataRegistro = '');
     }
-    if (!this.ponto.horaRegistro){
+    if (!ponto.horaRegistro) {
       this.alerta.next(this.alertHoraRegistro = 'Campo Obrigatório');
-    }else{
+    } else {
       this.alerta.next(this.alertHoraRegistro = '');
     }
-    if (!this.ponto.justificaPonto){
+    if (!ponto.justificaPonto) {
       this.alerta.next(this.alertJustificaPonto = 'Campo Obrigatório');
-    }else{
+    } else {
       this.alerta.next(this.alertJustificaPonto = '');
+    }
+    if (ponto.justificaPonto && ponto.horaRegistro && ponto.dataRegistro) {
+      this.modalDismiss = 'modal'
     }
   }
 
   alterarStatusEdicao(ponto) {
-    this.statusEdicaoDescricao = "";
-    if (ponto.edicaoAprovada === 0 && ponto.justificaPonto === 0){
+    if (ponto.edicaoAprovada == 0 && ponto.justificaPonto === 0) {
       this.statusEdicaoDescricao = "Não Editado"
     }
     else if (ponto.edicaoAprovada == 1) {
       this.statusEdicaoDescricao = "Aprovada pelo Gestor"
+      ponto.color = 'green'
     }
     else if (ponto.edicaoAprovada == 2 && ponto.justificaPonto == 0) {
       this.statusEdicaoDescricao = "Reprovada pelo Gestor"
+      ponto.color = 'red'
     }
     else if ((ponto.edicaoAprovada == 0 && ponto.justificaPonto > 0) || (ponto.edicaoAprovada == 2 && ponto.justificaPonto > 0)) {
       this.statusEdicaoDescricao = "Aguardando Aprovação"
+      ponto.color = 'blue'
     }
-    return ponto
+    return (this.statusEdicaoDescricao, ponto)
   }
 
   limparObjetoPonto() {

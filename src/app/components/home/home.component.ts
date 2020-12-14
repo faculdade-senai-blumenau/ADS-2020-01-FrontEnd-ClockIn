@@ -4,8 +4,8 @@ import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
-import { Usuario, Setor } from 'src/app/app.model';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 
 @Component({
@@ -51,9 +51,8 @@ export class HomeComponent implements OnInit {
   jornadasCombo: any[];
   dataLimite = moment().subtract(7, 'days').format('yyyy-MM-DD');
 
-
   constructor(private datePipe: DatePipe,
-    private appService: AppService, private router: Router) {
+    private appService: AppService, private router: Router, private appComponent: AppComponent) {
   }
 
   ngOnInit(): void {
@@ -66,7 +65,7 @@ export class HomeComponent implements OnInit {
     /* Retorna a data e hora atual */
     this.clockHandle = setInterval(() => {
       this.dataAtual = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
-      this.relogio = this.datePipe.transform(new Date(), 'HH:mm:ss');
+      this.relogio = this.datePipe.transform(new Date(), 'HH:mm');
     });
 
     /* Retorna Informações do Usuario pelo ID Usuario*/
@@ -102,20 +101,21 @@ export class HomeComponent implements OnInit {
 
   }
 
+
   listarRegistroPontoSemanal(dataLimite: any, idUsuario: number) {
     this.appService.buscarRegistroPontoSemanal(dataLimite, idUsuario).subscribe((registroPonto) => {
       this.registroPonto = registroPonto;
-      this.listaDePontos = this.registroPonto.reduce((r,{dataRegistro})=>{
-        if(!r.some(o=>o.dataRegistro==dataRegistro)){
-          r.push({dataRegistro,horaRegistro:this.registroPonto.filter(v=>v.dataRegistro==dataRegistro)});
-    }
-    return r;
-    },[]);
-    });
-
+      this.listaDePontos = this.registroPonto.reduce((r, { dataRegistro }) => {
+        if (!r.some(o => o.dataRegistro == dataRegistro)) {
+          r.push({ dataRegistro, horaRegistro: this.registroPonto.filter(v => v.dataRegistro == dataRegistro) });
+        }
+        return r;
+      }, []);
+    })
   }
 
   registrarPonto(): void {
+
     this.limparMemsagens();
     this.ponto = {
       idUsuario: this.idUsuario,
@@ -123,7 +123,9 @@ export class HomeComponent implements OnInit {
       horaRegistro: this.relogio,
       justificaPonto: 0,
       JustificaReprocacao: '',
-      edicaoAprovada: 0
+      edicaoAprovada: 0,
+      espelhoPonto: 0,
+      color: ''
     };
 
     this.appService.criarGenerico('registroPonto', this.ponto).subscribe(
@@ -143,9 +145,11 @@ export class HomeComponent implements OnInit {
         this.alerta.next(this.mensagemErro = 'Erro ao Registrar Ponto - Tente Novamente mais Tarde');
       }
     );
+
   }
 
   limparMemsagens() {
     this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''
-    this.mensagemUsuarioErro = '', this.mensagemUsuarioSucesso = '' }
+    this.mensagemUsuarioErro = '', this.mensagemUsuarioSucesso = ''
+  }
 }
