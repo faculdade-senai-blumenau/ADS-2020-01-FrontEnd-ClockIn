@@ -60,7 +60,7 @@ export class EditarMarcacaoComponent implements OnInit {
       justificativaReprovacao: '',
       edicaoAprovada: 0,
       espelhoPonto: '',
-      color: 'blue'
+      color: ''
     };
 
     this.listarRegistrosPontoEditarMarcacao(this.idUsuario);
@@ -86,6 +86,7 @@ export class EditarMarcacaoComponent implements OnInit {
         return r;
       }, []);
     });
+    this.alterarStatusEdicao(this.listaDePontos)
   }
 
   buscarRegistroPontoID(idRegistroPonto: number) {
@@ -95,14 +96,26 @@ export class EditarMarcacaoComponent implements OnInit {
       resposta => this.registroPonto = this.alterarStatusEdicao(resposta));
   }
 
-  cadastrarEditarRegistroPonto(ponto) {
+  cadastrarEditarRegistroPonto(color, ponto) {
     this.limparMensagens()
-    this.ponto.idUsuario = this.idUsuario
+    this.ponto = {
+      idRegistroPonto: this.ponto.idRegistroPonto,
+      idUsuario: this.idUsuario,
+      dataRegistro: this.ponto.dataRegistro,
+      horaRegistro: this.ponto.horaRegistro,
+      justificaPonto: this.ponto.justificaPonto,
+      justificativaReprovacao: '',
+      edicaoAprovada: 0,
+      color: color
+    }
+    this.ponto = this.alterarStatusEdicao(ponto)
+    console.log(this.ponto);
     this.verificaCamposObrigatorios(ponto);
     if (ponto.dataRegistro && ponto.horaRegistro && ponto.justificaPonto) {
       this.appService.criarGenerico('registroPonto', ponto).subscribe(
         success => {
           this.listarRegistrosPontoEditarMarcacao(this.idUsuario);
+          
           this.alerta.next(this.mensagemSucesso = (`Registro salvo com Sucesso.`));
         },
         error => {

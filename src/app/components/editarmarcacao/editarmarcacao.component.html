@@ -85,7 +85,7 @@
                                                         {{alertJustificaPonto}} </div>
                                                 </div>
                                                 <div class=" col-lg-2 col-sm-12 col-md-6 ">
-                                                    <button type=" submit" (click)="cadastrarEditarRegistroPonto(ponto)"
+                                                    <button type=" submit" (click)="cadastrarEditarRegistroPonto('blue', ponto)"
                                                         class="btn btn-success float-right  mt-4  ">Salvar
                                                     </button>
                                                     <button class="btn btn-secondary float-right  mt-4"
@@ -227,7 +227,7 @@
                                             <button type="button" class="btn btn-danger"
                                                 data-dismiss="modal" (click)="this.limparMensagens()">Cancelar</button>
                                             <button type="button" class="btn btn-success"
-                                                (click)="cadastrarEditarRegistroPonto(registroPonto)"
+                                                (click)="cadastrarEditarRegistroPonto('blue', registroPonto)"
                                                 [attr.data-dismiss]="modalDismiss">Confirmar</button>
                                         </div>
                                     </div>

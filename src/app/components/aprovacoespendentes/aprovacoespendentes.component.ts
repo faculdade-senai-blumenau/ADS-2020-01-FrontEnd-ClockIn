@@ -60,7 +60,8 @@ export class AprovacoesPendentesComponent implements OnInit {
       horaRegistro: '',
       justificaPonto: '',
       justificativaReprovacao: '',
-      edicaoAprovada: ''
+      edicaoAprovada: '',
+      color: ''
     };
 
 
@@ -154,11 +155,12 @@ export class AprovacoesPendentesComponent implements OnInit {
           edicaoAprovada: statusEdicao,
           color: color
         };
-        this.modalDismiss = 'modal'
         this.appService.updateGenerico('registroPonto', element.idRegistroPonto, this.ponto).subscribe(
           success => {
             this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
+            this.modalDismiss = 'modal'
             this.listarRegistrosAprovacoesPendentes();
+ 
           },
           error => {
             this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));

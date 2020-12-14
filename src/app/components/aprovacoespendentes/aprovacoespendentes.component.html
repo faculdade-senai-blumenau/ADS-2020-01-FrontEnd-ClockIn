@@ -109,7 +109,7 @@
                 <span class="d-inline-block" data-toggle="modal" data-target="modalAprovarMarcacao">
                     <button type="button" class="btn btn-success"
                         (click)="aprovarEdicao(1, 'green', justificativaReprovacao)"
-                        [attr.data-dismiss]="modalDismiss">Confirmar</button>
+                        data-dismiss="modal" >Confirmar</button>
                 </span>
             </div>
         </div>
@@ -236,7 +236,7 @@
                 <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
                     <button type="button" class="btn btn-success"
                         (click)="aprovarEdicao(1, 'green', justificativaReprovacao)"
-                        [attr.data-dismiss]="modalDismiss">Aprovar</button>
+                        data-dismiss="modal">Aprovar</button>
                 </span>
             </div>
         </div>
