@@ -48,14 +48,17 @@ export class ParametroComponent implements OnInit {
    
     this.appService.controlaSessao();
   }
+
   updateParametros(){
     this.parametro.tempSessao=this.tempoSessao;
+    this.parametro.tempoSessao=this.tempoSessao;
     this.appService.alterarParametros(this.parametro).subscribe(
       success => {
-          this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
+
+          this.alerta.next(this.mensagemSucesso = (`Alteração Realizada com Sucesso.`));
       },
       error => {
-          this.alerta.next(this.mensagemErro = ('Não foi possivel salvar o registro.'));
+          this.alerta.next(this.mensagemErro = ('Não foi possivel realizar a alteração.'));
       }
   );
   }

@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
     if (this.appService.getDeslogado()) {
       this.erroLogin("Sessão Expirada");
     }
+    this.appService.setParametro();
   }
 
   getUsuarioLogado() {
@@ -62,7 +63,6 @@ export class LoginComponent implements OnInit {
     this.appService.logar(this.loginUsuario).subscribe(
       resposta => {
         this.usuarioLogado = resposta
-        console.log(this.loginUsuario)
         if (this.loginUsuario.email != "" && this.loginUsuario.senha != "") {
           if (this.usuarioLogado == null) {
             this.erroLogin('Usuário ou Senha inválidos!');

@@ -23,7 +23,7 @@ export class SetorComponent implements OnInit {
     setores: any;
     usuarios: any;
     setor: any;
-    usuario:any;
+    usuario: any;
 
     /* Variaveis Fim */
 
@@ -65,10 +65,7 @@ export class SetorComponent implements OnInit {
         this.listarSetores();
 
         this.setor = {
-            idSetor: '',
-            idUsuario: '',
-            descricaoSetor: '',
-            nomeResponsavel: ''
+            idSetor: '', idUsuario: '', descricaoSetor: '', nomeResponsavel: ''
         };
     }
 
@@ -89,11 +86,14 @@ export class SetorComponent implements OnInit {
 
     buscarUsuarioPeloID(idUsuario: number) {
         this.appService.buscarPorIDGenerico('usuario', idUsuario).subscribe(
-          resposta => this.usuario = resposta);
-      }
+            resposta => this.usuario = resposta);
+    }
 
-    updateSetor(idSetor: number) {
-        this.appService.updateGenerico('setor', idSetor, this.setor).subscribe(
+    updateSetor(idSetor: number, setor) {
+
+        this.buscarUsuarioPeloID(this.setor.idUsuario)
+        this.setor.nomeResponsavel = this.usuario.nomeUsuario
+        this.appService.updateGenerico('setor', idSetor, setor).subscribe(
             success => {
                 this.listarSetores();
                 this.alerta.next(this.mensagemSucesso = (`Registro salvo com sucesso.`));
@@ -106,6 +106,8 @@ export class SetorComponent implements OnInit {
 
     inserirSetor() {
         this.limparMemsagens()
+        this.buscarUsuarioPeloID(this.setor.idUsuario)
+        this.setor.nomeResponsavel = this.usuario.nomeUsuario
         this.appService.criarGenerico('setor', this.setor).subscribe(
             success => {
                 this.listarSetores();
@@ -134,6 +136,7 @@ export class SetorComponent implements OnInit {
         this.setor = {};
     }
 
-  limparMemsagens() {
-    this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''}
+    limparMemsagens() {
+        this.mensagem = '', this.mensagemErro = '', this.mensagemSucesso = ''
+    }
 }

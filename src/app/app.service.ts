@@ -38,12 +38,6 @@ export class AppService {
     }, this.buscaTempoDaSessao())
   }
 
-  salvarFoto(canvas,nomeDaImagem){
-    canvas.toBlob(function(blob) {
-      saveAs(blob, nomeDaImagem);
-  });
-  }
-
   logoutSessao(): any {
     this.deslogado = true;
     this.declararUsuario(null);
@@ -90,7 +84,6 @@ export class AppService {
 
   }
   alterarParametros(parametro: Parametro) {
-    console.log(parametro);
     return this.http.put<any>(`${this.urlBase}/parametro/1`, parametro);
   }
 

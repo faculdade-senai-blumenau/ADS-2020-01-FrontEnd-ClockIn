@@ -31,7 +31,6 @@ export class NavComponent implements OnInit {
 
    logout(){
     this.appService.declararUsuario(null);
-    window.location.reload();
     this.router.navigate(["/login"]);
   }
 }

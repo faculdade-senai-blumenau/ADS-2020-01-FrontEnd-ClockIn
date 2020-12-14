@@ -21,7 +21,7 @@
 </div>
 <div class="wrapper" (mouseover)="sessao()">
     <div class="main">
-        <main class="content">
+        <main class="content ">
             <div class="container p-0">
                 <div class="header pt-4 mb-3">
                     <h1 class="header-title">Início</h1>
@@ -153,7 +153,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-12 pb-5">
+                    <div *ngIf=usuarioComum() class="col-12 col-lg-12 pb-5">
                         <div class="card flex-fill">
                             <div class="card-header">
                                 <h5 class="card-title">Relatório Semanal</h5>

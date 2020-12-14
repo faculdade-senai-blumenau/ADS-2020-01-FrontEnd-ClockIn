@@ -67,7 +67,7 @@
                                         <form>
                                             <div class="form-row">
                                                 <div class="form-group col-md-2 text-center">
-                                                    <img src={{usuario.foto}} onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSCO5w5eo5UWuyGADF5IT44kp04HjyH_Y7_g&usqp=CAU'" class="img-fluid rounded-circle mb-2" style="width: 120px; height: 120px;">
+                                                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSCO5w5eo5UWuyGADF5IT44kp04HjyH_Y7_g&usqp=CAU' class="img-fluid rounded-circle mb-2" style="width: 120px; height: 120px;">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="nome">Nome</label>
@@ -129,9 +129,8 @@
                                                 <div class="form-group col-md-5">
                                                     <label class="form-label ">Foto</label>
                                                     <input class="form-control"
-                                                        id="fotoEditar" name="fotoEditar" [value]="usuario.foto"
-                                                        
-                                                        (change)="alterarImagem($event.target.files)" type="file" accept="image/*">
+                                                        id="fotoEditar" name="fotoEditar" 
+                                                        [value]="usuario.foto">
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label class="form-label ">Usuario</label>

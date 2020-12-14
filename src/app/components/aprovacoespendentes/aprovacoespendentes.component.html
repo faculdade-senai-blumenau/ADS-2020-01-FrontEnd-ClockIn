@@ -105,10 +105,11 @@
                 Deseja aprovar todas as edições de ponto?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="limparMensagens()">Cancelar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalAprovarMarcacao">
                     <button type="button" class="btn btn-success"
-                        (click)="aprovarReprovarEdicao(1, 'green', justificativaReprovacao)">Confirmar</button>
+                        (click)="aprovarEdicao(1, 'green', justificativaReprovacao)"
+                        [attr.data-dismiss]="modalDismiss">Confirmar</button>
                 </span>
             </div>
         </div>
@@ -134,20 +135,19 @@
                             </font>
                         </h5>
                     </div>
-                    <textarea [(ngModel)]="justificativaReprovacao" 
-                        type="text" class="form-control" rows="2"
-                        placeholder="Justificativa" [value]="justificativaReprovacao" ></textarea>
-                        <div *ngIf="alertJustificativaReprovacao" id=alertaCampoObrigatorio>
-                            {{alertJustificativaReprovacao}}
-                        </div>
+                    <textarea [(ngModel)]="justificativaReprovacao" type="text" class="form-control" rows="2"
+                        placeholder="Justificativa" [value]="justificativaReprovacao"></textarea>
+                    <div *ngIf="alertJustificativaReprovacao" id=alertaCampoObrigatorio>
+                        {{alertJustificativaReprovacao}}
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="limparMensagens()">Cancelar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
-                    <button type="button" class="btn btn-success" 
-                    (click)="aprovarReprovarEdicao(2, 'red', justificativaReprovacao)"
-                    [attr.data-dismiss]="modalDismiss">Confirmar</button>
+                    <button type="button" class="btn btn-success"
+                        (click)="reprovarEdicao(2, 'red', justificativaReprovacao)"
+                        [attr.data-dismiss]="modalDismiss">Confirmar</button>
                 </span>
             </div>
         </div>
@@ -222,21 +222,21 @@
                             </font>
                         </h5>
                     </div>
-                    <textarea [(ngModel)]="justificativaReprovacao" 
-                        type="text" class="form-control" rows="2"
-                        placeholder="Justificativa" [value]="justificativaReprovacao" ></textarea>
-                        <div *ngIf="alertJustificativaReprovacao" id=alertaCampoObrigatorio>
-                            {{alertJustificativaReprovacao}}
-                        </div>
+                    <textarea [(ngModel)]="justificativaReprovacao" type="text" class="form-control" rows="2"
+                        placeholder="Justificativa" [value]="justificativaReprovacao"></textarea>
+                    <div *ngIf="alertJustificativaReprovacao" id=alertaCampoObrigatorio>
+                        {{alertJustificativaReprovacao}}
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-danger" (click)="aprovarReprovarEdicao(2, 'red', justificativaReprovacao)"
-                [attr.data-dismiss]="modalDismiss" >Reprovar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="limparMensagens()">Fechar</button>
+                <button type="button" class="btn btn-danger" (click)="reprovarEdicao(2, 'red', justificativaReprovacao)"
+                    [attr.data-dismiss]="modalDismiss">Reprovar</button>
                 <span class="d-inline-block" data-toggle="modal" data-target="modalReprovarMarcacao">
-                    <button type="button" class="btn btn-success" (click)="aprovarReprovarEdicao(1, 'green', justificativaReprovacao)"
-                        data-dismiss="modal">Aprovar</button>
+                    <button type="button" class="btn btn-success"
+                        (click)="aprovarEdicao(1, 'green', justificativaReprovacao)"
+                        [attr.data-dismiss]="modalDismiss">Aprovar</button>
                 </span>
             </div>
         </div>

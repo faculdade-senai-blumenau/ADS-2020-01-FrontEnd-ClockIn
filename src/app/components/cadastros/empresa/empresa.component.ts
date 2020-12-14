@@ -81,8 +81,8 @@ export class EmpresaComponent implements OnInit {
   }
 
   listarEmpresas() {
-    this.appService.listarGenerico('empresa').subscribe((empresas) => {
-      this.empresas = empresas;
+    this.appService.listarGenerico('empresa').subscribe((empresa) => {
+      this.empresa = empresa;
     })
   }
 
@@ -96,49 +96,15 @@ export class EmpresaComponent implements OnInit {
     })
   }
 
-  buscarEmpresaPeloID(idEmpresa: number) {
-    this.appService.buscarPorIDGenerico('empresa', idEmpresa).subscribe(
-      resposta => this.empresa = resposta);
-  }
-
-
-  cadastrarEditarEmpresa() {
-    this.appService.criarGenerico('empresa', this.empresa).subscribe(
+  cadastrarEditarEmpresa(empresa) {
+    this.appService.criarGenerico('empresa', empresa).subscribe(
       success => {
-        this.listarEmpresas();
         this.alerta.next(this.mensagemSucesso = (`Registro salvo com Sucesso.`));
       },
       error => {
         this.alerta.next(this.mensagemErro = 'Não foi possível salvar o registro.');
       }
     );
-  }
-
-
-  excluirEmpresa(idEmpresa: number) {
-    this.appService.excluirGenerico('empresa', idEmpresa).subscribe(
-      success => {
-        this.listarEmpresas();
-        this.alerta.next(this.mensagemSucesso = (`Empresa excluída com sucesso`));
-      },
-      error => {
-        this.alerta.next(this.mensagemErro = ('Não foi possível excluir a empresa selecionada.'));
-      }
-    );
-  }
-  
-  alterarImagem(imagem:any){
-    let reader=new FileReader();
-    reader.readAsDataURL(imagem[0]);
-    
-    reader.onload =  (e) => {
-     this.empresa.logo=reader.result;
-      
-      
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
   }
 
   limparObjetoEmpresa() {

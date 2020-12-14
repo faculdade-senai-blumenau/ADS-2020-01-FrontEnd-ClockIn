@@ -48,14 +48,12 @@ export class RelatoriosComponent implements OnInit {
 
   gerarRelatorio() {
     this.verificaCamposObrigatorios();
-    console.log(this.dataInicial)
     if (!this.dataInicial || !this.dataFinal) {
       this.alerta.next(this.mensagemErro = 'Favor informar data inicial e data final');
     }else if (this.dataInicial > this.dataFinal) {
       this.alerta.next(this.mensagemErro = 'Data inicial não pode ser maior que a data final');
     }else {
       this.listaDePontos = this.appComponent.buscarRegistrosPonto(this.idUsuario, this.dataInicial, this.dataFinal);
-      console.log(this.listaDePontos)
       const contador = Object.entries(this.listaDePontos).length;
       if (contador === 0) {
         this.alerta.next(this.mensagemErro = 'Nenhum registro encontrado para o período informado');
