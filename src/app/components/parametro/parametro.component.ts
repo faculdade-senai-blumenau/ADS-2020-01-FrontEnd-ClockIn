@@ -40,6 +40,7 @@ export class ParametroComponent implements OnInit {
     this.appService.buscaParametro().subscribe((parametro) => {
       this.parametro = parametro;
       this.tempoSessao=parametro.tempSessao;
+      this.tempoSessao=(this.tempoSessao/1000)/60;
       
     });
     
@@ -52,6 +53,7 @@ export class ParametroComponent implements OnInit {
   updateParametros(){
     this.parametro.tempSessao=this.tempoSessao;
     this.parametro.tempoSessao=this.tempoSessao;
+    this.parametro.tempoSessao=this.parametro.tempoSessao*1000*60;
     this.appService.alterarParametros(this.parametro).subscribe(
       success => {
 

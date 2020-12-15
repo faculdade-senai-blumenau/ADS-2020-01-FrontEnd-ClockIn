@@ -19,12 +19,12 @@ export class AppService {
   }
 
   urlBase = 'http://localhost:5000'
-  /* urlBase = 'http://clockinapi-env.eba-ckvnxj6m.us-east-1.elasticbeanstalk.com' */
+ // urlBase = 'http://clockinapi-env.eba-ckvnxj6m.us-east-1.elasticbeanstalk.com'
   public loading=false;
   urlBaseCep = 'http://viacep.com.br/ws'
   idUsuario: any;
   usuario: any;
-
+  ctx:any;
 
   t: any;
   deslogado: any;
