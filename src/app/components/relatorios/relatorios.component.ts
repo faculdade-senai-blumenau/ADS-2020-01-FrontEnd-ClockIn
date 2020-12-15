@@ -62,7 +62,7 @@ export class RelatoriosComponent implements OnInit {
   }
 
   limparPesquisa() {
-    this.listaDePontos = {};
+    this.listaDePontos = this.listaDePontosVazia;
     this.dataFinal = '00-00-0000';
     this.dataInicial = '00-00-0000';
   }
